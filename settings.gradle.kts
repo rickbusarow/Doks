@@ -1,0 +1,84 @@
+/*
+ * Copyright (C) 2023 Rick Busarow
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+pluginManagement {
+  repositories {
+    gradlePluginPortal()
+    mavenCentral()
+    google()
+  }
+  @Suppress("UnstableApiUsage")
+  includeBuild("build-logic")
+}
+
+plugins {
+  id("com.gradle.enterprise").version("3.11.4")
+}
+
+gradleEnterprise {
+  buildScan {
+
+    termsOfServiceUrl = "https://gradle.com/terms-of-service"
+    termsOfServiceAgree = "yes"
+
+    publishAlways()
+
+    tag(if (System.getenv("CI").isNullOrBlank()) "Local" else "CI")
+
+    val githubActionID = System.getenv("GITHUB_ACTION")
+
+    if (!githubActionID.isNullOrBlank()) {
+      link(
+        "WorkflowURL",
+        "https://github.com/" +
+          System.getenv("GITHUB_REPOSITORY") +
+          "/pull/" +
+          System.getenv("PR_NUMBER") +
+          "/checks?check_run_id=" +
+          System.getenv("GITHUB_RUN_ID")
+      )
+    }
+  }
+}
+
+dependencyResolutionManagement {
+  @Suppress("UnstableApiUsage")
+  repositories {
+    google()
+    mavenCentral()
+    maven("https://plugins.gradle.org/m2/")
+  }
+}
+
+rootProject.name = "Docusync"
+
+include(
+  ":docusync-cli",
+  ":docusync-gradle-plugin"
+)
+
+// If this project is the real root of the build, copy the root project's properties file to included
+// builds, to ensure that Gradle settings are identical and there's only 1 daemon.
+// Note that with this copy, any changes to the included build's properties file will be overwritten.
+if (gradle.parent == null) {
+  (settings as org.gradle.initialization.DefaultSettings).includedBuilds
+    .forEach { includedBuildSpec ->
+      rootDir.resolve("gradle.properties")
+        .copyTo(
+          target = includedBuildSpec.rootDir.resolve("gradle.properties"),
+          overwrite = true
+        )
+    }
+}

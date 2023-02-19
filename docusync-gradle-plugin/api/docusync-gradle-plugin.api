@@ -1,0 +1,72 @@
+public abstract class com/rickbusarow/docusync/gradle/DocusyncExtension : java/io/Serializable {
+	public fun <init> (Lorg/gradle/api/tasks/TaskContainer;)V
+	public abstract fun getSourceSets ()Lorg/gradle/api/NamedDomainObjectContainer;
+	public final fun sourceSet (Ljava/lang/String;Lorg/gradle/api/Action;)Lorg/gradle/api/NamedDomainObjectProvider;
+	public static synthetic fun sourceSet$default (Lcom/rickbusarow/docusync/gradle/DocusyncExtension;Ljava/lang/String;Lorg/gradle/api/Action;ILjava/lang/Object;)Lorg/gradle/api/NamedDomainObjectProvider;
+}
+
+public abstract interface class com/rickbusarow/docusync/gradle/DocusyncParams : org/gradle/workers/WorkParameters {
+	public abstract fun getDocusyncEngine ()Lorg/gradle/api/provider/Property;
+	public abstract fun getFile ()Lorg/gradle/api/file/RegularFileProperty;
+}
+
+public abstract class com/rickbusarow/docusync/gradle/DocusyncPlugin : org/gradle/api/Plugin {
+	public fun <init> ()V
+	public synthetic fun apply (Ljava/lang/Object;)V
+	public fun apply (Lorg/gradle/api/Project;)V
+}
+
+public abstract class com/rickbusarow/docusync/gradle/DocusyncSourceSet : java/io/Serializable, org/gradle/api/Named {
+	public fun <init> ()V
+	public final fun docs ([Ljava/lang/Object;)V
+	public abstract fun getDocs ()Lorg/gradle/api/file/ConfigurableFileCollection;
+	public abstract fun getReplacers ()Lorg/gradle/api/NamedDomainObjectContainer;
+	public final fun replacer (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lorg/gradle/api/NamedDomainObjectProvider;
+	public final fun replacer (Ljava/lang/String;Lorg/gradle/api/Action;)Lorg/gradle/api/NamedDomainObjectProvider;
+}
+
+public abstract class com/rickbusarow/docusync/gradle/DocusyncTask : org/gradle/api/DefaultTask {
+	public fun <init> (Lorg/gradle/workers/WorkerExecutor;Lorg/gradle/api/model/ObjectFactory;)V
+	public final fun execute (Lorg/gradle/work/InputChanges;)V
+	public final fun getAutoCorrect ()Z
+	public abstract fun getDocs ()Lorg/gradle/api/file/ConfigurableFileCollection;
+	public abstract fun getReplacers ()Lorg/gradle/api/NamedDomainObjectContainer;
+	public final fun setAutoCorrect (Z)V
+}
+
+public abstract class com/rickbusarow/docusync/gradle/DocusyncWorkAction : org/gradle/workers/WorkAction {
+	public fun <init> ()V
+	public fun execute ()V
+}
+
+public abstract class com/rickbusarow/docusync/gradle/ReplacerBuilderScope : java/io/Serializable, org/gradle/api/Named {
+	public fun <init> ()V
+	public abstract fun getRegex ()Ljava/lang/String;
+	public abstract fun getReplacement ()Ljava/lang/String;
+	public abstract fun setRegex (Ljava/lang/String;)V
+	public abstract fun setReplacement (Ljava/lang/String;)V
+}
+
+public final class com/rickbusarow/docusync/gradle/internal/ProjectKt {
+	public static final fun applyOnce (Lorg/gradle/api/plugins/PluginContainer;Ljava/lang/String;)V
+	public static final fun checkProjectIsRoot (Lorg/gradle/api/Project;Lkotlin/jvm/functions/Function0;)V
+	public static synthetic fun checkProjectIsRoot$default (Lorg/gradle/api/Project;Lkotlin/jvm/functions/Function0;ILjava/lang/Object;)V
+	public static final fun isRealRootProject (Lorg/gradle/api/Project;)Z
+	public static final fun isRoot (Lorg/gradle/api/Project;)Z
+}
+
+public final class com/rickbusarow/docusync/gradle/internal/TaskKt {
+	public static final fun allProjectsTasksMatchingName (Lorg/gradle/api/Project;Ljava/lang/String;)Ljava/util/List;
+	public static final fun dependOn (Lorg/gradle/api/tasks/TaskCollection;[Ljava/lang/Object;)Lorg/gradle/api/tasks/TaskCollection;
+	public static final fun dependsOn (Lorg/gradle/api/tasks/TaskProvider;[Ljava/lang/Object;)Lorg/gradle/api/tasks/TaskProvider;
+	public static final fun matchingName (Lorg/gradle/api/tasks/TaskContainer;Ljava/lang/String;)Lorg/gradle/api/tasks/TaskCollection;
+	public static final fun mustRunAfter (Lorg/gradle/api/tasks/TaskCollection;[Ljava/lang/Object;)Lorg/gradle/api/tasks/TaskCollection;
+	public static final fun mustRunAfter (Lorg/gradle/api/tasks/TaskProvider;[Ljava/lang/Object;)Lorg/gradle/api/tasks/TaskProvider;
+	public static final fun subProjectsTasksMatchingName (Lorg/gradle/api/Project;Ljava/lang/String;)Ljava/util/List;
+}
+
+public final class com/rickbusarow/docusync/gradle/internal/TaskKt$sam$i$org_gradle_api_Action$0 : org/gradle/api/Action {
+	public fun <init> (Lkotlin/jvm/functions/Function1;)V
+	public final synthetic fun execute (Ljava/lang/Object;)V
+}
+

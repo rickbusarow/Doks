@@ -1,0 +1,29 @@
+[
+  {
+    "gradlePath": ":docusync-cli",
+    "group": "com.rickbusarow.docusync",
+    "artifactId": "docusync-cli",
+    "description": "the Docusync command line interface",
+    "packaging": "jar",
+    "javaVersion": "1.8",
+    "publicationName": "maven"
+  },
+  {
+    "gradlePath": ":docusync-gradle-plugin",
+    "group": "com.rickbusarow.docusync",
+    "artifactId": "com.rickbusarow.docusync.gradle.plugin",
+    "description": "the Docusync Gradle plugin",
+    "packaging": "pom",
+    "javaVersion": "1.8",
+    "publicationName": "docusync-gradle-pluginPluginMarkerMaven"
+  },
+  {
+    "gradlePath": ":docusync-gradle-plugin",
+    "group": "com.rickbusarow.docusync",
+    "artifactId": "docusync-gradle-plugin",
+    "description": "the Docusync Gradle plugin",
+    "packaging": "jar",
+    "javaVersion": "1.8",
+    "publicationName": "pluginMaven"
+  }
+]

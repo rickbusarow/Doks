@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="KtlintProjectConfiguration">
+    <androidMode>true</androidMode>
+    <useExperimental>true</useExperimental>
+    <treatAsErrors>false</treatAsErrors>
+    <formatOnSave>true</formatOnSave>
+    <disabledRules>
+      <list>
+        <option value="experimental:function-signature" />
+        <option value="filename" />
+        <option value="max-line-length" />
+        <option value="no-empty-first-line-in-method-block" />
+      </list>
+    </disabledRules>
+    <externalJarPaths>
+      <list>
+        <option value="$PROJECT_DIR$/build-logic/ktlint/build/libs/ktlint.jar" />
+      </list>
+    </externalJarPaths>
+  </component>
+</project>

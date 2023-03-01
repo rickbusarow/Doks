@@ -20,7 +20,7 @@ import com.github.jengelman.gradle.plugins.shadow.transformers.ServiceFileTransf
 import org.gradle.api.Project
 import org.gradle.api.artifacts.Configuration
 
-interface BLShadowExtension {
+interface BuildLogicShadowExtension {
 
   fun Project.shadow(shadowConfiguration: Configuration? = null) {
 
@@ -37,21 +37,27 @@ interface BLShadowExtension {
       if (shadowConfiguration != null) {
         task.configurations = listOf(shadowConfiguration)
 
-        task.relocate("kotlinx.coroutines", "com.rickbusarow.docusync.kotlinx.coroutines")
-        task.relocate("kotlinx.serialization", "com.rickbusarow.docusync.kotlinx.serialization")
+        listOf(
+          "kotlinx.coroutines",
+          "kotlinx.serialization",
+          "com.charleskorn.kaml",
+          "org.snakeyaml"
+        ).forEach {
+          task.relocate(it, "com.rickbusarow.docusync.$it")
+        }
+
+        task.archiveClassifier.convention(classifier)
+        task.archiveClassifier.set(classifier)
+
+        task.transformers.add(ServiceFileTransformer())
+
+        task.minimize()
+
+        // Excluding these helps shrink our binary dramatically
+        task.exclude("**/*.kotlin_metadata")
+        task.exclude("**/*.kotlin_module")
+        task.exclude("META-INF/maven/**")
       }
-
-      task.archiveClassifier.convention(classifier)
-      task.archiveClassifier.set(classifier)
-
-      task.transformers.add(ServiceFileTransformer())
-
-      task.minimize()
-
-      // Excluding these helps shrink our binary dramatically
-      task.exclude("**/*.kotlin_metadata")
-      task.exclude("**/*.kotlin_module")
-      task.exclude("META-INF/maven/**")
     }
 
     // By adding the task's output to archives, it's automatically picked up by Gradle's maven-publish

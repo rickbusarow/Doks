@@ -18,6 +18,6 @@ package builds
 abstract class ModuleBuildExtension :
   AutoServiceExtension,
   PublishingExtension,
-  BLShadowExtension,
+  BuildLogicShadowExtension,
   SerializationExtension,
   KspExtension

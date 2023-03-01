@@ -18,6 +18,7 @@ import builds.VERSION_NAME
 plugins {
   id("module")
   id("java-gradle-plugin")
+  id("com.gradle.plugin-publish")
 }
 
 val pluginId = "com.rickbusarow.docusync"

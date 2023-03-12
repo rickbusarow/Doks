@@ -24,7 +24,7 @@ pluginManagement {
 }
 
 plugins {
-  id("com.gradle.enterprise").version("3.11.4")
+  id("com.gradle.enterprise") version "3.11.4"
 }
 
 gradleEnterprise {
@@ -35,19 +35,20 @@ gradleEnterprise {
 
     publishAlways()
 
+    // https://docs.github.com/en/actions/learn-github-actions/variables#default-environment-variables
+
     tag(if (System.getenv("CI").isNullOrBlank()) "Local" else "CI")
 
-    val githubActionID = System.getenv("GITHUB_ACTION")
+    val gitHubActions = System.getenv("GITHUB_ACTIONS")?.toBoolean() ?: false
 
-    if (!githubActionID.isNullOrBlank()) {
+    if (gitHubActions) {
+      // ex: `octocat/Hello-World` as in github.com/octocat/Hello-World
+      val repository = System.getenv("GITHUB_REPOSITORY")!!
+      val runId = System.getenv("GITHUB_RUN_ID")!!
+
       link(
-        "WorkflowURL",
-        "https://github.com/" +
-          System.getenv("GITHUB_REPOSITORY") +
-          "/pull/" +
-          System.getenv("PR_NUMBER") +
-          "/checks?check_run_id=" +
-          System.getenv("GITHUB_RUN_ID")
+        "GitHub Action Run",
+        "https://github.com/$repository/actions/runs/$runId"
       )
     }
   }

@@ -19,7 +19,7 @@ import com.vanniktech.maven.publish.GradlePlugin
 import com.vanniktech.maven.publish.JavadocJar.Dokka
 import com.vanniktech.maven.publish.KotlinJvm
 import com.vanniktech.maven.publish.MavenPublishBaseExtension
-import com.vanniktech.maven.publish.SonatypeHost.S01
+import com.vanniktech.maven.publish.SonatypeHost.DEFAULT
 import org.gradle.api.NamedDomainObjectProvider
 import org.gradle.api.Project
 import org.gradle.api.publish.PublishingExtension
@@ -120,7 +120,7 @@ private fun Project.configurePublish(
   @Suppress("UnstableApiUsage")
   extensions.configure(MavenPublishBaseExtension::class.java) { extension ->
 
-    extension.publishToMavenCentral(S01, automaticRelease = true)
+    extension.publishToMavenCentral(DEFAULT, automaticRelease = true)
 
     @Suppress("UnstableApiUsage")
     extension.signAllPublications()

@@ -40,6 +40,20 @@ fun String.mapLines(
   .joinToString("\n", transform = transform)
 
 /**
+ * shorthand for `joinToString("") { ... }`
+ */
+fun <E> Sequence<E>.joinToStringConcat(
+  transform: ((E) -> CharSequence)? = null
+): String = joinToString("", transform = transform)
+
+/**
+ * shorthand for `joinToString("") { ... }`
+ */
+fun <E> Iterable<E>.joinToStringConcat(
+  transform: ((E) -> CharSequence)? = null
+): String = joinToString("", transform = transform)
+
+/**
  * Converts all line separators in the receiver string to use `\n`.
  */
 fun String.normaliseLineSeparators(): String = replace("\r\n|\r".toRegex(), "\n")

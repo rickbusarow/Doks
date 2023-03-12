@@ -39,9 +39,9 @@ data class Replacer(
   constructor(
     name: String,
     @Language("RegExp")
-    matcher: String,
+    regex: String,
     replacement: String
-  ) : this(name, matcher.toRegex(), replacement)
+  ) : this(name, regex.toRegex(), replacement)
 
   override fun equals(other: Any?): Boolean {
     if (this === other) return true

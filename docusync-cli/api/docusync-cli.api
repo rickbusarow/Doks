@@ -138,6 +138,10 @@ public final class com/rickbusarow/docusync/internal/StringKt {
 	public static synthetic fun commonPrefix$default (Ljava/util/List;Ljava/lang/String;ILjava/lang/Object;)Ljava/lang/String;
 	public static final fun indentByBrackets (Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
 	public static synthetic fun indentByBrackets$default (Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Ljava/lang/String;
+	public static final fun joinToStringConcat (Ljava/lang/Iterable;Lkotlin/jvm/functions/Function1;)Ljava/lang/String;
+	public static final fun joinToStringConcat (Lkotlin/sequences/Sequence;Lkotlin/jvm/functions/Function1;)Ljava/lang/String;
+	public static synthetic fun joinToStringConcat$default (Ljava/lang/Iterable;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Ljava/lang/String;
+	public static synthetic fun joinToStringConcat$default (Lkotlin/sequences/Sequence;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Ljava/lang/String;
 	public static final fun mapLines (Ljava/lang/String;Lkotlin/jvm/functions/Function1;)Ljava/lang/String;
 	public static final fun normaliseLineSeparators (Ljava/lang/String;)Ljava/lang/String;
 	public static final fun prefixIfNot (Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;

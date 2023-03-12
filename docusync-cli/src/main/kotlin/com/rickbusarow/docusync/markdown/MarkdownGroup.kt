@@ -13,19 +13,21 @@
  * limitations under the License.
  */
 
-package com.rickbusarow.docusync
+package com.rickbusarow.docusync.markdown
 
+import com.rickbusarow.docusync.Position
 import com.rickbusarow.docusync.Position.Companion.positionOfSubstring
+import com.rickbusarow.docusync.ReplacerConfig
 
 internal data class MarkdownGroup(
   val match: String,
-  val beforeOpenTag: String,
   val openTagFull: String,
   val openTagStart: String,
   val openTagMatchersBlob: String,
   val openTagEnd: String,
   val body: String,
-  val closeTag: MarkdownCloseTag?
+  val closeTag: String?,
+  val afterCloseTag: String
 ) {
   val replacerConfigs: List<ReplacerConfig> by lazy(LazyThreadSafetyMode.NONE) {
     openTagMatchersBlob.split(',')
@@ -47,8 +49,10 @@ internal data class MarkdownGroup(
       }
   }
 
-  fun position(previousGroups: List<MarkdownGroup>, substring: String = match): Position {
-    val leadingString = previousGroups.joinToString("") { it.match }
+  fun position(
+    leadingString: String,
+    substring: String = match
+  ): Position {
 
     val scopeString = leadingString + match
 
@@ -57,6 +61,4 @@ internal data class MarkdownGroup(
       startIndex = leadingString.lastIndex
     )
   }
-
-  data class MarkdownCloseTag(val tag: String, val remainder: String)
 }

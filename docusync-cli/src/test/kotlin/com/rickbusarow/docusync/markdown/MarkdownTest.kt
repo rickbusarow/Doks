@@ -13,8 +13,9 @@
  * limitations under the License.
  */
 
-package com.rickbusarow.docusync
+package com.rickbusarow.docusync.markdown
 
+import com.rickbusarow.docusync.Replacer
 import com.rickbusarow.docusync.internal.SEMVER_REGEX
 import io.kotest.assertions.throwables.shouldNotThrowAny
 import io.kotest.assertions.throwables.shouldThrowWithMessage
@@ -22,17 +23,17 @@ import io.kotest.matchers.shouldBe
 import org.intellij.lang.annotations.Language
 import org.junit.jupiter.api.Test
 
-class ReplacerTest {
+class MarkdownTest {
 
   val replacers = mapOf(
     "docusync-maven" to Replacer(
       name = "docusync-maven",
-      matcher = """(com.rickbusarow.docusync:[^:]*?docusync[^:]*?:)$SEMVER_REGEX""",
+      regex = """(com.rickbusarow.docusync:[^:]*?docusync[^:]*?:)$SEMVER_REGEX""",
       replacement = "$11.2.3"
     ),
     "cats" to Replacer(
       name = "cats",
-      matcher = """cats""",
+      regex = """cats""",
       replacement = "dogs"
     )
   )
@@ -43,17 +44,17 @@ class ReplacerTest {
     val original = md(
       """
       # Title
-      <!---docusync docusync-maven:1-->
+      <!--docusync docusync-maven:1-->
 
       com.rickbusarow.docusync:docusync-cli:0.0.1-SNAPSHOT
 
-      <!---/docusync-->
+      <!--/docusync-->
 
-      <!---docusync docusync-maven:1-->
+      <!--docusync docusync-maven:1-->
 
       'com.rickbusarow.docusync:docusync-cli:0.0.1-SNAPSHOT'
 
-      <!---/docusync-->
+      <!--/docusync-->
 
       fin
       """
@@ -68,17 +69,17 @@ class ReplacerTest {
     new shouldBe md(
       """
       # Title
-      <!---docusync docusync-maven:1-->
+      <!--docusync docusync-maven:1-->
 
       com.rickbusarow.docusync:docusync-cli:1.2.3
 
-      <!---/docusync-->
+      <!--/docusync-->
 
-      <!---docusync docusync-maven:1-->
+      <!--docusync docusync-maven:1-->
 
       'com.rickbusarow.docusync:docusync-cli:1.2.3'
 
-      <!---/docusync-->
+      <!--/docusync-->
 
       fin
       """
@@ -91,17 +92,17 @@ class ReplacerTest {
     val original = md(
       """
       # Title
-      <!---docusync docusync-maven:1-->
+      <!--docusync docusync-maven:1-->
 
       com.rickbusarow.docusync:docusync-cli:0.0.1-SNAPSHOT
 
-      <!---/docusync-->
+      <!--/docusync-->
 
-      <!---docusync docusync-maven:1-->
+      <!--docusync docusync-maven:1-->
 
       'com.rickbusarow.docusync:docusync-cli:0.0.1-SNAPSHOT'
 
-      <!---/docusync-->
+      <!--/docusync-->
 
       fin
       """
@@ -124,23 +125,23 @@ class ReplacerTest {
     val original = md(
       """
       # Title
-      <!---docusync docusync-maven:1-->
+      <!--docusync docusync-maven:1-->
 
       com.rickbusarow.docusync:docusync-cli:0.0.1-SNAPSHOT
 
-      <!---docusync docusync-maven:1-->
+      <!--docusync docusync-maven:1-->
 
       'com.rickbusarow.docusync:docusync-cli:0.0.1-SNAPSHOT'
 
-      <!---/docusync-->
+      <!--/docusync-->
 
       fin
       """
     )
 
     shouldThrowWithMessage<IllegalStateException>(
-      "Docusync - file://foo.md:1:0 > The tag '<!---docusync docusync-maven:1-->' " +
-        "must be closed with `<---/docusync-->` before the next docusync opening tag."
+      "Docusync - file://foo.md:1:0 > The tag '<!--docusync docusync-maven:1-->' " +
+        "must be closed with `<!--/docusync-->` before the next docusync opening tag."
     ) {
 
       original.markdown(
@@ -157,7 +158,7 @@ class ReplacerTest {
     val original = md(
       """
       # Title
-      <!---docusync docusync-maven:1-->
+      <!--docusync docusync-maven:1-->
 
       com.rickbusarow.docusync:docusync-cli:0.0.1-SNAPSHOT
 
@@ -180,7 +181,7 @@ class ReplacerTest {
     val original = md(
       """
       # Title
-      <!---docusync docusync-maven:1-->
+      <!--docusync docusync-maven:1-->
 
       com.rickbusarow.docusync:docusync-cli:0.0.1-SNAPSHOT
       com.rickbusarow.docusync:docusync-cli:0.0.1-SNAPSHOT
@@ -189,7 +190,7 @@ class ReplacerTest {
       """
     )
     shouldThrowWithMessage<java.lang.IllegalStateException>(
-      "The matcher 'docusync-maven' must find exactly 1 matches, but it found 2."
+      "The matcher 'docusync-maven' must find exactly 1 match, but it found 2."
     ) {
       original.markdown(
         absolutePath = "foo.md",
@@ -205,7 +206,7 @@ class ReplacerTest {
     val original = md(
       """
       # Title
-      <!---docusync docusync-maven:1-2-->
+      <!--docusync docusync-maven:1-2-->
 
       com.rickbusarow.docusync:docusync-cli:0.0.1-SNAPSHOT
       com.rickbusarow.docusync:docusync-cli:0.0.1-SNAPSHOT
@@ -231,7 +232,7 @@ class ReplacerTest {
     val original = md(
       """
       # Title
-      <!---docusync docusync-maven:2-3-->
+      <!--docusync docusync-maven:2-3-->
 
       com.rickbusarow.docusync:docusync-cli:0.0.1-SNAPSHOT
 

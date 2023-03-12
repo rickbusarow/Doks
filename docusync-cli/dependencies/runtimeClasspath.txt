@@ -16,4 +16,6 @@ org.jetbrains.kotlinx:kotlinx-serialization-bom:1.5.0
 org.jetbrains.kotlinx:kotlinx-serialization-core-jvm:1.5.0
 org.jetbrains.kotlinx:kotlinx-serialization-core:1.5.0
 org.jetbrains:annotations:13.0
+org.jetbrains:markdown-jvm:0.4.1
+org.jetbrains:markdown:0.4.1
 org.snakeyaml:snakeyaml-engine:2.6

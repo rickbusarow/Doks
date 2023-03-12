@@ -23,16 +23,24 @@ internal data class ReplacerConfig(
   fun checkCount(matches: List<String>): Boolean {
     val actualCount = matches.size
 
+    fun plural(count: Int) = when (count) {
+      1 -> "match"
+      else -> "matches"
+    }
+
     check(minimumCount != maximumCount || actualCount == minimumCount) {
-      "The matcher '$id' must find exactly $minimumCount matches, but it found $actualCount."
+      "The matcher '$id' must find exactly $minimumCount ${plural(minimumCount)}, " +
+        "but it found $actualCount."
     }
 
     check(minimumCount <= actualCount) {
-      "The matcher '$id' must find a minimum of $minimumCount matches, but it found $actualCount."
+      "The matcher '$id' must find a minimum of $minimumCount ${plural(minimumCount)}, " +
+        "but it found $actualCount."
     }
 
     check(actualCount <= maximumCount) {
-      "The matcher '$id' must find a maximum of $maximumCount matches, but it found $actualCount."
+      "The matcher '$id' must find a maximum of $maximumCount ${plural(maximumCount)}, " +
+        "but it found $actualCount."
     }
 
     return true

@@ -45,12 +45,12 @@ class ReplacerYamlSerializationTest {
     yaml.decodeFromString<List<Replacer>>(yamlString) shouldBe listOf(
       Replacer(
         name = "some-replacer",
-        matcher = "(com.rickbusarow.docusync:[^:]*?docusync[^:]*?:)",
+        regex = "(com.rickbusarow.docusync:[^:]*?docusync[^:]*?:)",
         replacement = "foo"
       ),
       Replacer(
         name = "some-other-replacer",
-        matcher = "cat",
+        regex = "cat",
         replacement = "dog"
       )
     )
@@ -62,12 +62,12 @@ class ReplacerYamlSerializationTest {
     val replacers = listOf(
       Replacer(
         name = "some-replacer",
-        matcher = "(com.rickbusarow.docusync:[^:]*?docusync[^:]*?:)",
+        regex = "(com.rickbusarow.docusync:[^:]*?docusync[^:]*?:)",
         replacement = "foo"
       ),
       Replacer(
         name = "some-other-replacer",
-        matcher = "cat",
+        regex = "cat",
         replacement = "dog"
       )
     )

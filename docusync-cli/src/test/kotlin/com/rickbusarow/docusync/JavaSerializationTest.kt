@@ -27,7 +27,7 @@ class JavaSerializationTest {
 
     val replacer = Replacer(
       name = "some-replacer",
-      matcher = "(com.rickbusarow.docusync:[^:]*?docusync[^:]*?:)",
+      regex = "(com.rickbusarow.docusync:[^:]*?docusync[^:]*?:)",
       replacement = "foo"
     )
 
@@ -41,7 +41,7 @@ class JavaSerializationTest {
 
     val replacer = Replacer(
       name = "some-replacer",
-      matcher = "(com.rickbusarow.docusync:[^:]*?docusync[^:]*?:)",
+      regex = "(com.rickbusarow.docusync:[^:]*?docusync[^:]*?:)",
       replacement = "foo"
     )
 
@@ -57,7 +57,7 @@ class JavaSerializationTest {
 
     val replacer = Replacer(
       name = "some-replacer",
-      matcher = "(com.rickbusarow.docusync:[^:]*?docusync[^:]*?:)",
+      regex = "(com.rickbusarow.docusync:[^:]*?docusync[^:]*?:)",
       replacement = "foo"
     )
 

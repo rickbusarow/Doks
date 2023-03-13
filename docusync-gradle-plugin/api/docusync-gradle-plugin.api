@@ -1,3 +1,68 @@
+public final class com/rickbusarow/docusync/DocusyncEngine : java/io/Serializable {
+	public fun <init> (Lcom/rickbusarow/docusync/ReplacersCache;Z)V
+	public final fun run (Ljava/io/File;)Z
+	public final fun run (Ljava/util/List;)Z
+}
+
+public final class com/rickbusarow/docusync/Position : java/lang/Comparable {
+	public static final field Companion Lcom/rickbusarow/docusync/Position$Companion;
+	public fun <init> (II)V
+	public fun compareTo (Lcom/rickbusarow/docusync/Position;)I
+	public synthetic fun compareTo (Ljava/lang/Object;)I
+	public final fun component1 ()I
+	public final fun component2 ()I
+	public final fun copy (II)Lcom/rickbusarow/docusync/Position;
+	public static synthetic fun copy$default (Lcom/rickbusarow/docusync/Position;IIILjava/lang/Object;)Lcom/rickbusarow/docusync/Position;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getColumn ()I
+	public final fun getRow ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/rickbusarow/docusync/Position$Companion {
+	public final fun positionOfSubstring (Ljava/lang/String;Ljava/lang/String;I)Lcom/rickbusarow/docusync/Position;
+}
+
+public final class com/rickbusarow/docusync/Replacer : java/io/Serializable {
+	public static final field Companion Lcom/rickbusarow/docusync/Replacer$Companion;
+	public synthetic fun <init> (ILjava/lang/String;Lkotlin/text/Regex;Ljava/lang/String;Lkotlinx/serialization/internal/SerializationConstructorMarker;)V
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
+	public fun <init> (Ljava/lang/String;Lkotlin/text/Regex;Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Lkotlin/text/Regex;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;Lkotlin/text/Regex;Ljava/lang/String;)Lcom/rickbusarow/docusync/Replacer;
+	public static synthetic fun copy$default (Lcom/rickbusarow/docusync/Replacer;Ljava/lang/String;Lkotlin/text/Regex;Ljava/lang/String;ILjava/lang/Object;)Lcom/rickbusarow/docusync/Replacer;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getName ()Ljava/lang/String;
+	public final fun getRegex ()Lkotlin/text/Regex;
+	public final fun getReplacement ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+	public static final fun write$Self (Lcom/rickbusarow/docusync/Replacer;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
+}
+
+public final class com/rickbusarow/docusync/Replacer$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lcom/rickbusarow/docusync/Replacer$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/rickbusarow/docusync/Replacer;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/rickbusarow/docusync/Replacer;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/rickbusarow/docusync/Replacer$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/rickbusarow/docusync/ReplacersCache : java/io/Serializable {
+	public fun <init> (Ljava/util/List;)V
+	public final fun get (Ljava/io/File;)Ljava/util/Map;
+}
+
 public abstract class com/rickbusarow/docusync/gradle/DocusyncExtension : java/io/Serializable {
 	public fun <init> (Lorg/gradle/api/tasks/TaskContainer;)V
 	public abstract fun getSourceSets ()Lorg/gradle/api/NamedDomainObjectContainer;
@@ -68,5 +133,101 @@ public final class com/rickbusarow/docusync/gradle/internal/TaskKt {
 public final class com/rickbusarow/docusync/gradle/internal/TaskKt$sam$i$org_gradle_api_Action$0 : org/gradle/api/Action {
 	public fun <init> (Lkotlin/jvm/functions/Function1;)V
 	public final synthetic fun execute (Ljava/lang/Object;)V
+}
+
+public final class com/rickbusarow/docusync/internal/ApplyKt {
+	public static final fun applyEach (Ljava/lang/Object;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function2;)Ljava/lang/Object;
+	public static final fun letIf (Ljava/lang/Object;ZLkotlin/jvm/functions/Function1;)Ljava/lang/Object;
+	public static final fun requireNotNull (Ljava/lang/Object;)Ljava/lang/Object;
+	public static final fun requireNotNull (Ljava/lang/Object;Lkotlin/jvm/functions/Function0;)Ljava/lang/Object;
+}
+
+public final class com/rickbusarow/docusync/internal/Color : java/lang/Enum {
+	public static final field BLACK Lcom/rickbusarow/docusync/internal/Color;
+	public static final field BLUE Lcom/rickbusarow/docusync/internal/Color;
+	public static final field CYAN Lcom/rickbusarow/docusync/internal/Color;
+	public static final field Companion Lcom/rickbusarow/docusync/internal/Color$Companion;
+	public static final field DARK_GRAY Lcom/rickbusarow/docusync/internal/Color;
+	public static final field GREEN Lcom/rickbusarow/docusync/internal/Color;
+	public static final field LIGHT_BLUE Lcom/rickbusarow/docusync/internal/Color;
+	public static final field LIGHT_CYAN Lcom/rickbusarow/docusync/internal/Color;
+	public static final field LIGHT_GRAY Lcom/rickbusarow/docusync/internal/Color;
+	public static final field LIGHT_GREEN Lcom/rickbusarow/docusync/internal/Color;
+	public static final field LIGHT_MAGENTA Lcom/rickbusarow/docusync/internal/Color;
+	public static final field LIGHT_RED Lcom/rickbusarow/docusync/internal/Color;
+	public static final field LIGHT_YELLOW Lcom/rickbusarow/docusync/internal/Color;
+	public static final field MAGENTA Lcom/rickbusarow/docusync/internal/Color;
+	public static final field RED Lcom/rickbusarow/docusync/internal/Color;
+	public static final field WHITE Lcom/rickbusarow/docusync/internal/Color;
+	public static final field YELLOW Lcom/rickbusarow/docusync/internal/Color;
+	public final fun getCode ()I
+	public static fun valueOf (Ljava/lang/String;)Lcom/rickbusarow/docusync/internal/Color;
+	public static fun values ()[Lcom/rickbusarow/docusync/internal/Color;
+}
+
+public final class com/rickbusarow/docusync/internal/Color$Companion {
+	public final fun colorized (Ljava/lang/String;Lcom/rickbusarow/docusync/internal/Color;)Ljava/lang/String;
+}
+
+public final class com/rickbusarow/docusync/internal/FileAsStringSerializer : kotlinx/serialization/KSerializer {
+	public static final field INSTANCE Lcom/rickbusarow/docusync/internal/FileAsStringSerializer;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/io/File;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/io/File;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+}
+
+public final class com/rickbusarow/docusync/internal/FileKt {
+	public static final fun existsOrNull (Ljava/io/File;)Ljava/io/File;
+	public static final fun hasGradleProjectFiles (Ljava/io/File;)Z
+	public static final fun isDirectoryWithFiles (Ljava/io/File;Lkotlin/jvm/functions/Function1;)Z
+	public static synthetic fun isDirectoryWithFiles$default (Ljava/io/File;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Z
+	public static final fun isOrphanedBuildOrGradleDir (Ljava/io/File;)Z
+	public static final fun isOrphanedGradleProperties (Ljava/io/File;)Z
+	public static final fun parents (Ljava/io/File;)Lkotlin/sequences/Sequence;
+	public static final fun resolveInParent (Ljava/io/File;Ljava/lang/String;)Ljava/io/File;
+	public static final fun resolveInParentOrNull (Ljava/io/File;Ljava/lang/String;)Ljava/io/File;
+}
+
+public final class com/rickbusarow/docusync/internal/RegexAsStringSerializer : kotlinx/serialization/KSerializer {
+	public static final field INSTANCE Lcom/rickbusarow/docusync/internal/RegexAsStringSerializer;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lkotlin/text/Regex;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lkotlin/text/Regex;)V
+}
+
+public final class com/rickbusarow/docusync/internal/RegexKt {
+	public static final fun getSEMVER_REGEX ()Ljava/lang/String;
+	public static final fun remove (Ljava/lang/String;[Lkotlin/text/Regex;)Ljava/lang/String;
+}
+
+public final class com/rickbusarow/docusync/internal/StringKt {
+	public static final fun capitalize (Ljava/lang/String;)Ljava/lang/String;
+	public static final fun commonPrefix (Ljava/util/List;Ljava/lang/String;)Ljava/lang/String;
+	public static synthetic fun commonPrefix$default (Ljava/util/List;Ljava/lang/String;ILjava/lang/Object;)Ljava/lang/String;
+	public static final fun indentByBrackets (Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+	public static synthetic fun indentByBrackets$default (Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Ljava/lang/String;
+	public static final fun joinToStringConcat (Ljava/lang/Iterable;Lkotlin/jvm/functions/Function1;)Ljava/lang/String;
+	public static final fun joinToStringConcat (Lkotlin/sequences/Sequence;Lkotlin/jvm/functions/Function1;)Ljava/lang/String;
+	public static synthetic fun joinToStringConcat$default (Ljava/lang/Iterable;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Ljava/lang/String;
+	public static synthetic fun joinToStringConcat$default (Lkotlin/sequences/Sequence;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Ljava/lang/String;
+	public static final fun mapLines (Ljava/lang/String;Lkotlin/jvm/functions/Function1;)Ljava/lang/String;
+	public static final fun normaliseLineSeparators (Ljava/lang/String;)Ljava/lang/String;
+	public static final fun prefixIfNot (Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+	public static final fun prettyToString (Ljava/lang/String;)Ljava/lang/String;
+	public static final fun remove (Ljava/lang/String;[Ljava/lang/String;)Ljava/lang/String;
+	public static final fun snakeCase (Ljava/lang/String;Z)Ljava/lang/String;
+	public static synthetic fun snakeCase$default (Ljava/lang/String;ZILjava/lang/Object;)Ljava/lang/String;
+	public static final fun substringUpToLast (Ljava/lang/String;CLjava/lang/String;)Ljava/lang/String;
+	public static final fun substringUpToLast (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+	public static synthetic fun substringUpToLast$default (Ljava/lang/String;CLjava/lang/String;ILjava/lang/Object;)Ljava/lang/String;
+	public static synthetic fun substringUpToLast$default (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Ljava/lang/String;
+	public static final fun takeIfNotBlank (Ljava/lang/String;)Ljava/lang/String;
+	public static final fun takeIfNotEmpty (Ljava/lang/String;)Ljava/lang/String;
+	public static final fun toStringPretty (Ljava/lang/Object;)Ljava/lang/String;
+	public static final fun trimLineEnds (Ljava/lang/String;)Ljava/lang/String;
 }
 

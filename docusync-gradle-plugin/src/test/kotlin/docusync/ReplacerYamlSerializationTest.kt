@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package com.rickbusarow.docusync
+package docusync
 
 import com.charleskorn.kaml.SingleLineStringStyle.Plain
 import com.charleskorn.kaml.Yaml

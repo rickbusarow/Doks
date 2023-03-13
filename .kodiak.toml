@@ -14,6 +14,7 @@ automerge_label = "automerge" # default: automerge
 [merge]
 # if a PR is ready, merge it, don't place it in the merge queue.
 prioritize_ready_to_merge = true # default: false
+priority_merge_label = "priority"
 # will not do anything if a matching label is applied
 blocking_labels = ["DO NOT MERGE"]
 method = "rebase"

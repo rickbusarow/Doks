@@ -66,7 +66,6 @@ dependencyResolutionManagement {
 rootProject.name = "Docusync"
 
 include(
-  ":docusync-cli",
   ":docusync-gradle-plugin"
 )
 

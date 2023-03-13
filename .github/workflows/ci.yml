@@ -89,28 +89,6 @@ jobs:
         with:
           sarif_file: build/reports/detekt/merged.sarif
 
-  ktlint:
-    runs-on: ubuntu-latest
-    if: github.actor != 'renovate[bot]'
-    steps:
-      - name: check out with token (used by forks)
-        uses: actions/checkout@v3
-        if: github.event.pull_request.head.repo.full_name != github.repository
-
-      - name: check out with PAT (used by main repo)
-        uses: actions/checkout@v3
-        if: github.event.pull_request.head.repo.full_name == github.repository
-        with:
-          ref: ${{ github.event.pull_request.head.ref }}
-          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-          fetch-depth: 0
-
-      - name: Set up JDK
-        uses: actions/setup-java@v3
-        with:
-          distribution: "zulu"
-          java-version: "11"
-
       - name: KtLint format (used by main repo)
         if: github.event.pull_request.head.repo.full_name == github.repository
         uses: gradle/gradle-build-action@v2
@@ -132,28 +110,6 @@ jobs:
         with:
           arguments: ktlintCheck
           cache-read-only: false
-
-  modulecheck:
-    runs-on: ubuntu-latest
-    if: github.actor != 'renovate[bot]'
-    steps:
-      - name: check out with token (used by forks)
-        uses: actions/checkout@v3
-        if: github.event.pull_request.head.repo.full_name != github.repository
-
-      - name: check out with PAT (used by main repo)
-        uses: actions/checkout@v3
-        if: github.event.pull_request.head.repo.full_name == github.repository
-        with:
-          ref: ${{ github.event.pull_request.head.ref }}
-          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-          fetch-depth: 0
-
-      - name: Set up JDK
-        uses: actions/setup-java@v3
-        with:
-          distribution: "zulu"
-          java-version: "11"
 
       - name: ModuleCheck with auto-correct (used by main repo)
         if: github.event.pull_request.head.repo.full_name == github.repository

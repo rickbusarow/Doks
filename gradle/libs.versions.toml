@@ -30,7 +30,7 @@ java-diff-utils = "4.12"
 javaParser = "3.25.1"
 jetbrains-markdown = "0.4.1"
 jmailen-kotlinter = "3.13.0"
-johnrengelman-shadow = "8.0.0"
+johnrengelman-shadow = "8.1.0"
 # the jdk used to build the project
 jdk = "11"
 # the jdk used in packaging
@@ -151,7 +151,7 @@ jetbrains-markdown = { module = "org.jetbrains:markdown", version.ref = "jetbrai
 
 jmailen-kotlinter = { module = "org.jmailen.gradle:kotlinter-gradle", version.ref = "jmailen-kotlinter" }
 
-johnrengelman-shadowJar = { module = "gradle.plugin.com.github.johnrengelman:shadow", version.ref = "johnrengelman-shadow" }
+johnrengelman-shadowJar = { module = "com.github.johnrengelman:shadow", version.ref = "johnrengelman-shadow" }
 
 junit-engine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "jUnit" }
 junit-jupiter = { module = "org.junit.jupiter:junit-jupiter", version.ref = "jUnit" }

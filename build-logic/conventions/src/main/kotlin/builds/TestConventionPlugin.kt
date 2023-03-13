@@ -38,7 +38,6 @@ abstract class TestConventionPlugin : Plugin<Project> {
     target.tasks.withType(Test::class.java) { task ->
       task.useJUnitPlatform()
 
-      @Suppress("UnstableApiUsage")
       val junitPlatformOptions = task.testFrameworkProperty
         .map { frameWork ->
           (frameWork as JUnitPlatformTestFramework).options
@@ -51,13 +50,6 @@ abstract class TestConventionPlugin : Plugin<Project> {
           junitPlatformOptions.get().includeTags(*tags.toTypedArray())
         }
       }
-
-      // Illegal reflective operation warnings while KtLint formats.  It's a Kotlin issue.
-      // https://github.com/pinterest/ktlint/issues/1618
-      task.jvmArgs(
-        "--add-opens=java.base/java.lang=ALL-UNNAMED",
-        "--add-opens=java.base/java.util=ALL-UNNAMED"
-      )
 
       task.testLogging {
         it.events = setOf(FAILED)

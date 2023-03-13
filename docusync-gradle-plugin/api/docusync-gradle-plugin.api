@@ -1,5 +1,5 @@
 public final class com/rickbusarow/docusync/DocusyncEngine : java/io/Serializable {
-	public fun <init> (Lcom/rickbusarow/docusync/ReplacersCache;Z)V
+	public fun <init> (Lcom/rickbusarow/docusync/RuleCache;Z)V
 	public final fun run (Ljava/io/File;)Z
 	public final fun run (Ljava/util/List;)Z
 }
@@ -24,50 +24,50 @@ public final class com/rickbusarow/docusync/Position$Companion {
 	public final fun positionOfSubstring (Ljava/lang/String;Ljava/lang/String;I)Lcom/rickbusarow/docusync/Position;
 }
 
-public final class com/rickbusarow/docusync/Replacer : java/io/Serializable {
-	public static final field Companion Lcom/rickbusarow/docusync/Replacer$Companion;
+public final class com/rickbusarow/docusync/Rule : java/io/Serializable {
+	public static final field Companion Lcom/rickbusarow/docusync/Rule$Companion;
 	public synthetic fun <init> (ILjava/lang/String;Lkotlin/text/Regex;Ljava/lang/String;Lkotlinx/serialization/internal/SerializationConstructorMarker;)V
 	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
 	public fun <init> (Ljava/lang/String;Lkotlin/text/Regex;Ljava/lang/String;)V
 	public final fun component1 ()Ljava/lang/String;
 	public final fun component2 ()Lkotlin/text/Regex;
 	public final fun component3 ()Ljava/lang/String;
-	public final fun copy (Ljava/lang/String;Lkotlin/text/Regex;Ljava/lang/String;)Lcom/rickbusarow/docusync/Replacer;
-	public static synthetic fun copy$default (Lcom/rickbusarow/docusync/Replacer;Ljava/lang/String;Lkotlin/text/Regex;Ljava/lang/String;ILjava/lang/Object;)Lcom/rickbusarow/docusync/Replacer;
+	public final fun copy (Ljava/lang/String;Lkotlin/text/Regex;Ljava/lang/String;)Lcom/rickbusarow/docusync/Rule;
+	public static synthetic fun copy$default (Lcom/rickbusarow/docusync/Rule;Ljava/lang/String;Lkotlin/text/Regex;Ljava/lang/String;ILjava/lang/Object;)Lcom/rickbusarow/docusync/Rule;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getName ()Ljava/lang/String;
 	public final fun getRegex ()Lkotlin/text/Regex;
 	public final fun getReplacement ()Ljava/lang/String;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
-	public static final fun write$Self (Lcom/rickbusarow/docusync/Replacer;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
+	public static final fun write$Self (Lcom/rickbusarow/docusync/Rule;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
 }
 
-public final class com/rickbusarow/docusync/Replacer$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
-	public static final field INSTANCE Lcom/rickbusarow/docusync/Replacer$$serializer;
+public final class com/rickbusarow/docusync/Rule$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lcom/rickbusarow/docusync/Rule$$serializer;
 	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
-	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/rickbusarow/docusync/Replacer;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/rickbusarow/docusync/Rule;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
 	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
-	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/rickbusarow/docusync/Replacer;)V
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/rickbusarow/docusync/Rule;)V
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
 	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
-public final class com/rickbusarow/docusync/Replacer$Companion {
+public final class com/rickbusarow/docusync/Rule$Companion {
 	public final fun serializer ()Lkotlinx/serialization/KSerializer;
 }
 
-public final class com/rickbusarow/docusync/ReplacersCache : java/io/Serializable {
+public final class com/rickbusarow/docusync/RuleCache : java/io/Serializable {
 	public fun <init> (Ljava/util/List;)V
 	public final fun get (Ljava/io/File;)Ljava/util/Map;
 }
 
 public abstract class com/rickbusarow/docusync/gradle/DocusyncExtension : java/io/Serializable {
 	public fun <init> (Lorg/gradle/api/tasks/TaskContainer;)V
+	public final fun docsSet (Ljava/lang/String;Lorg/gradle/api/Action;)Lorg/gradle/api/NamedDomainObjectProvider;
+	public static synthetic fun docsSet$default (Lcom/rickbusarow/docusync/gradle/DocusyncExtension;Ljava/lang/String;Lorg/gradle/api/Action;ILjava/lang/Object;)Lorg/gradle/api/NamedDomainObjectProvider;
 	public abstract fun getSourceSets ()Lorg/gradle/api/NamedDomainObjectContainer;
-	public final fun sourceSet (Ljava/lang/String;Lorg/gradle/api/Action;)Lorg/gradle/api/NamedDomainObjectProvider;
-	public static synthetic fun sourceSet$default (Lcom/rickbusarow/docusync/gradle/DocusyncExtension;Ljava/lang/String;Lorg/gradle/api/Action;ILjava/lang/Object;)Lorg/gradle/api/NamedDomainObjectProvider;
 }
 
 public abstract interface class com/rickbusarow/docusync/gradle/DocusyncParams : org/gradle/workers/WorkParameters {
@@ -85,9 +85,9 @@ public abstract class com/rickbusarow/docusync/gradle/DocusyncSourceSet : java/i
 	public fun <init> ()V
 	public final fun docs ([Ljava/lang/Object;)V
 	public abstract fun getDocs ()Lorg/gradle/api/file/ConfigurableFileCollection;
-	public abstract fun getReplacers ()Lorg/gradle/api/NamedDomainObjectContainer;
-	public final fun replacer (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lorg/gradle/api/NamedDomainObjectProvider;
-	public final fun replacer (Ljava/lang/String;Lorg/gradle/api/Action;)Lorg/gradle/api/NamedDomainObjectProvider;
+	public abstract fun getRules ()Lorg/gradle/api/NamedDomainObjectContainer;
+	public final fun rule (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lorg/gradle/api/NamedDomainObjectProvider;
+	public final fun rule (Ljava/lang/String;Lorg/gradle/api/Action;)Lorg/gradle/api/NamedDomainObjectProvider;
 }
 
 public abstract class com/rickbusarow/docusync/gradle/DocusyncTask : org/gradle/api/DefaultTask {
@@ -104,7 +104,7 @@ public abstract class com/rickbusarow/docusync/gradle/DocusyncWorkAction : org/g
 	public fun execute ()V
 }
 
-public abstract class com/rickbusarow/docusync/gradle/ReplacerBuilderScope : java/io/Serializable, org/gradle/api/Named {
+public abstract class com/rickbusarow/docusync/gradle/RuleBuilderScope : java/io/Serializable, org/gradle/api/Named {
 	public fun <init> ()V
 	public abstract fun getRegex ()Ljava/lang/String;
 	public abstract fun getReplacement ()Ljava/lang/String;

@@ -47,7 +47,7 @@ abstract class RootPlugin : Plugin<Project> {
       }
     }
 
-    if (target.gradle.includedBuilds.isNotEmpty()) {
+    if (target.gradle.includedBuilds.isNotEmpty() && !target.projectDir.name.contains("dogfood")) {
       target.plugins.apply("composite")
     }
 

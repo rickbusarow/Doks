@@ -25,7 +25,7 @@ class JavaSerializationTest {
   @Test
   fun `Replacer serializes and deserializes without issue`() {
 
-    val replacer = Replacer(
+    val replacer = Rule(
       name = "some-replacer",
       regex = "(com.rickbusarow.docusync:[^:]*?docusync[^:]*?:)",
       replacement = "foo"
@@ -37,15 +37,15 @@ class JavaSerializationTest {
   }
 
   @Test
-  fun `ReplacersCache serializes and deserializes without issue`() {
+  fun `RuleCache serializes and deserializes without issue`() {
 
-    val replacer = Replacer(
+    val replacer = Rule(
       name = "some-replacer",
       regex = "(com.rickbusarow.docusync:[^:]*?docusync[^:]*?:)",
       replacement = "foo"
     )
 
-    val cache = ReplacersCache(listOf(replacer))
+    val cache = RuleCache(listOf(replacer))
 
     shouldNotThrowAny {
       ObjectOutputStream(ByteArrayOutputStream()).writeObject(cache)
@@ -55,13 +55,13 @@ class JavaSerializationTest {
   @Test
   fun `Docusync serializes and deserializes without issue`() {
 
-    val replacer = Replacer(
+    val replacer = Rule(
       name = "some-replacer",
       regex = "(com.rickbusarow.docusync:[^:]*?docusync[^:]*?:)",
       replacement = "foo"
     )
 
-    val cache = ReplacersCache(listOf(replacer))
+    val cache = RuleCache(listOf(replacer))
 
     val outStream = ObjectOutputStream(ByteArrayOutputStream())
 

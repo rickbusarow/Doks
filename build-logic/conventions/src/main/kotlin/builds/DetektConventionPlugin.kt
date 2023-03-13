@@ -46,7 +46,7 @@ abstract class DetektConventionPlugin : Plugin<Project> {
     target.extensions.configure(DetektExtension::class.java) { extension ->
 
       extension.autoCorrect = false
-      extension.config = target.files("${target.rootDir}/detekt/detekt-config.yml")
+      extension.config = target.files(target.rootDir.resolveInParent("detekt/detekt-config.yml"))
       extension.buildUponDefaultConfig = true
 
       extension.source = target.files(
@@ -63,7 +63,7 @@ abstract class DetektConventionPlugin : Plugin<Project> {
 
       task.autoCorrect = false
       task.parallel = true
-      task.config.from(target.files("${target.rootDir}/detekt/detekt-config.yml"))
+      task.config.from(target.files(target.rootDir.resolveInParent("detekt/detekt-config.yml")))
       task.buildUponDefaultConfig = true
 
       // If in CI, merge sarif reports.  Skip this locally because it's not worth looking at

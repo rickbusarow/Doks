@@ -14,11 +14,12 @@
  */
 
 import builds.VERSION_NAME
+import builds.isRealRootProject
 
 plugins {
   id("module")
   id("java-gradle-plugin")
-  id("com.gradle.plugin-publish")
+  id("com.gradle.plugin-publish") apply false
 }
 
 val pluginId = "com.rickbusarow.docusync"
@@ -37,19 +38,24 @@ val pluginDeclaration: NamedDomainObjectProvider<PluginDeclaration> =
       tags.set(listOf("markdown", "documentation"))
     }
 
-val shade by configurations.register("shadowCompileOnly")
-
 module {
   autoService()
   serialization()
-  shadow(shade)
 
-  published(
-    artifactId = pluginArtifactId,
-    pomDescription = moduleDescription
-  )
+  if (rootProject.isRealRootProject()) {
 
-  publishedPlugin(pluginDeclaration = pluginDeclaration)
+    plugins.apply("com.gradle.plugin-publish")
+
+    val shade by configurations.register("shadowCompileOnly")
+    // shadow(shade)
+
+    published(
+      artifactId = pluginArtifactId,
+      pomDescription = moduleDescription
+    )
+
+    publishedPlugin(pluginDeclaration = pluginDeclaration)
+  }
 }
 
 dependencies {

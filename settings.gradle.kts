@@ -19,7 +19,6 @@ pluginManagement {
     mavenCentral()
     google()
   }
-  @Suppress("UnstableApiUsage")
   includeBuild("build-logic")
 }
 
@@ -66,8 +65,16 @@ dependencyResolutionManagement {
 rootProject.name = "Docusync"
 
 include(
-  ":docusync-gradle-plugin"
+  ":docusync-gradle-plugin",
+  ":docusync-gradle-plugin-playground"
 )
+
+includeBuild("build-logic-dogfood") {
+  dependencySubstitution {
+    substitute(module("com.rickbusarow.docusync:docusync-gradle-plugin"))
+      .using(project(":docusync-gradle-plugin"))
+  }
+}
 
 // If this project is the real root of the build, copy the root project's properties file to included
 // builds, to ensure that Gradle settings are identical and there's only 1 daemon.

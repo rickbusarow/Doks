@@ -37,7 +37,7 @@ abstract class DocusyncExtension @Inject constructor(
   abstract val sourceSets: NamedDomainObjectContainer<DocusyncSourceSet>
 
   /** */
-  fun sourceSet(
+  fun docsSet(
     name: String = "main",
     action: Action<DocusyncSourceSet>
   ): NamedDomainObjectProvider<DocusyncSourceSet> {
@@ -58,7 +58,7 @@ abstract class DocusyncExtension @Inject constructor(
         val sourceSet = sourceSets.getByName(name)
 
         task.docs.from(sourceSet.docs)
-        task.replacers.addAll(sourceSet.replacers)
+        task.replacers.addAll(sourceSet.rules)
         task.outputs.files(sourceSet.docs.files)
       }
 
@@ -71,7 +71,7 @@ abstract class DocusyncExtension @Inject constructor(
         val sourceSet = sourceSets.getByName(name)
 
         task.docs.from(sourceSet.docs)
-        task.replacers.addAll(sourceSet.replacers)
+        task.replacers.addAll(sourceSet.rules)
         task.outputs.files(sourceSet.docs.files)
       }
 
@@ -91,7 +91,7 @@ abstract class DocusyncSourceSet : Named, java.io.Serializable {
   abstract val docs: ConfigurableFileCollection
 
   /** */
-  abstract val replacers: NamedDomainObjectContainer<ReplacerBuilderScope>
+  abstract val rules: NamedDomainObjectContainer<RuleBuilderScope>
 
   /**
    * Adds a set of document paths to this source set. The given paths are evaluated as per [Project.files].
@@ -104,20 +104,20 @@ abstract class DocusyncSourceSet : Named, java.io.Serializable {
   }
 
   /** */
-  fun replacer(
+  fun rule(
     name: String,
-    action: Action<ReplacerBuilderScope>
-  ): NamedDomainObjectProvider<ReplacerBuilderScope> {
-    return replacers.register(name, action)
+    action: Action<RuleBuilderScope>
+  ): NamedDomainObjectProvider<RuleBuilderScope> {
+    return rules.register(name, action)
   }
 
   /** */
-  fun replacer(
+  fun rule(
     name: String,
     @Language("regexp") regex: String,
     replacement: String
-  ): NamedDomainObjectProvider<ReplacerBuilderScope> {
-    return replacers.register(name) {
+  ): NamedDomainObjectProvider<RuleBuilderScope> {
+    return rules.register(name) {
       it.regex = regex
       it.replacement = replacement
     }
@@ -125,7 +125,7 @@ abstract class DocusyncSourceSet : Named, java.io.Serializable {
 }
 
 /** */
-abstract class ReplacerBuilderScope : Named, java.io.Serializable {
+abstract class RuleBuilderScope : Named, java.io.Serializable {
 
   /** */
   abstract var regex: String

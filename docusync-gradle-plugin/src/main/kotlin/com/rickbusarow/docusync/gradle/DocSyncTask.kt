@@ -16,8 +16,8 @@
 package com.rickbusarow.docusync.gradle
 
 import com.rickbusarow.docusync.DocusyncEngine
-import com.rickbusarow.docusync.Replacer
-import com.rickbusarow.docusync.ReplacersCache
+import com.rickbusarow.docusync.Rule
+import com.rickbusarow.docusync.RuleCache
 import org.gradle.api.DefaultTask
 import org.gradle.api.NamedDomainObjectContainer
 import org.gradle.api.file.ConfigurableFileCollection
@@ -51,7 +51,7 @@ abstract class DocusyncTask @Inject constructor(
 
   /** */
   @get:Input
-  abstract val replacers: NamedDomainObjectContainer<ReplacerBuilderScope>
+  abstract val replacers: NamedDomainObjectContainer<RuleBuilderScope>
 
   private val autoCorrectProperty: Property<Boolean> = objects.property(Boolean::class.java)
     .convention(false)
@@ -71,9 +71,9 @@ abstract class DocusyncTask @Inject constructor(
   fun execute(inputChanges: InputChanges) {
 
     val r = replacers.toList()
-      .map { Replacer(it.name, it.regex, it.replacement) }
+      .map { Rule(it.name, it.regex, it.replacement) }
 
-    val engine = DocusyncEngine(ReplacersCache(r), autoCorrect = autoCorrect)
+    val engine = DocusyncEngine(RuleCache(r), autoCorrect = autoCorrect)
 
     val changed = inputChanges.getFileChanges(docs)
       .mapNotNull { fileChange -> fileChange.file.takeIf { it.isFile } }

@@ -17,7 +17,7 @@ package com.rickbusarow.docusync.markdown
 
 import com.rickbusarow.docusync.Position
 import com.rickbusarow.docusync.Position.Companion.positionOfSubstring
-import com.rickbusarow.docusync.ReplacerConfig
+import com.rickbusarow.docusync.internal.RuleConfig
 
 internal data class MarkdownGroup(
   val match: String,
@@ -29,7 +29,7 @@ internal data class MarkdownGroup(
   val closeTag: String?,
   val afterCloseTag: String
 ) {
-  val replacerConfigs: List<ReplacerConfig> by lazy(LazyThreadSafetyMode.NONE) {
+  val ruleConfigs: List<RuleConfig> by lazy(LazyThreadSafetyMode.NONE) {
     openTagMatchersBlob.split(',')
       .map { cfg ->
 
@@ -41,7 +41,7 @@ internal data class MarkdownGroup(
         val minOrNull = countSplit?.firstOrNull()?.toInt()
         val maxOrNull = countSplit?.getOrNull(1)?.toInt() ?: minOrNull
 
-        ReplacerConfig(
+        RuleConfig(
           id = id,
           minimumCount = minOrNull ?: 0,
           maximumCount = maxOrNull ?: Int.MAX_VALUE

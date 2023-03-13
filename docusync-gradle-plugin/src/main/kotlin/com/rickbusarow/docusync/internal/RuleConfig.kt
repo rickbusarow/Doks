@@ -13,9 +13,9 @@
  * limitations under the License.
  */
 
-package com.rickbusarow.docusync
+package com.rickbusarow.docusync.internal
 
-internal data class ReplacerConfig(
+internal data class RuleConfig(
   val id: String,
   val minimumCount: Int,
   val maximumCount: Int

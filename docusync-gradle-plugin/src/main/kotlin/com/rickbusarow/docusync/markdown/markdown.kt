@@ -15,7 +15,7 @@
 
 package com.rickbusarow.docusync.markdown
 
-import com.rickbusarow.docusync.Replacer
+import com.rickbusarow.docusync.Rule
 import com.rickbusarow.docusync.internal.joinToStringConcat
 import java.io.File
 
@@ -26,7 +26,7 @@ internal val closeReg = """([\s\S]*?)(<!--\/docusync\s*?-->)([\s\S]*)""".toRegex
 
 internal fun String.markdown(
   absolutePath: String,
-  replacers: Map<String, Replacer>,
+  replacers: Map<String, Rule>,
   autoCorrect: Boolean
 ): String {
 
@@ -65,13 +65,13 @@ internal fun String.markdown(
 
   val replacedFullString = beforeFirst + groups.joinToStringConcat { group ->
 
-    val newBody = group.replacerConfigs
+    val newBody = group.ruleConfigs
       .fold(group.body) { acc, replacerConfig ->
 
         val id = replacerConfig.id
 
         val replacer = replacers[id]
-          ?: error("There is no defined replacer for the id of '$id'")
+          ?: error("There is no defined rule for the id of '$id'")
 
         val matches = replacer.regex.findAll(acc).toList()
 
@@ -127,7 +127,7 @@ private fun List<MarkdownNode>.toMarkdownGroup(): MarkdownGroup {
 }
 
 internal fun File.markdown(
-  replacers: Map<String, Replacer>,
+  replacers: Map<String, Rule>,
   autoCorrect: Boolean
 ): Boolean {
 

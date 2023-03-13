@@ -42,13 +42,13 @@ class ReplacerYamlSerializationTest {
         replacement: dog
     """.trimIndent()
 
-    yaml.decodeFromString<List<Replacer>>(yamlString) shouldBe listOf(
-      Replacer(
+    yaml.decodeFromString<List<Rule>>(yamlString) shouldBe listOf(
+      Rule(
         name = "some-replacer",
         regex = "(com.rickbusarow.docusync:[^:]*?docusync[^:]*?:)",
         replacement = "foo"
       ),
-      Replacer(
+      Rule(
         name = "some-other-replacer",
         regex = "cat",
         replacement = "dog"
@@ -60,12 +60,12 @@ class ReplacerYamlSerializationTest {
   fun `serializes to yaml`() {
 
     val replacers = listOf(
-      Replacer(
+      Rule(
         name = "some-replacer",
         regex = "(com.rickbusarow.docusync:[^:]*?docusync[^:]*?:)",
         replacement = "foo"
       ),
-      Replacer(
+      Rule(
         name = "some-other-replacer",
         regex = "cat",
         replacement = "dog"

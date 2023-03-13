@@ -19,17 +19,26 @@ pluginManagement {
     mavenCentral()
     google()
   }
-  @Suppress("UnstableApiUsage")
-  includeBuild("..")
+  includeBuild("../build-logic")
 }
 
 dependencyResolutionManagement {
   @Suppress("UnstableApiUsage")
   repositories {
     google()
+    gradlePluginPortal()
     mavenCentral()
     maven("https://plugins.gradle.org/m2/")
   }
+
+  versionCatalogs {
+    register("libs") {
+      from(files("../gradle/libs.versions.toml"))
+    }
+  }
 }
 
-rootProject.name = "plugin-playground"
+rootProject.name = "build-logic-dogfood"
+
+include(":docusync-gradle-plugin")
+project(":docusync-gradle-plugin").projectDir = File("../docusync-gradle-plugin")

@@ -20,7 +20,7 @@ plugins {
 
 docusync {
 
-  sourceSet("main") {
+  docsSet("main") {
 
     docs(
       fileTree(projectDir) {
@@ -31,12 +31,12 @@ docusync {
       }
     )
 
-    replacer("cats-to-dogs") {
+    rule("cats-to-dogs") {
       regex = "cat"
       replacement = "dog"
     }
 
-    replacer("dogs-to-cats") {
+    rule("dogs-to-cats") {
       regex = "dog"
       replacement = "cat"
     }

@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package docusync
+package com.rickbusarow.docusync
 
 import io.kotest.assertions.throwables.shouldNotThrowAny
 import org.junit.jupiter.api.Test

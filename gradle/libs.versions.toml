@@ -36,7 +36,7 @@ jdk = "11"
 # the jdk used in packaging
 jvmTarget = "1.8"
 kaml = "0.52.0"
-kct = "1.4.9"
+kct = "1.5.0"
 knit = "0.4.0"
 kotest = "5.5.5"
 kotlin = "1.8.10"

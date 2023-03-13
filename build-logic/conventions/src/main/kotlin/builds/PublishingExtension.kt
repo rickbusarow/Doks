@@ -19,7 +19,7 @@ import com.vanniktech.maven.publish.GradlePlugin
 import com.vanniktech.maven.publish.JavadocJar.Dokka
 import com.vanniktech.maven.publish.KotlinJvm
 import com.vanniktech.maven.publish.MavenPublishBaseExtension
-import com.vanniktech.maven.publish.SonatypeHost.DEFAULT
+import com.vanniktech.maven.publish.SonatypeHost.Companion.DEFAULT
 import org.gradle.api.NamedDomainObjectProvider
 import org.gradle.api.Project
 import org.gradle.api.publish.PublishingExtension
@@ -36,7 +36,7 @@ interface PublishingExtension {
 
   fun Project.published(
     artifactId: String,
-    pomDescription: String = "Keep your documentation in sync"
+    pomDescription: String
   ) {
     published(
       groupId = GROUP,
@@ -48,7 +48,7 @@ interface PublishingExtension {
   fun Project.published(
     groupId: String,
     artifactId: String,
-    pomDescription: String = "Keep your documentation in sync"
+    pomDescription: String
   ) {
 
     plugins.apply("com.vanniktech.maven.publish.base")
@@ -127,7 +127,7 @@ private fun Project.configurePublish(
 
     @Suppress("UnstableApiUsage")
     extension.pom { mavenPom ->
-      mavenPom.description.set("Keep your documentation in sync")
+      mavenPom.description.set(pomDescription)
       mavenPom.name.set(artifactId)
 
       mavenPom.url.set("https://www.github.com/rbusarow/docusync/")

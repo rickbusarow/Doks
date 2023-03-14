@@ -105,6 +105,7 @@ abstract class CompositePlugin : Plugin<Project> {
       // builds, and make the root task depend upon those as well.
       target.gradle.includedBuilds
         .asSequence()
+        // .filter { !it.name.contains("dogfood") }
         .flatMap { it.allProjects() }
         .flatMap { includedProject ->
           includedProject.tasks

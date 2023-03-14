@@ -15,6 +15,7 @@
 
 package com.rickbusarow.docusync.gradle
 
+import com.rickbusarow.docusync.Rule
 import com.rickbusarow.docusync.gradle.internal.dependsOn
 import com.rickbusarow.docusync.gradle.internal.registerOnce
 import com.rickbusarow.docusync.internal.capitalize
@@ -37,7 +38,7 @@ abstract class DocusyncExtension @Inject constructor(
   abstract val sourceSets: NamedDomainObjectContainer<DocusyncSourceSet>
 
   /** */
-  fun sourceSet(
+  fun docSet(
     name: String = "main",
     action: Action<DocusyncSourceSet>
   ): NamedDomainObjectProvider<DocusyncSourceSet> {
@@ -58,7 +59,7 @@ abstract class DocusyncExtension @Inject constructor(
         val sourceSet = sourceSets.getByName(name)
 
         task.docs.from(sourceSet.docs)
-        task.replacers.addAll(sourceSet.replacers)
+        task.ruleBuilders.addAll(sourceSet.rules)
         task.outputs.files(sourceSet.docs.files)
       }
 
@@ -71,7 +72,7 @@ abstract class DocusyncExtension @Inject constructor(
         val sourceSet = sourceSets.getByName(name)
 
         task.docs.from(sourceSet.docs)
-        task.replacers.addAll(sourceSet.replacers)
+        task.ruleBuilders.addAll(sourceSet.rules)
         task.outputs.files(sourceSet.docs.files)
       }
 
@@ -91,7 +92,7 @@ abstract class DocusyncSourceSet : Named, java.io.Serializable {
   abstract val docs: ConfigurableFileCollection
 
   /** */
-  abstract val replacers: NamedDomainObjectContainer<ReplacerBuilderScope>
+  abstract val rules: NamedDomainObjectContainer<RuleBuilderScope>
 
   /**
    * Adds a set of document paths to this source set. The given paths are evaluated as per [Project.files].
@@ -104,32 +105,39 @@ abstract class DocusyncSourceSet : Named, java.io.Serializable {
   }
 
   /** */
-  fun replacer(
+  fun rule(
     name: String,
-    action: Action<ReplacerBuilderScope>
-  ): NamedDomainObjectProvider<ReplacerBuilderScope> {
-    return replacers.register(name, action)
+    action: Action<RuleBuilderScope>
+  ): NamedDomainObjectProvider<RuleBuilderScope> {
+    return rules.register(name, action)
   }
 
   /** */
-  fun replacer(
+  fun rule(
     name: String,
     @Language("regexp") regex: String,
     replacement: String
-  ): NamedDomainObjectProvider<ReplacerBuilderScope> {
-    return replacers.register(name) {
+  ): NamedDomainObjectProvider<RuleBuilderScope> {
+    return rules.register(name) {
       it.regex = regex
       it.replacement = replacement
     }
   }
 }
 
-/** */
-abstract class ReplacerBuilderScope : Named, java.io.Serializable {
+/** Models a single replacement action very much like the [Regex] version of [String.replace] */
+abstract class RuleBuilderScope : Named, java.io.Serializable {
 
-  /** */
+  /** supports normal Regex semantics including capturing groups like `(.*)` */
   abstract var regex: String
 
-  /** */
+  /** any combination of literal text and $-substitutions */
   abstract var replacement: String
+
+  /** @return a [Rule] from the current values of [regex] and [replacement] */
+  fun toRule(): Rule = Rule(
+    name = name,
+    regex = regex,
+    replacement = replacement
+  )
 }

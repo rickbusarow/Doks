@@ -15,7 +15,7 @@
 
 package com.rickbusarow.docusync.markdown
 
-import com.rickbusarow.docusync.Replacer
+import com.rickbusarow.docusync.Rule
 import com.rickbusarow.docusync.internal.SEMVER_REGEX
 import io.kotest.assertions.throwables.shouldNotThrowAny
 import io.kotest.assertions.throwables.shouldThrowWithMessage
@@ -25,13 +25,13 @@ import org.junit.jupiter.api.Test
 
 class MarkdownTest {
 
-  val replacers = mapOf(
-    "docusync-maven" to Replacer(
+  val rules = mapOf(
+    "docusync-maven" to Rule(
       name = "docusync-maven",
       regex = """(com.rickbusarow.docusync:[^:]*?docusync[^:]*?:)$SEMVER_REGEX""",
       replacement = "$11.2.3"
     ),
-    "cats" to Replacer(
+    "cats" to Rule(
       name = "cats",
       regex = """cats""",
       replacement = "dogs"
@@ -62,7 +62,7 @@ class MarkdownTest {
 
     val new = original.markdown(
       absolutePath = "foo.md",
-      replacers = replacers,
+      rules = rules,
       autoCorrect = true
     )
 
@@ -113,7 +113,7 @@ class MarkdownTest {
     ) {
       original.markdown(
         absolutePath = "foo.md",
-        replacers = replacers,
+        rules = rules,
         autoCorrect = false
       )
     }
@@ -146,7 +146,7 @@ class MarkdownTest {
 
       original.markdown(
         absolutePath = "foo.md",
-        replacers = replacers,
+        rules = rules,
         autoCorrect = true
       )
     }
@@ -169,14 +169,14 @@ class MarkdownTest {
     shouldNotThrowAny {
       original.markdown(
         absolutePath = "foo.md",
-        replacers = replacers,
+        rules = rules,
         autoCorrect = true
       )
     }
   }
 
   @Test
-  fun `a replacer with only one number must match that number of times`() {
+  fun `a rule with only one number must match that number of times`() {
 
     val original = md(
       """
@@ -194,14 +194,14 @@ class MarkdownTest {
     ) {
       original.markdown(
         absolutePath = "foo.md",
-        replacers = replacers,
+        rules = rules,
         autoCorrect = true
       )
     }
   }
 
   @Test
-  fun `a replacer with a range cannot be above that range`() {
+  fun `a rule with a range cannot be above that range`() {
 
     val original = md(
       """
@@ -220,14 +220,14 @@ class MarkdownTest {
     ) {
       original.markdown(
         absolutePath = "foo.md",
-        replacers = replacers,
+        rules = rules,
         autoCorrect = true
       )
     }
   }
 
   @Test
-  fun `a replacer with a range cannot be below that range`() {
+  fun `a rule with a range cannot be below that range`() {
 
     val original = md(
       """
@@ -244,7 +244,7 @@ class MarkdownTest {
     ) {
       original.markdown(
         absolutePath = "foo.md",
-        replacers = replacers,
+        rules = rules,
         autoCorrect = true
       )
     }

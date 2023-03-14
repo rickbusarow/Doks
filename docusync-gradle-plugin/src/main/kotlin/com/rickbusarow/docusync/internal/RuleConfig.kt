@@ -13,10 +13,10 @@
  * limitations under the License.
  */
 
-package com.rickbusarow.docusync
+package com.rickbusarow.docusync.internal
 
-internal data class ReplacerConfig(
-  val id: String,
+internal data class RuleConfig(
+  val name: String,
   val minimumCount: Int,
   val maximumCount: Int
 ) {
@@ -29,17 +29,17 @@ internal data class ReplacerConfig(
     }
 
     check(minimumCount != maximumCount || actualCount == minimumCount) {
-      "The matcher '$id' must find exactly $minimumCount ${plural(minimumCount)}, " +
+      "The matcher '$name' must find exactly $minimumCount ${plural(minimumCount)}, " +
         "but it found $actualCount."
     }
 
     check(minimumCount <= actualCount) {
-      "The matcher '$id' must find a minimum of $minimumCount ${plural(minimumCount)}, " +
+      "The matcher '$name' must find a minimum of $minimumCount ${plural(minimumCount)}, " +
         "but it found $actualCount."
     }
 
     check(actualCount <= maximumCount) {
-      "The matcher '$id' must find a maximum of $maximumCount ${plural(maximumCount)}, " +
+      "The matcher '$name' must find a maximum of $maximumCount ${plural(maximumCount)}, " +
         "but it found $actualCount."
     }
 

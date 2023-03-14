@@ -30,7 +30,7 @@ import java.util.concurrent.ConcurrentHashMap
 
 /** */
 class DocusyncEngine(
-  private val replacersCache: ReplacersCache,
+  private val ruleCache: RuleCache,
   private val autoCorrect: Boolean
 ) : java.io.Serializable {
 
@@ -41,7 +41,7 @@ class DocusyncEngine(
       async(Dispatchers.Default) {
 
         file.markdown(
-          replacers = replacersCache.get(file),
+          rules = ruleCache.get(file),
           autoCorrect = autoCorrect
         )
       }
@@ -53,30 +53,30 @@ class DocusyncEngine(
   /** */
   fun run(file: File): Boolean {
     return file.markdown(
-      replacers = replacersCache.get(file),
+      rules = ruleCache.get(file),
       autoCorrect = autoCorrect
     )
   }
 }
 
 /** */
-class ReplacersCache(
-  globalReplacers: List<Replacer>
+class RuleCache(
+  globalRules: List<Rule>
 ) : java.io.Serializable {
 
-  private val globalReplacers = globalReplacers.associateBy { it.name }
+  private val globalRulesMap = globalRules.associateBy { it.name }
 
   @delegate:Transient
   private val yaml: Yaml by lazy {
     Yaml(configuration = YamlConfiguration(encodingIndentationSize = 2, singleLineStringStyle = Plain))
   }
 
-  private val cache = ConcurrentHashMap<File, Lazy<Map<String, Replacer>>>()
+  private val cache = ConcurrentHashMap<File, Lazy<Map<String, Rule>>>()
 
   /**
-   * Parses the file tree for all [Replacer]s defined in this directory and all parent directories.
+   * Parses the file tree for all [Rule]s defined in this directory and all parent directories.
    */
-  fun get(file: File): Map<String, Replacer> {
+  fun get(file: File): Map<String, Rule> {
 
     return if (file.isFile) {
       file.parentFile?.let { get(it) }.orEmpty()
@@ -86,14 +86,14 @@ class ReplacersCache(
           val here = file.resolve("docusync.yml")
             .existsOrNull()
             ?.readText()
-            ?.let { yaml.decodeFromString<List<Replacer>>(it) }
+            ?.let { yaml.decodeFromString<List<Rule>>(it) }
             .orEmpty()
             .associateBy { it.name }
 
-          val parentReplacers = file.parentFile?.let { get(it) }
-            ?: globalReplacers
+          val parentRules = file.parentFile?.let { get(it) }
+            ?: globalRulesMap
 
-          parentReplacers + here
+          parentRules + here
         }
       }.value
     }

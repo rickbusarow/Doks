@@ -30,7 +30,7 @@ import org.intellij.lang.annotations.Language
  * @property replacement any combination of literal text and $-substitutions
  */
 @Serializable
-data class Replacer(
+data class Rule(
   val name: String,
   val regex: Regex,
   val replacement: String
@@ -45,7 +45,7 @@ data class Replacer(
 
   override fun equals(other: Any?): Boolean {
     if (this === other) return true
-    if (other !is Replacer) return false
+    if (other !is Rule) return false
 
     if (name != other.name) return false
     if (regex.pattern != other.regex.pattern) return false

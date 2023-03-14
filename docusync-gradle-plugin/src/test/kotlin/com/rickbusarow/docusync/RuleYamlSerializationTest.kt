@@ -23,7 +23,7 @@ import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import org.junit.jupiter.api.Test
 
-class ReplacerYamlSerializationTest {
+class RuleYamlSerializationTest {
 
   val yaml = Yaml(
     configuration = YamlConfiguration(encodingIndentationSize = 2, singleLineStringStyle = Plain)
@@ -34,22 +34,22 @@ class ReplacerYamlSerializationTest {
 
     //language=yaml
     val yamlString = """
-      - name: some-replacer
+      - name: some-rule
         regex: (com.rickbusarow.docusync:[^:]*?docusync[^:]*?:)
         replacement: foo
-      - name: some-other-replacer
+      - name: some-other-rule
         regex: cat
         replacement: dog
     """.trimIndent()
 
-    yaml.decodeFromString<List<Replacer>>(yamlString) shouldBe listOf(
-      Replacer(
-        name = "some-replacer",
+    yaml.decodeFromString<List<Rule>>(yamlString) shouldBe listOf(
+      Rule(
+        name = "some-rule",
         regex = "(com.rickbusarow.docusync:[^:]*?docusync[^:]*?:)",
         replacement = "foo"
       ),
-      Replacer(
-        name = "some-other-replacer",
+      Rule(
+        name = "some-other-rule",
         regex = "cat",
         replacement = "dog"
       )
@@ -59,25 +59,25 @@ class ReplacerYamlSerializationTest {
   @Test
   fun `serializes to yaml`() {
 
-    val replacers = listOf(
-      Replacer(
-        name = "some-replacer",
+    val rules = listOf(
+      Rule(
+        name = "some-rule",
         regex = "(com.rickbusarow.docusync:[^:]*?docusync[^:]*?:)",
         replacement = "foo"
       ),
-      Replacer(
-        name = "some-other-replacer",
+      Rule(
+        name = "some-other-rule",
         regex = "cat",
         replacement = "dog"
       )
     )
 
     //language=yaml
-    yaml.encodeToString(replacers) shouldBe """
-      - name: some-replacer
+    yaml.encodeToString(rules) shouldBe """
+      - name: some-rule
         regex: (com.rickbusarow.docusync:[^:]*?docusync[^:]*?:)
         replacement: foo
-      - name: some-other-replacer
+      - name: some-other-rule
         regex: cat
         replacement: dog
     """.trimIndent()

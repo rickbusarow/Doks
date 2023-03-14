@@ -18,10 +18,10 @@ package builds.ktlint.rules
 import builds.mapLines
 import builds.remove
 import com.pinterest.ktlint.core.Rule
-import com.pinterest.ktlint.core.api.DefaultEditorConfigProperties
 import com.pinterest.ktlint.core.api.EditorConfigProperties
 import com.pinterest.ktlint.core.api.UsesEditorConfigProperties
-import com.pinterest.ktlint.core.api.UsesEditorConfigProperties.EditorConfigProperty
+import com.pinterest.ktlint.core.api.editorconfig.EditorConfigProperty
+import com.pinterest.ktlint.core.api.editorconfig.MAX_LINE_LENGTH_PROPERTY
 import com.pinterest.ktlint.core.ast.ElementType
 import com.pinterest.ktlint.core.ast.ElementType.KDOC
 import com.pinterest.ktlint.core.ast.ElementType.KDOC_LEADING_ASTERISK
@@ -46,8 +46,7 @@ import kotlin.LazyThreadSafetyMode.NONE
 /** Fixes wrapping inside KDoc comments.*/
 class KDocWrappingRule : Rule(id = "kdoc-wrapping"), UsesEditorConfigProperties {
 
-  val maxLineLengthProperty = DefaultEditorConfigProperties.maxLineLengthProperty
-    .copy(defaultValue = 103)
+  val maxLineLengthProperty = MAX_LINE_LENGTH_PROPERTY.copy(defaultValue = 103)
   private var maxLineLength: Int = maxLineLengthProperty.defaultValue
 
   private val markdownParser by lazy(NONE) {

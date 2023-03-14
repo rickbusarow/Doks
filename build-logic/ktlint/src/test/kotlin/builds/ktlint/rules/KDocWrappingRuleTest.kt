@@ -17,14 +17,14 @@ package builds.ktlint.rules
 
 import com.pinterest.ktlint.core.LintError
 import com.pinterest.ktlint.core.RuleProvider
-import com.pinterest.ktlint.core.api.DefaultEditorConfigProperties.maxLineLengthProperty
 import com.pinterest.ktlint.core.api.EditorConfigOverride
+import com.pinterest.ktlint.core.api.editorconfig.MAX_LINE_LENGTH_PROPERTY
+import com.pinterest.ktlint.test.lint
 import io.kotest.matchers.collections.shouldBeEmpty
 import io.kotest.matchers.shouldBe
-import org.intellij.lang.annotations.Language
+import org.gradle.internal.impldep.org.intellij.lang.annotations.Language
 import org.junit.jupiter.api.Test
 import com.pinterest.ktlint.test.format as ktlintTestFormat
-import com.pinterest.ktlint.test.lint as ktlintTestLint
 
 class KDocWrappingRuleTest {
 
@@ -437,19 +437,20 @@ class KDocWrappingRuleTest {
     @Language("kotlin")
     text: String,
     editorConfigOverride: EditorConfigOverride =
-      EditorConfigOverride.from(maxLineLengthProperty to 50)
+      EditorConfigOverride.from(MAX_LINE_LENGTH_PROPERTY to 50)
   ): String = ktlintTestFormat(
-    lintedFilePath = null,
     text = text,
-    editorConfigOverride = editorConfigOverride
+    filePath = null,
+    editorConfigOverride = editorConfigOverride,
   )
+    .first
 
   fun Set<RuleProvider>.lint(
     @Language("kotlin")
     text: String,
     editorConfigOverride: EditorConfigOverride =
-      EditorConfigOverride.from(maxLineLengthProperty to 50)
-  ): List<LintError> = ktlintTestLint(
+      EditorConfigOverride.from(MAX_LINE_LENGTH_PROPERTY to 50)
+  ): List<LintError> = lint(
     lintedFilePath = null,
     text = text,
     editorConfigOverride = editorConfigOverride

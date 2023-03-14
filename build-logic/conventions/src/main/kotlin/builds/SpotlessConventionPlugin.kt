@@ -102,20 +102,20 @@ abstract class SpotlessConventionPlugin : Plugin<Project> {
 
       markdown.prettier(target.libsCatalog.version("prettier"))
 
-      markdown.withinBlocksRegex(
-        "kotlin block in markdown",
-        """```kotlin.*\n((?:(?!```)[\s\S])*)""",
-        KotlinExtension::class.java
-      ) { kotlin ->
-
-        kotlin.ktlint(target.libsCatalog.version("ktlint-lib"))
-          .setUseExperimental(true)
-          .setEditorConfigPath(target.rootProject.file(".editorconfig"))
-          // Editorconfig doesn't work for code blocks, since they don't have a path which matches the
-          // globs.  The band-aid is to parse kotlin settings out the .editorconfig, then pass all the
-          // properties in as a map.
-          .editorConfigOverride(target.rootProject.editorConfigKotlinProperties())
-      }
+      // markdown.withinBlocksRegex(
+      //   "kotlin block in markdown",
+      //   """```kotlin.*\n((?:(?!```)[\s\S])*)""",
+      //   KotlinExtension::class.java
+      // ) { kotlin ->
+      //
+      //   kotlin.ktlint(target.libsCatalog.version("ktlint-lib"))
+      //     .setUseExperimental(true)
+      //     .setEditorConfigPath(target.rootProject.file(".editorconfig"))
+      //     // Editorconfig doesn't work for code blocks, since they don't have a path which matches the
+      //     // globs.  The band-aid is to parse kotlin settings out the .editorconfig, then pass all the
+      //     // properties in as a map.
+      //     .editorConfigOverride(target.rootProject.editorConfigKotlinProperties())
+      // }
 
       markdown.withinBlocksRegex(
         "groovy block in markdown",

@@ -20,7 +20,6 @@ import builds.allProjects
 import builds.applyOnce
 import builds.capitalize
 import builds.dependsOn
-import builds.editorConfigKotlinProperties
 import builds.isRealRootProject
 import builds.matchingName
 import builds.register
@@ -41,7 +40,6 @@ abstract class KtLintConventionPlugin : Plugin<Project> {
     target.extensions.configure(KotlinterExtension::class.java) { extension ->
       extension.ignoreFailures = false
       extension.reporters = arrayOf("checkstyle", "plain")
-      extension.experimentalRules = true
     }
 
     // dummy ktlint-gradle plugin task names which just delegate to the Kotlinter ones
@@ -167,42 +165,19 @@ abstract class KtLintConventionPlugin : Plugin<Project> {
   private fun Project.addWriteBuildLogicEditorConfig() = rootProject.tasks
     .register<BuildLogicTask>("writeBuildLogicEditorConfig") { task ->
 
-      val rootConfig = rootProject.file(".editorconfig")
-      task.inputs.file(rootConfig)
       val buildLogicConfig = rootProject.file("build-logic/.editorconfig")
       task.outputs.file(buildLogicConfig)
 
-      val rules = provider {
-        rootProject.editorConfigKotlinProperties()["ktlint_disabled_rules"]
-          ?.split(" ?, ?".toRegex())
-          .orEmpty()
-      }
-
       task.doLast {
-
-        val originalRules = rules.get()
-
-        val additionalRules = listOf("no-since-in-kdoc")
 
         val newText = buildString {
           appendLine("### THIS FILE IS GENERATED.  DO NOT MODIFY.")
-          appendLine("# These disabled rules are copied from the root project's .editorconfig.")
-          appendLine("# Then additional rules are appended.")
           appendLine("# This is done by the 'writeBuildLogicEditorConfig' task.")
           appendLine("[{*.kt,*.kts}]")
 
-          appendLine("# original rules:")
-          originalRules.forEach { appendLine("#    $it") }
-          appendLine("# additional disabled rules:")
-          additionalRules.forEach { appendLine("#    $it") }
-
           appendLine("# noinspection EditorConfigKeyCorrectness")
 
-          // creates `rule1,rule2,experimental:rule3,my-rule4`
-          // Whitespaces around the '=' are fine, but there can't be any spaces before or after
-          // the commas or Ktlint won't parse them and will just silently apply all rules.
-          val allDisabledString = originalRules.plus(additionalRules).joinToString(",")
-          appendLine("ktlint_disabled_rules = $allDisabledString")
+          appendLine("build_logic_no-since-in-kdoc = disabled")
           appendLine()
         }
 

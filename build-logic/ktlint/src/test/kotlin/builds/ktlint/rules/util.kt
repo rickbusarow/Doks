@@ -15,7 +15,6 @@
 
 package builds.ktlint.rules
 
-import com.pinterest.ktlint.core.LintError
 import com.pinterest.ktlint.core.RuleProvider
 import com.pinterest.ktlint.core.api.EditorConfigOverride
 import org.intellij.lang.annotations.Language
@@ -24,15 +23,10 @@ import com.pinterest.ktlint.test.format as ktlintTestFormat
 fun Set<RuleProvider>.format(
   @Language("kotlin")
   text: String,
-  editorConfigOverride: EditorConfigOverride = EditorConfigOverride.emptyEditorConfigOverride,
-  userData: Map<String, String> = emptyMap(),
-  cb: (e: LintError, corrected: Boolean) -> Unit = { _, _ -> },
-  script: Boolean = false
+  editorConfigOverride: EditorConfigOverride = EditorConfigOverride.EMPTY_EDITOR_CONFIG_OVERRIDE
 ): String = ktlintTestFormat(
-  lintedFilePath = null,
   text = text,
+  filePath = null,
   editorConfigOverride = editorConfigOverride,
-  userData = userData,
-  cb = cb,
-  script = script
 )
+  .first

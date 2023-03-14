@@ -16,7 +16,6 @@
 package com.rickbusarow.docusync.gradle
 
 import com.rickbusarow.docusync.DocusyncEngine
-import com.rickbusarow.docusync.Rule
 import com.rickbusarow.docusync.RuleCache
 import org.gradle.api.DefaultTask
 import org.gradle.api.NamedDomainObjectContainer

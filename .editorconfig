@@ -39,23 +39,32 @@ ij_wrap_on_typing = false
 [**/dokka-archive/**]
 ij_formatter_enabled = false
 
-[{*.gradle.kts,*.kt,*.kts,*.main.kts}]
+############
+############    KtLint specific settings
+############
 # noinspection EditorConfigKeyCorrectness
+[{*.kt,*.kts}]
 kotlin_imports_layout = *,java.**,javax.**,kotlin.**,^
 # Back-ticked method names are allowed to exceed the line length. That's especially helpful for
 # test methods with descriptive names.
-# noinspection EditorConfigKeyCorrectness
 ktlint_ignore_back_ticked_identifier = true
-##### Disabled KtLint rules
-# - experimental:function-signature - it looks terrible
-# - filename - same as Detekt's MatchingDeclarationName, but Detekt's version can be suppressed and
-#     this can't
-# - max-line-length - manually formatting still does this, and KTLint will still wrap long chains when
-#     possible
-# - no-empty-first-line-in-method-block - code golf...
-# noinspection EditorConfigKeyCorrectness
-ktlint_disabled_rules = filename,experimental:function-signature,max-line-length,no-empty-first-line-in-method-block
 
+# ktlint_code_style = official
+# ktlint_function_signature_body_expression_wrapping = default
+# ktlint_function_signature_rule_force_multiline_when_parameter_count_greater_or_equal_than = 3
+ktlint_experimental = enabled
+
+# Disabled rules for 0.48.0+
+ktlint_experimental_class-naming = disabled
+ktlint_experimental_function-naming = disabled
+ktlint_experimental_function-signature = disabled
+ktlint_experimental_property-naming = disabled
+ktlint_standard_filename = disabled
+ktlint_standard_max-line-length = disabled
+ktlint_standard_no-empty-first-line-in-method-block = disabled
+ktlint_standard_wrapping = disabled
+
+[{*.kt,*.kts}]
 ij_continuation_indent_size = 2
 ij_kotlin_align_in_columns_case_branch = false
 ij_kotlin_align_multiline_binary_operation = false

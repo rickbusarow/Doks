@@ -65,8 +65,8 @@ public final class com/rickbusarow/docusync/RuleCache : java/io/Serializable {
 
 public abstract class com/rickbusarow/docusync/gradle/DocusyncExtension : java/io/Serializable {
 	public fun <init> (Lorg/gradle/api/tasks/TaskContainer;)V
-	public final fun docsSet (Ljava/lang/String;Lorg/gradle/api/Action;)Lorg/gradle/api/NamedDomainObjectProvider;
-	public static synthetic fun docsSet$default (Lcom/rickbusarow/docusync/gradle/DocusyncExtension;Ljava/lang/String;Lorg/gradle/api/Action;ILjava/lang/Object;)Lorg/gradle/api/NamedDomainObjectProvider;
+	public final fun docSet (Ljava/lang/String;Lorg/gradle/api/Action;)Lorg/gradle/api/NamedDomainObjectProvider;
+	public static synthetic fun docSet$default (Lcom/rickbusarow/docusync/gradle/DocusyncExtension;Ljava/lang/String;Lorg/gradle/api/Action;ILjava/lang/Object;)Lorg/gradle/api/NamedDomainObjectProvider;
 	public abstract fun getSourceSets ()Lorg/gradle/api/NamedDomainObjectContainer;
 }
 
@@ -95,7 +95,7 @@ public abstract class com/rickbusarow/docusync/gradle/DocusyncTask : org/gradle/
 	public final fun execute (Lorg/gradle/work/InputChanges;)V
 	public final fun getAutoCorrect ()Z
 	public abstract fun getDocs ()Lorg/gradle/api/file/ConfigurableFileCollection;
-	public abstract fun getReplacers ()Lorg/gradle/api/NamedDomainObjectContainer;
+	public abstract fun getRuleBuilders ()Lorg/gradle/api/NamedDomainObjectContainer;
 	public final fun setAutoCorrect (Z)V
 }
 
@@ -110,6 +110,7 @@ public abstract class com/rickbusarow/docusync/gradle/RuleBuilderScope : java/io
 	public abstract fun getReplacement ()Ljava/lang/String;
 	public abstract fun setRegex (Ljava/lang/String;)V
 	public abstract fun setReplacement (Ljava/lang/String;)V
+	public final fun toRule ()Lcom/rickbusarow/docusync/Rule;
 }
 
 public final class com/rickbusarow/docusync/gradle/internal/ProjectKt {
@@ -230,3 +231,4 @@ public final class com/rickbusarow/docusync/internal/StringKt {
 	public static final fun toStringPretty (Ljava/lang/Object;)Ljava/lang/String;
 	public static final fun trimLineEnds (Ljava/lang/String;)Ljava/lang/String;
 }
+

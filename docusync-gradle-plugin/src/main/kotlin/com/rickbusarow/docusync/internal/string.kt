@@ -206,14 +206,10 @@ fun String.substringUpToLast(
 
 /**
  * code golf for ` takeIf { it.isNotEmpty() }`
- *
- * @since 0.10.5
  */
 fun String.takeIfNotEmpty(): String? = takeIf { it.isNotEmpty() }
 
 /**
  * code golf for ` takeIf { it.isNotBlank() }`
- *
- * @since 0.10.5
  */
 fun String.takeIfNotBlank(): String? = takeIf { it.isNotBlank() }

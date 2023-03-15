@@ -45,8 +45,6 @@ enum class Color(val code: Int) {
 
     /**
      * returns a string in the given color
-     *
-     * @since 0.0.1
      */
     fun String.colorized(color: Color): String = if (supported) {
       "\u001B[${color.code}m$this\u001B[0m"

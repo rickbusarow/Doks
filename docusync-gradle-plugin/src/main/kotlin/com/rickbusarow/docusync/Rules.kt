@@ -22,13 +22,13 @@ class Rules(
   private val map: Map<RuleName, Rule>
 ) : java.io.Serializable {
 
-  internal constructor(globalRules: List<Rule>) : this(globalRules.associateBy { it.name })
-  internal constructor(vararg globalRules: Rule) : this(globalRules.associateBy { it.name })
-
   /**
    * The sorted list of names present in this cache
    */
   val names: List<RuleName> get() = map.keys.sorted()
+
+  internal constructor(globalRules: List<Rule>) : this(globalRules.associateBy { it.name })
+  internal constructor(vararg globalRules: Rule) : this(globalRules.associateBy { it.name })
 
   /**
    * @return true if a rule named [ruleName] is defined in this cache

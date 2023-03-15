@@ -57,6 +57,7 @@ dependencies {
   compileOnly(gradleApi())
 
   implementation(libs.jetbrains.markdown)
+  implementation(libs.kotlin.compiler)
   implementation(libs.kotlinx.coroutines.core)
   implementation(libs.kotlinx.serialization.core)
   implementation(libs.kotlinx.serialization.json)

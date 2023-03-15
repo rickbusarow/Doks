@@ -15,7 +15,6 @@
 
 package com.rickbusarow.docusync.markdown
 
-import com.rickbusarow.docusync.RuleName
 import com.rickbusarow.docusync.Rules
 import com.rickbusarow.docusync.internal.joinToStringConcat
 import java.io.File
@@ -42,34 +41,34 @@ internal fun String.markdown(
 
   val beforeFirst = beforeFirstNodes.singleOrNull()?.concat().orEmpty()
 
-  val groups = opened.map { it.toMarkdownGroup() }
+  val sections = opened.map { it.toMarkdownSection() }
 
-  groups.forEachIndexed { index, group ->
+  sections.forEachIndexed { index, section ->
 
-    if (index != groups.lastIndex) {
-      checkNotNull(group.closeTag) {
+    if (index != sections.lastIndex) {
+      checkNotNull(section.closeTag) {
 
-        val leading = beforeFirst + groups.take(index).joinToStringConcat { it.match }
+        val leading = beforeFirst + sections.take(index).joinToStringConcat { it.match }
 
-        val position = group.position(leading, group.openTagFull)
+        val position = section.position(leading, section.openTagFull)
 
         "Docusync - file://$absolutePath:${position.row}:${position.column} > " +
-          "The tag '${group.openTagFull}' must be closed with " +
+          "The tag '${section.openTagFull}' must be closed with " +
           "`$CLOSE` before the next docusync opening tag."
       }
     }
   }
 
-  if (groups.isEmpty()) {
+  if (sections.isEmpty()) {
     return this@markdown
   }
 
-  val replacedFullString = beforeFirst + groups.joinToStringConcat { group ->
+  val replacedFullString = beforeFirst + sections.joinToStringConcat { section ->
 
-    val newBody = group.ruleConfigs
-      .fold(group.body) { acc, ruleConfig ->
+    val newBody = section.ruleConfigs
+      .fold(section.body) { acc, ruleConfig ->
 
-        val rule = rules[RuleName(ruleConfig.name)]
+        val rule = rules[ruleConfig.name]
 
         val matches = rule.regex.findAll(acc).toList()
 
@@ -78,7 +77,7 @@ internal fun String.markdown(
         acc.replace(rule.regex, rule.replacement)
       }
 
-    with(group) {
+    with(section) {
       "$openTagFull$newBody${closeTag.orEmpty()}$afterCloseTag"
     }
   }
@@ -93,7 +92,7 @@ internal fun String.markdown(
 private fun List<MarkdownNode>.concat() = joinToStringConcat { it.text }
 
 @Suppress("MagicNumber")
-private fun List<MarkdownNode>.toMarkdownGroup(): MarkdownGroup {
+private fun List<MarkdownNode>.toMarkdownSection(): MarkdownSection {
 
   val openTagFull = first().text
 
@@ -112,7 +111,7 @@ private fun List<MarkdownNode>.toMarkdownGroup(): MarkdownGroup {
     .drop(1)
     .concat()
 
-  return MarkdownGroup(
+  return MarkdownSection(
     match = concat(),
     openTagFull = openTagFull,
     openTagStart = openTagStart,
@@ -144,6 +143,7 @@ internal fun File.markdown(
   val changed = old != new
   if (changed) {
     writeText(new)
+    println("wrote changes to file://$path")
   }
   return changed
 }

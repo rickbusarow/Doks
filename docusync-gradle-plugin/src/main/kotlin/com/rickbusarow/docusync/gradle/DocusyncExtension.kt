@@ -23,7 +23,6 @@ import org.gradle.api.Action
 import org.gradle.api.Named
 import org.gradle.api.NamedDomainObjectContainer
 import org.gradle.api.NamedDomainObjectProvider
-import org.gradle.api.Project
 import org.gradle.api.file.ConfigurableFileCollection
 import org.gradle.api.tasks.TaskContainer
 import org.intellij.lang.annotations.Language
@@ -95,7 +94,8 @@ abstract class DocusyncSourceSet : Named, java.io.Serializable {
   abstract val rules: NamedDomainObjectContainer<RuleBuilderScope>
 
   /**
-   * Adds a set of document paths to this source set. The given paths are evaluated as per [Project.files].
+   * Adds a set of document paths to this source set. The given paths are evaluated as per
+   * [Project.files][org.gradle.api.Project.files].
    *
    * @param paths The files to add.
    * @return this

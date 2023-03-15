@@ -25,7 +25,7 @@ import org.intellij.lang.annotations.Language
 /**
  * Models a single replacement action very much like the [Regex] version of [String.replace]
  *
- * @property name a unique identifier for this replacement.  It can be any arbitrary string.
+ * @property name a unique identifier for this replacement. It can be any arbitrary string.
  * @property regex supports normal Regex semantics including capturing groups like `(.*)`
  * @property replacement any combination of literal text and $-substitutions
  */

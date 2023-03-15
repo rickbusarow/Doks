@@ -29,9 +29,10 @@ class DocusyncRuleSetProvider : RuleSetProviderV2(
 
   override fun getRuleProviders(): Set<RuleProvider> {
     return setOf(
-      RuleProvider { NoSinceInKDocRule(BuildConfig.currentVersion) },
+      RuleProvider { KDocWrappingRule() },
       RuleProvider { NoDuplicateCopyrightHeaderRule() },
       RuleProvider { NoLeadingBlankLinesRule() },
+      RuleProvider { NoSinceInKDocRule(BuildConfig.currentVersion) },
       RuleProvider { NoSpaceInTargetedAnnotationRule() },
       RuleProvider { NoTrailingSpacesInRawStringLiteralRule() },
       RuleProvider { NoUselessConstructorKeywordRule() }

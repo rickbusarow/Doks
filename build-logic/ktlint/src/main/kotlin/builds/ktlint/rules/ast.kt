@@ -16,6 +16,15 @@
 package builds.ktlint.rules
 
 import com.pinterest.ktlint.core.ast.ElementType
+import com.pinterest.ktlint.core.ast.ElementType.KDOC_CODE_BLOCK_TEXT
+import com.pinterest.ktlint.core.ast.ElementType.KDOC_LEADING_ASTERISK
+import com.pinterest.ktlint.core.ast.ElementType.KDOC_TAG
+import com.pinterest.ktlint.core.ast.ElementType.KDOC_TEXT
+import com.pinterest.ktlint.core.ast.ElementType.WHITE_SPACE
+import com.pinterest.ktlint.core.ast.isWhiteSpace
+import com.pinterest.ktlint.core.ast.nextLeaf
+import com.pinterest.ktlint.core.ast.nextSibling
+import com.pinterest.ktlint.core.ast.prevSibling
 import org.jetbrains.kotlin.com.intellij.lang.ASTNode
 
 fun ASTNode.isBlank() = text.isBlank()
@@ -28,4 +37,35 @@ fun ASTNode.isCopyrightHeader(): Boolean {
   if (elementType != ElementType.BLOCK_COMMENT) return false
 
   return text.matches(copyRightCommentStart)
+}
+fun ASTNode.prevSibling(): ASTNode? = prevSibling { true }
+fun ASTNode?.isKDocText(): Boolean = this != null && elementType == KDOC_TEXT
+fun ASTNode?.isKDocTag(): Boolean = this != null && elementType == KDOC_TAG
+fun ASTNode?.isKDocLeadingAsteriskSpace(): Boolean =
+  this != null && elementType == WHITE_SPACE && nextLeaf().isKDocLeadingAsterisk()
+
+fun ASTNode?.isKDocLeadingAsterisk(): Boolean = this != null && elementType == KDOC_LEADING_ASTERISK
+fun ASTNode?.isKDocCodeBlockText(): Boolean = this != null && elementType == KDOC_CODE_BLOCK_TEXT
+
+/**
+ * The opening backticks with or without a language
+ */
+fun ASTNode.isKDocCodeBlockStartText(): Boolean {
+  if (elementType != KDOC_TEXT) return false
+
+  return nextSibling { !it.isWhiteSpace() && !it.isKDocLeadingAsterisk() }
+    .isKDocCodeBlockText()
+}
+
+/** The closing backticks*/
+fun ASTNode.isKDocCodeBlockEndText(): Boolean {
+  if (elementType != KDOC_TEXT) return false
+
+  return prevSibling { !it.isWhiteSpace() && !it.isKDocLeadingAsterisk() }
+    .isKDocCodeBlockText()
+}
+
+fun <T> Sequence<T>.stateful(): Sequence<T> {
+  val iterator = iterator()
+  return Sequence { iterator }
 }

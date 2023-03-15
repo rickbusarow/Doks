@@ -36,7 +36,7 @@ fun IncludedBuild.allProjects(): Set<ProjectInternal> {
 
 /**
  * @return the projects in this included build, or throws if the [IncludedBuild] is of an unexpected
- *     type
+ *   type
  */
 fun IncludedBuild.requireProjectRegistry(): ProjectRegistry<ProjectInternal> {
   require(this is IncludedBuildImpl) {
@@ -70,10 +70,10 @@ fun Gradle.includedAllProjectsTasks(taskName: String): List<TaskCollection<Task>
 }
 
 /**
- * Look at the root project of an included build, find any task with a matching
- * name, and return it or null. This is an alternative to the standard
- * [IncludedBuild.task][org.gradle.api.initialization.IncludedBuild.task] function in that
- * the standard `task` version will throw an exception if the task is not registered.
+ * Look at the root project of an included build, find any task with a matching name, and return it or
+ * null. This is an alternative to the standard
+ * [IncludedBuild.task][org.gradle.api.initialization.IncludedBuild.task] function in that the standard
+ * `task` version will throw an exception if the task is not registered.
  *
  * Note that this forces the included build to configure.
  */

@@ -20,7 +20,6 @@ import com.diffplug.gradle.spotless.FreshMarkExtension
 import com.diffplug.gradle.spotless.GroovyGradleExtension
 import com.diffplug.gradle.spotless.JavascriptExtension
 import com.diffplug.gradle.spotless.JsonExtension
-import com.diffplug.gradle.spotless.KotlinExtension
 import com.diffplug.gradle.spotless.SpotlessExtension
 import com.diffplug.gradle.spotless.SpotlessPlugin
 import com.diffplug.gradle.spotless.SpotlessTask

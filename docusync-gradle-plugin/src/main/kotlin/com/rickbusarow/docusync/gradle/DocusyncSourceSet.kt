@@ -15,8 +15,6 @@
 
 package com.rickbusarow.docusync.gradle
 
-import com.rickbusarow.docusync.Rule
-import com.rickbusarow.docusync.RuleName
 import org.gradle.api.Action
 import org.gradle.api.Named
 import org.gradle.api.NamedDomainObjectContainer
@@ -31,11 +29,14 @@ abstract class DocusyncSourceSet : Named, java.io.Serializable {
   abstract val docs: ConfigurableFileCollection
 
   /** */
+  abstract val sampleCodeSource: ConfigurableFileCollection
+
+  /** */
   abstract val rules: NamedDomainObjectContainer<RuleBuilderScope>
 
   /**
    * Adds a set of document paths to this source set. The given paths are evaluated as per
-   * [Project.files][org.gradle.api.Project.files].
+   * [Project.files].
    *
    * @param paths The files to add.
    * @return this
@@ -49,7 +50,7 @@ abstract class DocusyncSourceSet : Named, java.io.Serializable {
     name: String,
     action: Action<RuleBuilderScope>
   ): NamedDomainObjectProvider<RuleBuilderScope> {
-    return rules.register(name, action)
+    return rules.register(name) { action.execute(it) }
   }
 
   /** */
@@ -63,21 +64,4 @@ abstract class DocusyncSourceSet : Named, java.io.Serializable {
       it.replacement = replacement
     }
   }
-}
-
-/** Models a single replacement action very much like the [Regex] version of [String.replace] */
-abstract class RuleBuilderScope : Named, java.io.Serializable {
-
-  /** supports normal Regex semantics including capturing groups like `(.*)` */
-  abstract var regex: String
-
-  /** any combination of literal text and $-substitutions */
-  abstract var replacement: String
-
-  /** @return a [Rule] from the current values of [regex] and [replacement] */
-  fun toRule(): Rule = Rule(
-    name = RuleName(name),
-    regex = Regex(regex),
-    replacement = replacement
-  )
 }

@@ -15,8 +15,10 @@
 
 package com.rickbusarow.docusync.internal
 
+import com.rickbusarow.docusync.RuleName
+
 internal data class RuleConfig(
-  val name: String,
+  val name: RuleName,
   val minimumCount: Int,
   val maximumCount: Int
 ) {
@@ -29,17 +31,17 @@ internal data class RuleConfig(
     }
 
     check(minimumCount != maximumCount || actualCount == minimumCount) {
-      "The matcher '$name' must find exactly $minimumCount ${plural(minimumCount)}, " +
+      "The rule '${name.value}' must find exactly $minimumCount ${plural(minimumCount)}, " +
         "but it found $actualCount."
     }
 
     check(minimumCount <= actualCount) {
-      "The matcher '$name' must find a minimum of $minimumCount ${plural(minimumCount)}, " +
+      "The rule '${name.value}' must find a minimum of $minimumCount ${plural(minimumCount)}, " +
         "but it found $actualCount."
     }
 
     check(actualCount <= maximumCount) {
-      "The matcher '$name' must find a maximum of $maximumCount ${plural(maximumCount)}, " +
+      "The rule '${name.value}' must find a maximum of $maximumCount ${plural(maximumCount)}, " +
         "but it found $actualCount."
     }
 

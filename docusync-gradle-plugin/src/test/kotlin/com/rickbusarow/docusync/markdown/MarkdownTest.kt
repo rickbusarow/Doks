@@ -16,6 +16,7 @@
 package com.rickbusarow.docusync.markdown
 
 import com.rickbusarow.docusync.Rule
+import com.rickbusarow.docusync.RuleName
 import com.rickbusarow.docusync.Rules
 import com.rickbusarow.docusync.internal.SEMVER_REGEX
 import io.kotest.assertions.throwables.shouldNotThrowAny
@@ -41,6 +42,10 @@ class MarkdownTest {
 
   @Test
   fun `replacement works`() {
+
+    rules[RuleName("docusync-maven")]
+      // TODO <Rick> delete me
+      .also { println(it) }
 
     val original = md(
       """
@@ -191,7 +196,7 @@ class MarkdownTest {
       """
     )
     shouldThrowWithMessage<java.lang.IllegalStateException>(
-      "The matcher 'docusync-maven' must find exactly 1 match, but it found 2."
+      "The rule 'docusync-maven' must find exactly 1 match, but it found 2."
     ) {
       original.markdown(
         absolutePath = "foo.md",
@@ -217,7 +222,7 @@ class MarkdownTest {
       """
     )
     shouldThrowWithMessage<java.lang.IllegalStateException>(
-      "The matcher 'docusync-maven' must find a maximum of 2 matches, but it found 3."
+      "The rule 'docusync-maven' must find a maximum of 2 matches, but it found 3."
     ) {
       original.markdown(
         absolutePath = "foo.md",
@@ -241,7 +246,7 @@ class MarkdownTest {
       """
     )
     shouldThrowWithMessage<java.lang.IllegalStateException>(
-      "The matcher 'docusync-maven' must find a minimum of 2 matches, but it found 1."
+      "The rule 'docusync-maven' must find a minimum of 2 matches, but it found 1."
     ) {
       original.markdown(
         absolutePath = "foo.md",

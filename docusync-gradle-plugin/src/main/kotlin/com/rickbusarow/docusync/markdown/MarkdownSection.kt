@@ -17,9 +17,10 @@ package com.rickbusarow.docusync.markdown
 
 import com.rickbusarow.docusync.Position
 import com.rickbusarow.docusync.Position.Companion.positionOfSubstring
+import com.rickbusarow.docusync.RuleName
 import com.rickbusarow.docusync.internal.RuleConfig
 
-internal data class MarkdownGroup(
+internal data class MarkdownSection(
   val match: String,
   val openTagFull: String,
   val openTagStart: String,
@@ -35,14 +36,14 @@ internal data class MarkdownGroup(
 
         val parts = cfg.split(':')
 
-        val id = parts[0]
+        val name = parts[0]
         val countSplit = parts.getOrNull(1)?.split('-')
 
         val minOrNull = countSplit?.firstOrNull()?.toInt()
         val maxOrNull = countSplit?.getOrNull(1)?.toInt() ?: minOrNull
 
         RuleConfig(
-          name = id,
+          name = RuleName(name),
           minimumCount = minOrNull ?: 0,
           maximumCount = maxOrNull ?: Int.MAX_VALUE
         )

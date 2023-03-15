@@ -20,6 +20,7 @@ import com.diffplug.gradle.spotless.FreshMarkExtension
 import com.diffplug.gradle.spotless.GroovyGradleExtension
 import com.diffplug.gradle.spotless.JavascriptExtension
 import com.diffplug.gradle.spotless.JsonExtension
+import com.diffplug.gradle.spotless.KotlinExtension
 import com.diffplug.gradle.spotless.SpotlessExtension
 import com.diffplug.gradle.spotless.SpotlessPlugin
 import com.diffplug.gradle.spotless.SpotlessTask
@@ -101,23 +102,26 @@ abstract class SpotlessConventionPlugin : Plugin<Project> {
 
       markdown.prettier(target.libsCatalog.version("prettier"))
 
-      // markdown.withinBlocksRegex(
-      //   "kotlin block in markdown",
-      //   """```kotlin.*\n((?:(?!```)[\s\S])*)""",
-      //   KotlinExtension::class.java
-      // ) { kotlin ->
-      //
-      //   kotlin.ktlint(target.libsCatalog.version("ktlint-lib"))
-      //     .setUseExperimental(true)
-      //     .setEditorConfigPath(target.rootProject.file(".editorconfig"))
-      //     // Editorconfig doesn't work for code blocks, since they don't have a path which matches the
-      //     // globs.  The band-aid is to parse kotlin settings out the .editorconfig, then pass all the
-      //     // properties in as a map.
-      //     .editorConfigOverride(target.rootProject.editorConfigKotlinProperties())
-      // }
+      markdown.withinBlocksRegex(
+        "kotlin block in markdown",
+        //language=regexp
+        """\R```kotlin.*\n((?:(?! *```)[\s\S])*)""",
+        KotlinExtension::class.java
+      ) { kotlin ->
+
+        // KtLint 0.48.0+ is failing when trying to format the snippets
+        kotlin.ktlint("0.47.1")
+          .setUseExperimental(true)
+          .setEditorConfigPath(target.rootProject.file(".editorconfig"))
+          // Editorconfig doesn't work for code blocks, since they don't have a path which matches the
+          // globs.  The band-aid is to parse kotlin settings out the .editorconfig, then pass all the
+          // properties in as a map.
+          .editorConfigOverride(target.rootProject.editorConfigKotlinProperties())
+      }
 
       markdown.withinBlocksRegex(
         "groovy block in markdown",
+        //language=regexp
         """```groovy.*\n((?:(?!```)[\s\S])*)""",
         GroovyGradleExtension::class.java
       ) { groovyGradle ->
@@ -139,6 +143,7 @@ abstract class SpotlessConventionPlugin : Plugin<Project> {
         it["group"] = GROUP
         it["version"] = target.VERSION_NAME
         it["org"] = "rbusarow"
+        //language=regexp
         it["docusync-maven-reg"] = """/($GROUP:[^:]*?docusync[^:]*?:)[^"']+?(["'].*)/g"""
       }
     }

@@ -104,6 +104,7 @@ public abstract class com/rickbusarow/docusync/gradle/DocusyncDocsTask : com/ric
 	public final fun getAutoCorrect ()Z
 	public abstract fun getDocs ()Lorg/gradle/api/file/ConfigurableFileCollection;
 	public abstract fun getRuleBuilders ()Lorg/gradle/api/NamedDomainObjectContainer;
+	public abstract fun getSamplesMapping ()Lorg/gradle/api/file/RegularFileProperty;
 	public final fun setAutoCorrect (Z)V
 }
 
@@ -118,10 +119,17 @@ public abstract class com/rickbusarow/docusync/gradle/DocusyncDocsTask$DocsWorkA
 }
 
 public abstract class com/rickbusarow/docusync/gradle/DocusyncExtension : java/io/Serializable {
-	public fun <init> (Lorg/gradle/api/tasks/TaskContainer;)V
+	public fun <init> (Lorg/gradle/api/tasks/TaskContainer;Lorg/gradle/api/file/ProjectLayout;)V
 	public final fun docSet (Ljava/lang/String;Lorg/gradle/api/Action;)Lorg/gradle/api/NamedDomainObjectProvider;
 	public static synthetic fun docSet$default (Lcom/rickbusarow/docusync/gradle/DocusyncExtension;Ljava/lang/String;Lorg/gradle/api/Action;ILjava/lang/Object;)Lorg/gradle/api/NamedDomainObjectProvider;
 	public abstract fun getSourceSets ()Lorg/gradle/api/NamedDomainObjectContainer;
+}
+
+public abstract class com/rickbusarow/docusync/gradle/DocusyncParseTask : com/rickbusarow/docusync/gradle/DocusyncTask {
+	public fun <init> ()V
+	public final fun execute ()V
+	public abstract fun getSampleCode ()Lorg/gradle/api/file/ConfigurableFileCollection;
+	public abstract fun getSamplesMapping ()Lorg/gradle/api/file/RegularFileProperty;
 }
 
 public abstract class com/rickbusarow/docusync/gradle/DocusyncPlugin : org/gradle/api/Plugin {
@@ -135,21 +143,32 @@ public abstract class com/rickbusarow/docusync/gradle/DocusyncSourceSet : java/i
 	public final fun docs ([Ljava/lang/Object;)V
 	public abstract fun getDocs ()Lorg/gradle/api/file/ConfigurableFileCollection;
 	public abstract fun getRules ()Lorg/gradle/api/NamedDomainObjectContainer;
+	public abstract fun getSampleCodeSource ()Lorg/gradle/api/file/ConfigurableFileCollection;
 	public final fun rule (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lorg/gradle/api/NamedDomainObjectProvider;
 	public final fun rule (Ljava/lang/String;Lorg/gradle/api/Action;)Lorg/gradle/api/NamedDomainObjectProvider;
 }
 
 public abstract class com/rickbusarow/docusync/gradle/DocusyncTask : org/gradle/api/DefaultTask {
 	public fun <init> (Ljava/lang/String;)V
+	protected final fun getJson ()Lkotlinx/serialization/json/Json;
 }
 
 public abstract class com/rickbusarow/docusync/gradle/RuleBuilderScope : java/io/Serializable, org/gradle/api/Named {
 	public fun <init> ()V
+	public final fun getARTIFACT_ID ()Ljava/lang/String;
+	public final fun getGROUP_ID ()Ljava/lang/String;
+	public final fun getPACKAGING ()Ljava/lang/String;
 	public abstract fun getRegex ()Ljava/lang/String;
 	public abstract fun getReplacement ()Ljava/lang/String;
+	public final fun getSEMVER ()Ljava/lang/String;
+	public final fun getSEMVER_STABLE ()Ljava/lang/String;
+	public final fun getSourceDelim ()C
+	public final fun maven (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+	public static synthetic fun maven$default (Lcom/rickbusarow/docusync/gradle/RuleBuilderScope;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Ljava/lang/String;
 	public abstract fun setRegex (Ljava/lang/String;)V
 	public abstract fun setReplacement (Ljava/lang/String;)V
-	public final fun toRule ()Lcom/rickbusarow/docusync/Rule;
+	public final fun sourceCode (Ljava/lang/String;ZLjava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+	public static synthetic fun sourceCode$default (Lcom/rickbusarow/docusync/gradle/RuleBuilderScope;Ljava/lang/String;ZLjava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Ljava/lang/String;
 }
 
 public final class com/rickbusarow/docusync/gradle/internal/ProjectKt {
@@ -241,6 +260,7 @@ public final class com/rickbusarow/docusync/internal/RegexAsStringSerializer : k
 
 public final class com/rickbusarow/docusync/internal/RegexKt {
 	public static final fun getSEMVER_REGEX ()Ljava/lang/String;
+	public static final fun getSEMVER_REGEX_STABLE ()Ljava/lang/String;
 	public static final fun remove (Ljava/lang/String;[Lkotlin/text/Regex;)Ljava/lang/String;
 }
 
@@ -269,5 +289,26 @@ public final class com/rickbusarow/docusync/internal/StringKt {
 	public static final fun takeIfNotEmpty (Ljava/lang/String;)Ljava/lang/String;
 	public static final fun toStringPretty (Ljava/lang/Object;)Ljava/lang/String;
 	public static final fun trimLineEnds (Ljava/lang/String;)Ljava/lang/String;
+}
+
+public final class com/rickbusarow/docusync/psi/LazyMap {
+	public static final field Companion Lcom/rickbusarow/docusync/psi/LazyMap$Companion;
+	public fun <init> (Lkotlin/jvm/functions/Function2;)V
+	public final fun containsKey (Ljava/lang/Object;)Z
+	public final fun get (Ljava/lang/Object;)Ljava/lang/Object;
+	public final fun getSize ()I
+	public final fun put (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+	public final fun put (Ljava/lang/Object;Lkotlin/Lazy;)Ljava/lang/Object;
+	public final fun set (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+	public final fun set (Ljava/lang/Object;Lkotlin/Lazy;)Ljava/lang/Object;
+	public final fun set (Ljava/lang/Object;Lkotlin/jvm/functions/Function0;)Ljava/lang/Object;
+}
+
+public final class com/rickbusarow/docusync/psi/LazyMap$Companion {
+	public final fun toLazyMap (Lkotlin/sequences/Sequence;)Lcom/rickbusarow/docusync/psi/LazyMap;
+}
+
+public final class com/rickbusarow/docusync/psi/LazyMapKt {
+	public static final fun stateful (Lkotlin/sequences/Sequence;)Lkotlin/sequences/Sequence;
 }
 

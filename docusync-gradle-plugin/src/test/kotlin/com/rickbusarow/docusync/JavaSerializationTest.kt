@@ -37,7 +37,7 @@ class JavaSerializationTest {
   }
 
   @Test
-  fun `RuleCache serializes and deserializes without issue`() {
+  fun `Rules serializes and deserializes without issue`() {
 
     val rule = Rule(
       name = "some-rule",
@@ -45,7 +45,7 @@ class JavaSerializationTest {
       replacement = "foo"
     )
 
-    val cache = RuleCache(listOf(rule))
+    val cache = Rules(rule)
 
     shouldNotThrowAny {
       ObjectOutputStream(ByteArrayOutputStream()).writeObject(cache)
@@ -61,7 +61,7 @@ class JavaSerializationTest {
       replacement = "foo"
     )
 
-    val cache = RuleCache(listOf(rule))
+    val cache = Rules(rule)
 
     val outStream = ObjectOutputStream(ByteArrayOutputStream())
 

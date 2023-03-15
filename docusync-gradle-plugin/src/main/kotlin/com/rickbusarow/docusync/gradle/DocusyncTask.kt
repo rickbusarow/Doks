@@ -16,7 +16,7 @@
 package com.rickbusarow.docusync.gradle
 
 import com.rickbusarow.docusync.DocusyncEngine
-import com.rickbusarow.docusync.RuleCache
+import com.rickbusarow.docusync.Rules
 import org.gradle.api.DefaultTask
 import org.gradle.api.NamedDomainObjectContainer
 import org.gradle.api.file.ConfigurableFileCollection
@@ -37,10 +37,19 @@ import org.gradle.workers.WorkerExecutor
 import javax.inject.Inject
 
 /** */
-abstract class DocusyncTask @Inject constructor(
+@Suppress("UnnecessaryAbstractClass")
+abstract class DocusyncTask(description: String) : DefaultTask() {
+  init {
+    group = "Docusync"
+    this.description = description
+  }
+}
+
+/** */
+abstract class DocusyncDocsTask @Inject constructor(
   private val workerExecutor: WorkerExecutor,
   objects: ObjectFactory
-) : DefaultTask() {
+) : DocusyncTask("Updates documentation files") {
 
   /** */
   @get:Incremental
@@ -69,9 +78,9 @@ abstract class DocusyncTask @Inject constructor(
   @TaskAction
   fun execute(inputChanges: InputChanges) {
 
-    val rules = ruleBuilders.map { it.toRule() }
+    val rules = ruleBuilders.map { it.toRule() }.associateBy { it.name }
 
-    val engine = DocusyncEngine(RuleCache(rules), autoCorrect = autoCorrect)
+    val engine = DocusyncEngine(Rules(rules), autoCorrect = autoCorrect)
 
     val changed = inputChanges.getFileChanges(docs)
       .mapNotNull { fileChange -> fileChange.file.takeIf { it.isFile } }
@@ -79,32 +88,32 @@ abstract class DocusyncTask @Inject constructor(
     val queue = workerExecutor.noIsolation()
 
     changed.forEach { file ->
-      queue.submit(DocusyncWorkAction::class.java) { params ->
+      queue.submit(DocsWorkAction::class.java) { params ->
         params.docusyncEngine.set(engine)
         params.file.set(file)
       }
     }
   }
-}
-
-/** */
-interface DocusyncParams : WorkParameters {
 
   /** */
-  val docusyncEngine: Property<DocusyncEngine>
+  interface DocsParameters : WorkParameters {
+
+    /** */
+    val docusyncEngine: Property<DocusyncEngine>
+
+    /** */
+    val file: RegularFileProperty
+  }
 
   /** */
-  val file: RegularFileProperty
-}
+  abstract class DocsWorkAction : WorkAction<DocsParameters> {
+    override fun execute() {
 
-/** */
-abstract class DocusyncWorkAction : WorkAction<DocusyncParams> {
-  override fun execute() {
+      val engine = parameters.docusyncEngine.get()
 
-    val engine = parameters.docusyncEngine.get()
+      val file = parameters.file.get().asFile
 
-    val file = parameters.file.get().asFile
-
-    engine.run(file)
+      engine.run(file)
+    }
   }
 }

@@ -16,6 +16,7 @@
 package com.rickbusarow.docusync.markdown
 
 import com.rickbusarow.docusync.Rule
+import com.rickbusarow.docusync.Rules
 import com.rickbusarow.docusync.internal.SEMVER_REGEX
 import io.kotest.assertions.throwables.shouldNotThrowAny
 import io.kotest.assertions.throwables.shouldThrowWithMessage
@@ -25,13 +26,13 @@ import org.junit.jupiter.api.Test
 
 class MarkdownTest {
 
-  val rules = mapOf(
-    "docusync-maven" to Rule(
+  val rules = Rules(
+    Rule(
       name = "docusync-maven",
       regex = """(com.rickbusarow.docusync:[^:]*?docusync[^:]*?:)$SEMVER_REGEX""",
       replacement = "$11.2.3"
     ),
-    "cats" to Rule(
+    Rule(
       name = "cats",
       regex = """cats""",
       replacement = "dogs"

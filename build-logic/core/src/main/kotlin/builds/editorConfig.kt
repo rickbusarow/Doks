@@ -43,8 +43,8 @@ fun editorConfig(editorConfigFile: File): EditorConfig {
 }
 
 /**
- * Returns a map of all Kotlin settings found in the `.editorconfig`, where keys are the property
- * name and the value is the trimmed text to the right of the '='. Note that every value is a String,
+ * Returns a map of all Kotlin settings found in the `.editorconfig`, where keys are the property name
+ * and the value is the trimmed text to the right of the '='. Note that every value is a String,
  * including.
  */
 fun Project.editorConfigKotlinProperties(): Map<String, String> {
@@ -57,8 +57,8 @@ fun Project.editorConfigKotlinProperties(): Map<String, String> {
 }
 
 /**
- * Returns a map of all Kotlin settings found in the `.editorconfig`, where keys are the property
- * name and the value is the trimmed text to the right of the '='. Note that every value is a String,
+ * Returns a map of all Kotlin settings found in the `.editorconfig`, where keys are the property name
+ * and the value is the trimmed text to the right of the '='. Note that every value is a String,
  * including.
  */
 fun editorConfigKotlinProperties(

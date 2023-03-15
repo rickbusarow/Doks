@@ -132,7 +132,7 @@ fun <T : Task> TaskProvider<T>.mustRunAfter(vararg objects: Any): TaskProvider<T
  * @param S The type of objects to find.
  * @param configuration The action to execute for each object in the resulting collection.
  * @return The matching objects. Returns an empty collection if there are no such objects in this
- *     collection.
+ *   collection.
  * @see [DomainObjectCollection.withType]
  */
 inline fun <reified S : Any> DomainObjectCollection<in S>.withType(
@@ -146,7 +146,7 @@ inline fun <reified S : Any> DomainObjectCollection<in S>.withType(
  *
  * @param S The type of objects to find.
  * @return The matching objects. Returns an empty collection if there are no such objects in this
- *     collection.
+ *   collection.
  * @see [DomainObjectCollection.withType]
  */
 inline fun <reified S : Any> DomainObjectCollection<in S>.withType(): DomainObjectCollection<S> =
@@ -159,7 +159,7 @@ inline fun <reified S : Any> DomainObjectCollection<in S>.withType(): DomainObje
  *
  * @param S The type of objects to find.
  * @return The matching objects. Returns an empty collection if there are no such objects in this
- *     collection.
+ *   collection.
  * @see [TaskCollection.withType]
  */
 inline fun <reified S : Task> TaskCollection<in S>.withType(): TaskCollection<S> =
@@ -183,7 +183,8 @@ fun <T : Task> TaskContainer.registerOnce(
 }
 
 /**
- * @return the fully qualified name of this task's type, without any '_Decorated' suffix if one exists
+ * @return the fully qualified name of this task's type, without any '_Decorated' suffix if one
+ *   exists
  */
 fun Task.undecoratedTypeName(): String {
   return javaClass.canonicalName.removeSuffix("_Decorated")

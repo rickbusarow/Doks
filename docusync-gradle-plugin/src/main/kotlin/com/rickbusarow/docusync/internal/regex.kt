@@ -16,8 +16,7 @@
 package com.rickbusarow.docusync.internal
 
 /**
- * from here: https://ihateregex.io/expr/semver/
- * but no capturing groups
+ * from here: https://ihateregex.io/expr/semver/ but no capturing groups
  */
 val SEMVER_REGEX: String = buildString {
   append("(?:0|[1-9]\\d*)\\.")

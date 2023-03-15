@@ -29,15 +29,15 @@ val ExtensionAware.extras: ExtraPropertiesExtension
 
 /**
  * A safe version of [get][ExtraPropertiesExtension.get], since `get` will throw an
- * [UnknownPropertyException][ExtraPropertiesExtension.UnknownPropertyException]
- * if the property wasn't previously defined.
+ * [UnknownPropertyException][ExtraPropertiesExtension.UnknownPropertyException] if the property wasn't
+ * previously defined.
  */
 fun ExtraPropertiesExtension.getOrNull(name: String): Any? = if (has(name)) get(name) else null
 
 /**
  * A safe version of [get][ExtraPropertiesExtension.get], since `get` will throw an
- * [UnknownPropertyException][ExtraPropertiesExtension.UnknownPropertyException]
- * if the property wasn't previously defined.
+ * [UnknownPropertyException][ExtraPropertiesExtension.UnknownPropertyException] if the property wasn't
+ * previously defined.
  *
  * @throws ClassCastException if a property named [name] exists, but is not of type T
  */

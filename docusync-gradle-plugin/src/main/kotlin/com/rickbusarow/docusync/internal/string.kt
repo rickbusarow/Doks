@@ -136,7 +136,7 @@ fun String.remove(vararg strings: String): String = strings.fold(this) { acc, st
 /**
  * @param uppercase `true` for `SCREAMING_SNAKE_CASE`, `false` for `snake_case`
  * @return a `snake_case` or `SNAKE_CASE` version of the receiver string where the original capital
- *     letters are preceded by an underscore and all cases are uniform
+ *   letters are preceded by an underscore and all cases are uniform
  */
 fun String.snakeCase(uppercase: Boolean = false): String {
   val camelRegex = "(?<=[a-zA-Z])[A-Z]".toRegex()

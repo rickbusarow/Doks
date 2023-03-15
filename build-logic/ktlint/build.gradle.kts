@@ -49,6 +49,7 @@ dependencies {
   compileOnly(gradleApi())
 
   implementation(libs.google.auto.service.annotations)
+  implementation(libs.jetbrains.markdown)
   implementation(libs.jmailen.kotlinter)
   implementation(libs.kotlin.compiler)
   implementation(libs.kotlin.reflect)

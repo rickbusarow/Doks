@@ -18,8 +18,8 @@ package com.rickbusarow.docusync.internal
 import java.io.File
 
 /**
- * Walks up the tree until [parentFile][File.getParentFile] is null.
- * The first element is the immediate parent of the receiver, and the last is the root.
+ * Walks up the tree until [parentFile][File.getParentFile] is null. The first element is the immediate
+ * parent of the receiver, and the last is the root.
  */
 fun File.parents(): Sequence<File> = generateSequence(this) { parentFile }
 
@@ -28,6 +28,7 @@ fun File.parents(): Sequence<File> = generateSequence(this) { parentFile }
  *
  * For example, given a receiver File path of './a/b/c/' and a `relativePath` of 'foo/bar.txt', this
  * function will attempt to resolve the following paths in order:
+ *
  * ```text
  * ./a/b/c/foo/bar.txt
  * ./a/b/foo/bar.txt
@@ -35,8 +36,8 @@ fun File.parents(): Sequence<File> = generateSequence(this) { parentFile }
  * ./foo/bar.txt
  * ```
  *
- * @returns the first path to contain an [existent][File.exists] File for [relativePath], or `null` if
- *     it could not be resolved
+ * @returns the first path to contain an [existent][File.exists] File for [relativePath], or `null`
+ *   if it could not be resolved
  * @see resolveInParent for a version which throws if nothing is resolved
  */
 fun File.resolveInParentOrNull(relativePath: String): File? {
@@ -65,7 +66,7 @@ fun File.existsOrNull(): File? = takeIf { it.exists() }
 
 /**
  * @return true if the receiver [File] is a directory with at least one child file which satisfies
- *     [childPredicate]
+ *   [childPredicate]
  */
 fun File.isDirectoryWithFiles(
   childPredicate: (File) -> Boolean = { it.exists() }

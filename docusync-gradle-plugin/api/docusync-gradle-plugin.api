@@ -1,5 +1,5 @@
 public final class com/rickbusarow/docusync/DocusyncEngine : java/io/Serializable {
-	public fun <init> (Lcom/rickbusarow/docusync/RuleCache;Z)V
+	public fun <init> (Lcom/rickbusarow/docusync/Rules;Z)V
 	public final fun run (Ljava/io/File;)Z
 	public final fun run (Ljava/util/List;)Z
 }
@@ -26,16 +26,15 @@ public final class com/rickbusarow/docusync/Position$Companion {
 
 public final class com/rickbusarow/docusync/Rule : java/io/Serializable {
 	public static final field Companion Lcom/rickbusarow/docusync/Rule$Companion;
-	public synthetic fun <init> (ILjava/lang/String;Lkotlin/text/Regex;Ljava/lang/String;Lkotlinx/serialization/internal/SerializationConstructorMarker;)V
-	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
-	public fun <init> (Ljava/lang/String;Lkotlin/text/Regex;Ljava/lang/String;)V
-	public final fun component1 ()Ljava/lang/String;
+	public synthetic fun <init> (ILjava/lang/String;Lkotlin/text/Regex;Ljava/lang/String;Lkotlinx/serialization/internal/SerializationConstructorMarker;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (Ljava/lang/String;Lkotlin/text/Regex;Ljava/lang/String;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1-OSd3USU ()Ljava/lang/String;
 	public final fun component2 ()Lkotlin/text/Regex;
 	public final fun component3 ()Ljava/lang/String;
-	public final fun copy (Ljava/lang/String;Lkotlin/text/Regex;Ljava/lang/String;)Lcom/rickbusarow/docusync/Rule;
-	public static synthetic fun copy$default (Lcom/rickbusarow/docusync/Rule;Ljava/lang/String;Lkotlin/text/Regex;Ljava/lang/String;ILjava/lang/Object;)Lcom/rickbusarow/docusync/Rule;
+	public final fun copy-ydGIGY4 (Ljava/lang/String;Lkotlin/text/Regex;Ljava/lang/String;)Lcom/rickbusarow/docusync/Rule;
+	public static synthetic fun copy-ydGIGY4$default (Lcom/rickbusarow/docusync/Rule;Ljava/lang/String;Lkotlin/text/Regex;Ljava/lang/String;ILjava/lang/Object;)Lcom/rickbusarow/docusync/Rule;
 	public fun equals (Ljava/lang/Object;)Z
-	public final fun getName ()Ljava/lang/String;
+	public final fun getName-OSd3USU ()Ljava/lang/String;
 	public final fun getRegex ()Lkotlin/text/Regex;
 	public final fun getReplacement ()Ljava/lang/String;
 	public fun hashCode ()I
@@ -58,9 +57,64 @@ public final class com/rickbusarow/docusync/Rule$Companion {
 	public final fun serializer ()Lkotlinx/serialization/KSerializer;
 }
 
-public final class com/rickbusarow/docusync/RuleCache : java/io/Serializable {
-	public fun <init> (Ljava/util/List;)V
-	public final fun get (Ljava/io/File;)Ljava/util/Map;
+public final class com/rickbusarow/docusync/RuleName : java/io/Serializable, java/lang/Comparable {
+	public static final field Companion Lcom/rickbusarow/docusync/RuleName$Companion;
+	public static final synthetic fun box-impl (Ljava/lang/String;)Lcom/rickbusarow/docusync/RuleName;
+	public synthetic fun compareTo (Ljava/lang/Object;)I
+	public fun compareTo-ernU6Wo (Ljava/lang/String;)I
+	public static fun compareTo-ernU6Wo (Ljava/lang/String;Ljava/lang/String;)I
+	public static fun constructor-impl (Ljava/lang/String;)Ljava/lang/String;
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl (Ljava/lang/String;Ljava/lang/Object;)Z
+	public static final fun equals-impl0 (Ljava/lang/String;Ljava/lang/String;)Z
+	public final fun getValue ()Ljava/lang/String;
+	public fun hashCode ()I
+	public static fun hashCode-impl (Ljava/lang/String;)I
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl (Ljava/lang/String;)Ljava/lang/String;
+	public final synthetic fun unbox-impl ()Ljava/lang/String;
+}
+
+public final class com/rickbusarow/docusync/RuleName$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lcom/rickbusarow/docusync/RuleName$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun deserialize-2n-Wqrk (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/String;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun serialize-r9jAnGk (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/String;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/rickbusarow/docusync/RuleName$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/rickbusarow/docusync/Rules : java/io/Serializable {
+	public fun <init> (Ljava/util/Map;)V
+	public final fun get-ernU6Wo (Ljava/lang/String;)Lcom/rickbusarow/docusync/Rule;
+	public final fun getNames ()Ljava/util/List;
+	public final fun getOrNull-ernU6Wo (Ljava/lang/String;)Lcom/rickbusarow/docusync/Rule;
+	public final fun hasName-ernU6Wo (Ljava/lang/String;)Z
+}
+
+public abstract class com/rickbusarow/docusync/gradle/DocusyncDocsTask : com/rickbusarow/docusync/gradle/DocusyncTask {
+	public fun <init> (Lorg/gradle/workers/WorkerExecutor;Lorg/gradle/api/model/ObjectFactory;)V
+	public final fun execute (Lorg/gradle/work/InputChanges;)V
+	public final fun getAutoCorrect ()Z
+	public abstract fun getDocs ()Lorg/gradle/api/file/ConfigurableFileCollection;
+	public abstract fun getRuleBuilders ()Lorg/gradle/api/NamedDomainObjectContainer;
+	public final fun setAutoCorrect (Z)V
+}
+
+public abstract interface class com/rickbusarow/docusync/gradle/DocusyncDocsTask$DocsParameters : org/gradle/workers/WorkParameters {
+	public abstract fun getDocusyncEngine ()Lorg/gradle/api/provider/Property;
+	public abstract fun getFile ()Lorg/gradle/api/file/RegularFileProperty;
+}
+
+public abstract class com/rickbusarow/docusync/gradle/DocusyncDocsTask$DocsWorkAction : org/gradle/workers/WorkAction {
+	public fun <init> ()V
+	public fun execute ()V
 }
 
 public abstract class com/rickbusarow/docusync/gradle/DocusyncExtension : java/io/Serializable {
@@ -68,11 +122,6 @@ public abstract class com/rickbusarow/docusync/gradle/DocusyncExtension : java/i
 	public final fun docSet (Ljava/lang/String;Lorg/gradle/api/Action;)Lorg/gradle/api/NamedDomainObjectProvider;
 	public static synthetic fun docSet$default (Lcom/rickbusarow/docusync/gradle/DocusyncExtension;Ljava/lang/String;Lorg/gradle/api/Action;ILjava/lang/Object;)Lorg/gradle/api/NamedDomainObjectProvider;
 	public abstract fun getSourceSets ()Lorg/gradle/api/NamedDomainObjectContainer;
-}
-
-public abstract interface class com/rickbusarow/docusync/gradle/DocusyncParams : org/gradle/workers/WorkParameters {
-	public abstract fun getDocusyncEngine ()Lorg/gradle/api/provider/Property;
-	public abstract fun getFile ()Lorg/gradle/api/file/RegularFileProperty;
 }
 
 public abstract class com/rickbusarow/docusync/gradle/DocusyncPlugin : org/gradle/api/Plugin {
@@ -91,17 +140,7 @@ public abstract class com/rickbusarow/docusync/gradle/DocusyncSourceSet : java/i
 }
 
 public abstract class com/rickbusarow/docusync/gradle/DocusyncTask : org/gradle/api/DefaultTask {
-	public fun <init> (Lorg/gradle/workers/WorkerExecutor;Lorg/gradle/api/model/ObjectFactory;)V
-	public final fun execute (Lorg/gradle/work/InputChanges;)V
-	public final fun getAutoCorrect ()Z
-	public abstract fun getDocs ()Lorg/gradle/api/file/ConfigurableFileCollection;
-	public abstract fun getRuleBuilders ()Lorg/gradle/api/NamedDomainObjectContainer;
-	public final fun setAutoCorrect (Z)V
-}
-
-public abstract class com/rickbusarow/docusync/gradle/DocusyncWorkAction : org/gradle/workers/WorkAction {
-	public fun <init> ()V
-	public fun execute ()V
+	public fun <init> (Ljava/lang/String;)V
 }
 
 public abstract class com/rickbusarow/docusync/gradle/RuleBuilderScope : java/io/Serializable, org/gradle/api/Named {

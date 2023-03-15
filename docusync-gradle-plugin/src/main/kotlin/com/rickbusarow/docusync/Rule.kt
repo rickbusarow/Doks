@@ -25,23 +25,23 @@ import org.intellij.lang.annotations.Language
 /**
  * Models a single replacement action very much like the [Regex] version of [String.replace]
  *
- * @property name a unique identifier for this replacement. It can be any arbitrary string.
+ * @property name a unique identifier for this rule. It can be any arbitrary string.
  * @property regex supports normal Regex semantics including capturing groups like `(.*)`
  * @property replacement any combination of literal text and $-substitutions
  */
 @Serializable
 data class Rule(
-  val name: String,
+  val name: RuleName,
   val regex: Regex,
   val replacement: String
 ) : java.io.Serializable {
 
-  constructor(
+  internal constructor(
     name: String,
     @Language("RegExp")
     regex: String,
     replacement: String
-  ) : this(name, regex.toRegex(), replacement)
+  ) : this(RuleName(name), regex.toRegex(), replacement)
 
   override fun equals(other: Any?): Boolean {
     if (this === other) return true
@@ -59,5 +59,21 @@ data class Rule(
     result = 31 * result + regex.pattern.hashCode()
     result = 31 * result + replacement.hashCode()
     return result
+  }
+}
+
+/**
+ * A unique identifier for a [Rule]. It can be any arbitrary string.
+ *
+ * @property value the simple String representation of this name
+ */
+@Serializable
+@JvmInline
+value class RuleName(val value: String) :
+  java.io.Serializable,
+  Comparable<RuleName> {
+
+  override fun compareTo(other: RuleName): Int {
+    return value.compareTo(other.value)
   }
 }

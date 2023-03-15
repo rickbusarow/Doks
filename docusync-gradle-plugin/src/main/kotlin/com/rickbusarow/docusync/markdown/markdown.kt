@@ -15,7 +15,8 @@
 
 package com.rickbusarow.docusync.markdown
 
-import com.rickbusarow.docusync.Rule
+import com.rickbusarow.docusync.RuleName
+import com.rickbusarow.docusync.Rules
 import com.rickbusarow.docusync.internal.joinToStringConcat
 import java.io.File
 
@@ -26,7 +27,7 @@ internal val closeReg = """([\s\S]*?)(<!--\/docusync\s*?-->)([\s\S]*)""".toRegex
 
 internal fun String.markdown(
   absolutePath: String,
-  rules: Map<String, Rule>,
+  rules: Rules,
   autoCorrect: Boolean
 ): String {
 
@@ -68,9 +69,7 @@ internal fun String.markdown(
     val newBody = group.ruleConfigs
       .fold(group.body) { acc, ruleConfig ->
 
-        val name = ruleConfig.name
-
-        val rule = rules[name] ?: error("There is no defined rule for the name of '$name'")
+        val rule = rules[RuleName(ruleConfig.name)]
 
         val matches = rule.regex.findAll(acc).toList()
 
@@ -126,7 +125,7 @@ private fun List<MarkdownNode>.toMarkdownGroup(): MarkdownGroup {
 }
 
 internal fun File.markdown(
-  rules: Map<String, Rule>,
+  rules: Rules,
   autoCorrect: Boolean
 ): Boolean {
 

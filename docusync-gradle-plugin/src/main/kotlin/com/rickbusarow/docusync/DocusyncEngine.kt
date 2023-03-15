@@ -15,22 +15,16 @@
 
 package com.rickbusarow.docusync
 
-import com.charleskorn.kaml.SingleLineStringStyle.Plain
-import com.charleskorn.kaml.Yaml
-import com.charleskorn.kaml.YamlConfiguration
-import com.rickbusarow.docusync.internal.existsOrNull
 import com.rickbusarow.docusync.markdown.markdown
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.runBlocking
-import kotlinx.serialization.decodeFromString
 import java.io.File
-import java.util.concurrent.ConcurrentHashMap
 
 /** */
 class DocusyncEngine(
-  private val ruleCache: RuleCache,
+  private val ruleCache: Rules,
   private val autoCorrect: Boolean
 ) : java.io.Serializable {
 
@@ -41,7 +35,7 @@ class DocusyncEngine(
       async(Dispatchers.Default) {
 
         file.markdown(
-          rules = ruleCache.get(file),
+          rules = ruleCache,
           autoCorrect = autoCorrect
         )
       }
@@ -53,49 +47,8 @@ class DocusyncEngine(
   /** */
   fun run(file: File): Boolean {
     return file.markdown(
-      rules = ruleCache.get(file),
+      rules = ruleCache,
       autoCorrect = autoCorrect
     )
-  }
-}
-
-/** */
-class RuleCache(
-  globalRules: List<Rule>
-) : java.io.Serializable {
-
-  private val globalRulesMap = globalRules.associateBy { it.name }
-
-  @delegate:Transient
-  private val yaml: Yaml by lazy {
-    Yaml(configuration = YamlConfiguration(encodingIndentationSize = 2, singleLineStringStyle = Plain))
-  }
-
-  private val cache = ConcurrentHashMap<File, Lazy<Map<String, Rule>>>()
-
-  /**
-   * Parses the file tree for all [Rule]s defined in this directory and all parent directories.
-   */
-  fun get(file: File): Map<String, Rule> {
-
-    return if (file.isFile) {
-      file.parentFile?.let { get(it) }.orEmpty()
-    } else {
-      cache.computeIfAbsent(file) {
-        lazy {
-          val here = file.resolve("docusync.yml")
-            .existsOrNull()
-            ?.readText()
-            ?.let { yaml.decodeFromString<List<Rule>>(it) }
-            .orEmpty()
-            .associateBy { it.name }
-
-          val parentRules = file.parentFile?.let { get(it) }
-            ?: globalRulesMap
-
-          parentRules + here
-        }
-      }.value
-    }
   }
 }

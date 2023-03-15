@@ -54,16 +54,12 @@ module {
 
 dependencies {
 
-  api(libs.clikt)
-  api(libs.ec4j.core)
-  api(libs.kaml)
-
   compileOnly(gradleApi())
 
-  implementation(libs.google.ksp)
-  implementation(libs.java.diff.utils)
   implementation(libs.jetbrains.markdown)
   implementation(libs.kotlinx.coroutines.core)
+  implementation(libs.kotlinx.serialization.core)
+  implementation(libs.kotlinx.serialization.json)
 
   testImplementation(libs.junit.engine)
   testImplementation(libs.junit.jupiter)

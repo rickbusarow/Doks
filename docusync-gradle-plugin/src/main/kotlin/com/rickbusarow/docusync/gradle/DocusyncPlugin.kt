@@ -28,7 +28,7 @@ abstract class DocusyncPlugin : Plugin<Project> {
     target.extensions.create("docusync", DocusyncExtension::class.java)
 
     target.tasks.registerOnce<DocusyncDocsTask>("docusyncCheck") { it.autoCorrect = false }
-    target.tasks.registerOnce<DocusyncDocsTask>("docusyncFix") { it.autoCorrect = true }
+    target.tasks.registerOnce<DocusyncDocsTask>("docusync") { it.autoCorrect = true }
     target.tasks.registerOnce<DocusyncParseTask>("docusyncParse")
   }
 }

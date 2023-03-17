@@ -57,7 +57,7 @@ abstract class DocusyncExtension @Inject constructor(
     if (name != "main") {
       taskContainer.named("docusyncParse").dependsOn(parse)
       taskContainer.named("docusyncCheck").dependsOn(check)
-      taskContainer.named("docusyncFix").dependsOn(fix)
+      taskContainer.named("docusync").dependsOn(fix)
     }
 
     return sourceSets.register(name, action)

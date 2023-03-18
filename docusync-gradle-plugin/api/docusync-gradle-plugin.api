@@ -1,7 +1,24 @@
 public final class com/rickbusarow/docusync/DocusyncEngine : java/io/Serializable {
 	public fun <init> (Lcom/rickbusarow/docusync/Rules;Z)V
-	public final fun run (Ljava/io/File;)Z
-	public final fun run (Ljava/util/List;)Z
+	public final fun run (Ljava/io/File;)Lcom/rickbusarow/docusync/DocusyncEngine$FileResult;
+	public final fun run (Ljava/util/List;)Ljava/util/List;
+}
+
+public final class com/rickbusarow/docusync/DocusyncEngine$FileResult : java/io/Serializable {
+	public fun <init> (Ljava/io/File;ZLjava/lang/String;Ljava/lang/String;)V
+	public final fun component1 ()Ljava/io/File;
+	public final fun component2 ()Z
+	public final fun component3 ()Ljava/lang/String;
+	public final fun component4 ()Ljava/lang/String;
+	public final fun copy (Ljava/io/File;ZLjava/lang/String;Ljava/lang/String;)Lcom/rickbusarow/docusync/DocusyncEngine$FileResult;
+	public static synthetic fun copy$default (Lcom/rickbusarow/docusync/DocusyncEngine$FileResult;Ljava/io/File;ZLjava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lcom/rickbusarow/docusync/DocusyncEngine$FileResult;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getChanged ()Z
+	public final fun getFile ()Ljava/io/File;
+	public final fun getNewText ()Ljava/lang/String;
+	public final fun getOldText ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
 }
 
 public final class com/rickbusarow/docusync/Position : java/lang/Comparable {
@@ -103,19 +120,8 @@ public abstract class com/rickbusarow/docusync/gradle/DocusyncDocsTask : com/ric
 	public final fun execute (Lorg/gradle/work/InputChanges;)V
 	public final fun getAutoCorrect ()Z
 	public abstract fun getDocs ()Lorg/gradle/api/file/ConfigurableFileCollection;
-	public abstract fun getRuleBuilders ()Lorg/gradle/api/NamedDomainObjectContainer;
 	public abstract fun getSamplesMapping ()Lorg/gradle/api/file/RegularFileProperty;
 	public final fun setAutoCorrect (Z)V
-}
-
-public abstract interface class com/rickbusarow/docusync/gradle/DocusyncDocsTask$DocsParameters : org/gradle/workers/WorkParameters {
-	public abstract fun getDocusyncEngine ()Lorg/gradle/api/provider/Property;
-	public abstract fun getFile ()Lorg/gradle/api/file/RegularFileProperty;
-}
-
-public abstract class com/rickbusarow/docusync/gradle/DocusyncDocsTask$DocsWorkAction : org/gradle/workers/WorkAction {
-	public fun <init> ()V
-	public fun execute ()V
 }
 
 public abstract class com/rickbusarow/docusync/gradle/DocusyncExtension : java/io/Serializable {
@@ -138,14 +144,14 @@ public abstract class com/rickbusarow/docusync/gradle/DocusyncPlugin : org/gradl
 	public fun apply (Lorg/gradle/api/Project;)V
 }
 
-public abstract class com/rickbusarow/docusync/gradle/DocusyncSourceSet : java/io/Serializable, org/gradle/api/Named {
-	public fun <init> ()V
+public abstract class com/rickbusarow/docusync/gradle/DocusyncSourceSet : com/rickbusarow/docusync/gradle/RuleFactory, java/io/Serializable {
+	public fun <init> (Ljava/lang/String;)V
 	public final fun docs ([Ljava/lang/Object;)V
 	public abstract fun getDocs ()Lorg/gradle/api/file/ConfigurableFileCollection;
-	public abstract fun getRules ()Lorg/gradle/api/NamedDomainObjectContainer;
+	public final fun getName ()Ljava/lang/String;
 	public abstract fun getSampleCodeSource ()Lorg/gradle/api/file/ConfigurableFileCollection;
-	public final fun rule (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lorg/gradle/api/NamedDomainObjectProvider;
-	public final fun rule (Ljava/lang/String;Lorg/gradle/api/Action;)Lorg/gradle/api/NamedDomainObjectProvider;
+	public fun rule (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lorg/gradle/api/NamedDomainObjectProvider;
+	public fun rule (Ljava/lang/String;Lorg/gradle/api/Action;)Lorg/gradle/api/NamedDomainObjectProvider;
 }
 
 public abstract class com/rickbusarow/docusync/gradle/DocusyncTask : org/gradle/api/DefaultTask {
@@ -163,12 +169,26 @@ public abstract class com/rickbusarow/docusync/gradle/RuleBuilderScope : java/io
 	public final fun getSEMVER ()Ljava/lang/String;
 	public final fun getSEMVER_STABLE ()Ljava/lang/String;
 	public final fun getSourceDelim ()C
+	public final fun gradlePlugin (Ljava/lang/String;)Ljava/lang/String;
+	public final fun gradlePluginWithVersion (Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+	public static synthetic fun gradlePluginWithVersion$default (Lcom/rickbusarow/docusync/gradle/RuleBuilderScope;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Ljava/lang/String;
 	public final fun maven (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
 	public static synthetic fun maven$default (Lcom/rickbusarow/docusync/gradle/RuleBuilderScope;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Ljava/lang/String;
 	public abstract fun setRegex (Ljava/lang/String;)V
 	public abstract fun setReplacement (Ljava/lang/String;)V
 	public final fun sourceCode (Ljava/lang/String;ZLjava/lang/String;Ljava/lang/String;)Ljava/lang/String;
 	public static synthetic fun sourceCode$default (Lcom/rickbusarow/docusync/gradle/RuleBuilderScope;Ljava/lang/String;ZLjava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Ljava/lang/String;
+}
+
+public abstract interface class com/rickbusarow/docusync/gradle/RuleFactory : java/io/Serializable {
+	public abstract fun getRules ()Lorg/gradle/api/NamedDomainObjectContainer;
+	public abstract fun rule (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lorg/gradle/api/NamedDomainObjectProvider;
+	public abstract fun rule (Ljava/lang/String;Lorg/gradle/api/Action;)Lorg/gradle/api/NamedDomainObjectProvider;
+}
+
+public final class com/rickbusarow/docusync/gradle/RuleFactory$DefaultImpls {
+	public static fun rule (Lcom/rickbusarow/docusync/gradle/RuleFactory;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lorg/gradle/api/NamedDomainObjectProvider;
+	public static fun rule (Lcom/rickbusarow/docusync/gradle/RuleFactory;Ljava/lang/String;Lorg/gradle/api/Action;)Lorg/gradle/api/NamedDomainObjectProvider;
 }
 
 public final class com/rickbusarow/docusync/gradle/internal/ProjectKt {
@@ -238,12 +258,16 @@ public final class com/rickbusarow/docusync/internal/FileAsStringSerializer : ko
 }
 
 public final class com/rickbusarow/docusync/internal/FileKt {
+	public static final fun createSafely (Ljava/io/File;Ljava/lang/String;)Ljava/io/File;
+	public static synthetic fun createSafely$default (Ljava/io/File;Ljava/lang/String;ILjava/lang/Object;)Ljava/io/File;
 	public static final fun existsOrNull (Ljava/io/File;)Ljava/io/File;
 	public static final fun hasGradleProjectFiles (Ljava/io/File;)Z
 	public static final fun isDirectoryWithFiles (Ljava/io/File;Lkotlin/jvm/functions/Function1;)Z
 	public static synthetic fun isDirectoryWithFiles$default (Ljava/io/File;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Z
 	public static final fun isOrphanedBuildOrGradleDir (Ljava/io/File;)Z
 	public static final fun isOrphanedGradleProperties (Ljava/io/File;)Z
+	public static final fun makeParentDir (Ljava/io/File;)Ljava/io/File;
+	public static final fun mkdirsInline (Ljava/io/File;)Ljava/io/File;
 	public static final fun parents (Ljava/io/File;)Lkotlin/sequences/Sequence;
 	public static final fun resolveInParent (Ljava/io/File;Ljava/lang/String;)Ljava/io/File;
 	public static final fun resolveInParentOrNull (Ljava/io/File;Ljava/lang/String;)Ljava/io/File;

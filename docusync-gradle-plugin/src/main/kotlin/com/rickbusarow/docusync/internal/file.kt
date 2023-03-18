@@ -21,7 +21,43 @@ import java.io.File
  * Walks up the tree until [parentFile][File.getParentFile] is null. The first element is the immediate
  * parent of the receiver, and the last is the root.
  */
-fun File.parents(): Sequence<File> = generateSequence(this) { parentFile }
+fun File.parents(): Sequence<File> = generateSequence(this) { it.parentFile }
+
+/**
+ * Makes parent directories, then creates the receiver file. If a [content] argument was provided, it
+ * will be written to the newly-created file. If the file already existed, its content will be
+ * overwritten.
+ *
+ * @since 0.10.0
+ */
+fun File.createSafely(content: String? = null): File = apply {
+  if (content != null) {
+    makeParentDir().writeText(content)
+  } else {
+    makeParentDir().createNewFile()
+  }
+}
+
+/**
+ * Creates the directories if they don't already exist.
+ *
+ * @see File.mkdirs
+ * @see File.makeParentDir
+ */
+fun File.mkdirsInline(): File = apply(File::mkdirs)
+
+/**
+ * Creates the parent directory if it doesn't already exist.
+ *
+ * @see File.mkdirsInline
+ * @see File.mkdirs
+ */
+fun File.makeParentDir(): File = apply {
+  val fileParent = parentFile.requireNotNull {
+    "File's `parentFile` must not be null."
+  }
+  fileParent.mkdirs()
+}
 
 /**
  * Walks upward in the file tree, looking for a directory which will resolve [relativePath].

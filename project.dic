@@ -12,6 +12,7 @@ autonomousapps
 bluey
 burrunan
 cacheability
+charleskorn
 clikt
 descriptorpb
 docusync
@@ -19,8 +20,11 @@ fakefilesystem
 freshmark
 jmailen
 johnrengelman
+kaml
 kotest
 ktlint
+mainwave
+markwhitaker
 modulecheck
 onboarding
 oneof
@@ -28,5 +32,6 @@ oneofs
 protos
 rbusarow
 reactivecircus
+regextoolboxkotlin
 rickbusarow
 vanniktech

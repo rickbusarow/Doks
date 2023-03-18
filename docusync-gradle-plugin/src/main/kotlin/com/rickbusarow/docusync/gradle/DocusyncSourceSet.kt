@@ -15,53 +15,38 @@
 
 package com.rickbusarow.docusync.gradle
 
-import org.gradle.api.Action
-import org.gradle.api.Named
-import org.gradle.api.NamedDomainObjectContainer
-import org.gradle.api.NamedDomainObjectProvider
 import org.gradle.api.file.ConfigurableFileCollection
-import org.intellij.lang.annotations.Language
+import javax.inject.Inject
 
-/** */
-abstract class DocusyncSourceSet : Named, java.io.Serializable {
+/**
+ * An abstract source set for docusync documentation and sample code. Provides a [RuleFactory] to allow
+ * for the creation of rules to be applied to the source set's documentation.
+ *
+ * @property name any arbitrary unique name, like "main" or "tutorials"
+ */
+abstract class DocusyncSourceSet @Inject constructor(
+  val name: String
+) : RuleFactory, java.io.Serializable {
 
-  /** */
+  /**
+   * The documentation files in this source set. This is a [ConfigurableFileCollection], meaning that
+   * it can be dynamically configured.
+   */
   abstract val docs: ConfigurableFileCollection
 
-  /** */
+  /**
+   * The sample code sources for this source set. This is a [ConfigurableFileCollection], meaning that
+   * it can be dynamically configured.
+   */
   abstract val sampleCodeSource: ConfigurableFileCollection
-
-  /** */
-  abstract val rules: NamedDomainObjectContainer<RuleBuilderScope>
 
   /**
    * Adds a set of document paths to this source set. The given paths are evaluated as per
-   * [Project.files].
+   * [Project.files][org.gradle.api.Project.files].
    *
    * @param paths The files to add.
-   * @return this
    */
   fun docs(vararg paths: Any) {
     docs.from(*paths)
-  }
-
-  /** */
-  fun rule(
-    name: String,
-    action: Action<RuleBuilderScope>
-  ): NamedDomainObjectProvider<RuleBuilderScope> {
-    return rules.register(name) { action.execute(it) }
-  }
-
-  /** */
-  fun rule(
-    name: String,
-    @Language("regexp") regex: String,
-    replacement: String
-  ): NamedDomainObjectProvider<RuleBuilderScope> {
-    return rules.register(name) {
-      it.regex = regex
-      it.replacement = replacement
-    }
   }
 }

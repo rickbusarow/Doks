@@ -35,7 +35,7 @@ johnrengelman-shadow = "8.1.0"
 jdk = "11"
 # the jdk used in packaging
 jvmTarget = "1.8"
-kaml = "0.52.0"
+kaml = "0.53.0"
 kct = "1.5.0"
 knit = "0.4.0"
 kotest = "5.5.5"

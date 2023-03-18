@@ -29,7 +29,7 @@ class DocusyncEngine(
 ) : java.io.Serializable {
 
   /** */
-  fun run(files: List<File>): Boolean = runBlocking {
+  fun run(files: List<File>): List<FileResult> = runBlocking {
 
     files.map { file ->
       async(Dispatchers.Default) {
@@ -41,14 +41,26 @@ class DocusyncEngine(
       }
     }
       .awaitAll()
-      .all { it }
   }
 
   /** */
-  fun run(file: File): Boolean {
+  fun run(file: File): FileResult {
     return file.markdown(
       rules = ruleCache,
       autoCorrect = autoCorrect
     )
   }
+
+  /**
+   * @property file the targeted file
+   * @property changed true if [oldText] and [newText] are different
+   * @property oldText the original contents of the file
+   * @property newText the new contents of the file
+   */
+  data class FileResult(
+    val file: File,
+    val changed: Boolean,
+    val oldText: String,
+    val newText: String
+  ) : java.io.Serializable
 }

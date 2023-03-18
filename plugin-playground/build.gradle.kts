@@ -28,15 +28,25 @@ docusync {
       }
     )
 
-    sampleCodeSource.from(fileTree(projectDir.resolve("src/main/kotlin")))
+    sampleCodeSource.from(fileTree(projectDir.resolve("../docusync-gradle-plugin/src/main/kotlin")))
+
+    rule("cats-to-dogs") {
+      regex = "cat"
+      replacement = "dog"
+    }
+
+    rule("dogs-to-cats") {
+      regex = maven()
+      replacement = "cat"
+    }
 
     rule("code") {
 
       replacement = sourceCode(
-        fqName = "com.example.foo.MyPlugin",
+        fqName = "com.rickbusarow.docusync.gradle.DocusyncTask",
         bodyOnly = true,
         codeBlockLanguage = "kotlin",
-        remark = "title=\"build.gradle.kts\""
+        attributes = "title=\"build.gradle.kts\""
       )
     }
   }
@@ -52,13 +62,16 @@ val createDocs by tasks.registering {
 
     root.mkdirs()
 
-    repeat(5) {
+    repeat(5) { i ->
+      repeat(5) { j ->
 
-      val file = root.resolve("markdown_$it.md")
+        val file = root.resolve("$i/markdown_$j.md")
 
-      file.writeText(
-        """
-        ## My File $it
+        root.resolve("$i").mkdirs()
+
+        file.writeText(
+          """
+        ## My File $j
 
         <!--docusync cats-to-dogs,dogs-to-cats-->
 
@@ -75,13 +88,10 @@ val createDocs by tasks.registering {
         <!--/docusync-->
 
         <!--docusync code-->
-
         <!--/docusync-->
-
-        <!--docusync code2-->
-        <!--/docusync-->
-        """.trimIndent()
-      )
+          """.trimIndent()
+        )
+      }
     }
   }
 }

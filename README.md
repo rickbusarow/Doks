@@ -8,8 +8,6 @@ documentation for your project. Built as a Gradle plugin, Docusync allows you to
 regex-based search-and-replace rules and extract code samples from source code,
 all within your markdown (or other supported language) documentation.
 
-<!--- TOC -->
-
 - [Installation](#installation)
 - [Usage](#usage)
   - [Defining search-and-replace rules](#defining-search-and-replace-rules)
@@ -19,8 +17,6 @@ all within your markdown (or other supported language) documentation.
     - [docusyncCheck](#docusynccheck)
 - [Contributing](#contributing)
 - [License](#license)
-
-<!--- END -->
 
 ### Installation
 

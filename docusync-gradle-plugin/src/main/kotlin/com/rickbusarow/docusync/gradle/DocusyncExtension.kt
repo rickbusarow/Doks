@@ -15,15 +15,11 @@
 
 package com.rickbusarow.docusync.gradle
 
-import com.rickbusarow.docusync.gradle.internal.dependsOn
-import com.rickbusarow.docusync.gradle.internal.registerOnce
-import com.rickbusarow.docusync.internal.capitalize
 import org.gradle.api.Action
 import org.gradle.api.NamedDomainObjectContainer
 import org.gradle.api.NamedDomainObjectProvider
 import org.gradle.api.file.ProjectLayout
 import org.gradle.api.tasks.TaskContainer
-import org.gradle.api.tasks.TaskProvider
 import javax.inject.Inject
 
 /** */
@@ -35,86 +31,32 @@ abstract class DocusyncExtension @Inject constructor(
   /** */
   abstract val sourceSets: NamedDomainObjectContainer<DocusyncSourceSet>
 
-  /** */
+  private val taskFactory: DocusyncTaskFactory by lazy {
+    DocusyncTaskFactory(
+      taskContainer = taskContainer,
+      layout = layout
+    )
+  }
+
+  /**
+   * Convenience method for defining a new [DocusyncSourceSet].
+   *
+   * @param name The name of the new source set. Defaults to "main".
+   * @param action The configuration action for the new source set.
+   * @return The provider for the new source set.
+   */
   fun docSet(
     name: String = "main",
     action: Action<DocusyncSourceSet>
   ): NamedDomainObjectProvider<DocusyncSourceSet> {
 
-    val parse = registerParseTask(name)
-
-    val check = registerDocsTask(
-      docSetName = name,
-      autoCorrect = false,
-      parseTask = parse
-    )
-    val fix = registerDocsTask(
-      docSetName = name,
-      autoCorrect = true,
-      parseTask = parse
-    )
-
-    if (name != "main") {
-      taskContainer.named("docusyncParse").dependsOn(parse)
-      taskContainer.named("docusyncCheck").dependsOn(check)
-      taskContainer.named("docusync").dependsOn(fix)
-    }
-
     return sourceSets.register(name, action)
-  }
+      .also { sourceSet ->
 
-  private fun registerParseTask(docSetName: String): TaskProvider<DocusyncParseTask> {
-    return taskContainer.registerOnce("docusyncParse", DocusyncParseTask::class.java) { task ->
-
-      task.sampleCode.from(
-        sourceSets.named(docSetName).map(DocusyncSourceSet::sampleCodeSource)
-      )
-
-      task.sampleRequests.addAll(
-        sourceSets.named(docSetName)
-          .map { docsSet ->
-
-            docsSet.rules.flatMap { it.sampleRequests }
-          }
-      )
-
-      task.samplesMapping.set(layout.buildDirectory.file("tmp/docusync/samples_$docSetName.json"))
-    }
-  }
-
-  private fun registerDocsTask(
-    docSetName: String,
-    autoCorrect: Boolean,
-    parseTask: TaskProvider<DocusyncParseTask>
-  ): TaskProvider<DocusyncDocsTask> {
-
-    val suffix = if (autoCorrect) "Fix" else "Check"
-
-    val taskName = when (docSetName) {
-      "main" -> "docusync$suffix"
-      else -> "docusync${docSetName.capitalize()}$suffix"
-    }
-
-    return taskContainer.registerOnce(taskName, DocusyncDocsTask::class.java) { task ->
-
-      task.autoCorrect = autoCorrect
-
-      task.group = "Docusync"
-      task.description = if (autoCorrect) {
-        "Automatically fixes any out-of-date documentation."
-      } else {
-        "Searches for any out-of-date documentation and fails if it finds any."
+        taskFactory.registerAll(
+          name = name,
+          sourceSet = sourceSet
+        )
       }
-
-      val docsSet = sourceSets.getByName(docSetName)
-
-      task.samplesMapping.set(parseTask.get().samplesMapping)
-
-      task.docs.from(docsSet.docs)
-      task.ruleBuilders.addAll(docsSet.rules)
-
-      task.outputs.upToDateWhen { false }
-      // task.outputs.files(docsSet.docs.files)
-    }
   }
 }

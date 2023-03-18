@@ -15,6 +15,7 @@
 
 package com.rickbusarow.docusync.markdown
 
+import com.rickbusarow.docusync.DocusyncEngine.FileResult
 import com.rickbusarow.docusync.Rules
 import com.rickbusarow.docusync.internal.joinToStringConcat
 import java.io.File
@@ -126,7 +127,7 @@ private fun List<MarkdownNode>.toMarkdownSection(): MarkdownSection {
 internal fun File.markdown(
   rules: Rules,
   autoCorrect: Boolean
-): Boolean {
+): FileResult {
 
   require(extension == "md" || extension == "mdx") {
     "This file doesn't seem to be markdown: file://$absolutePath"
@@ -145,7 +146,12 @@ internal fun File.markdown(
     writeText(new)
     println("wrote changes to file://$path")
   }
-  return changed
+  return FileResult(
+    file = this,
+    changed = changed,
+    oldText = old,
+    newText = new
+  )
 }
 
 /**

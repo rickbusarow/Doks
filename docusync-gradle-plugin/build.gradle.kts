@@ -14,6 +14,7 @@
  */
 
 import builds.VERSION_NAME
+import builds.isRealRootProject
 
 plugins {
   id("module")
@@ -56,12 +57,20 @@ dependencies {
 
   compileOnly(gradleApi())
 
-  implementation(libs.jetbrains.markdown)
   implementation(libs.kotlin.compiler)
-  implementation(libs.kotlinx.coroutines.core)
-  implementation(libs.kotlinx.serialization.core)
-  implementation(libs.kotlinx.serialization.json)
 
+  val mainConfig = if (rootProject.isRealRootProject()) {
+    shade.name
+  } else {
+    "implementation"
+  }
+
+  mainConfig(libs.jetbrains.markdown)
+  mainConfig(libs.kotlinx.coroutines.core)
+  mainConfig(libs.kotlinx.serialization.core)
+  mainConfig(libs.kotlinx.serialization.json)
+
+  testImplementation(libs.jetbrains.markdown)
   testImplementation(libs.junit.engine)
   testImplementation(libs.junit.jupiter)
   testImplementation(libs.junit.jupiter.api)
@@ -72,4 +81,7 @@ dependencies {
   testImplementation(libs.kotest.common)
   testImplementation(libs.kotest.extensions)
   testImplementation(libs.kotest.property.jvm)
+  testImplementation(libs.kotlinx.coroutines.core)
+  testImplementation(libs.kotlinx.serialization.core)
+  testImplementation(libs.kotlinx.serialization.json)
 }

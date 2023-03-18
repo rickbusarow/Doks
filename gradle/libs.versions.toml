@@ -211,6 +211,7 @@ ktlint-ruleset-experimental = { module = "com.pinterest.ktlint:ktlint-ruleset-ex
 ktlint-ruleset-standard = { module = "com.pinterest.ktlint:ktlint-ruleset-standard", version.ref = "ktlint-lib" }
 ktlint-test = { module = "com.pinterest.ktlint:ktlint-test", version.ref = "ktlint-lib" }
 
+
 rickBusarow-moduleCheck-gradle-plugin = { module = "com.rickbusarow.modulecheck:plugin", version.ref = "rickBusarow-moduleCheck" }
 
 slf4j-api = { module = "org.slf4j:slf4j-api", version.ref = "slf4j" }

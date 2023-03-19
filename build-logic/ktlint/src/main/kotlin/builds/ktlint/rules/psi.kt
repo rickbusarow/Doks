@@ -15,10 +15,13 @@
 
 package builds.ktlint.rules
 
+import org.jetbrains.kotlin.com.intellij.psi.PsiElement
 import org.jetbrains.kotlin.kdoc.psi.api.KDoc
 import org.jetbrains.kotlin.kdoc.psi.impl.KDocTag
 import org.jetbrains.kotlin.psi.psiUtil.collectDescendantsOfType
+import org.jetbrains.kotlin.psi.psiUtil.getNonStrictParentOfType
 import org.jetbrains.kotlin.psi.psiUtil.startOffset
+import java.util.LinkedList
 
 internal fun KDoc.getAllTags(): List<KDocTag> {
   return collectDescendantsOfType<KDocTag>()
@@ -41,4 +44,55 @@ internal fun KDoc.findIndent(): String {
     }
     .first()
   return " ".repeat(numSpaces)
+}
+
+internal fun PsiElement.depthFirst(): Sequence<PsiElement> {
+
+  val toVisit = LinkedList(children.toList())
+
+  return generateSequence(toVisit::removeFirstOrNull) { node ->
+
+    repeat(node.children.lastIndex + 1) {
+      toVisit.addFirst(node.children[node.children.lastIndex - it])
+    }
+
+    toVisit.removeFirstOrNull()
+  }
+}
+
+internal inline fun PsiElement.depthFirst(
+  crossinline predicate: (PsiElement) -> Boolean
+): Sequence<PsiElement> {
+
+  val toVisit = LinkedList(children.filter(predicate))
+
+  return generateSequence(toVisit::removeFirstOrNull) { node ->
+
+    if (predicate(node)) {
+      val filtered = node.children.filter(predicate)
+
+      repeat(filtered.lastIndex + 1) {
+        toVisit.addFirst(filtered[filtered.lastIndex - it])
+      }
+
+      toVisit.removeFirstOrNull()
+    } else {
+      null
+    }
+  }
+}
+
+inline fun <reified T : PsiElement> PsiElement.isPartOf(): Boolean =
+  getNonStrictParentOfType<T>() != null
+
+inline fun <reified T : PsiElement> PsiElement.getChildrenOfTypeRecursive(): List<T> {
+  return generateSequence(children.asSequence()) { children ->
+    children.toList()
+      .flatMap { it.children.toList() }
+      .takeIf { it.isNotEmpty() }
+      ?.asSequence()
+  }
+    .flatten()
+    .filterIsInstance<T>()
+    .toList()
 }

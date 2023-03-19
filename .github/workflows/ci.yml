@@ -9,16 +9,11 @@ env:
   ubuntuGradleArgs: "-Dorg.gradle.jvmargs=-Xmx5g -Dfile.encoding=UTF-8 -XX:+UseParallelGC"
   windowsGradleArgs: "-Dorg.gradle.jvmargs=-Xmx4g -Dfile.encoding=UTF-8 -XX:+UseParallelGC"
 
-jobs:
-  cancel-other-jobs:
-    runs-on: ubuntu-latest
+concurrency:
+  group: ci-${{ github.ref }}-${{ github.head_ref }}
+  cancel-in-progress: true
 
-    steps:
-      # cancel previous jobs
-      - name: Cancel Previous Runs
-        uses: styfle/cancel-workflow-action@0.11.0
-        env:
-          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+jobs:
 
   static-analysis:
     runs-on: ubuntu-latest

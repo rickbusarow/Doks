@@ -29,6 +29,7 @@ class DocusyncRuleSetProvider : RuleSetProviderV2(
 
   override fun getRuleProviders(): Set<RuleProvider> {
     return setOf(
+      RuleProvider { KDocLeadingAsteriskRule() },
       RuleProvider { KDocWrappingRule() },
       RuleProvider { NoDuplicateCopyrightHeaderRule() },
       RuleProvider { NoLeadingBlankLinesRule() },

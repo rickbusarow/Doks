@@ -63,7 +63,7 @@ outfoxx-swiftPoet = "1.4.3"
 outfoxx-typescriptPoet = "1.1.2"
 taskTree = "2.1.1"
 threetenbp = "1.6.7"
-vanniktech-publish = "0.24.0"
+vanniktech-publish = "0.25.1"
 versionCatalogUpdate = "0.8.0"
 
 [plugins]

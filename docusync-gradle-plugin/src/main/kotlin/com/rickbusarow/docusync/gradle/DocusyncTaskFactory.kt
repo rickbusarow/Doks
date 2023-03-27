@@ -17,7 +17,7 @@ package com.rickbusarow.docusync.gradle
 
 import com.rickbusarow.docusync.gradle.internal.dependsOn
 import com.rickbusarow.docusync.gradle.internal.registerOnce
-import com.rickbusarow.docusync.internal.capitalize
+import com.rickbusarow.docusync.internal.stdlib.capitalize
 import org.gradle.api.NamedDomainObjectProvider
 import org.gradle.api.file.ProjectLayout
 import org.gradle.api.file.RegularFile

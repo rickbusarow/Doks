@@ -18,8 +18,8 @@ package com.rickbusarow.docusync.gradle
 import com.rickbusarow.docusync.DocusyncEngine
 import com.rickbusarow.docusync.Rule
 import com.rickbusarow.docusync.Rules
-import com.rickbusarow.docusync.internal.createSafely
-import com.rickbusarow.docusync.internal.parents
+import com.rickbusarow.docusync.internal.stdlib.createSafely
+import com.rickbusarow.docusync.internal.stdlib.parents
 import com.rickbusarow.docusync.psi.DocusyncPsiFileFactory
 import com.rickbusarow.docusync.psi.NamedSamples
 import com.rickbusarow.docusync.psi.SampleRequest

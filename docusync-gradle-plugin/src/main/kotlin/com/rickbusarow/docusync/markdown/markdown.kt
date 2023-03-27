@@ -17,7 +17,7 @@ package com.rickbusarow.docusync.markdown
 
 import com.rickbusarow.docusync.DocusyncEngine.FileResult
 import com.rickbusarow.docusync.Rules
-import com.rickbusarow.docusync.internal.joinToStringConcat
+import com.rickbusarow.docusync.internal.stdlib.joinToStringConcat
 import java.io.File
 
 internal const val OPEN = "<!--docusync"

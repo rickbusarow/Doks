@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package com.rickbusarow.docusync.internal
+package com.rickbusarow.docusync.internal.stdlib
 
 import java.util.Locale
 

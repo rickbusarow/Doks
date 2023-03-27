@@ -15,8 +15,8 @@
 
 package com.rickbusarow.docusync.psi
 
-import com.rickbusarow.docusync.internal.joinToStringConcat
-import com.rickbusarow.docusync.internal.requireNotNull
+import com.rickbusarow.docusync.internal.stdlib.joinToStringConcat
+import com.rickbusarow.docusync.internal.stdlib.requireNotNull
 import com.rickbusarow.docusync.psi.LazyMap.Companion.toLazyMap
 import kotlinx.serialization.Serializable
 import org.jetbrains.kotlin.com.intellij.psi.PsiElement

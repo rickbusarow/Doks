@@ -17,106 +17,16 @@ package com.rickbusarow.docusync.gradle.internal
 
 import org.gradle.api.Action
 import org.gradle.api.DomainObjectCollection
-import org.gradle.api.Project
 import org.gradle.api.Task
 import org.gradle.api.tasks.TaskCollection
 import org.gradle.api.tasks.TaskContainer
 import org.gradle.api.tasks.TaskProvider
 
-/**
- * code golf for `matching { it.name == taskName }`
- */
-fun TaskContainer.matchingName(
-  taskName: String
-): TaskCollection<Task> = matching { it.name == taskName }
-
-/**
- * code golf for `withType<T>().matching { it.name == taskName }`
- */
-inline fun <reified T : Task> TaskContainer.matchingNameWithType(
-  taskName: String
-): TaskCollection<T> {
-  val collection = matching { it.name == taskName && it is T }
-  @Suppress("UNCHECKED_CAST")
-  return collection as TaskCollection<T>
-}
-
-/**
- * Finds all tasks named [taskName] in all projects. Does not throw if there are no tasks with that
- * name.
- *
- * @throws IllegalStateException if the project is not the root project
- */
-fun Project.allProjectsTasksMatchingName(taskName: String): List<TaskCollection<Task>> {
-  checkProjectIsRoot { "only call `allProjectsTasksMatchingName(...)` from the root project." }
-  return allprojects.map { proj -> proj.tasks.matchingName(taskName) }
-}
-
-/**
- * Finds all tasks named [taskName] in all projects. Does not throw if there are no tasks with that
- * name.
- *
- * @throws IllegalStateException if the project is not the root project
- */
-inline fun <reified T : Task> Project.allProjectsTasksMatchingNameWithType(taskName: String): List<TaskCollection<T>> {
-  checkProjectIsRoot { "only call `allProjectsTasksMatchingName(...)` from the root project." }
-  return allprojects
-    .map { proj -> proj.tasks.matchingNameWithType(taskName) }
-}
-
-/**
- * Finds all tasks named [taskName] in this project's subprojects. Does not throw if there are no tasks
- * with that name.
- */
-fun Project.subProjectsTasksMatchingName(taskName: String): List<TaskCollection<Task>> {
-  return subprojects.map { proj -> proj.tasks.matchingName(taskName) }
-}
-
-/**
- * Finds all tasks named [taskName] in this project's subprojects. Does not throw if there are no tasks
- * with that name.
- */
-inline fun <reified T : Task> Project.subProjectsTasksMatchingNameWithType(taskName: String): List<TaskCollection<T>> {
-  return subprojects
-    .map { proj -> proj.tasks.matchingNameWithType(taskName) }
-}
-
-/**
- * adds all [objects] as dependencies to every task in the collection, inside a `configureEach { }`
- */
-fun <T : Task> TaskCollection<T>.dependOn(vararg objects: Any): TaskCollection<T> {
-  return also { taskCollection ->
-    taskCollection.configureEach { task -> task.dependsOn(*objects) }
-  }
-}
-
-/**
- * adds all [objects] as dependencies inside a configuration block, inside a `configure { }`
- */
+/** adds all [objects] as dependencies inside a configuration block, inside a `configure { }` */
 fun <T : Task> TaskProvider<T>.dependsOn(vararg objects: Any): TaskProvider<T> {
   return also { provider ->
     provider.configure { task ->
       task.dependsOn(*objects)
-    }
-  }
-}
-
-/**
- * adds all [objects] as `mustRunAfter` to every task in the collection, inside a `configureEach { }`
- */
-fun <T : Task> TaskCollection<T>.mustRunAfter(vararg objects: Any): TaskCollection<T> {
-  return also { taskCollection ->
-    taskCollection.configureEach { task -> task.mustRunAfter(*objects) }
-  }
-}
-
-/**
- * adds all [objects] as `mustRunAfter` inside a configuration block, inside a `configure { }`
- */
-fun <T : Task> TaskProvider<T>.mustRunAfter(vararg objects: Any): TaskProvider<T> {
-  return also { provider ->
-    provider.configure { task ->
-      task.mustRunAfter(*objects)
     }
   }
 }
@@ -128,7 +38,7 @@ fun <T : Task> TaskProvider<T>.mustRunAfter(vararg objects: Any): TaskProvider<T
  * @param S The type of objects to find.
  * @param configuration The action to execute for each object in the resulting collection.
  * @return The matching objects. Returns an empty collection if there are no such objects in this
- *   collection.
+ *     collection.
  * @see [DomainObjectCollection.withType]
  */
 inline fun <reified S : Any> DomainObjectCollection<in S>.withType(
@@ -142,7 +52,7 @@ inline fun <reified S : Any> DomainObjectCollection<in S>.withType(
  *
  * @param S The type of objects to find.
  * @return The matching objects. Returns an empty collection if there are no such objects in this
- *   collection.
+ *     collection.
  * @see [DomainObjectCollection.withType]
  */
 inline fun <reified S : Any> DomainObjectCollection<in S>.withType(): DomainObjectCollection<S> =
@@ -155,7 +65,7 @@ inline fun <reified S : Any> DomainObjectCollection<in S>.withType(): DomainObje
  *
  * @param S The type of objects to find.
  * @return The matching objects. Returns an empty collection if there are no such objects in this
- *   collection.
+ *     collection.
  * @see [TaskCollection.withType]
  */
 inline fun <reified S : Task> TaskCollection<in S>.withType(): TaskCollection<S> =
@@ -190,12 +100,4 @@ internal fun <T : Task> TaskContainer.registerOnce(
   named(name, type, configurationAction)
 } else {
   register(name, type, configurationAction)
-}
-
-/**
- * @return the fully qualified name of this task's type, without any '_Decorated' suffix if one
- *   exists
- */
-internal fun Task.undecoratedTypeName(): String {
-  return javaClass.canonicalName.removeSuffix("_Decorated")
 }

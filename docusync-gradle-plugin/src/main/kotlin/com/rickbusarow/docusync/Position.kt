@@ -19,7 +19,7 @@ package com.rickbusarow.docusync
  * @property row starts at 0
  * @property column starts at 0
  */
-data class Position(
+internal data class Position(
   val row: Int,
   val column: Int
 ) : Comparable<Position> {

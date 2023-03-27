@@ -23,7 +23,7 @@ import kotlinx.serialization.UseSerializers
 import org.intellij.lang.annotations.Language
 
 /**
- * Models a single replacement action very much like the [Regex] version of [String.replace]
+ * Models a single replacement action very much like the [Regex] version of [CharSequence.replace]
  *
  * @property name a unique identifier for this rule. It can be any arbitrary string.
  * @property regex supports normal Regex semantics including capturing groups like `(.*)`
@@ -43,6 +43,16 @@ data class Rule(
     replacement: String
   ) : this(RuleName(name), regex.toRegex(), replacement)
 
+  /**
+   * @return a new string obtained by replacing each substring of the [original] `CharSequence` that
+   *   matches this [regex] regular expression with the [replacement].
+   * @see CharSequence.replace
+   */
+  fun replaceIn(original: CharSequence): String {
+    return original.replace(regex = regex, replacement = replacement)
+  }
+
+  @Suppress("RedundantIf")
   override fun equals(other: Any?): Boolean {
     if (this === other) return true
     if (other !is Rule) return false

@@ -31,7 +31,7 @@ package com.rickbusarow.docusync.psi
  * }
  * ```
  */
-class LazyMap<K, V>(
+internal class LazyMap<K, V>(
   private val compute: LazyMap<K, V>.(K) -> V
 ) {
 
@@ -163,7 +163,7 @@ class LazyMap<K, V>(
  * null
  * ```
  */
-fun <T> Sequence<T>.stateful(): Sequence<T> {
+internal fun <T> Sequence<T>.stateful(): Sequence<T> {
   val iterator = iterator()
   return Sequence { iterator }
 }

@@ -23,7 +23,7 @@ import kotlinx.coroutines.runBlocking
 import java.io.File
 
 /**  */
-class DocusyncEngine(
+internal class DocusyncEngine(
   private val ruleCache: Rules,
   private val autoCorrect: Boolean
 ) : java.io.Serializable {

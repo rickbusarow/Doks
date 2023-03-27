@@ -18,42 +18,11 @@ package com.rickbusarow.docusync.internal.stdlib
 import kotlin.contracts.contract
 
 /**
- * shorthand for `apply { elements.forEach { element -> this.block(element) } }`
- */
-inline fun <T : Any, E> T.applyEach(
-  elements: Iterable<E>,
-  block: T.(E) -> Unit
-): T = apply {
-  elements.forEach { element -> this.block(element) }
-}
-
-/**
- * from Kotlin's addToStdlib.kt
- */
-inline fun <T> T.letIf(
-  predicate: Boolean,
-  body: T.() -> T
-): T = if (predicate) body() else this
-
-/**
- * shorthand for `requireNotNull(this)`
- *
- * @throws IllegalArgumentException if receiver is null
- */
-@Suppress("NOTHING_TO_INLINE")
-inline fun <T : Any> T?.requireNotNull(): T {
-  contract {
-    returns() implies (this@requireNotNull != null)
-  }
-  return requireNotNull(this)
-}
-
-/**
  * shorthand for `requireNotNull(this, lazyMessage)`
  *
  * @throws IllegalArgumentException if receiver is null
  */
-inline fun <T : Any> T?.requireNotNull(lazyMessage: () -> Any): T {
+internal inline fun <T : Any> T?.requireNotNull(lazyMessage: () -> Any): T {
   contract {
     returns() implies (this@requireNotNull != null)
   }

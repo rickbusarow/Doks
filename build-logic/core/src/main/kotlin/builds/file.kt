@@ -22,6 +22,7 @@ import java.io.File
  *
  * For example, given a receiver File path of './a/b/c/' and a `relativePath` of 'foo/bar.txt', this
  * function will attempt to resolve the following paths in order:
+ *
  * ```text
  * ./a/b/c/foo/bar.txt
  * ./a/b/foo/bar.txt

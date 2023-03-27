@@ -22,7 +22,7 @@ import java.util.LinkedList
  * @return a breadth-first traversal of all nested elements of type [T], including the nested
  *   elements of children, their children, etc.
  */
-inline fun <reified T : PsiElement> PsiElement.getChildrenOfTypeRecursive(): Sequence<T> {
+internal inline fun <reified T : PsiElement> PsiElement.getChildrenOfTypeRecursive(): Sequence<T> {
 
   return generateSequence(sequenceOf(this)) { elements ->
 
@@ -39,7 +39,7 @@ inline fun <reified T : PsiElement> PsiElement.getChildrenOfTypeRecursive(): Seq
  * @return a depth-first traversal of all nested elements of type [T], including the nested elements
  *   of children, their children, etc.
  */
-inline fun <reified T : PsiElement> PsiElement.getChildrenOfTypeRecursive(
+internal inline fun <reified T : PsiElement> PsiElement.getChildrenOfTypeRecursive(
   noinline predicate: (PsiElement) -> Boolean = { true }
 ): Sequence<T> {
   val toVisit = LinkedList(children.filter(predicate))

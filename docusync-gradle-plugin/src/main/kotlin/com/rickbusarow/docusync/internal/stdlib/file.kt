@@ -21,14 +21,14 @@ import java.io.File
  * Walks up the tree until [parentFile][File.getParentFile] is null. The first element is the immediate
  * parent of the receiver, and the last is the root.
  */
-fun File.parents(): Sequence<File> = generateSequence(this) { it.parentFile }
+internal fun File.parents(): Sequence<File> = generateSequence(this) { it.parentFile }
 
 /**
  * Makes parent directories, then creates the receiver file. If a [content] argument was provided, it
  * will be written to the newly-created file. If the file already existed, its content will be
  * overwritten.
  */
-fun File.createSafely(content: String? = null): File = apply {
+internal fun File.createSafely(content: String? = null): File = apply {
   if (content != null) {
     makeParentDir().writeText(content)
   } else {
@@ -42,7 +42,7 @@ fun File.createSafely(content: String? = null): File = apply {
  * @see File.mkdirs
  * @see File.makeParentDir
  */
-fun File.mkdirsInline(): File = apply(File::mkdirs)
+internal fun File.mkdirsInline(): File = apply(File::mkdirs)
 
 /**
  * Creates the parent directory if it doesn't already exist.
@@ -50,106 +50,9 @@ fun File.mkdirsInline(): File = apply(File::mkdirs)
  * @see File.mkdirsInline
  * @see File.mkdirs
  */
-fun File.makeParentDir(): File = apply {
+internal fun File.makeParentDir(): File = apply {
   val fileParent = parentFile.requireNotNull {
     "File's `parentFile` must not be null."
   }
   fileParent.mkdirs()
-}
-
-/**
- * Walks upward in the file tree, looking for a directory which will resolve [relativePath].
- *
- * For example, given a receiver File path of './a/b/c/' and a `relativePath` of 'foo/bar.txt', this
- * function will attempt to resolve the following paths in order:
- *
- * ```text
- * ./a/b/c/foo/bar.txt
- * ./a/b/foo/bar.txt
- * ./a/foo/bar.txt
- * ./foo/bar.txt
- * ```
- *
- * @returns the first path to contain an [existent][File.exists] File for [relativePath], or `null`
- *   if it could not be resolved
- * @see resolveInParent for a version which throws if nothing is resolved
- */
-fun File.resolveInParentOrNull(relativePath: String): File? {
-  return resolve(relativePath).existsOrNull()
-    ?: parentFile?.resolveInParentOrNull(relativePath)
-}
-
-/**
- * Non-nullable version of [resolveInParentOrNull]
- *
- * @throws IllegalArgumentException if a file cannot be resolved
- * @see resolveInParentOrNull for a nullable, non-throwing variant
- */
-fun File.resolveInParent(relativePath: String): File {
-  return requireNotNull(resolveInParentOrNull(relativePath)) {
-    "Could not resolve a file with relative path in any parent paths.\n" +
-      "\t       relative path: $relativePath\n" +
-      "\tstarting parent path: $absolutePath"
-  }.normalize()
-}
-
-/** @return the receiver [File] if it exists in the file system, otherwise null */
-fun File.existsOrNull(): File? = takeIf { it.exists() }
-
-/**
- * @return true if the receiver [File] is a directory with at least one child file which satisfies
- *   [childPredicate]
- */
-fun File.isDirectoryWithFiles(
-  childPredicate: (File) -> Boolean = { it.exists() }
-): Boolean = !isFile && listFiles()?.any(childPredicate) == true
-
-/**
- * Returns true if the receiver [File] is `/build/` or `/.gradle/`, but there is no sibling
- * `/build.gradle.kts` or `/settings.gradle.kts`.
- *
- * The most common cause of this would be switching between git branches with different module
- * structures. Since `build` and `.gradle` directories are ignored in git, they'll stick around after a
- * branch switch.
- */
-fun File.isOrphanedBuildOrGradleDir(): Boolean {
-  return when {
-    !isDirectory -> false
-    name != "build" && name != ".gradle" -> false
-    !exists() -> false
-    parentFile!!.hasGradleProjectFiles() -> false
-    else -> true
-  }
-}
-
-/**
- * Returns true if the receiver [File] is `/gradle.properties`, but there is no sibling
- * `/build.gradle.kts` or `/settings.gradle.kts`.
- *
- * The most common cause of this would be switching between git branches with different module
- * structures. Since all `gradle.properties` files except the root are ignored in git, they'll stick
- * around after a branch switch.
- */
-fun File.isOrphanedGradleProperties(): Boolean {
-  return when {
-    !isFile -> false
-    name != "gradle.properties" -> false
-    parentFile!!.hasGradleProjectFiles() -> false
-    else -> true
-  }
-}
-
-/**
- * Returns true if the receiver [File] is a directory which contains at least one of
- * `settings.gradle.kts`, `settings.gradle`, `build.gradle.kts`, or `build.gradle`.
- */
-fun File.hasGradleProjectFiles(): Boolean {
-  return when {
-    !isDirectory -> false
-    resolve("settings.gradle.kts").exists() -> true
-    resolve("settings.gradle").exists() -> true
-    resolve("build.gradle.kts").exists() -> true
-    resolve("build.gradle").exists() -> true
-    else -> false
-  }
 }

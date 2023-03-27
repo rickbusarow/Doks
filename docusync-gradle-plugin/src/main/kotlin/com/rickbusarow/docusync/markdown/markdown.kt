@@ -75,7 +75,7 @@ internal fun String.markdown(
 
         ruleConfig.checkCount(matches.map { it.value })
 
-        acc.replace(rule.regex, rule.replacement)
+        rule.replaceIn(acc)
       }
 
     with(section) {

@@ -17,61 +17,30 @@ package com.rickbusarow.docusync.internal.stdlib
 
 import java.util.Locale
 
-/**
- * Replaces the deprecated Kotlin version, but hard-codes `Locale.US`
- */
-fun String.capitalize(): String = replaceFirstChar {
+/** Replaces the deprecated Kotlin version, but hard-codes `Locale.US` */
+internal fun String.capitalize(): String = replaceFirstChar {
   if (it.isLowerCase()) it.titlecase(Locale.US) else it.toString()
 }
 
-/**
- * Removes trailing whitespaces from all lines in a string.
- *
- * Shorthand for `lines().joinToString("\n") { it.trimEnd() }`
- */
-fun String.trimLineEnds(): String = mapLines { it.trimEnd() }
-
-/**
- * performs [transform] on each line
- */
-fun String.mapLines(
-  transform: (String) -> CharSequence
-): String = lineSequence()
-  .joinToString("\n", transform = transform)
-
-/**
- * shorthand for `joinToString("") { ... }`
- */
-fun <E> Sequence<E>.joinToStringConcat(
+/** shorthand for `joinToString("") { ... }` */
+internal fun <E> Sequence<E>.joinToStringConcat(
   transform: ((E) -> CharSequence)? = null
 ): String = joinToString("", transform = transform)
 
-/**
- * shorthand for `joinToString("") { ... }`
- */
-fun <E> Iterable<E>.joinToStringConcat(
+/** shorthand for `joinToString("") { ... }` */
+internal fun <E> Iterable<E>.joinToStringConcat(
   transform: ((E) -> CharSequence)? = null
 ): String = joinToString("", transform = transform)
 
-/**
- * Converts all line separators in the receiver string to use `\n`.
- */
-fun String.normaliseLineSeparators(): String = replace("\r\n|\r".toRegex(), "\n")
-
-/**
- * adds [prefix] to the beginning of the receiver string if the string does not already start with that
- * prefix.
- */
-fun String.prefixIfNot(prefix: String): String {
-  return if (this.startsWith(prefix)) this else "$prefix$this"
-}
+/** Converts all line separators in the receiver string to use `\n`. */
+internal fun String.normaliseLineSeparators(): String = replace("\r\n|\r".toRegex(), "\n")
 
 /**
  * Adds line breaks and indents to the output of data class `toString()`s.
  *
  * @see toStringPretty
  */
-fun String.prettyToString(): String {
+internal fun String.prettyToString(): String {
   return replace(",", ",\n")
     .replace("(", "(\n")
     .replace(")", "\n)")
@@ -90,15 +59,13 @@ fun String.prettyToString(): String {
  *
  * @see prettyToString
  */
-fun Any?.toStringPretty(): String = when (this) {
+internal fun Any?.toStringPretty(): String = when (this) {
   is Map<*, *> -> toList().joinToString("\n")
   else -> toString().prettyToString()
 }
 
-/**
- * A naive auto-indent which just counts brackets.
- */
-fun String.indentByBrackets(tab: String = "  "): String {
+/** A naive auto-indent which just counts brackets. */
+internal fun String.indentByBrackets(tab: String = "  "): String {
 
   var tabCount = 0
 
@@ -126,90 +93,12 @@ fun String.indentByBrackets(tab: String = "  "): String {
     }
 }
 
-/**
- * shorthand for `replace(___, "")` against multiple tokens
- */
-fun String.remove(vararg strings: String): String = strings.fold(this) { acc, string ->
+/** shorthand for `replace(___, "")` against multiple tokens */
+internal fun String.remove(vararg strings: String): String = strings.fold(this) { acc, string ->
   acc.replace(string, "")
 }
 
-/**
- * @param uppercase `true` for `SCREAMING_SNAKE_CASE`, `false` for `snake_case`
- * @return a `snake_case` or `SNAKE_CASE` version of the receiver string where the original capital
- *   letters are preceded by an underscore and all cases are uniform
- */
-fun String.snakeCase(uppercase: Boolean = false): String {
-  val camelRegex = "(?<=[a-zA-Z])[A-Z]".toRegex()
-  return camelRegex.replace(this) { "_${it.value}" }
-    .let {
-      if (uppercase) {
-        it.uppercase()
-      } else {
-        it.lowercase()
-      }
-    }
+/** shorthand for `replace(___, "")` against multiple tokens */
+internal fun String.remove(vararg regex: Regex): String = regex.fold(this) { acc, reg ->
+  acc.replace(reg, "")
 }
-
-/**
- * Finds the maximum common prefix in the list. If [delimiter] is provided, the string is truncated
- * after the last occurrence, but the last occurrence itself is included.
- *
- * ```
- * listOf(
- *   "foo/bar/baz/file1.txt",
- *   "foo/bar/baz/file2.txt",
- *   "foo/bar/boz/file3.txt"
- * ).commonPrefix("/") == "foo/bar/"
- * ```
- */
-fun List<String>.commonPrefix(delimiter: String? = null): String {
-  if (isEmpty()) return ""
-  if (size == 1) return first()
-
-  return asSequence()
-    .drop(1)
-    .letIf(delimiter != null) {
-      map { it.substringBeforeLast(delimiter!!) }
-    }
-    .fold(first()) { common, str ->
-      common.commonPrefixWith(str)
-    }
-}
-
-/**
- * Returns a substring before and including the last occurrence of [delimiter]. If the string does not
- * contain the delimiter, returns [missingDelimiterValue] which defaults to the original string.
- *
- * "foo/bar/baz/file.txt".substringUpToLast('/') == "foo/bar/baz/"
- */
-fun String.substringUpToLast(
-  delimiter: Char,
-  missingDelimiterValue: String = this
-): String {
-  val index = lastIndexOf(delimiter)
-  return if (index == -1) missingDelimiterValue else substring(0, index + 1)
-}
-
-/**
- * Returns a substring before and including the last occurrence of [delimiter]. If the string does not
- * contain the delimiter, returns [missingDelimiterValue] which defaults to the original string.
- *
- * "foo/bar/baz/file.txt".substringUpToLast("/") == "foo/bar/baz/"
- */
-fun String.substringUpToLast(
-  delimiter: String,
-  missingDelimiterValue: String = this
-): String {
-  val index = lastIndexOf(delimiter)
-  return if (index == -1) missingDelimiterValue else substring(0, index + 1)
-}
-
-/**
- * code golf for ` takeIf { it.isNotEmpty() }`
- */
-fun String.takeIfNotEmpty(): String? = takeIf { it.isNotEmpty() }
-
-/**
- * code golf for ` takeIf { it.isNotBlank() }`
- */
-fun String.takeIfNotBlank(): String? = takeIf { it.isNotBlank() }

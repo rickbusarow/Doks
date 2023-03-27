@@ -21,7 +21,7 @@ package com.rickbusarow.docusync.internal.stdlib
  * matches simple semantic versions like `1.0.0` or `10.52.1028`. It does not match if the version is
  * non-semantic, like `1` or `1.2`.
  */
-val SEMVER_REGEX_STABLE: String = buildString {
+internal val SEMVER_REGEX_STABLE: String = buildString {
   append("(?:0|[1-9]\\d*)\\.")
   append("(?:0|[1-9]\\d*)\\.")
   append("(?:0|[1-9]\\d*)")
@@ -30,16 +30,9 @@ val SEMVER_REGEX_STABLE: String = buildString {
 /**
  * from here: https://ihateregex.io/expr/semver/ but no capturing groups
  */
-val SEMVER_REGEX: String = buildString {
+internal val SEMVER_REGEX: String = buildString {
   append(SEMVER_REGEX_STABLE)
   append("(?:-(?:(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)")
   append("(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?")
   append("(?:\\+(?:[0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?")
-}
-
-/**
- * shorthand for `replace(___, "")` against multiple tokens
- */
-fun String.remove(vararg regex: Regex): String = regex.fold(this) { acc, reg ->
-  acc.replace(reg, "")
 }

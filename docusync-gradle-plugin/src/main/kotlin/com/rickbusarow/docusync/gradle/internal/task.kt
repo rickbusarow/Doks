@@ -23,7 +23,7 @@ import org.gradle.api.tasks.TaskContainer
 import org.gradle.api.tasks.TaskProvider
 
 /** adds all [objects] as dependencies inside a configuration block, inside a `configure { }` */
-fun <T : Task> TaskProvider<T>.dependsOn(vararg objects: Any): TaskProvider<T> {
+internal fun <T : Task> TaskProvider<T>.dependsOn(vararg objects: Any): TaskProvider<T> {
   return also { provider ->
     provider.configure { task ->
       task.dependsOn(*objects)
@@ -38,10 +38,10 @@ fun <T : Task> TaskProvider<T>.dependsOn(vararg objects: Any): TaskProvider<T> {
  * @param S The type of objects to find.
  * @param configuration The action to execute for each object in the resulting collection.
  * @return The matching objects. Returns an empty collection if there are no such objects in this
- *     collection.
+ *   collection.
  * @see [DomainObjectCollection.withType]
  */
-inline fun <reified S : Any> DomainObjectCollection<in S>.withType(
+internal inline fun <reified S : Any> DomainObjectCollection<in S>.withType(
   noinline configuration: (S) -> Unit
 ): DomainObjectCollection<S>? = withType(S::class.java, configuration)
 
@@ -52,10 +52,10 @@ inline fun <reified S : Any> DomainObjectCollection<in S>.withType(
  *
  * @param S The type of objects to find.
  * @return The matching objects. Returns an empty collection if there are no such objects in this
- *     collection.
+ *   collection.
  * @see [DomainObjectCollection.withType]
  */
-inline fun <reified S : Any> DomainObjectCollection<in S>.withType(): DomainObjectCollection<S> =
+internal inline fun <reified S : Any> DomainObjectCollection<in S>.withType(): DomainObjectCollection<S> =
   withType(S::class.java)
 
 /**
@@ -65,10 +65,10 @@ inline fun <reified S : Any> DomainObjectCollection<in S>.withType(): DomainObje
  *
  * @param S The type of objects to find.
  * @return The matching objects. Returns an empty collection if there are no such objects in this
- *     collection.
+ *   collection.
  * @see [TaskCollection.withType]
  */
-inline fun <reified S : Task> TaskCollection<in S>.withType(): TaskCollection<S> =
+internal inline fun <reified S : Task> TaskCollection<in S>.withType(): TaskCollection<S> =
   withType(S::class.java)
 
 internal inline fun <reified T : Task> TaskContainer.register(

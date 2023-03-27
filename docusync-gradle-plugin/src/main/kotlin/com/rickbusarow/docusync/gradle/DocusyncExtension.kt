@@ -22,13 +22,13 @@ import org.gradle.api.file.ProjectLayout
 import org.gradle.api.tasks.TaskContainer
 import javax.inject.Inject
 
-/** */
+/**  */
 abstract class DocusyncExtension @Inject constructor(
   private val taskContainer: TaskContainer,
   private val layout: ProjectLayout
 ) : java.io.Serializable {
 
-  /** */
+  /**  */
   abstract val sourceSets: NamedDomainObjectContainer<DocusyncSourceSet>
 
   private val taskFactory: DocusyncTaskFactory by lazy {

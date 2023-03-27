@@ -30,9 +30,7 @@ data class Position(
 
   companion object {
 
-    /**
-     * @return the [Position] of the next [token] after [startIndex]
-     */
+    /** @return the [Position] of the next [token] after [startIndex] */
     fun String.positionOfSubstring(token: String, startIndex: Int): Position {
 
       val lines = lines()

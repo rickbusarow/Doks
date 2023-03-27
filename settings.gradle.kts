@@ -16,10 +16,10 @@
 pluginManagement {
   repositories {
     gradlePluginPortal()
+    mavenLocal()
     mavenCentral()
     google()
   }
-  @Suppress("UnstableApiUsage")
   includeBuild("build-logic")
 }
 

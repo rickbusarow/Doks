@@ -28,9 +28,7 @@ import org.intellij.lang.annotations.Language
  */
 interface RuleFactory : java.io.Serializable {
 
-  /**
-   * All registered [RuleBuilderScope] instances within this [DocusyncSourceSet]
-   */
+  /** All registered [RuleBuilderScope] instances within this [DocusyncSourceSet]. */
   val rules: NamedDomainObjectContainer<RuleBuilderScope>
 
   /**

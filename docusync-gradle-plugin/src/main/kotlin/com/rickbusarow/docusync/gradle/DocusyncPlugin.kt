@@ -19,7 +19,7 @@ import com.rickbusarow.docusync.gradle.internal.registerOnce
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 
-/**  */
+/** */
 @Suppress("UnnecessaryAbstractClass")
 abstract class DocusyncPlugin : Plugin<Project> {
 

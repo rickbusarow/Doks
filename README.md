@@ -70,7 +70,7 @@ docusync {
     rule("maven-artifact") {
       regex = maven(group = "com\\.example\\.dino")
       // replace any maven coordinate string with one using the current version,
-      // where '$1' is the capture group of everything except the version
+      // where '$1' is the group id, '$2' is the artifact id,
       // and 'CURRENT_VERSION' is just some variable.
       replacement = "$2:$3:$CURRENT_VERSION"
     }

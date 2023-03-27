@@ -38,7 +38,6 @@ abstract class TestConventionPlugin : Plugin<Project> {
     target.tasks.withType(Test::class.java) { task ->
       task.useJUnitPlatform()
 
-      @Suppress("UnstableApiUsage")
       val junitPlatformOptions = task.testFrameworkProperty
         .map { frameWork ->
           (frameWork as JUnitPlatformTestFramework).options

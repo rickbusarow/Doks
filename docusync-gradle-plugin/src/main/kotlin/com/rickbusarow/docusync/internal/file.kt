@@ -27,8 +27,6 @@ fun File.parents(): Sequence<File> = generateSequence(this) { it.parentFile }
  * Makes parent directories, then creates the receiver file. If a [content] argument was provided, it
  * will be written to the newly-created file. If the file already existed, its content will be
  * overwritten.
- *
- * @since 0.10.0
  */
 fun File.createSafely(content: String? = null): File = apply {
   if (content != null) {
@@ -95,9 +93,7 @@ fun File.resolveInParent(relativePath: String): File {
   }.normalize()
 }
 
-/**
- * @return the receiver [File] if it exists in the file system, otherwise null
- */
+/** @return the receiver [File] if it exists in the file system, otherwise null */
 fun File.existsOrNull(): File? = takeIf { it.exists() }
 
 /**

@@ -43,9 +43,7 @@ enum class Color(val code: Int) {
 
     private val supported = "win" !in System.getProperty("os.name").lowercase()
 
-    /**
-     * returns a string in the given color
-     */
+    /** returns a string in the given color */
     fun String.colorized(color: Color): String = if (supported) {
       "\u001B[${color.code}m$this\u001B[0m"
     } else {

@@ -46,7 +46,9 @@ data class ArtifactConfig(
   val javaVersion: String,
   val publicationName: String
 ) : Serializable, Comparable<ArtifactConfig> {
-  /** globally unique identifier for this artifact */
+  /**
+   * globally unique identifier for this artifact
+   */
   val key = "$gradlePath+$publicationName"
 
   override fun compareTo(other: ArtifactConfig): Int {
@@ -54,7 +56,11 @@ data class ArtifactConfig(
   }
 
   companion object {
-    /** deserialization */
+    /**
+     * deserialization
+     *
+     * @since 0.0.1
+     */
     const val serialVersionUID = 1L
   }
 }

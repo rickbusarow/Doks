@@ -23,7 +23,7 @@ import com.rickbusarow.docusync.psi.SampleRequest
 import org.gradle.api.Named
 import org.intellij.lang.annotations.Language
 
-/** Models a single replacement action very much like the [Regex] version of [String.replace] */
+/** Models a single replacement action very much like the [Regex] version of [String.replace]. */
 abstract class RuleBuilderScope : Named, java.io.Serializable {
 
   @PublishedApi
@@ -47,9 +47,7 @@ abstract class RuleBuilderScope : Named, java.io.Serializable {
   val ARTIFACT_ID: String
     get() = "[\\w\\-]*[\\w]"
 
-  /**
-   * ex: `aar`
-   */
+  /** ex: `aar` */
   @Suppress("VariableNaming")
   val PACKAGING: String
     get() = "\\w+"
@@ -58,6 +56,7 @@ abstract class RuleBuilderScope : Named, java.io.Serializable {
    * from https://ihateregex.io/expr/semver/ but without capturing groups
    *
    * ex: `1.0.0-SNAPSHOT`
+   *
    * @see SEMVER_REGEX
    */
   @Suppress("VariableNaming")
@@ -105,7 +104,6 @@ abstract class RuleBuilderScope : Named, java.io.Serializable {
    * of the declaration itself.
    *
    * Consider this function:
-   *
    * ```
    * fun foo() {
    *   doSomething()
@@ -123,7 +121,6 @@ abstract class RuleBuilderScope : Named, java.io.Serializable {
    * of a raw string literal.
    *
    * Given this string property:
-   *
    * ```
    * val groovyConfig = """
    *   // build.gradle
@@ -189,11 +186,11 @@ abstract class RuleBuilderScope : Named, java.io.Serializable {
    * contain the version.
    *
    * @param group matcher for the group component, like `com.example.myLib`. The default value of
-   *   `[\w\.]*[\w]` will match any group.
-   * @param artifactId matcher for the "artifactId" or "name" component, like `myLib-api`. The
-   *   default value of `[\w\-]*[\w]` will match any artifact id.
+   *     `[\w\.]*[\w]` will match any group.
+   * @param artifactId matcher for the "artifactId" or "name" component, like `myLib-api`. The default
+   *     value of `[\w\-]*[\w]` will match any artifact id.
    * @param version matcher for the version component, like `1.1.0` or `1.0.0-SNAPSHOT`. The default
-   *   value will match any semantic version.
+   *     value will match any semantic version.
    * @return a regex string to match any maven artifact
    */
   fun maven(
@@ -207,7 +204,6 @@ abstract class RuleBuilderScope : Named, java.io.Serializable {
    * plugin ID.
    *
    * The regular expression will match against the following formats of a plugin declaration:
-   *
    * ```
    * plugins {
    *   id("com.example.myPlugin")
@@ -221,7 +217,6 @@ abstract class RuleBuilderScope : Named, java.io.Serializable {
    * ### Grouping
    *
    * The resultant regex will have three capturing groups:
-   *
    * - Capture 1: The "id" invocation and everything before the plugin ID argument, like `id("`
    * - Capture 2: The matched plugin ID
    * - Capture 3: The closing single/double quote and optional parenthesis, like `")`
@@ -254,7 +249,6 @@ abstract class RuleBuilderScope : Named, java.io.Serializable {
    * the plugin version.
    *
    * The pattern matches the standard plugin declaration syntax in Gradle build files, such as:
-   *
    * ```
    * plugins {
    *   id("com.example.myPlugin") version "1.2.3"
@@ -267,7 +261,6 @@ abstract class RuleBuilderScope : Named, java.io.Serializable {
    * ### Grouping
    *
    * The resultant regex will have six capturing groups:
-   *
    * - Capture 1: The "id" invocation and everything before the plugin ID argument, like `id("`
    * - Capture 2: The matched plugin ID
    * - Capture 3: The closing single/double quote and optional parenthesis, like `")`
@@ -280,7 +273,7 @@ abstract class RuleBuilderScope : Named, java.io.Serializable {
    *
    * @param pluginId the plugin ID to match. This may be a regex pattern.
    * @param version the version of the plugin to match. The default value will match any semantic
-   *   version. This may be a regex pattern.
+   *     version. This may be a regex pattern.
    * @return a regex string to match a Gradle plugin declaration with both ID and version specified
    */
   fun gradlePluginWithVersion(

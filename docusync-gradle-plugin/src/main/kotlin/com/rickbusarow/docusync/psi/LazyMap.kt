@@ -37,14 +37,10 @@ class LazyMap<K, V>(
 
   private val map: MutableMap<K, Lazy<V>> = mutableMapOf()
 
-  /**
-   * size of the cached data
-   */
+  /** size of the cached data */
   val size: Int get() = map.size
 
-  /**
-   * @return true if [key] is **already cached**
-   */
+  /** @return true if [key] is **already cached** */
   fun containsKey(key: K): Boolean = map.containsKey(key)
 
   /**
@@ -85,9 +81,7 @@ class LazyMap<K, V>(
    */
   fun put(key: K, value: V): V? = map.put(key, lazy { value })?.value
 
-  /**
-   * Fetches the value for [key] or throws if the value cannot be computed.
-   */
+  /** Fetches the value for [key] or throws if the value cannot be computed. */
   operator fun get(key: K): V {
 
     val lazyValue = map.getOrPut(key) { lazy { compute(this@LazyMap, key) } }

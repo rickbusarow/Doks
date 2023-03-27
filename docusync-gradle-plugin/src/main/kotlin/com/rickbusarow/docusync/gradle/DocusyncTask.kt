@@ -103,7 +103,7 @@ abstract class DocusyncParseTask : DocusyncTask("Parses source files for request
   @get:OutputFile
   abstract val samplesMapping: RegularFileProperty
 
-  /** */
+  /**  */
   @TaskAction
   fun execute() {
 
@@ -124,9 +124,7 @@ abstract class DocusyncParseTask : DocusyncTask("Parses source files for request
   }
 }
 
-/**
- * Either checks or fixes/updated documentation files for a given [DocusyncSourceSet]
- */
+/** Either checks or fixes/updated documentation files for a given [DocusyncSourceSet]. */
 abstract class DocusyncDocsTask @Inject constructor(
   private val workerExecutor: WorkerExecutor,
   objects: ObjectFactory
@@ -190,7 +188,7 @@ abstract class DocusyncDocsTask @Inject constructor(
     get() = autoCorrectProperty.get()
     set(value) = autoCorrectProperty.set(value)
 
-  /** */
+  /**  */
   @TaskAction
   fun execute(inputChanges: InputChanges) {
 
@@ -258,13 +256,19 @@ abstract class DocusyncDocsTask @Inject constructor(
 
     val docusyncEngine: Property<DocusyncEngine>
 
-    /** The real doc file to be parsed/synced. */
+    /**
+     * The real doc file to be parsed/synced.
+     *
+     * @since 0.0.1
+     */
     val file: RegularFileProperty
 
     /**
      * The shadowed file to be created by this worker. Its name should be a relative path of the
      * associated real file, and the content should be a hash code, though it could really be anything
      * or nothing.
+     *
+     * @since 0.0.1
      */
     val outFile: RegularFileProperty
   }

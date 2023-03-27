@@ -15,7 +15,7 @@
 
 package builds.ktlint
 
-import builds.BuildLogicTask
+import builds.VERSION_NAME
 import builds.allProjects
 import builds.applyOnce
 import builds.capitalize
@@ -31,6 +31,7 @@ import org.jmailen.gradle.kotlinter.KotlinterExtension
 import org.jmailen.gradle.kotlinter.tasks.ConfigurableKtLintTask
 import org.jmailen.gradle.kotlinter.tasks.FormatTask
 import org.jmailen.gradle.kotlinter.tasks.LintTask
+import kotlin.text.RegexOption.MULTILINE
 
 abstract class KtLintConventionPlugin : Plugin<Project> {
   override fun apply(target: Project) {
@@ -50,6 +51,28 @@ abstract class KtLintConventionPlugin : Plugin<Project> {
 
     if (target.isRealRootProject()) {
       target.addRootProjectDelegateTasks()
+
+      target.tasks.register("updateEditorConfigVersion") { task ->
+
+        val file = target.file(".editorconfig")
+
+        task.doLast {
+          val oldText = file.readText()
+
+          val reg = """^(project_version *?= *?)\S*$""".toRegex(MULTILINE)
+
+          val newText = oldText.replace(reg, "$1${target.VERSION_NAME}")
+
+          if (newText != oldText) {
+            file.writeText(newText)
+          }
+        }
+      }
+    }
+
+    target.tasks.withType(ConfigurableKtLintTask::class.java) { task ->
+      task.source(target.buildFile)
+      task.dependsOn(":updateEditorConfigVersion")
     }
 
     target.tasks.named("lintKotlin") {
@@ -115,8 +138,6 @@ abstract class KtLintConventionPlugin : Plugin<Project> {
 
   private fun Project.addRootProjectDelegateTasks() {
 
-    val writeEditorConfig = addWriteBuildLogicEditorConfig()
-
     // Add KtLint tasks to the root project to handle build-logic project sources as well.
     // The convention plugin can't be applied to build-logic in the conventional way since
     // that's where its source is.
@@ -141,7 +162,6 @@ abstract class KtLintConventionPlugin : Plugin<Project> {
                 task.description = "Runs lint on the source files in build-logic"
                 task.source(files(buildLogicSrc))
                 excludeGenerated(task, proj)
-                task.dependsOn(writeEditorConfig)
               }
             tasks.named("lintKotlin").dependsOn(lintKotlinBuildLogic)
 
@@ -151,7 +171,6 @@ abstract class KtLintConventionPlugin : Plugin<Project> {
                 task.description = "Formats the source files in build-logic"
                 task.source(files(buildLogicSrc))
                 excludeGenerated(task, proj)
-                task.dependsOn(writeEditorConfig)
               }
             tasks.named("formatKotlin").dependsOn(formatKotlinBuildLogic)
           }
@@ -162,42 +181,11 @@ abstract class KtLintConventionPlugin : Plugin<Project> {
       .addGradleScriptTasks(tasks, taskNameQualifier = "BuildLogic")
   }
 
-  private fun Project.addWriteBuildLogicEditorConfig() = rootProject.tasks
-    .register<BuildLogicTask>("writeBuildLogicEditorConfig") { task ->
-
-      val buildLogicConfig = rootProject.file("build-logic/.editorconfig")
-      task.outputs.file(buildLogicConfig)
-
-      task.doLast {
-
-        val newText = buildString {
-          appendLine("### THIS FILE IS GENERATED.  DO NOT MODIFY.")
-          appendLine("# This is done by the 'writeBuildLogicEditorConfig' task.")
-          appendLine("[{*.kt,*.kts}]")
-
-          appendLine("# noinspection EditorConfigKeyCorrectness")
-
-          appendLine("build_logic_no-since-in-kdoc = disabled")
-          appendLine()
-        }
-
-        if (!buildLogicConfig.exists() || newText != buildLogicConfig.readText()) {
-          println("writing a new version of file://$buildLogicConfig")
-          buildLogicConfig.writeText(newText)
-        }
-      }
-    }
-
   /**
    * These exclude anything in `$projectDir/build/generated/` from Kotlinter's checks. Globs are
    * relative to the **source set's** kotlin root.
    */
   private fun excludeGenerated(task: ConfigurableKtLintTask, project: Project) {
-    // task.exclude("*Plugin.kt")
-    // task.exclude("gradle/kotlin/dsl/**")
-    // task.exclude("**/*_Proto.kt")
-    // task.exclude("**/*JsonAdapter.kt")
-
     task.setSource(task.source - project.fileTree("${project.buildDir}/generated"))
   }
 }

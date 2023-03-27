@@ -53,6 +53,7 @@ dependencies {
   implementation(libs.jmailen.kotlinter)
   implementation(libs.kotlin.compiler)
   implementation(libs.kotlin.reflect)
+  implementation(libs.rickBusarow.ktrules)
 
   ksp(libs.zacSweers.auto.service.ksp)
 

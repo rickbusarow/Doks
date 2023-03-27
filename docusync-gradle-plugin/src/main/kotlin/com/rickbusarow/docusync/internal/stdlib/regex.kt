@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package com.rickbusarow.docusync.internal
+package com.rickbusarow.docusync.internal.stdlib
 
 /**
  * A simpler SEMVER which does not include any suffix like `-SNAPSHOT`, `-beta01` or `-RC`

@@ -16,9 +16,9 @@
 package com.rickbusarow.docusync.gradle
 
 import com.rickbusarow.docusync.Rule
-import com.rickbusarow.docusync.internal.SEMVER_REGEX
-import com.rickbusarow.docusync.internal.SEMVER_REGEX_STABLE
-import com.rickbusarow.docusync.internal.requireNotNull
+import com.rickbusarow.docusync.internal.stdlib.SEMVER_REGEX
+import com.rickbusarow.docusync.internal.stdlib.SEMVER_REGEX_STABLE
+import com.rickbusarow.docusync.internal.stdlib.requireNotNull
 import com.rickbusarow.docusync.psi.SampleRequest
 import org.gradle.api.Named
 import org.intellij.lang.annotations.Language

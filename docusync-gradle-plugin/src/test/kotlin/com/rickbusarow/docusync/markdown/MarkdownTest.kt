@@ -18,7 +18,7 @@ package com.rickbusarow.docusync.markdown
 import com.rickbusarow.docusync.Rule
 import com.rickbusarow.docusync.RuleName
 import com.rickbusarow.docusync.Rules
-import com.rickbusarow.docusync.internal.SEMVER_REGEX
+import com.rickbusarow.docusync.internal.stdlib.SEMVER_REGEX
 import io.kotest.assertions.throwables.shouldNotThrowAny
 import io.kotest.assertions.throwables.shouldThrowWithMessage
 import io.kotest.matchers.shouldBe

@@ -15,10 +15,8 @@
 
 package com.rickbusarow.docusync.gradle.internal
 
-import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.internal.GradleInternal
-import org.gradle.api.plugins.PluginContainer
 
 /**
  * Determines whether the receiver project is the "real" root of this composite build, as opposed to
@@ -26,25 +24,6 @@ import org.gradle.api.plugins.PluginContainer
  */
 fun Project.isRealRootProject(): Boolean {
   return (gradle as GradleInternal).isRootBuild && this == rootProject
-}
-
-/**
- * `this == rootProject`
- */
-fun Project.isRoot(): Boolean = this == rootProject
-
-/**
- * Add the plugin if it hasn't been applied already.
- */
-fun PluginContainer.applyOnce(id: String) {
-  if (!hasPlugin(id)) apply(id)
-}
-
-/**
- * Add the plugin if it hasn't been applied already.
- */
-inline fun <reified T : Plugin<*>> PluginContainer.applyOnce() {
-  if (!hasPlugin(T::class.java)) apply(T::class.java)
 }
 
 /**

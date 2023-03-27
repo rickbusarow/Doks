@@ -15,7 +15,7 @@
 
 package com.rickbusarow.docusync
 
-import com.rickbusarow.docusync.internal.requireNotNull
+import com.rickbusarow.docusync.internal.stdlib.requireNotNull
 
 /** Holds all [Rules][Rule] defined for a given set. */
 class Rules(

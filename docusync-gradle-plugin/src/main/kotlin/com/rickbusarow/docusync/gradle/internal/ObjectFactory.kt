@@ -13,26 +13,17 @@
  * limitations under the License.
  */
 
-package com.rickbusarow.docusync.gradle
+package com.rickbusarow.docusync.gradle.internal
 
-import kotlinx.serialization.json.Json
-import org.gradle.api.DefaultTask
-import org.gradle.api.tasks.Internal
+import org.gradle.api.Action
+import org.gradle.api.file.ConfigurableFileTree
+import org.gradle.api.model.ObjectFactory
 
-/** The base class for all Docusync tasks. */
-@Suppress("UnnecessaryAbstractClass")
-abstract class DocusyncTask(description: String) : DefaultTask() {
-  init {
-    group = "Docusync"
-    this.description = description
-  }
+internal fun ObjectFactory.fileTree(baseDir: Any): ConfigurableFileTree = fileTree().from(baseDir)
 
-  @delegate:Transient
-  @get:Internal
-  protected val json: Json by lazy {
-    Json {
-      prettyPrint = true
-      allowStructuredMapKeys = true
-    }
-  }
+internal fun ObjectFactory.fileTree(
+  baseDir: Any,
+  configureAction: Action<in ConfigurableFileTree>
+): ConfigurableFileTree {
+  return fileTree().from(baseDir).also(configureAction::execute)
 }

@@ -59,11 +59,9 @@ docusync {
   // Define a set of documents with rules.
   docsSet {
     // Set the files which will be synced
-    docs(
-      fileTree(projectDir) {
-        include("**/*.md", "**/*.mdx")
-      }
-    )
+    docs(projectDir) {
+      include("**/*.md", "**/*.mdx")
+    }
 
     // Define a rule used in updating.
     // This rule's name corresponds to the name used in documentation.
@@ -110,13 +108,11 @@ Here's an example of how to use it in your docusync configuration block:
 ```kotlin
 docusync {
   docSet("main") {
-    docs(
-      fileTree(projectDir) {
-        include("**/*.md", "**/*.mdx")
-      }
-    )
+    docs(projectDir) {
+      include("**/*.md", "**/*.mdx")
+    }
 
-    sampleCodeSource.from(fileTree(projectDir.resolve("src/test/kotlin")))
+    sampleCodeSource("src/test/kotlin")
 
     rule("dino-config-sample") {
       replacement = sourceCode(
@@ -212,7 +208,7 @@ Copyright (C) 2023 Rick Busarow
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
-     http://www.apache.org/licenses/LICENSE-2.0
+     https://www.apache.org/licenses/LICENSE-2.0
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.

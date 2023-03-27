@@ -22,13 +22,11 @@ docusync {
 
   docSet("main") {
 
-    docs(
-      fileTree(projectDir) {
-        include("**/*.md", "**/*.mdx")
-      }
-    )
-
-    sampleCodeSource.from(fileTree(projectDir.resolve("../docusync-gradle-plugin/src/main/kotlin")))
+    // Passing in a directory path should be allowed, and that path should automagically be turned
+    // into an unfiltered file tree since there's no other good reason for passing in a directory path.
+    sampleCodeSource("../docusync-gradle-plugin/src/main/kotlin")
+    // not a valid path in any OS ever.  This should not cause a problem.
+    sampleCodeSource("G^7jmF J+y/N-6~0-L1P:+ok+J44f2>u4p# #x0<L}S:93V\\;")
 
     rule("cats-to-dogs") {
       regex = "cat"
@@ -91,7 +89,13 @@ val createDocs by tasks.registering {
         <!--/docusync-->
           """.trimIndent()
         )
+
+        println("created >>> file://$file")
       }
     }
   }
+}
+
+tasks.withType(com.rickbusarow.docusync.gradle.DocusyncTask::class.java) {
+  mustRunAfter(createDocs)
 }

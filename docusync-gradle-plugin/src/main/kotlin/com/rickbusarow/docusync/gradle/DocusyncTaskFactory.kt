@@ -18,7 +18,10 @@ package com.rickbusarow.docusync.gradle
 import com.rickbusarow.docusync.gradle.internal.dependsOn
 import com.rickbusarow.docusync.gradle.internal.registerOnce
 import com.rickbusarow.docusync.internal.stdlib.capitalize
+import com.rickbusarow.docusync.internal.stdlib.letIf
 import org.gradle.api.NamedDomainObjectProvider
+import org.gradle.api.Task
+import org.gradle.api.file.FileCollection
 import org.gradle.api.file.ProjectLayout
 import org.gradle.api.file.RegularFile
 import org.gradle.api.provider.Provider
@@ -27,7 +30,7 @@ import org.gradle.api.tasks.TaskProvider
 
 internal class DocusyncTaskFactory(
   private val taskContainer: TaskContainer,
-  private val layout: ProjectLayout,
+  private val layout: ProjectLayout
 ) : java.io.Serializable {
 
   internal fun registerAll(
@@ -75,9 +78,18 @@ internal class DocusyncTaskFactory(
 
     return taskContainer.registerOnce(taskName, DocusyncParseTask::class.java) { task ->
 
-      task.sampleCode.from(
-        sourceSet.map(DocusyncSourceSet::sampleCodeSource)
-      )
+      // Get the subproject directories eagerly, outside any provider mappings, so that we're not
+      // trying to access the task's project instance during the execution phase. Doing it during the
+      // execution phase would break configuration caching.
+      val subprojectDirs = task.subprojectDirs()
+
+      val sampleCodeSourceFiles = sourceSet.map { ss ->
+        ss.sampleCodeSource.letIf(ss.sampleCodeSource.hasFiles()) {
+          samplesFileCollectionDefault(ss, subprojectDirs)
+        }
+      }
+
+      task.sampleCode.from(sampleCodeSourceFiles)
 
       task.onlyIf { task.sampleRequests.orNull?.isEmpty() == false }
 
@@ -119,9 +131,20 @@ internal class DocusyncTaskFactory(
 
       task.samplesMapping.set(samplesMappingFile)
 
-      task.onlyIf { sourceSet.map { ss -> ss.docs }.get().files.isNotEmpty() }
+      // Get the subproject directories eagerly, outside any provider mappings, so that we're not
+      // trying to access the task's project instance during the execution phase. Doing it during the
+      // execution phase would break configuration caching.
+      val subprojectDirs = task.subprojectDirs()
 
-      task.docs.from(sourceSet.map { ss -> ss.docs })
+      val docsFiles = sourceSet.map { ss ->
+        ss.docs.letIf(ss.docs.hasFiles()) {
+          docsFileCollectionDefault(ss, subprojectDirs)
+        }
+      }
+
+      task.onlyIf { sourceSet.get().docs.files.isNotEmpty() }
+
+      task.docs.from(docsFiles)
       task.ruleBuilders.addAllLater(sourceSet.map { it.rules })
 
       task.docsShadow.set(layout.buildDirectory.dir("tmp/docusync/$docSetName"))
@@ -131,4 +154,27 @@ internal class DocusyncTaskFactory(
       task.mustRunAfter(parseTask)
     }
   }
+
+  private fun samplesFileCollectionDefault(
+    ss: DocusyncSourceSet,
+    subprojectDirs: List<String>
+  ) = ss.docs(layout.projectDirectory.dir("src")) {
+    it.include("**/*.kt", "**/*.kts")
+    it.exclude(layout.buildDirectory.get().asFile.path)
+    it.exclude(subprojectDirs)
+  }
+
+  private fun docsFileCollectionDefault(
+    ss: DocusyncSourceSet,
+    subprojectDirs: List<String>
+  ) = ss.docs(layout.projectDirectory.asFile) {
+    it.include("**/*.md", "**/*.mdx")
+    it.exclude(layout.buildDirectory.get().asFile.path)
+    it.exclude(subprojectDirs)
+  }
+
+  private fun Task.subprojectDirs() = project.subprojects
+    .map { it.projectDir.relativeTo(layout.projectDirectory.asFile).path }
+
+  private fun FileCollection.hasFiles(): Boolean = !filter { it.isFile }.isEmpty
 }

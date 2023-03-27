@@ -49,15 +49,17 @@ internal class NamedSamples(
   private val psiFactory: DocusyncPsiFileFactory
 ) : java.io.Serializable {
 
-  fun findAll(files: List<File>, requests: List<SampleRequest>): List<SampleResult> {
+  fun findAll(files: Collection<File>, requests: List<SampleRequest>): List<SampleResult> {
+    val ktFiles = files
+      .map { psiFactory.createKotlin(it.name, it.readText()) }
     return findAll(
-      ktFiles = files.map { psiFactory.createKotlin(it.name, it.readText()) },
+      ktFiles = ktFiles,
       requests = requests
     )
   }
 
   @JvmName("findAllInKotlin")
-  fun findAll(ktFiles: List<KtFile>, requests: List<SampleRequest>): List<SampleResult> {
+  fun findAll(ktFiles: Collection<KtFile>, requests: List<SampleRequest>): List<SampleResult> {
 
     val cache = createDeclarationCache(ktFiles, requests)
 
@@ -103,7 +105,7 @@ internal class NamedSamples(
   }
 
   private fun createDeclarationCache(
-    ktFiles: List<KtFile>,
+    ktFiles: Collection<KtFile>,
     requests: List<SampleRequest>
   ): LazyMap<FqName?, KtNamedDeclaration?> {
     val namesAndParentNames = requests

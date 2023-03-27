@@ -103,13 +103,16 @@ public abstract class com/rickbusarow/docusync/gradle/DocusyncPlugin : org/gradl
 }
 
 public abstract class com/rickbusarow/docusync/gradle/DocusyncSourceSet : com/rickbusarow/docusync/gradle/RuleFactory, java/io/Serializable {
-	public fun <init> (Ljava/lang/String;)V
-	public final fun docs ([Ljava/lang/Object;)V
+	public fun <init> (Ljava/lang/String;Lorg/gradle/api/model/ObjectFactory;)V
+	public final fun docs (Ljava/lang/Object;Lorg/gradle/api/Action;)Lorg/gradle/api/file/ConfigurableFileCollection;
+	public final fun docs ([Ljava/lang/Object;)Lorg/gradle/api/file/ConfigurableFileCollection;
 	public abstract fun getDocs ()Lorg/gradle/api/file/ConfigurableFileCollection;
 	public final fun getName ()Ljava/lang/String;
 	public abstract fun getSampleCodeSource ()Lorg/gradle/api/file/ConfigurableFileCollection;
 	public fun rule (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lorg/gradle/api/NamedDomainObjectProvider;
 	public fun rule (Ljava/lang/String;Lorg/gradle/api/Action;)Lorg/gradle/api/NamedDomainObjectProvider;
+	public final fun sampleCodeSource (Ljava/lang/Object;Lorg/gradle/api/Action;)Lorg/gradle/api/file/ConfigurableFileCollection;
+	public final fun sampleCodeSource ([Ljava/lang/Object;)Lorg/gradle/api/file/ConfigurableFileCollection;
 }
 
 public abstract class com/rickbusarow/docusync/gradle/DocusyncTask : org/gradle/api/DefaultTask {
@@ -152,5 +155,10 @@ public final class com/rickbusarow/docusync/gradle/RuleFactory$DefaultImpls {
 public final class com/rickbusarow/docusync/gradle/internal/TaskKt$sam$i$org_gradle_api_Action$0 : org/gradle/api/Action {
 	public fun <init> (Lkotlin/jvm/functions/Function1;)V
 	public final synthetic fun execute (Ljava/lang/Object;)V
+}
+
+public final class com/rickbusarow/docusync/internal/stdlib/ApplyKt {
+	public static final fun applyEach (Ljava/lang/Object;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function2;)Ljava/lang/Object;
+	public static final fun letIf (Ljava/lang/Object;ZLkotlin/jvm/functions/Function1;)Ljava/lang/Object;
 }
 

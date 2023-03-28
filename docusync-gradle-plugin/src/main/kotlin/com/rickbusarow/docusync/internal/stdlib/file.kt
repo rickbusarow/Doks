@@ -48,6 +48,7 @@ internal fun File.createSafely(content: String? = null): File = apply {
  * overwritten.
  *
  * @see File.createSafely
+ * @since 0.1.1
  */
 internal fun Path.createSafely(content: String? = null): File = toFile().createSafely(content)
 
@@ -67,6 +68,7 @@ internal fun File.mkdirsInline(): File = apply(File::mkdirs)
  * @see File.mkdirs
  * @see File.makeParentDir
  * @see File.mkdirsInline
+ * @since 0.1.1
  */
 internal fun Path.mkdirsInline(): Path = apply { toFile().mkdirsInline() }
 
@@ -89,6 +91,7 @@ internal fun File.makeParentDir(): File = apply {
  * @see File.mkdirsInline
  * @see File.mkdirs
  * @see File.makeParentDir
+ * @since 0.1.1
  */
 internal fun Path.makeParentDir(): Path = apply {
   val fileParent = parent.requireNotNull { "Path's `parentFile` must not be null." }

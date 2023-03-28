@@ -61,7 +61,7 @@ internal class ConfigTest : BaseGradleTest {
         <!--docusync maven-artifact:1-->
         ```kotlin
         dependencies {
-          id("com.example.dino:sauropod:1.0.0")
+          implementation("com.example.dino:sauropod:1.0.0")
         }
         ```
         <!--/docusync-->
@@ -99,7 +99,7 @@ internal class ConfigTest : BaseGradleTest {
         <!--docusync maven-artifact:1-->
         ```kotlin
         dependencies {
-          id("com.example.dino:sauropod:1.0.0")
+          implementation("com.example.dino:sauropod:1.0.0")
         }
         ```
         <!--/docusync-->
@@ -112,7 +112,7 @@ internal class ConfigTest : BaseGradleTest {
       <!--docusync maven-artifact:1-->
       ```kotlin
       dependencies {
-        id("com.example.dino:sauropod:1.0.1")
+        implementation("com.example.dino:sauropod:1.0.1")
       }
       ```
       <!--/docusync-->

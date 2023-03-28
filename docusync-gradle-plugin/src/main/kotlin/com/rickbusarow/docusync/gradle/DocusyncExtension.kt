@@ -15,6 +15,7 @@
 
 package com.rickbusarow.docusync.gradle
 
+import com.rickbusarow.docusync.gradle.internal.registerOnce
 import org.gradle.api.Action
 import org.gradle.api.NamedDomainObjectContainer
 import org.gradle.api.NamedDomainObjectProvider
@@ -47,11 +48,11 @@ abstract class DocusyncExtension @Inject constructor(
    * @since 0.1.0
    */
   fun docSet(
-    name: String = "main",
+    name: String = "all",
     action: Action<DocusyncSourceSet>
   ): NamedDomainObjectProvider<DocusyncSourceSet> {
 
-    return sourceSets.register(name, action)
+    return sourceSets.registerOnce(name, action)
       .also { sourceSet ->
 
         taskFactory.registerAll(

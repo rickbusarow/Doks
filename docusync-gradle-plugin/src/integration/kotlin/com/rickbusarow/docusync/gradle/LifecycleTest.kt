@@ -15,7 +15,9 @@
 
 package com.rickbusarow.docusync.gradle
 
+import io.kotest.matchers.collections.shouldContainInOrder
 import io.kotest.matchers.shouldBe
+import org.gradle.testkit.runner.TaskOutcome.SKIPPED
 import org.gradle.testkit.runner.TaskOutcome.SUCCESS
 import org.junit.jupiter.api.Test
 
@@ -54,7 +56,7 @@ internal class LifecycleTest : BaseGradleTest {
         <!--docusync maven-artifact:1-->
         ```kotlin
         dependencies {
-          id("com.example.dino:sauropod:1.0.1")
+          implementation("com.example.dino:sauropod:1.0.1")
         }
         ```
         <!--/docusync-->
@@ -62,7 +64,102 @@ internal class LifecycleTest : BaseGradleTest {
       )
 
     shouldSucceed("check") {
-      task(":docusyncCheck")!!.outcome shouldBe SUCCESS
+      task(":docusyncCheckAll")!!.outcome shouldBe SUCCESS
+      task(":docusyncCheck")!!.outcome shouldBe SKIPPED
+    }
+  }
+
+  @Test
+  fun `the fix lifecycle task invokes docusync`() = test {
+
+    buildFile {
+      """
+      plugins {
+        base
+        id("com.rickbusarow.docusync") version "${BuildConfig.version}"
+      }
+
+      val CURRENT_VERSION = "1.0.1"
+
+      docusync {
+        docSet {
+          docs(projectDir) {
+            include("**/*.md", "**/*.mdx")
+          }
+          rule("maven-artifact") {
+            regex = maven(group = "com\\.example\\.dino")
+            replacement = "${'$'}1:${'$'}2:${'$'}CURRENT_VERSION"
+          }
+        }
+      }
+
+      val fix by tasks.registering
+      """
+    }
+
+    workingDir.resolve("README.md")
+      .markdown(
+        """
+        <!--docusync maven-artifact:1-->
+        ```kotlin
+        dependencies {
+          implementation("com.example.dino:sauropod:1.0.0")
+        }
+        ```
+        <!--/docusync-->
+        """
+      )
+
+    shouldSucceed("fix") {
+      task(":docusyncAll")!!.outcome shouldBe SUCCESS
+      task(":docusync")!!.outcome shouldBe SKIPPED
+    }
+  }
+
+  @Test
+  fun `the docusyncCheck must run after docusync`() = test {
+
+    buildFile {
+      """
+      plugins {
+        base
+        id("com.rickbusarow.docusync") version "${BuildConfig.version}"
+      }
+
+      val CURRENT_VERSION = "1.0.1"
+
+      docusync {
+        docSet {
+          docs(projectDir) {
+            include("**/*.md", "**/*.mdx")
+          }
+          rule("maven-artifact") {
+            regex = maven(group = "com\\.example\\.dino")
+            replacement = "${'$'}1:${'$'}2:${'$'}CURRENT_VERSION"
+          }
+        }
+      }
+
+      val fix by tasks.registering
+      """
+    }
+
+    // Note that the version here is
+    workingDir.resolve("README.md")
+      .markdown(
+        """
+        <!--docusync maven-artifact:1-->
+        ```kotlin
+        dependencies {
+          implementation("com.example.dino:sauropod:1.0.0")
+        }
+        ```
+        <!--/docusync-->
+        """
+      )
+
+    shouldSucceed("docusyncCheck", "docusync") {
+      tasks.map { it.path } shouldContainInOrder listOf(":docusyncAll", ":docusyncCheckAll")
     }
   }
 }

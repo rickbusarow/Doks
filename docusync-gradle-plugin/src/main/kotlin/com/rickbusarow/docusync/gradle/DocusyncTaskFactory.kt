@@ -16,6 +16,7 @@
 package com.rickbusarow.docusync.gradle
 
 import com.rickbusarow.docusync.gradle.internal.dependsOn
+import com.rickbusarow.docusync.gradle.internal.mustRunAfter
 import com.rickbusarow.docusync.gradle.internal.registerOnce
 import com.rickbusarow.docusync.internal.stdlib.capitalize
 import com.rickbusarow.docusync.internal.stdlib.createSafely
@@ -60,7 +61,9 @@ internal class DocusyncTaskFactory(
       parseTask = parse
     )
 
-    if (name != "main") {
+    check.mustRunAfter(fix)
+
+    if (name.isNotBlank()) {
       taskContainer.named("docusyncParse").dependsOn(parse)
       taskContainer.named("docusyncCheck").dependsOn(check)
       taskContainer.named("docusync").dependsOn(fix)
@@ -72,10 +75,8 @@ internal class DocusyncTaskFactory(
     sourceSet: NamedDomainObjectProvider<DocusyncSourceSet>,
     samplesMappingFile: Provider<RegularFile>
   ): TaskProvider<DocusyncParseTask> {
-    val taskName = when (docSetName) {
-      "main" -> "docusyncParse"
-      else -> "docusyncParse${docSetName.capitalize()}"
-    }
+
+    val taskName = "docusyncParse${docSetName.capitalize()}"
 
     return taskContainer.registerOnce(taskName, DocusyncParseTask::class.java) { task ->
 
@@ -85,9 +86,10 @@ internal class DocusyncTaskFactory(
       val subprojectDirs = task.subprojectDirs()
 
       val sampleCodeSourceFiles = sourceSet.map { ss ->
-        ss.sampleCodeSource.letIf(!ss.sampleCodeSource.hasFiles()) {
-          samplesFileCollectionDefault(ss, subprojectDirs)
-        }
+        ss.sampleCodeSource
+          .letIf(ss.name.isNotBlank() && !ss.sampleCodeSource.hasFiles()) {
+            samplesFileCollectionDefault(ss, subprojectDirs)
+          }
       }
 
       task.sampleCode.from(sampleCodeSourceFiles)
@@ -112,11 +114,10 @@ internal class DocusyncTaskFactory(
     parseTask: TaskProvider<DocusyncParseTask>
   ): TaskProvider<DocusyncDocsTask> {
 
-    val suffix = if (autoCorrect) "" else "Check"
-
-    val taskName = when (docSetName) {
-      "main" -> "docusync$suffix"
-      else -> "docusync${docSetName.capitalize()}$suffix"
+    val taskName = if (autoCorrect) {
+      "docusync${docSetName.capitalize()}"
+    } else {
+      "docusyncCheck${docSetName.capitalize()}"
     }
 
     return taskContainer.registerOnce(taskName, DocusyncDocsTask::class.java) { task ->
@@ -145,9 +146,10 @@ internal class DocusyncTaskFactory(
       val subprojectDirs = task.subprojectDirs()
 
       val docsFiles = sourceSet.map { ss ->
-        ss.docs.letIf(!ss.docs.hasFiles()) {
-          docsFileCollectionDefault(ss, subprojectDirs)
-        }
+        ss.docs
+          .letIf(ss.name.isNotBlank() && !ss.docs.hasFiles()) {
+            docsFileCollectionDefault(ss, subprojectDirs)
+          }
       }
 
       task.onlyIf { docsFiles.get().files.isNotEmpty() }

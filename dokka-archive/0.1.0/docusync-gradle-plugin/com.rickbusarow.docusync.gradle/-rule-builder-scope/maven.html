@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>maven</title>
+<link href="../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../";</script>    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/jetbrains-mono.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script>
+<link href="../../../styles/multimodule.css" rel="Stylesheet"></head>
+<body>
+<div class="navigation-wrapper" id="navigation-wrapper">
+    <div id="leftToggler"><span class="icon-toggler"></span></div>
+    <div class="library-name">
+<a href="../../../index.html">
+<span>Docusync</span>            </a>    </div>
+    <div>
+<dokka-template-command data="{&quot;@class&quot;:&quot;org.jetbrains.dokka.base.templating.ReplaceVersionsCommand&quot;,&quot;location&quot;:&quot;com.rickbusarow.docusync.gradle/-rule-builder-scope/maven.html&quot;}">0.1.0</dokka-template-command>    </div>
+    <div class="pull-right d-flex">
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector jvm-like" data-active="" data-filter=":docusync-gradle-plugin:dokkaHtmlPartial/main">jvm</button>
+        </div>
+        <button id="theme-toggle-button"><span id="theme-toggle"></span></button>
+        <div id="searchBar"></div>
+    </div>
+</div>
+<div id="container">
+    <div id="leftColumn">
+        <div id="sideMenu"></div>
+    </div>
+    <div id="main">
+<div class="main-content" data-page-type="member" id="content" pageids="docusync-gradle-plugin::com.rickbusarow.docusync.gradle/RuleBuilderScope/maven/#kotlin.String#kotlin.String#kotlin.String/PointingToDeclaration//1205167876">
+  <div class="breadcrumbs"><a href="../../index.html">docusync-gradle-plugin</a><span class="delimiter">/</span><a href="../index.html">com.rickbusarow.docusync.gradle</a><span class="delimiter">/</span><a href="index.html">RuleBuilderScope</a><span class="delimiter">/</span><span class="current">maven</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>maven</span></span></h1>
+  </div>
+  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":docusync-gradle-plugin:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="maven.html"><span class="token function">maven</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">group<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator"> = </span>GROUP_ID<span class="token punctuation">, </span></span><span class="parameter ">artifactId<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator"> = </span>ARTIFACT_ID<span class="token punctuation">, </span></span><span class="parameter ">version<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator"> = </span>SEMVER</span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="clearfix"><span class="floating-right">(<a href="https://github.com/rbusarow/docusync/blob/main/docusync-gradle-plugin/src/main/kotlin/com/rickbusarow/docusync/gradle/RuleBuilderScope.kt#L219">source</a>)</span></span></div><p class="paragraph">Builds a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/-regex/index.html">Regex</a> pattern to match a maven artifact as commonly defined in a Gradle project.</p><p class="paragraph">An example match: <code class="lang-kotlin">com.example.foo:foo-utils:1.2.3-SNAPSHOT</code></p><h3 class=""> Grouping</h3><p class="paragraph">The resultant regex has four capturing groups, as in: <code class="lang-kotlin">"(($group):($artifactId):($version))"</code></p><p class="paragraph">When this regex matches, <code class="lang-kotlin">$1</code> would contain the group, <code class="lang-kotlin">$2</code> the artifact ID, and <code class="lang-kotlin">$3</code> would contain the version.</p><span class="kdoc-tag"><h4 class="">Return</h4><p class="paragraph">a regex string to match any maven artifact</p></span><span class="kdoc-tag"><h4 class="">Since</h4><p class="paragraph">0.1.0</p></span><h4 class="">Parameters</h4><div class="table"><div class="table-row" data-filterable-current=":docusync-gradle-plugin:dokkaHtmlPartial/main" data-filterable-set=":docusync-gradle-plugin:dokkaHtmlPartial/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>group</span></span></u></div></span></div><div><div class="title"><p class="paragraph">matcher for the group component, like <code class="lang-kotlin">com.example.myLib</code>. The default value of <code class="lang-kotlin">[\w\.]*[\w]</code> will match any group.</p></div></div></div></div><div class="table-row" data-filterable-current=":docusync-gradle-plugin:dokkaHtmlPartial/main" data-filterable-set=":docusync-gradle-plugin:dokkaHtmlPartial/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>artifact</span><wbr><span><span>Id</span></span></u></div></span></div><div><div class="title"><p class="paragraph">matcher for the "artifactId" or "name" component, like <code class="lang-kotlin">myLib-api</code>. The default value of <code class="lang-kotlin">[\w\-]*[\w]</code> will match any artifact id.</p></div></div></div></div><div class="table-row" data-filterable-current=":docusync-gradle-plugin:dokkaHtmlPartial/main" data-filterable-set=":docusync-gradle-plugin:dokkaHtmlPartial/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>version</span></span></u></div></span></div><div><div class="title"><p class="paragraph">matcher for the version component, like <code class="lang-kotlin">1.1.0</code> or <code class="lang-kotlin">1.0.0-SNAPSHOT</code>. The default value will match any semantic version.</p></div></div></div></div></div></div></div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2023 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+    </div>
+</div>
+</body>
+</html>
+

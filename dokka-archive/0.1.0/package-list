@@ -1,0 +1,11 @@
+$dokka.format:html-v1
+$dokka.linkExtension:html
+
+module:docusync-gradle-plugin
+com.rickbusarow.docusync
+com.rickbusarow.docusync.gradle
+com.rickbusarow.docusync.gradle.internal
+com.rickbusarow.docusync.internal
+com.rickbusarow.docusync.internal.stdlib
+com.rickbusarow.docusync.markdown
+com.rickbusarow.docusync.psi

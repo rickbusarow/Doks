@@ -22,13 +22,13 @@ import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.runBlocking
 import java.io.File
 
-/**  */
+/** @since 0.1.0 */
 internal class DocusyncEngine(
   private val ruleCache: Rules,
   private val autoCorrect: Boolean
 ) : java.io.Serializable {
 
-  /**  */
+  /** @since 0.1.0 */
   fun run(files: List<File>): List<FileResult> = runBlocking {
 
     files.map { file ->
@@ -43,7 +43,7 @@ internal class DocusyncEngine(
       .awaitAll()
   }
 
-  /**  */
+  /** @since 0.1.0 */
   fun run(file: File): FileResult {
     return file.markdown(
       rules = ruleCache,
@@ -56,6 +56,7 @@ internal class DocusyncEngine(
    * @property changed true if [oldText] and [newText] are different
    * @property oldText the original contents of the file
    * @property newText the new contents of the file
+   * @since 0.1.0
    */
   data class FileResult(
     val file: File,

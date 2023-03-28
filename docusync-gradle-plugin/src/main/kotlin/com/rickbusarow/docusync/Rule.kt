@@ -28,6 +28,7 @@ import org.intellij.lang.annotations.Language
  * @property name a unique identifier for this rule. It can be any arbitrary string.
  * @property regex supports normal Regex semantics including capturing groups like `(.*)`
  * @property replacement any combination of literal text and $-substitutions
+ * @since 0.1.0
  */
 @Serializable
 data class Rule(
@@ -47,6 +48,7 @@ data class Rule(
    * @return a new string obtained by replacing each substring of the [original] `CharSequence` that
    *   matches this [regex] regular expression with the [replacement].
    * @see CharSequence.replace
+   * @since 0.1.0
    */
   fun replaceIn(original: CharSequence): String {
     return original.replace(regex = regex, replacement = replacement)
@@ -76,6 +78,7 @@ data class Rule(
  * A unique identifier for a [Rule]. It can be any arbitrary string.
  *
  * @property value the simple String representation of this name
+ * @since 0.1.0
  */
 @Serializable
 @JvmInline

@@ -29,11 +29,15 @@ import javax.inject.Inject
 /**
  * An abstract source set for docusync documentation and sample code. Provides a [RuleFactory] to allow
  * for the creation of rules to be applied to the source set's documentation.
+ *
+ * @since 0.1.0
  */
 @Suppress("MemberVisibilityCanBePrivate")
 abstract class DocusyncSourceSet @Inject constructor(
   /**
    * any arbitrary unique name, like "main" or "tutorials"
+   *
+   * @since 0.1.0
    */
   val name: String,
   private val objects: ObjectFactory
@@ -45,6 +49,8 @@ abstract class DocusyncSourceSet @Inject constructor(
    *
    * If no value is set, a default collection is configured per
    * [DocusyncTaskFactory.docsFileCollectionDefault].
+   *
+   * @since 0.1.0
    */
   abstract val docs: ConfigurableFileCollection
 
@@ -54,6 +60,8 @@ abstract class DocusyncSourceSet @Inject constructor(
    *
    * If no value is set, a default collection is configured per
    * [DocusyncTaskFactory.samplesFileCollectionDefault].
+   *
+   * @since 0.1.0
    */
   abstract val sampleCodeSource: ConfigurableFileCollection
 
@@ -69,6 +77,7 @@ abstract class DocusyncSourceSet @Inject constructor(
    * [setFrom][ConfigurableFileCollection.setFrom], access the [docs] property directly.
    *
    * @param paths The files to add.
+   * @since 0.1.0
    */
   fun docs(vararg paths: Any): ConfigurableFileCollection {
     return docs.applyEach(paths.toList()) { path ->
@@ -85,6 +94,7 @@ abstract class DocusyncSourceSet @Inject constructor(
    * @param baseDir The base directory of the file tree. Evaluated as per
    *   [Project.file][org.gradle.api.Project.file].
    * @param configureAction Action to configure the [ConfigurableFileTree] object.
+   * @since 0.1.0
    */
   fun docs(
     baseDir: Any,
@@ -106,6 +116,7 @@ abstract class DocusyncSourceSet @Inject constructor(
    * directly.
    *
    * @param paths The files to add.
+   * @since 0.1.0
    */
   fun sampleCodeSource(vararg paths: Any): ConfigurableFileCollection {
     return sampleCodeSource.applyEach(paths.toList()) { path ->
@@ -123,6 +134,7 @@ abstract class DocusyncSourceSet @Inject constructor(
    * @param baseDir The base directory of the file tree. Evaluated as per
    *   [Project.file][org.gradle.api.Project.file].
    * @param configureAction Action to configure the [ConfigurableFileTree] object.
+   * @since 0.1.0
    */
   fun sampleCodeSource(
     baseDir: Any,
@@ -136,6 +148,8 @@ abstract class DocusyncSourceSet @Inject constructor(
    * else, including an individual File (as in a non-directory), then just return it as itself. This
    * basically means that any directory path arguments are treated as file trees without the extra
    * syntax.
+   *
+   * @since 0.1.0
    */
   private fun Any.asFileTreeOrAny(): Any {
 

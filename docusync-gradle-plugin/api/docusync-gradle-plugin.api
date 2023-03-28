@@ -157,8 +157,3 @@ public final class com/rickbusarow/docusync/gradle/internal/TaskKt$sam$i$org_gra
 	public final synthetic fun execute (Ljava/lang/Object;)V
 }
 
-public final class com/rickbusarow/docusync/internal/stdlib/ApplyKt {
-	public static final fun applyEach (Ljava/lang/Object;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function2;)Ljava/lang/Object;
-	public static final fun letIf (Ljava/lang/Object;ZLkotlin/jvm/functions/Function1;)Ljava/lang/Object;
-}
-

@@ -20,6 +20,8 @@ package com.rickbusarow.docusync.internal.stdlib
  *
  * matches simple semantic versions like `1.0.0` or `10.52.1028`. It does not match if the version is
  * non-semantic, like `1` or `1.2`.
+ *
+ * @since 0.1.0
  */
 internal val SEMVER_REGEX_STABLE: String = buildString {
   append("(?:0|[1-9]\\d*)\\.")
@@ -29,6 +31,8 @@ internal val SEMVER_REGEX_STABLE: String = buildString {
 
 /**
  * from here: https://ihateregex.io/expr/semver/ but no capturing groups
+ *
+ * @since 0.1.0
  */
 internal val SEMVER_REGEX: String = buildString {
   append(SEMVER_REGEX_STABLE)

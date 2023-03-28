@@ -23,7 +23,11 @@ import com.rickbusarow.docusync.psi.SampleRequest
 import org.gradle.api.Named
 import org.intellij.lang.annotations.Language
 
-/** Models a single replacement action very much like the [Regex] version of [String.replace]. */
+/**
+ * Models a single replacement action very much like the [Regex] version of [String.replace].
+ *
+ * @since 0.1.0
+ */
 @Suppress("MemberVisibilityCanBePrivate", "PropertyName", "VariableNaming")
 abstract class RuleBuilderScope : Named, java.io.Serializable {
 
@@ -34,6 +38,8 @@ abstract class RuleBuilderScope : Named, java.io.Serializable {
    * A regex which matches words separated by '.'.
    *
    * ex: `com.example.library`
+   *
+   * @since 0.1.0
    */
   val GROUP_ID: String
     get() = "[\\w\\.]*[\\w]"
@@ -42,11 +48,17 @@ abstract class RuleBuilderScope : Named, java.io.Serializable {
    * A regex which matches words separated by '-'.
    *
    * ex: `lifecycle-ktx`
+   *
+   * @since 0.1.0
    */
   val ARTIFACT_ID: String
     get() = "[\\w\\-]*[\\w]"
 
-  /** ex: `aar` */
+  /**
+   * ex: `aar`
+   *
+   * @since 0.1.0
+   */
   val PACKAGING: String
     get() = "\\w+"
 
@@ -56,6 +68,7 @@ abstract class RuleBuilderScope : Named, java.io.Serializable {
    * ex: `1.0.0-SNAPSHOT`
    *
    * @see SEMVER_REGEX
+   * @since 0.1.0
    */
   val SEMVER: String
     get() = SEMVER_REGEX
@@ -65,15 +78,24 @@ abstract class RuleBuilderScope : Named, java.io.Serializable {
    * like `1.0.0-SNAPSHOT`.
    *
    * @see SEMVER_REGEX_STABLE
+   * @since 0.1.0
    */
   val SEMVER_STABLE: String
     get() = SEMVER_REGEX_STABLE
 
-  /** supports normal Regex semantics including capturing groups like `(.*)` */
+  /**
+   * supports normal Regex semantics including capturing groups like `(.*)`
+   *
+   * @since 0.1.0
+   */
   @setparam:Language("regexp")
   abstract var regex: String?
 
-  /** any combination of literal text and $-substitutions */
+  /**
+   * any combination of literal text and $-substitutions
+   *
+   * @since 0.1.0
+   */
   abstract var replacement: String
 
   private val _sampleRequests: MutableList<SampleRequest> = mutableListOf()
@@ -136,6 +158,8 @@ abstract class RuleBuilderScope : Named, java.io.Serializable {
    *       generateDaggerFactories = true
    *     }
    *     ```
+   *
+   * @since 0.1.0
    */
   fun sourceCode(
     fqName: String,
@@ -190,6 +214,7 @@ abstract class RuleBuilderScope : Named, java.io.Serializable {
    * @param version matcher for the version component, like `1.1.0` or `1.0.0-SNAPSHOT`. The default
    *   value will match any semantic version.
    * @return a regex string to match any maven artifact
+   * @since 0.1.0
    */
   fun maven(
     @Language("regexp") group: String = GROUP_ID,
@@ -225,6 +250,7 @@ abstract class RuleBuilderScope : Named, java.io.Serializable {
    *
    * @param pluginId the plugin ID to match. This may be a regex pattern.
    * @return a regex string to match the given plugin ID in a Gradle plugin declaration
+   * @since 0.1.0
    */
   fun gradlePlugin(@Language("regexp") pluginId: String): String {
 
@@ -277,6 +303,7 @@ abstract class RuleBuilderScope : Named, java.io.Serializable {
    * @param version the version of the plugin to match. The default value will match any semantic
    *   version. This may be a regex pattern.
    * @return a regex string to match a Gradle plugin declaration with both ID and version specified
+   * @since 0.1.0
    */
   fun gradlePluginWithVersion(
     @Language("regexp") pluginId: String,
@@ -295,7 +322,10 @@ abstract class RuleBuilderScope : Named, java.io.Serializable {
     }
   }
 
-  /** @return a [Rule] from the current values of [regex] and [replacement] */
+  /**
+   * @return a [Rule] from the current values of [regex] and [replacement]
+   * @since 0.1.0
+   */
   internal fun toRule(): Rule = Rule(
     name = name,
     regex = requireRegex(),

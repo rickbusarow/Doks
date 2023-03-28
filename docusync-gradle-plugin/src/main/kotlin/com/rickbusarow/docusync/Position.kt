@@ -18,6 +18,7 @@ package com.rickbusarow.docusync
 /**
  * @property row starts at 0
  * @property column starts at 0
+ * @since 0.1.0
  */
 internal data class Position(
   val row: Int,
@@ -30,7 +31,10 @@ internal data class Position(
 
   companion object {
 
-    /** @return the [Position] of the next [token] after [startIndex] */
+    /**
+     * @return the [Position] of the next [token] after [startIndex]
+     * @since 0.1.0
+     */
     fun String.positionOfSubstring(token: String, startIndex: Int): Position {
 
       val lines = lines()

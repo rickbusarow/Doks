@@ -92,6 +92,7 @@ internal class DocusyncPsiFileFactory : java.io.Serializable {
    * @return a "virtual" Psi `KtFile` with the given [name] and [content]. This file does not exist
    *   in a Java file system.
    * @see createKotlin
+   * @since 0.1.0
    */
   fun createKotlin(
     name: String,
@@ -106,6 +107,7 @@ internal class DocusyncPsiFileFactory : java.io.Serializable {
    * @return a "virtual" Psi `PsiJavaFile` with the given [name] and [content]. This file does not
    *   exist in a Java file system.
    * @see createJava
+   * @since 0.1.0
    */
   fun createJava(
     name: String,

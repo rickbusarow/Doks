@@ -19,7 +19,11 @@ import kotlinx.serialization.json.Json
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.Internal
 
-/** The base class for all Docusync tasks. */
+/**
+ * The base class for all Docusync tasks.
+ *
+ * @since 0.1.0
+ */
 @Suppress("UnnecessaryAbstractClass")
 abstract class DocusyncTask(description: String) : DefaultTask() {
   init {

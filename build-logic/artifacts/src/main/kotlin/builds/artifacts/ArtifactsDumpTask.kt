@@ -24,6 +24,8 @@ import javax.inject.Inject
 
 /**
  * Evaluates all published artifacts in the project and writes the results to `/artifacts.json`
+ *
+ * @since 0.1.0
  */
 open class ArtifactsDumpTask @Inject constructor(
   projectLayout: ProjectLayout

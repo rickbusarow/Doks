@@ -30,6 +30,8 @@ package com.rickbusarow.docusync.psi
  *   someDataSource.get(key)
  * }
  * ```
+ *
+ * @since 0.1.0
  */
 internal class LazyMap<K, V>(
   private val compute: LazyMap<K, V>.(K) -> V
@@ -37,10 +39,17 @@ internal class LazyMap<K, V>(
 
   private val map: MutableMap<K, Lazy<V>> = mutableMapOf()
 
-  /** size of the cached data */
+  /**
+   * size of the cached data
+   *
+   * @since 0.1.0
+   */
   val size: Int get() = map.size
 
-  /** @return true if [key] is **already cached** */
+  /**
+   * @return true if [key] is **already cached**
+   * @since 0.1.0
+   */
   fun containsKey(key: K): Boolean = map.containsKey(key)
 
   /**
@@ -48,6 +57,7 @@ internal class LazyMap<K, V>(
    * not be invoked if [key] is not requested.
    *
    * @return the old [V] if one is already cached, else `null`
+   * @since 0.1.0
    */
   fun set(key: K, value: () -> V): V? = put(key, lazy(value))
 
@@ -56,6 +66,7 @@ internal class LazyMap<K, V>(
    * not be invoked if [key] is not requested.
    *
    * @return the old [V] if one is already cached, else `null`
+   * @since 0.1.0
    */
   fun set(key: K, value: Lazy<V>): V? = put(key, value)
 
@@ -64,6 +75,7 @@ internal class LazyMap<K, V>(
    * not be invoked if [key] is not requested.
    *
    * @return the old [V] if one is already cached, else `null`
+   * @since 0.1.0
    */
   fun put(key: K, value: Lazy<V>): V? = map.put(key, value)?.value
 
@@ -71,6 +83,7 @@ internal class LazyMap<K, V>(
    * Tells the map to immediately store [value] for [key].
    *
    * @return the old [V] if one is already cached, else `null`
+   * @since 0.1.0
    */
   fun set(key: K, value: V): V? = put(key, value)
 
@@ -78,10 +91,15 @@ internal class LazyMap<K, V>(
    * Tells the map to immediately store [value] for [key].
    *
    * @return the old [V] if one is already cached, else `null`
+   * @since 0.1.0
    */
   fun put(key: K, value: V): V? = map.put(key, lazy { value })?.value
 
-  /** Fetches the value for [key] or throws if the value cannot be computed. */
+  /**
+   * Fetches the value for [key] or throws if the value cannot be computed.
+   *
+   * @since 0.1.0
+   */
   operator fun get(key: K): V {
 
     val lazyValue = map.getOrPut(key) { lazy { compute(this@LazyMap, key) } }
@@ -113,6 +131,8 @@ internal class LazyMap<K, V>(
      *   .map { someData -> someData to someData.otherValue() }
      *   .toLazyMap()
      * ```
+     *
+     * @since 0.1.0
      */
     fun <K, V> Sequence<Pair<K, V>>.toLazyMap(): LazyMap<K, V?> {
       val dataSource = stateful()
@@ -162,6 +182,8 @@ internal class LazyMap<K, V>(
  *      yield 4
  * null
  * ```
+ *
+ * @since 0.1.0
  */
 internal fun <T> Sequence<T>.stateful(): Sequence<T> {
   val iterator = iterator()

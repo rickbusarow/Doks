@@ -25,10 +25,16 @@ import org.intellij.lang.annotations.Language
  *
  * A rule is defined as a search and replace operation, where a given regex pattern is matched against
  * some text and replaced with a specified string.
+ *
+ * @since 0.1.0
  */
 interface RuleFactory : java.io.Serializable {
 
-  /** All registered [RuleBuilderScope] instances within this [DocusyncSourceSet]. */
+  /**
+   * All registered [RuleBuilderScope] instances within this [DocusyncSourceSet].
+   *
+   * @since 0.1.0
+   */
   val rules: NamedDomainObjectContainer<RuleBuilderScope>
 
   /**
@@ -39,6 +45,7 @@ interface RuleFactory : java.io.Serializable {
    *   rule. Use this to set the regex matcher and the replacement string.
    * @return a [NamedDomainObjectProvider] instance for the newly created
    *   [Rule][com.rickbusarow.docusync.Rule] instance
+   * @since 0.1.0
    */
   fun rule(
     name: String,
@@ -56,6 +63,7 @@ interface RuleFactory : java.io.Serializable {
    * @param replacement the string to replace the matched pattern with
    * @return a [NamedDomainObjectProvider] instance for the newly created
    *   [Rule][com.rickbusarow.docusync.Rule] instance
+   * @since 0.1.0
    */
   fun rule(
     name: String,

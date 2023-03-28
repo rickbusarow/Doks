@@ -17,23 +17,35 @@ package com.rickbusarow.docusync
 
 import com.rickbusarow.docusync.internal.stdlib.requireNotNull
 
-/** Holds all [Rules][Rule] defined for a given set. */
+/**
+ * Holds all [Rules][Rule] defined for a given set.
+ *
+ * @since 0.1.0
+ */
 class Rules(
   private val map: Map<RuleName, Rule>
 ) : java.io.Serializable {
 
-  /** The sorted list of names present in this cache. */
+  /**
+   * The sorted list of names present in this cache.
+   *
+   * @since 0.1.0
+   */
   val names: List<RuleName> get() = map.keys.sorted()
 
   internal constructor(globalRules: List<Rule>) : this(globalRules.associateBy { it.name })
   internal constructor(vararg globalRules: Rule) : this(globalRules.associateBy { it.name })
 
-  /** @return true if a rule named [ruleName] is defined in this cache */
+  /**
+   * @return true if a rule named [ruleName] is defined in this cache
+   * @since 0.1.0
+   */
   fun hasName(ruleName: RuleName): Boolean = map.containsKey(ruleName)
 
   /**
    * @return the [Rule] associated with [ruleName] within this scope, or `null` if there's no match
    * @see get for a non-nullable version which throws if the name is missing
+   * @since 0.1.0
    */
   fun getOrNull(ruleName: RuleName): Rule? {
     return map[ruleName]
@@ -43,6 +55,7 @@ class Rules(
    * @return the [Rule] associated with [ruleName] within this scope
    * @throws IllegalArgumentException if there is no rule with the requested name
    * @see getOrNull for a safe version which returns null for a missing name
+   * @since 0.1.0
    */
   operator fun get(ruleName: RuleName): Rule {
     return map[ruleName]

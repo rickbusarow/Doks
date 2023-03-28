@@ -17,28 +17,45 @@ package com.rickbusarow.docusync.internal.stdlib
 
 import java.util.Locale
 
-/** Replaces the deprecated Kotlin version, but hard-codes `Locale.US` */
+/**
+ * Replaces the deprecated Kotlin version, but hard-codes `Locale.US`
+ *
+ * @since 0.1.0
+ */
 internal fun String.capitalize(): String = replaceFirstChar {
   if (it.isLowerCase()) it.titlecase(Locale.US) else it.toString()
 }
 
-/** shorthand for `joinToString("") { ... }` */
+/**
+ * shorthand for `joinToString("") { ... }`
+ *
+ * @since 0.1.0
+ */
 internal fun <E> Sequence<E>.joinToStringConcat(
   transform: ((E) -> CharSequence)? = null
 ): String = joinToString("", transform = transform)
 
-/** shorthand for `joinToString("") { ... }` */
+/**
+ * shorthand for `joinToString("") { ... }`
+ *
+ * @since 0.1.0
+ */
 internal fun <E> Iterable<E>.joinToStringConcat(
   transform: ((E) -> CharSequence)? = null
 ): String = joinToString("", transform = transform)
 
-/** Converts all line separators in the receiver string to use `\n`. */
+/**
+ * Converts all line separators in the receiver string to use `\n`.
+ *
+ * @since 0.1.0
+ */
 internal fun String.normaliseLineSeparators(): String = replace("\r\n|\r".toRegex(), "\n")
 
 /**
  * Adds line breaks and indents to the output of data class `toString()`s.
  *
  * @see toStringPretty
+ * @since 0.1.0
  */
 internal fun String.prettyToString(): String {
   return replace(",", ",\n")
@@ -58,13 +75,18 @@ internal fun String.prettyToString(): String {
  * shorthand for `toString().prettyToString()`, which adds line breaks and indents to a string
  *
  * @see prettyToString
+ * @since 0.1.0
  */
 internal fun Any?.toStringPretty(): String = when (this) {
   is Map<*, *> -> toList().joinToString("\n")
   else -> toString().prettyToString()
 }
 
-/** A naive auto-indent which just counts brackets. */
+/**
+ * A naive auto-indent which just counts brackets.
+ *
+ * @since 0.1.0
+ */
 internal fun String.indentByBrackets(tab: String = "  "): String {
 
   var tabCount = 0
@@ -93,12 +115,20 @@ internal fun String.indentByBrackets(tab: String = "  "): String {
     }
 }
 
-/** shorthand for `replace(___, "")` against multiple tokens */
+/**
+ * shorthand for `replace(___, "")` against multiple tokens
+ *
+ * @since 0.1.0
+ */
 internal fun String.remove(vararg strings: String): String = strings.fold(this) { acc, string ->
   acc.replace(string, "")
 }
 
-/** shorthand for `replace(___, "")` against multiple tokens */
+/**
+ * shorthand for `replace(___, "")` against multiple tokens
+ *
+ * @since 0.1.0
+ */
 internal fun String.remove(vararg regex: Regex): String = regex.fold(this) { acc, reg ->
   acc.replace(reg, "")
 }

@@ -34,10 +34,10 @@ githubRelease {
     property("GITHUB_PERSONAL_ACCESS_TOKEN") as? String
       ?: throw GradleException(
         "In order to release, you must provide a GitHub Personal Access Token " +
-          "as a property named 'GITHUB_PAT'.  " +
-          "See https://rbusarow.github.io/docusync/docs/next/contributing/items/releasing"
+          "as a property named 'GITHUB_PERSONAL_ACCESS_TOKEN'."
       )
   }
+
   owner.set("rbusarow")
 
   tagName { VERSION_NAME }
@@ -56,7 +56,9 @@ githubRelease {
     val escapedVersion = Regex.escape(VERSION_NAME)
 
     // capture everything in between '## [<this version>]' and a new line which starts with '## '
-    val versionSectionRegex = """(?:^|\n)## \[$escapedVersion]\s+.+\n([\s\S]*?)(?=\n+## )""".toRegex()
+    val versionSectionRegex = Regex(
+      """(?:^|\n)## \[$escapedVersion]\s+.+\n([\s\S]*?)(?=\n+## |\[$escapedVersion])"""
+    )
 
     versionSectionRegex
       .find(file("CHANGELOG.md").readText())
@@ -76,18 +78,4 @@ githubRelease {
   overwrite.set(false)
   dryRun.set(false)
   draft.set(true)
-
-  // Upload the distribution .zip files to the release. Since this is adding the tasks themselves as
-  // inputs, Gradle will treat them as task dependencies.
-  releaseAssets(
-    provider {
-      listOf(project(":docusync-cli"))
-        .flatMap { cliProject ->
-          listOf(
-            cliProject.tasks.named("distZip", Zip::class.java),
-            cliProject.tasks.named("shadowDistZip", Zip::class.java)
-          )
-        }
-    }
-  )
 }

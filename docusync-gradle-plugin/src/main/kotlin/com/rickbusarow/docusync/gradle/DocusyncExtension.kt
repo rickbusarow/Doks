@@ -22,13 +22,13 @@ import org.gradle.api.file.ProjectLayout
 import org.gradle.api.tasks.TaskContainer
 import javax.inject.Inject
 
-/**  */
+/** @since 0.1.0 */
 abstract class DocusyncExtension @Inject constructor(
   private val taskContainer: TaskContainer,
   private val layout: ProjectLayout
 ) : java.io.Serializable {
 
-  /**  */
+  /** @since 0.1.0 */
   abstract val sourceSets: NamedDomainObjectContainer<DocusyncSourceSet>
 
   private val taskFactory: DocusyncTaskFactory by lazy {
@@ -44,6 +44,7 @@ abstract class DocusyncExtension @Inject constructor(
    * @param name The name of the new source set. Defaults to "main".
    * @param action The configuration action for the new source set.
    * @return The provider for the new source set.
+   * @since 0.1.0
    */
   fun docSet(
     name: String = "main",

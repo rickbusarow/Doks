@@ -11,7 +11,7 @@ commons-io = "2.11.0"
 dependencyAnalysis = "1.19.0"
 detekt = "1.22.0"
 diffplug-spotless = "6.17.0"
-docusync = "0.1.0-SNAPSHOT"
+docusync = "0.1.0"
 dokka = "1.8.10"
 dropbox-dependencyGuard = "0.4.3"
 ec4j = "0.3.0"
@@ -59,7 +59,6 @@ square-javaPoet = "1.13.0"
 square-kotlinPoet = "1.12.0"
 square-moshi = "1.14.0"
 square-okio = "3.3.0"
-square-wire = "4.5.2"
 outfoxx-swiftPoet = "1.4.3"
 outfoxx-typescriptPoet = "1.1.2"
 taskTree = "2.1.1"
@@ -92,7 +91,6 @@ moduleCheck = { id = "com.rickbusarow.module-check", version.ref = "rickBusarow-
 shadowJar = { id = "com.github.johnrengelman.shadow", version.ref = "johnrengelman-shadow" }
 taskTree = { id = "com.dorongold.task-tree", version.ref = "taskTree" }
 versionCatalogUpdate = { id = "nl.littlerobots.version-catalog-update", version.ref = "versionCatalogUpdate" }
-wire = { id = "com.squareup.wire", version.ref = "square-wire" }
 
 [libraries]
 benManes-versions = { module = "com.github.ben-manes:gradle-versions-plugin", version.ref = "benManes-versions" }
@@ -235,17 +233,6 @@ square-okio = { module = "com.squareup.okio:okio", version.ref = "square-okio" }
 square-okio-bom = { module = "com.squareup.okio:okio-bom", version.ref = "square-okio" }
 square-okio-fakefilesystem = { module = "com.squareup.okio:okio-fakefilesystem-jvm", version.ref = "square-okio" }
 square-okio-jvm = { module = "com.squareup.okio:okio-jvm", version.ref = "square-okio" }
-
-square-wire-compiler = { module = "com.squareup.wire:wire-compiler", version.ref = "square-wire" }
-square-wire-gradle-plugin = { module = "com.squareup.wire:wire-gradle-plugin", version.ref = "square-wire" }
-square-wire-grpc-client-jvm = { module = "com.squareup.wire:wire-grpc-client-jvm", version.ref = "square-wire" }
-square-wire-gson-support = { module = "com.squareup.wire:wire-gson-support", version.ref = "square-wire" }
-square-wire-java-generator = { module = "com.squareup.wire:wire-java-generator", version.ref = "square-wire" }
-square-wire-kotlin-generator = { module = "com.squareup.wire:wire-kotlin-generator", version.ref = "square-wire" }
-square-wire-runtime = { module = "com.squareup.wire:wire-runtime", version.ref = "square-wire" }
-square-wire-runtime-swift = { module = "com.squareup.wire:wire-runtime-swift", version.ref = "square-wire" }
-square-wire-schema = { module = "com.squareup.wire:wire-schema", version.ref = "square-wire" }
-square-wire-schema-tests = { module = "com.squareup.wire:wire-schema-tests", version.ref = "square-wire" }
 
 outfoxx-swiftPoet = { module = "io.outfoxx:swiftpoet", version.ref = "outfoxx-swiftPoet" }
 outfoxx-typescriptPoet = { module = "io.outfoxx:typescriptpoet", version.ref = "outfoxx-typescriptPoet" }

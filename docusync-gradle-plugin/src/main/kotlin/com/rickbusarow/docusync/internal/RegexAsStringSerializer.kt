@@ -22,7 +22,7 @@ import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
 
-/**  */
+/** @since 0.1.0 */
 internal object RegexAsStringSerializer : KSerializer<Regex> {
   override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("Regex", STRING)
 

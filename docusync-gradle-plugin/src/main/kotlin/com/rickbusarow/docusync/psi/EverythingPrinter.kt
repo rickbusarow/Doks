@@ -26,6 +26,8 @@ import org.jetbrains.kotlin.psi.KtTreeVisitorVoid
  * ```
  * ktFile.getKtProperty("foo").printEverything()
  * ```
+ *
+ * @since 0.1.0
  */
 internal class EverythingPrinter : KtTreeVisitorVoid() {
 

@@ -21,6 +21,7 @@ import java.util.LinkedList
 /**
  * @return a breadth-first traversal of all nested elements of type [T], including the nested
  *   elements of children, their children, etc.
+ * @since 0.1.0
  */
 internal inline fun <reified T : PsiElement> PsiElement.getChildrenOfTypeRecursive(): Sequence<T> {
 
@@ -38,6 +39,7 @@ internal inline fun <reified T : PsiElement> PsiElement.getChildrenOfTypeRecursi
 /**
  * @return a depth-first traversal of all nested elements of type [T], including the nested elements
  *   of children, their children, etc.
+ * @since 0.1.0
  */
 internal inline fun <reified T : PsiElement> PsiElement.getChildrenOfTypeRecursive(
   noinline predicate: (PsiElement) -> Boolean = { true }

@@ -35,6 +35,7 @@ import java.io.Serializable
  * @property javaVersion the java version of the artifact (typically 8 or 11). If not set explicitly,
  *   this defaults to the JDK version used to build the artifact.
  * @property publicationName typically 'maven', but other things for KMP artifacts
+ * @since 0.1.0
  */
 @JsonClass(generateAdapter = true)
 data class ArtifactConfig(
@@ -48,6 +49,8 @@ data class ArtifactConfig(
 ) : Serializable, Comparable<ArtifactConfig> {
   /**
    * globally unique identifier for this artifact
+   *
+   * @since 0.1.0
    */
   val key = "$gradlePath+$publicationName"
 

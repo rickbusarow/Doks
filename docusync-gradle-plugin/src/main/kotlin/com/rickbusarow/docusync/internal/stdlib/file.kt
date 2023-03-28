@@ -20,6 +20,8 @@ import java.io.File
 /**
  * Walks up the tree until [parentFile][File.getParentFile] is null. The first element is the immediate
  * parent of the receiver, and the last is the root.
+ *
+ * @since 0.1.0
  */
 internal fun File.parents(): Sequence<File> = generateSequence(this) { it.parentFile }
 
@@ -27,6 +29,8 @@ internal fun File.parents(): Sequence<File> = generateSequence(this) { it.parent
  * Makes parent directories, then creates the receiver file. If a [content] argument was provided, it
  * will be written to the newly-created file. If the file already existed, its content will be
  * overwritten.
+ *
+ * @since 0.1.0
  */
 internal fun File.createSafely(content: String? = null): File = apply {
   if (content != null) {
@@ -41,6 +45,7 @@ internal fun File.createSafely(content: String? = null): File = apply {
  *
  * @see File.mkdirs
  * @see File.makeParentDir
+ * @since 0.1.0
  */
 internal fun File.mkdirsInline(): File = apply(File::mkdirs)
 
@@ -49,6 +54,7 @@ internal fun File.mkdirsInline(): File = apply(File::mkdirs)
  *
  * @see File.mkdirsInline
  * @see File.mkdirs
+ * @since 0.1.0
  */
 internal fun File.makeParentDir(): File = apply {
   val fileParent = parentFile.requireNotNull {

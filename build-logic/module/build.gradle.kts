@@ -56,5 +56,4 @@ dependencies {
   implementation(libs.johnrengelman.shadowJar)
   implementation(libs.kotlinx.binaryCompatibility)
   implementation(libs.rickBusarow.moduleCheck.gradle.plugin)
-  implementation(libs.square.wire.gradle.plugin)
 }

@@ -20,7 +20,6 @@ import builds.artifacts.ArtifactsDumpTask
 import com.autonomousapps.tasks.BuildHealthTask
 import com.github.jengelman.gradle.plugins.shadow.internal.JavaJarExec
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
-import com.squareup.wire.gradle.WireTask
 import io.gitlab.arturbosch.detekt.Detekt
 import kotlinx.validation.KotlinApiBuildTask
 import kotlinx.validation.KotlinApiCompareTask
@@ -78,8 +77,6 @@ abstract class CompositePlugin : Plugin<Project> {
         AbstractPublishToMaven::class, PublishToMavenLocal::class,
         /* shadow */
         JavaJarExec::class, ShadowJar::class,
-        /* wire */
-        WireTask::class
       )
       val propagatedTaskTypeNames = propagatedTaskTypes
         .mapTo(mutableSetOf()) { it.qualifiedName!! }

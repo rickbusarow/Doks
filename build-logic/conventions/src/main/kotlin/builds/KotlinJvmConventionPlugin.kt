@@ -58,14 +58,23 @@ abstract class KotlinJvmConventionPlugin : Plugin<Project> {
       }
     }
 
-    target.tasks.named("compileTestKotlin", KotlinCompile::class.java) { task ->
-      task.kotlinOptions {
+    val testBuildNames = setOf(
+      "compileIntegrationKotlin",
+      "compileTestKotlin"
+    )
 
-        check(target.libsCatalog.version("kotest") == "5.5.5") { "Remove the KotestInternal compiler arg" }
+    target.tasks.withType(KotlinCompile::class.java)
+      .matching { it.name in testBuildNames }
+      .configureEach { task ->
+        task.kotlinOptions {
 
-        freeCompilerArgs += "-opt-in=io.kotest.common.KotestInternal"
+          check(target.libsCatalog.version("kotest") == "5.5.5") {
+            "Remove the KotestInternal compiler arg."
+          }
+
+          freeCompilerArgs += "-opt-in=io.kotest.common.KotestInternal"
+        }
       }
-    }
 
     target.plugins.withType(MavenPublishBasePlugin::class.java) {
       target.extensions.configure(JavaPluginExtension::class.java) { extension ->

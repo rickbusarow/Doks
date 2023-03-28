@@ -21,6 +21,7 @@ import org.gradle.api.Action
 import org.gradle.api.file.ConfigurableFileCollection
 import org.gradle.api.file.ConfigurableFileTree
 import org.gradle.api.file.Directory
+import org.gradle.api.file.ProjectLayout
 import org.gradle.api.model.ObjectFactory
 import java.io.File
 import java.nio.file.Path
@@ -40,7 +41,8 @@ abstract class DocusyncSourceSet @Inject constructor(
    * @since 0.1.0
    */
   val name: String,
-  private val objects: ObjectFactory
+  private val objects: ObjectFactory,
+  private val layout: ProjectLayout
 ) : RuleFactory, java.io.Serializable {
 
   /**
@@ -157,7 +159,7 @@ abstract class DocusyncSourceSet @Inject constructor(
       is File -> this
       is Directory -> asFile
       is Path -> toFile()
-      is String -> File(this).takeIf { it.exists() }
+      is String -> layout.projectDirectory.asFile.resolve(this).takeIf { it.exists() }
       else -> null
     }
 

@@ -42,8 +42,6 @@ interface BuildLogicShadowExtension {
           "kotlinx.serialization",
           "com.charleskorn.kaml",
           "org.intellij.markdown",
-          "org.snakeyaml",
-          "uk.co.mainwave.regextoolboxkotlin"
         ).forEach {
           task.relocate(it, "com.rickbusarow.docusync.$it")
         }

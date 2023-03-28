@@ -14,12 +14,18 @@
  */
 
 import builds.VERSION_NAME
+import builds.dependsOn
 import builds.isRealRootProject
+import com.github.gmazzo.gradle.plugins.BuildConfigTask
 
+@Suppress("DSL_SCOPE_VIOLATION")
 plugins {
   id("module")
   id("java-gradle-plugin")
   id("com.gradle.plugin-publish")
+  alias(libs.plugins.integration.test)
+  alias(libs.plugins.buildconfig)
+  idea
 }
 
 val pluginId = "com.rickbusarow.docusync"
@@ -35,7 +41,7 @@ val pluginDeclaration: NamedDomainObjectProvider<PluginDeclaration> =
       implementationClass = "com.rickbusarow.docusync.gradle.DocusyncPlugin"
       version = VERSION_NAME
       description = moduleDescription
-      tags.set(listOf("markdown", "documentation"))
+      this@register.tags.set(listOf("markdown", "documentation"))
     }
 
 val shade by configurations.register("shadowCompileOnly")
@@ -53,19 +59,54 @@ module {
   publishedPlugin(pluginDeclaration = pluginDeclaration)
 }
 
+buildConfig {
+
+  this@buildConfig.sourceSets.named(java.sourceSets.integration.name) {
+
+    this@named.packageName("${builds.GROUP}.gradle")
+    this@named.className("BuildConfig")
+
+    this@named.buildConfigField("String", "pluginId", "\"$pluginId\"")
+    this@named.buildConfigField("String", "version", "\"${VERSION_NAME}\"")
+    this@named.buildConfigField("String", "kotlinVersion", "\"${libs.versions.kotlin.get()}\"")
+  }
+}
+
+rootProject.tasks.named("prepareKotlinBuildScriptModel") {
+  dependsOn(tasks.withType(BuildConfigTask::class.java))
+}
+
+idea {
+  module {
+    java.sourceSets.integration {
+      @Suppress("UnstableApiUsage")
+      this@module.testSources.from(allSource.srcDirs)
+    }
+  }
+}
+
+tasks.withType<Test> {
+  onlyIf { true }
+}
+
+val mainConfig: String = if (rootProject.isRealRootProject()) {
+  shade.name
+} else {
+  "implementation"
+}
+
 dependencies {
 
   compileOnly(gradleApi())
 
-  implementation(libs.kotlin.compiler)
-
-  val mainConfig = if (rootProject.isRealRootProject()) {
-    shade.name
-  } else {
-    "implementation"
-  }
+  integrationImplementation(libs.jetbrains.markdown)
+  integrationImplementation(libs.kotlin.compiler)
+  integrationImplementation(libs.kotlinx.coroutines.core)
+  integrationImplementation(libs.kotlinx.serialization.core)
+  integrationImplementation(libs.kotlinx.serialization.json)
 
   mainConfig(libs.jetbrains.markdown)
+  mainConfig(libs.kotlin.compiler)
   mainConfig(libs.kotlinx.coroutines.core)
   mainConfig(libs.kotlinx.serialization.core)
   mainConfig(libs.kotlinx.serialization.json)
@@ -81,7 +122,10 @@ dependencies {
   testImplementation(libs.kotest.common)
   testImplementation(libs.kotest.extensions)
   testImplementation(libs.kotest.property.jvm)
+  testImplementation(libs.kotlin.compiler)
   testImplementation(libs.kotlinx.coroutines.core)
   testImplementation(libs.kotlinx.serialization.core)
   testImplementation(libs.kotlinx.serialization.json)
 }
+
+tasks.named("integrationTest").dependsOn("publishToMavenLocalNoDokka")

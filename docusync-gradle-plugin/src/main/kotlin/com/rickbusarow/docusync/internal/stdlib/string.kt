@@ -132,3 +132,10 @@ internal fun String.remove(vararg strings: String): String = strings.fold(this) 
 internal fun String.remove(vararg regex: Regex): String = regex.fold(this) { acc, reg ->
   acc.replace(reg, "")
 }
+
+internal fun String.trimIndentAfterFirstLine(): String {
+  val split = lines()
+  val first = split.first()
+  val remaining = split.drop(1).joinToString("\n").trimIndent()
+  return "$first\n$remaining"
+}

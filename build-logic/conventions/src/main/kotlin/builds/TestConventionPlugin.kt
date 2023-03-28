@@ -67,9 +67,8 @@ abstract class TestConventionPlugin : Plugin<Project> {
       }
 
       target.properties
-        .asSequence()
         .filter { (key, value) ->
-          key.startsWith("docusync") && value != null
+          key.startsWith("docusync.") && value != null
         }
         .forEach { (key, value) ->
           systemProperty(key, value as String)
@@ -107,13 +106,6 @@ abstract class TestConventionPlugin : Plugin<Project> {
           task.dependsOn(sub.tasks.matching { it.name == thisTaskName })
         }
       }
-    }
-
-    target.tasks.register("testAll", BuildLogicTask::class.java) { task ->
-      task.group = "verification"
-      task.description = "hook for invoking 'integrationTest' tasks along with normal 'test'"
-
-      task.dependsOn(target.tasks.withType(Test::class.java))
     }
   }
 }

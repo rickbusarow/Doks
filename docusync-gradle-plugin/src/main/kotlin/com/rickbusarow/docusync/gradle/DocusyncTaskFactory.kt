@@ -18,6 +18,7 @@ package com.rickbusarow.docusync.gradle
 import com.rickbusarow.docusync.gradle.internal.dependsOn
 import com.rickbusarow.docusync.gradle.internal.registerOnce
 import com.rickbusarow.docusync.internal.stdlib.capitalize
+import com.rickbusarow.docusync.internal.stdlib.createSafely
 import com.rickbusarow.docusync.internal.stdlib.letIf
 import org.gradle.api.NamedDomainObjectProvider
 import org.gradle.api.Task
@@ -84,7 +85,7 @@ internal class DocusyncTaskFactory(
       val subprojectDirs = task.subprojectDirs()
 
       val sampleCodeSourceFiles = sourceSet.map { ss ->
-        ss.sampleCodeSource.letIf(ss.sampleCodeSource.hasFiles()) {
+        ss.sampleCodeSource.letIf(!ss.sampleCodeSource.hasFiles()) {
           samplesFileCollectionDefault(ss, subprojectDirs)
         }
       }
@@ -129,7 +130,14 @@ internal class DocusyncTaskFactory(
         "Searches for any out-of-date documentation and fails if it finds any."
       }
 
-      task.samplesMapping.set(samplesMappingFile)
+      task.samplesMapping.set(samplesMappingFile.map { regularFile ->
+
+        if (!regularFile.asFile.exists()) {
+          regularFile.asFile.createSafely()
+        }
+
+        regularFile
+      })
 
       // Get the subproject directories eagerly, outside any provider mappings, so that we're not
       // trying to access the task's project instance during the execution phase. Doing it during the
@@ -137,12 +145,12 @@ internal class DocusyncTaskFactory(
       val subprojectDirs = task.subprojectDirs()
 
       val docsFiles = sourceSet.map { ss ->
-        ss.docs.letIf(ss.docs.hasFiles()) {
+        ss.docs.letIf(!ss.docs.hasFiles()) {
           docsFileCollectionDefault(ss, subprojectDirs)
         }
       }
 
-      task.onlyIf { sourceSet.get().docs.files.isNotEmpty() }
+      task.onlyIf { docsFiles.get().files.isNotEmpty() }
 
       task.docs.from(docsFiles)
       task.ruleBuilders.addAllLater(sourceSet.map { it.rules })
@@ -158,7 +166,7 @@ internal class DocusyncTaskFactory(
   private fun samplesFileCollectionDefault(
     ss: DocusyncSourceSet,
     subprojectDirs: List<String>
-  ) = ss.docs(layout.projectDirectory.dir("src")) {
+  ) = ss.sampleCodeSource(layout.projectDirectory.dir("src")) {
     it.include("**/*.kt", "**/*.kts")
     it.exclude(layout.buildDirectory.get().asFile.path)
     it.exclude(subprojectDirs)

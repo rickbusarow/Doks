@@ -239,6 +239,122 @@ class NamedSamplesTest {
     """.trimIndent()
   }
 
+  @Test
+  fun `a variable inside a nested function can be resolved`() {
+
+    parse(
+      fqName = "com.test.MyClass.foo.bar.variable",
+      bodyOnly = true,
+      """
+      package com.test
+
+      class MyClass {
+        fun foo() {
+          fun bar() {
+            val variable = "a string"
+          }
+        }
+      }
+      """
+    ) shouldBe "a string"
+  }
+
+  @Test
+  fun `a function with backticks can be resolved`() {
+
+    parse(
+      fqName = "com.test.MyClass.`a function`",
+      bodyOnly = true,
+      """
+      package com.test
+
+      class MyClass {
+        fun `a function`() {
+          val variable = "a string"
+        }
+      }
+      """
+    ) shouldBe "val variable = \"a string\""
+  }
+
+  @Test
+  fun `a property inside a function with backticks can be resolved`() {
+
+    parse(
+      fqName = "com.test.MyClass.`a function`.variable",
+      bodyOnly = true,
+      """
+      package com.test
+
+      class MyClass {
+        fun `a function`() {
+          val variable = "a string"
+        }
+      }
+      """
+    ) shouldBe "a string"
+  }
+
+  @Test
+  fun `a variable inside an expression function lambda can be resolved`() {
+
+    parse(
+      fqName = "com.test.MyClass.foo.variable",
+      bodyOnly = true,
+      """
+      package com.test
+
+      class MyClass {
+        fun foo() = test {
+          val variable = "a string"
+        }
+      }
+      """
+    ) shouldBe "a string"
+  }
+
+  @Test
+  fun `a member function without bodyOnly has its indentation preserved`() {
+
+    parse(
+      fqName = "com.test.MyClass.foo",
+      bodyOnly = false,
+      """
+      package com.test
+
+      class MyClass {
+        fun foo() {
+          val variable = "a string"
+        }
+      }
+      """
+    ) shouldBe """
+      |fun foo() {
+      |  val variable = "a string"
+      |}""".trimMargin()
+  }
+
+  @Test
+  fun `a nested class without bodyOnly has its indentation preserved`() {
+
+    parse(
+      fqName = "com.test.Outer.Inner",
+      bodyOnly = false,
+      """
+      package com.test
+
+      class Outer {
+        class Inner {
+          val variable = "a string"
+        }
+      }
+      """
+    ) shouldBe """
+      |class Inner {
+      |  val variable = "a string"
+      |}""".trimMargin()
+  }
+
   fun parse(
     fqName: String,
     bodyOnly: Boolean,

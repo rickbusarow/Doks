@@ -44,7 +44,7 @@ import org.gradle.work.InputChanges
 import org.gradle.workers.WorkAction
 import org.gradle.workers.WorkParameters
 import org.gradle.workers.WorkerExecutor
-import org.jetbrains.kotlin.konan.file.File
+import java.io.File
 import javax.inject.Inject
 
 /**
@@ -132,6 +132,7 @@ abstract class DocusyncDocsTask @Inject constructor(
     val resultsByRequest = samplesMapping.orNull
       ?.asFile
       ?.readText()
+      ?.takeIf { it.isNotBlank() }
       ?.let { jsonString -> json.decodeFromString<Map<SampleRequest, SampleResult>>(jsonString) }
       .orEmpty()
 
@@ -139,13 +140,21 @@ abstract class DocusyncDocsTask @Inject constructor(
       .mapKeys { (request, _) -> request.hashCode() }
 
     val rules = ruleBuilders.toList()
-      .map {
-        val withSamples = it.replacement.replace("\u200B(-?\\d+)\u200B".toRegex()) { mr ->
+      .map { builder ->
+        val withSamples = builder.replacement.replace("\u200B(-?\\d+)\u200B".toRegex()) { mr ->
           resultsByRequestHash.getValue(mr.groupValues[1].toInt()).content
         }
+          .let {
+            if (it != builder.replacement) {
+              Regex.escapeReplacement(it)
+            } else {
+              it
+            }
+          }
+
         Rule(
-          name = it.name,
-          regex = it.requireRegex(),
+          name = builder.name,
+          regex = builder.requireRegex(),
           replacement = withSamples
         )
       }

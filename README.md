@@ -49,19 +49,23 @@ pluginManagement {
 To define a search-and-replace rule, you'll need to add it to your Gradle build script using the
 following syntax:
 
-```kotlin
+<!--docusync kotlin-dsl-config,dollar-raw-string:5,buildConfig-version:1-->
+
+```kotlin title="build.gradle.kts"
 // build.gradle.kts
 plugins {
-  id("com.rickbusarow.docusync") version "0.0.1-SNAPSHOT"
+  id("com.rickbusarow.docusync") version "0.1.1-SNAPSHOT"
 }
 
 docusync {
   // Define a set of documents with rules.
-  docsSet {
+  docSet {
     // Set the files which will be synced
     docs(projectDir) {
       include("**/*.md", "**/*.mdx")
     }
+
+    sampleCodeSource("src/kotlin/com/example/dino/sauropod/samples")
 
     // Define a rule used in updating.
     // This rule's name corresponds to the name used in documentation.
@@ -70,11 +74,23 @@ docusync {
       // replace any maven coordinate string with one using the current version,
       // where '$1' is the group id, '$2' is the artifact id,
       // and 'CURRENT_VERSION' is just some variable.
-      replacement = "$2:$3:$CURRENT_VERSION"
+      replacement = "$1:$2:$CURRENT_VERSION"
+    }
+
+    // Define a rule used in updating.
+    // This rule's name corresponds to the name used in documentation.
+    rule("brachiosaurus") {
+      replacement = sourceCode(
+        fqName = "com.example.dino.sauropod.samples.BrachiosaurusSample.doTheDino",
+        bodyOnly = false,
+        codeBlockLanguage = "kotlin"
+      )
     }
   }
 }
 ```
+
+<!--/docusync-->
 
 Here, ruleName is the ID you'll use to reference the rule in your documentation, regex is the regular
 expression you want to search for, and replacement is the replacement text that should be inserted in
@@ -105,6 +121,8 @@ rule.
 Docusync supports the extraction of code samples from Kotlin files.
 Here's an example of how to use it in your docusync configuration block:
 
+<!--docusync kotlin-dsl-config,dollar-raw-string:5,buildConfig-version:1-->
+
 ```kotlin
 docusync {
   docSet("main") {
@@ -125,6 +143,8 @@ docusync {
   }
 }
 ```
+
+<!--/docusync-->
 
 This will extract the source code from a property named `config` defined
 inside `com.example.dino.DinoPluginSample` in the `src/test/kotlin` directory. That code will be

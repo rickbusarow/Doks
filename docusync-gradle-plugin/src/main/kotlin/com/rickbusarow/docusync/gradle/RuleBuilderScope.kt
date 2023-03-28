@@ -323,6 +323,18 @@ abstract class RuleBuilderScope : Named, java.io.Serializable {
   }
 
   /**
+   * An inline version of [Regex.escape]. The receiver string will be interpreted as a literal string.
+   * No characters within the string will have special meaning.
+   */
+  fun String.escapeRegex(): String = Regex.escape(this)
+
+  /**
+   * An inline version of [Regex.escapeReplacement]. The receiver string will be interpreted as a
+   * literal string. No characters within the string will have special meaning.
+   */
+  fun String.escapeReplacement(): String = Regex.escapeReplacement(this)
+
+  /**
    * @return a [Rule] from the current values of [regex] and [replacement]
    * @since 0.1.0
    */

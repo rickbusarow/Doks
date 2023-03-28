@@ -20,11 +20,49 @@ plugins {
   id("root")
   alias(libs.plugins.moduleCheck)
   alias(libs.plugins.github.release)
+  alias(libs.plugins.docusync)
 }
 
 moduleCheck {
   deleteUnused = true
   checks.sortDependencies = true
+}
+
+docusync {
+  docSet {
+    docs(projectDir) {
+      include("**/*.md", "**/*.mdx")
+    }
+
+    sampleCodeSource("docusync-gradle-plugin/src/integration/kotlin")
+
+    rule("kotlin-dsl-config-simple") {
+      replacement = sourceCode(
+        fqName = "com.rickbusarow.docusync.gradle.ConfigTest.`kotlin dsl config simple`.config",
+        bodyOnly = true,
+        codeBlockLanguage = "kotlin",
+        attributes = "title=\"build.gradle.kts\""
+      )
+    }
+
+    rule("kotlin-dsl-config-code") {
+      replacement = sourceCode(
+        fqName = "com.rickbusarow.docusync.gradle.ConfigTest.`kotlin dsl config code`.config",
+        bodyOnly = true,
+        codeBlockLanguage = "kotlin",
+        attributes = "title=\"build.gradle.kts\""
+      )
+    }
+
+    rule("dollar-raw-string") {
+      regex = Regex.escape("\${'$'}")
+      replacement = Regex.escapeReplacement("$")
+    }
+    rule("buildConfig-version") {
+      regex = Regex.escape("\${BuildConfig.version}")
+      replacement = Regex.escapeReplacement(VERSION_NAME)
+    }
+  }
 }
 
 // TODO move this to a convention plugin

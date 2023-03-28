@@ -16,6 +16,7 @@
 package com.rickbusarow.docusync.internal.stdlib
 
 import java.io.File
+import java.nio.file.Path
 
 /**
  * Walks up the tree until [parentFile][File.getParentFile] is null. The first element is the immediate
@@ -31,6 +32,7 @@ internal fun File.parents(): Sequence<File> = generateSequence(this) { it.parent
  * overwritten.
  *
  * @since 0.1.0
+ * @see Path.createSafely
  */
 internal fun File.createSafely(content: String? = null): File = apply {
   if (content != null) {
@@ -41,24 +43,54 @@ internal fun File.createSafely(content: String? = null): File = apply {
 }
 
 /**
+ * Makes parent directories, then creates the receiver file. If a [content] argument was provided, it
+ * will be written to the newly-created file. If the file already existed, its content will be
+ * overwritten.
+ *
+ * @see File.createSafely
+ */
+internal fun Path.createSafely(content: String? = null): File = toFile().createSafely(content)
+
+/**
  * Creates the directories if they don't already exist.
  *
  * @see File.mkdirs
  * @see File.makeParentDir
+ * @see Path.mkdirsInline
  * @since 0.1.0
  */
 internal fun File.mkdirsInline(): File = apply(File::mkdirs)
+
+/**
+ * Creates the directories if they don't already exist.
+ *
+ * @see File.mkdirs
+ * @see File.makeParentDir
+ * @see File.mkdirsInline
+ */
+internal fun Path.mkdirsInline(): Path = apply { toFile().mkdirsInline() }
 
 /**
  * Creates the parent directory if it doesn't already exist.
  *
  * @see File.mkdirsInline
  * @see File.mkdirs
+ * @see Path.makeParentDir
  * @since 0.1.0
  */
 internal fun File.makeParentDir(): File = apply {
-  val fileParent = parentFile.requireNotNull {
-    "File's `parentFile` must not be null."
-  }
+  val fileParent = parentFile.requireNotNull { "File's `parentFile` must not be null." }
   fileParent.mkdirs()
+}
+
+/**
+ * Creates the parent directory if it doesn't already exist.
+ *
+ * @see File.mkdirsInline
+ * @see File.mkdirs
+ * @see File.makeParentDir
+ */
+internal fun Path.makeParentDir(): Path = apply {
+  val fileParent = parent.requireNotNull { "Path's `parentFile` must not be null." }
+  fileParent.mkdirsInline()
 }

@@ -47,7 +47,7 @@ internal class EverythingPrinter : KtTreeVisitorVoid() {
     printNode(
       elementSimpleName = thisName,
       parentName = parentName,
-      nodeText = element.text,
+      nodeText = element.text.replace(" ", "·"),
       level = parentLevel + 1
     )
 

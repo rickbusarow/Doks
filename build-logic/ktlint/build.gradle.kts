@@ -79,7 +79,7 @@ buildConfig {
     provider {
       val currentVersion = catalogs.readText()
         .lineSequence()
-        .single { it.trim().startsWith(versionRefName) }
+        .first { it.trim().startsWith(versionRefName) }
         .trim()
         .removePrefix(versionRefName)
         .trim('"')

@@ -17,21 +17,32 @@ package com.rickbusarow.docusync.psi
 
 import com.rickbusarow.docusync.internal.stdlib.joinToStringConcat
 import com.rickbusarow.docusync.internal.stdlib.requireNotNull
+import com.rickbusarow.docusync.internal.stdlib.trimIndentAfterFirstLine
 import com.rickbusarow.docusync.psi.LazyMap.Companion.toLazyMap
 import kotlinx.serialization.Serializable
 import org.jetbrains.kotlin.com.intellij.psi.PsiElement
+import org.jetbrains.kotlin.com.intellij.psi.PsiModifiableCodeBlock
+import org.jetbrains.kotlin.com.intellij.psi.impl.source.tree.LeafPsiElement
 import org.jetbrains.kotlin.name.FqName
+import org.jetbrains.kotlin.name.Name
+import org.jetbrains.kotlin.name.parentOrNull
+import org.jetbrains.kotlin.psi.KtCallExpression
 import org.jetbrains.kotlin.psi.KtClassOrObject
 import org.jetbrains.kotlin.psi.KtDeclarationContainer
+import org.jetbrains.kotlin.psi.KtDeclarationWithBody
 import org.jetbrains.kotlin.psi.KtElement
 import org.jetbrains.kotlin.psi.KtFile
+import org.jetbrains.kotlin.psi.KtFunctionLiteral
+import org.jetbrains.kotlin.psi.KtLambdaArgument
 import org.jetbrains.kotlin.psi.KtNamedDeclaration
 import org.jetbrains.kotlin.psi.KtNamedFunction
 import org.jetbrains.kotlin.psi.KtProperty
 import org.jetbrains.kotlin.psi.KtStringTemplateExpression
 import org.jetbrains.kotlin.psi.psiUtil.getChildOfType
 import org.jetbrains.kotlin.psi.psiUtil.getChildrenOfType
+import org.jetbrains.kotlin.psi.psiUtil.parents
 import java.io.File
+import kotlin.LazyThreadSafetyMode.NONE
 
 @Serializable
 internal data class SampleRequest(
@@ -49,13 +60,57 @@ internal class NamedSamples(
   private val psiFactory: DocusyncPsiFileFactory
 ) : java.io.Serializable {
 
+  private val nameCache = LazyMap<KtNamedDeclaration, FqName> { psi ->
+
+    val fqName = psi.fqName
+
+    val identifierText = psi.identifyingElement?.text
+      ?: psi.name.requireNotNull {
+        """
+        |This psi element does not have a name: $psi
+        |================
+        |${psi.text}
+        |================
+        """.trimMargin()
+      }
+
+    val identifierName by lazy(NONE) { Name.identifier(identifierText) }
+
+    if (fqName != null) {
+      return@LazyMap if (identifierText != psi.name) {
+        fqName.parentOrNull()?.child(identifierName) ?: fqName
+      } else {
+        fqName
+      }
+    }
+
+    val parentFqName = psi.parents
+      .filterIsInstance<KtNamedDeclaration>()
+      .first { it !is KtFunctionLiteral }
+      .fqNameIncludingMembers()
+
+    parentFqName.child(identifierName)
+  }
+
+  private fun KtNamedDeclaration.fqNameIncludingMembers(): FqName = nameCache[this]
+
   fun findAll(files: Collection<File>, requests: List<SampleRequest>): List<SampleResult> {
     val ktFiles = files
-      .map { psiFactory.createKotlin(it.name, it.readText()) }
+      .map {
+        it.requireIsKotlin()
+        psiFactory.createKotlin(it.name, it.readText())
+      }
+
     return findAll(
       ktFiles = ktFiles,
       requests = requests
     )
+  }
+
+  private fun File.requireIsKotlin(): File = apply {
+    require(extension == "kt" || extension == "kts") {
+      "This file is not a Kotlin file: $this"
+    }
   }
 
   @JvmName("findAllInKotlin")
@@ -70,7 +125,7 @@ internal class NamedSamples(
           is KtClassOrObject -> if (request.bodyOnly) {
             namedDeclaration.body!!.textInScope()
           } else {
-            namedDeclaration.text
+            namedDeclaration.text.trimIndentAfterFirstLine()
           }
 
           is KtProperty -> if (request.bodyOnly) {
@@ -92,7 +147,7 @@ internal class NamedSamples(
           is KtNamedFunction -> if (request.bodyOnly) {
             namedDeclaration.bodyBlockExpression!!.textInScope()
           } else {
-            namedDeclaration.text
+            namedDeclaration.text.trimIndentAfterFirstLine()
           }
 
           null -> error("could not find a psi element with the name of ${request.fqName}")
@@ -118,16 +173,20 @@ internal class NamedSamples(
     return ktFiles.asSequence()
       .flatMap<KtFile, KtNamedDeclaration> { ktFile ->
 
-        ktFile.getChildrenOfTypeRecursive { element ->
+        ktFile
+          .getChildrenOfTypeRecursive { element ->
 
-          when (element) {
-            is KtNamedDeclaration -> element.fqName in namesAndParentNames
-            else -> element is KtDeclarationContainer
+            when (element) {
+              is KtFunctionLiteral -> true
+
+              is KtNamedDeclaration -> element.fqNameIncludingMembers() in namesAndParentNames
+
+              else -> element.couldHaveNamedChildren()
+            }
           }
-        }
       }
       .distinct()
-      .map { it.fqName to it }
+      .map { it.fqNameIncludingMembers() to it }
       .toLazyMap()
   }
 
@@ -136,4 +195,19 @@ internal class NamedSamples(
     .dropLast(1)
     .joinToStringConcat { it.text }
     .trimIndent()
+}
+
+internal fun PsiElement.couldHaveNamedChildren(): Boolean {
+  return when (this) {
+    is LeafPsiElement -> false
+
+    is KtFunctionLiteral,
+    is KtDeclarationWithBody,
+    is KtCallExpression,
+    is KtDeclarationContainer,
+    is KtLambdaArgument,
+    is PsiModifiableCodeBlock -> true
+
+    else -> false
+  }
 }

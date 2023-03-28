@@ -103,7 +103,7 @@ public abstract class com/rickbusarow/docusync/gradle/DocusyncPlugin : org/gradl
 }
 
 public abstract class com/rickbusarow/docusync/gradle/DocusyncSourceSet : com/rickbusarow/docusync/gradle/RuleFactory, java/io/Serializable {
-	public fun <init> (Ljava/lang/String;Lorg/gradle/api/model/ObjectFactory;)V
+	public fun <init> (Ljava/lang/String;Lorg/gradle/api/model/ObjectFactory;Lorg/gradle/api/file/ProjectLayout;)V
 	public final fun docs (Ljava/lang/Object;Lorg/gradle/api/Action;)Lorg/gradle/api/file/ConfigurableFileCollection;
 	public final fun docs ([Ljava/lang/Object;)Lorg/gradle/api/file/ConfigurableFileCollection;
 	public abstract fun getDocs ()Lorg/gradle/api/file/ConfigurableFileCollection;
@@ -122,6 +122,8 @@ public abstract class com/rickbusarow/docusync/gradle/DocusyncTask : org/gradle/
 
 public abstract class com/rickbusarow/docusync/gradle/RuleBuilderScope : java/io/Serializable, org/gradle/api/Named {
 	public fun <init> ()V
+	public final fun escapeRegex (Ljava/lang/String;)Ljava/lang/String;
+	public final fun escapeReplacement (Ljava/lang/String;)Ljava/lang/String;
 	public final fun getARTIFACT_ID ()Ljava/lang/String;
 	public final fun getGROUP_ID ()Ljava/lang/String;
 	public final fun getPACKAGING ()Ljava/lang/String;

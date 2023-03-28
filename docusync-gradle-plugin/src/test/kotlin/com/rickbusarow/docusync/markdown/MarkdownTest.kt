@@ -44,8 +44,6 @@ class MarkdownTest {
   fun `replacement works`() {
 
     rules[RuleName("docusync-maven")]
-      // TODO <Rick> delete me
-      .also { println(it) }
 
     val original = md(
       """

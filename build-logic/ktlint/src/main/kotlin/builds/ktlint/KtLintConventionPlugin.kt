@@ -45,9 +45,7 @@ abstract class KtLintConventionPlugin : Plugin<Project> {
 
     // dummy ktlint-gradle plugin task names which just delegate to the Kotlinter ones
     target.tasks.register("ktlintCheck") { it.dependsOn("lintKotlin") }
-    target.tasks.register("ktlintFormat") {
-      it.dependsOn("formatKotlin")
-    }
+    target.tasks.register("ktlintFormat") { it.dependsOn("formatKotlin") }
 
     if (target.isRealRootProject()) {
       target.addRootProjectDelegateTasks()

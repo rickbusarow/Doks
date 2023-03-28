@@ -24,6 +24,7 @@ import org.gradle.api.Named
 import org.intellij.lang.annotations.Language
 
 /** Models a single replacement action very much like the [Regex] version of [String.replace]. */
+@Suppress("MemberVisibilityCanBePrivate", "PropertyName", "VariableNaming")
 abstract class RuleBuilderScope : Named, java.io.Serializable {
 
   @PublishedApi
@@ -34,7 +35,6 @@ abstract class RuleBuilderScope : Named, java.io.Serializable {
    *
    * ex: `com.example.library`
    */
-  @Suppress("VariableNaming")
   val GROUP_ID: String
     get() = "[\\w\\.]*[\\w]"
 
@@ -43,12 +43,10 @@ abstract class RuleBuilderScope : Named, java.io.Serializable {
    *
    * ex: `lifecycle-ktx`
    */
-  @Suppress("VariableNaming")
   val ARTIFACT_ID: String
     get() = "[\\w\\-]*[\\w]"
 
   /** ex: `aar` */
-  @Suppress("VariableNaming")
   val PACKAGING: String
     get() = "\\w+"
 
@@ -59,7 +57,6 @@ abstract class RuleBuilderScope : Named, java.io.Serializable {
    *
    * @see SEMVER_REGEX
    */
-  @Suppress("VariableNaming")
   val SEMVER: String
     get() = SEMVER_REGEX
 
@@ -69,7 +66,6 @@ abstract class RuleBuilderScope : Named, java.io.Serializable {
    *
    * @see SEMVER_REGEX_STABLE
    */
-  @Suppress("VariableNaming")
   val SEMVER_STABLE: String
     get() = SEMVER_REGEX_STABLE
 

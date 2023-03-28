@@ -55,7 +55,6 @@ ktlint_ignore_back_ticked_identifier = true
 ktlint_experimental = enabled
 project_version = 0.1.0-SNAPSHOT
 
-# Disabled rules for 0.48.0+
 ktlint_experimental_class-naming = disabled
 ktlint_experimental_function-naming = disabled
 ktlint_experimental_function-signature = disabled
@@ -64,6 +63,16 @@ ktlint_standard_filename = disabled
 ktlint_standard_max-line-length = disabled
 ktlint_standard_no-empty-first-line-in-method-block = disabled
 ktlint_standard_wrapping = disabled
+
+ktlint_kt-rules = enabled
+ktlint_kt-rules_kdoc-leading-asterisk = enabled
+ktlint_kt-rules_kdoc-wrapping = enabled
+ktlint_kt-rules_no-duplicate-copyright-header = enabled
+ktlint_kt-rules_no-leading-blank-lines = enabled
+ktlint_kt-rules_no-since-in-kdoc = enabled
+ktlint_kt-rules_no-space-in-annotation-with-target = enabled
+ktlint_kt-rules_no-trailing-space-in-raw-string-literal = enabled
+ktlint_kt-rules_no-useless-constructor-keyword = enabled
 
 # noinspection EditorConfigKeyCorrectness
 [build-logic/**/*.{kt,kts}]

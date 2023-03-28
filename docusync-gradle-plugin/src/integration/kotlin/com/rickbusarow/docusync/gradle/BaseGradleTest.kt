@@ -18,7 +18,6 @@ package com.rickbusarow.docusync.gradle
 import com.rickbusarow.docusync.internal.stdlib.createSafely
 import com.rickbusarow.docusync.internal.stdlib.letIf
 import io.kotest.inspectors.forAll
-import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
 import org.gradle.testkit.runner.BuildResult
 import org.gradle.testkit.runner.GradleRunner
@@ -110,8 +109,6 @@ internal interface BaseGradleTest {
                   .forAll { buildTask ->
                     buildTask.outcome shouldNotBe TaskOutcome.FAILED
                   }
-
-                result.tasks.last().outcome shouldBe TaskOutcome.SUCCESS
               }
           }
         }

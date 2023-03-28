@@ -15,7 +15,8 @@
 
 package com.rickbusarow.docusync.gradle
 
-import com.rickbusarow.docusync.gradle.internal.registerOnce
+import com.rickbusarow.docusync.gradle.internal.dependOn
+import com.rickbusarow.docusync.gradle.internal.matchingName
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.language.base.plugins.LifecycleBasePlugin
@@ -26,14 +27,17 @@ abstract class DocusyncPlugin : Plugin<Project> {
 
   override fun apply(target: Project) {
 
-    target.extensions.create("docusync", DocusyncExtension::class.java)
+    val extension = target.extensions
+      .create("docusync", DocusyncExtension::class.java)
 
-    target.tasks.registerOnce<DocusyncDocsTask>("docusyncCheck") { it.autoCorrect = false }
-    target.tasks.registerOnce<DocusyncDocsTask>("docusync") { it.autoCorrect = true }
-    target.tasks.registerOnce<DocusyncParseTask>("docusyncParse")
+    extension.docSet("") {}
 
     target.tasks
-      .matching { it.name == LifecycleBasePlugin.CHECK_TASK_NAME }
-      .configureEach { it.dependsOn("docusyncCheck") }
+      .matchingName(LifecycleBasePlugin.CHECK_TASK_NAME)
+      .dependOn("docusyncCheck")
+
+    target.tasks
+      .matchingName("fix")
+      .dependOn("docusync")
   }
 }

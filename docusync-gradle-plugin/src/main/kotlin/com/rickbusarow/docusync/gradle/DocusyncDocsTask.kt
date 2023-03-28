@@ -199,7 +199,7 @@ abstract class DocusyncDocsTask @Inject constructor(
     }
 
     // block execution of any other tasks in this project until this work is complete
-    queue.await()
+    // queue.await()
   }
 
   internal interface DocsParameters : WorkParameters {

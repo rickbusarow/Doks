@@ -18,6 +18,7 @@ package com.rickbusarow.docusync.gradle
 import com.rickbusarow.docusync.gradle.internal.registerOnce
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.language.base.plugins.LifecycleBasePlugin
 
 /** @since 0.1.0 */
 @Suppress("UnnecessaryAbstractClass")
@@ -30,5 +31,9 @@ abstract class DocusyncPlugin : Plugin<Project> {
     target.tasks.registerOnce<DocusyncDocsTask>("docusyncCheck") { it.autoCorrect = false }
     target.tasks.registerOnce<DocusyncDocsTask>("docusync") { it.autoCorrect = true }
     target.tasks.registerOnce<DocusyncParseTask>("docusyncParse")
+
+    target.tasks
+      .matching { it.name == LifecycleBasePlugin.CHECK_TASK_NAME }
+      .configureEach { it.dependsOn("docusyncCheck") }
   }
 }

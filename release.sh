@@ -70,9 +70,9 @@ NEXT_VERSION=$(awk '/.*\(unreleased)/ { print $2}' CHANGELOG.md | sed 's/\"//g')
 
 function parseVersionAndSyncDocs() {
 
-  # Parse the 'docusync' version from libs.versions.toml
+  # Parse the 'doks' version from libs.versions.toml
   # Removes the double quotes around the raw string value
-  VERSION_NAME=$(awk -F ' *= *' '$1=="docusync"{print $2}' $VERSION_TOML | sed 's/\"//g')
+  VERSION_NAME=$(awk -F ' *= *' '$1=="doks"{print $2}' $VERSION_TOML | sed 's/\"//g')
 
   # Add `@since ____` tags to any new KDoc
   progress "Add \`@since ____\` tags to any new KDoc"
@@ -117,7 +117,7 @@ progress "create the release on GitHub"
 ./gradlew githubRelease
 
 progress "update the dev version to ${NEXT_VERSION}"
-OLD="(^ *docusync *= *)\"${VERSION_NAME}\""
+OLD="(^ *doks *= *)\"${VERSION_NAME}\""
 NEW="\$1\"${NEXT_VERSION}\""
 # Write the new -SNAPSHOT version to the versions toml file
 perl -pi -e "s/$OLD/$NEW/" $VERSION_TOML

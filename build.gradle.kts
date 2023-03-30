@@ -14,6 +14,9 @@
  */
 
 import builds.VERSION_NAME
+import builds.mustRunAfter
+import com.rickbusarow.docusync.gradle.DocusyncTask
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 @Suppress("DSL_SCOPE_VIOLATION")
 plugins {
@@ -30,11 +33,11 @@ moduleCheck {
 
 docusync {
   docSet {
-    docs(projectDir) {
-      include("**/*.md", "**/*.mdx")
-    }
+    docs("README.md", "CHANGELOG.md")
 
-    sampleCodeSource("docusync-gradle-plugin/src/integration/kotlin")
+    sampleCodeSource("docusync-gradle-plugin/src/integration/kotlin") {
+      include("**/*.kt")
+    }
 
     rule("kotlin-dsl-config-simple") {
       replacement = sourceCode(
@@ -63,6 +66,11 @@ docusync {
       replacement = Regex.escapeReplacement(VERSION_NAME)
     }
   }
+}
+
+subprojects.map {
+  it.tasks.withType(KotlinCompile::class.java)
+    .mustRunAfter(tasks.withType(DocusyncTask::class.java))
 }
 
 // TODO move this to a convention plugin

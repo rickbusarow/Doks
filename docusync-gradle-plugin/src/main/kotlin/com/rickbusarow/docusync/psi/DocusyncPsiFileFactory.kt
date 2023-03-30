@@ -89,12 +89,24 @@ internal class DocusyncPsiFileFactory : java.io.Serializable {
   }
 
   /**
-   * @return a "virtual" Psi `KtFile` with the given [name] and
-   *   [content]. This file does not exist in a Java file system.
-   * @see createKotlin
+   * @return a "virtual" Psi `KtFile` from this [file].
+   * @throws IllegalArgumentException if the [file] argument is not a Kotlin file ending in `.kt` or
+   *   `.kts`
    * @since 0.1.0
    */
-  fun createKotlin(
+  fun createKotlin(file: File): KtFile {
+    require(Regex("""kts?$""").matches(file.extension)) {
+      "This file is not a Kotlin file: $file"
+    }
+    return createKotlin(file.path, file.readText())
+  }
+
+  /**
+   * @return a "virtual" Psi `KtFile` with the given [name] and
+   *   [content]. This file does not exist in a Java file system.
+   * @since 0.1.0
+   */
+  internal fun createKotlin(
     name: String,
     @Language("kotlin")
     content: String
@@ -106,7 +118,6 @@ internal class DocusyncPsiFileFactory : java.io.Serializable {
   /**
    * @return a "virtual" Psi `PsiJavaFile` with the given [name] and
    *   [content]. This file does not exist in a Java file system.
-   * @see createJava
    * @since 0.1.0
    */
   fun createJava(

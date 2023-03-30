@@ -26,6 +26,8 @@ import java.nio.file.Path
  */
 internal fun File.parents(): Sequence<File> = generateSequence(this) { it.parentFile }
 
+internal fun File.segments(): List<String> = path.split(File.separator)
+
 /**
  * Makes parent directories, then creates the receiver file. If a
  * [content] argument was provided, it will be written to the newly-created

@@ -37,7 +37,7 @@ internal class LazyMap<K, V>(
   private val compute: LazyMap<K, V>.(K) -> V
 ) : java.io.Serializable {
 
-  private val map: MutableMap<K, Lazy<V>> = mutableMapOf()
+  internal val map: MutableMap<K, Lazy<V>> = mutableMapOf()
 
   /**
    * size of the cached data

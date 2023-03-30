@@ -49,12 +49,12 @@ pluginManagement {
 To define a search-and-replace rule, you'll need to add it to your Gradle build script using the
 following syntax:
 
-<!--docusync kotlin-dsl-config,dollar-raw-string:5,buildConfig-version:1-->
+<!--docusync kotlin-dsl-config-simple,dollar-raw-string:5,buildConfig-version:1-->
 
 ```kotlin title="build.gradle.kts"
 // build.gradle.kts
 plugins {
-  id("com.rickbusarow.docusync") version "0.1.1-SNAPSHOT"
+  id("com.rickbusarow.docusync") version "0.1.2-SNAPSHOT"
 }
 
 docusync {
@@ -65,8 +65,6 @@ docusync {
       include("**/*.md", "**/*.mdx")
     }
 
-    sampleCodeSource("src/kotlin/com/example/dino/sauropod/samples")
-
     // Define a rule used in updating.
     // This rule's name corresponds to the name used in documentation.
     rule("maven-artifact") {
@@ -75,16 +73,6 @@ docusync {
       // where '$1' is the group id, '$2' is the artifact id,
       // and 'CURRENT_VERSION' is just some variable.
       replacement = "$1:$2:$CURRENT_VERSION"
-    }
-
-    // Define a rule used in updating.
-    // This rule's name corresponds to the name used in documentation.
-    rule("brachiosaurus") {
-      replacement = sourceCode(
-        fqName = "com.example.dino.sauropod.samples.BrachiosaurusSample.doTheDino",
-        bodyOnly = false,
-        codeBlockLanguage = "kotlin"
-      )
     }
   }
 }
@@ -121,23 +109,26 @@ rule.
 Docusync supports the extraction of code samples from Kotlin files.
 Here's an example of how to use it in your docusync configuration block:
 
-<!--docusync kotlin-dsl-config,dollar-raw-string:5,buildConfig-version:1-->
+<!--docusync kotlin-dsl-config-code-->
 
-```kotlin
+```kotlin title="build.gradle.kts"
 docusync {
-  docSet("main") {
+  // Define a set of documents with rules.
+  docSet {
+    // Set the files which will be synced
     docs(projectDir) {
       include("**/*.md", "**/*.mdx")
     }
 
-    sampleCodeSource("src/test/kotlin")
+    sampleCodeSource("src/kotlin/com/example/dino/sauropod/samples")
 
-    rule("dino-config-sample") {
+    // Define a rule used in updating.
+    // This rule's name corresponds to the name used in documentation.
+    rule("brachiosaurus") {
       replacement = sourceCode(
-        fqName = "com.example.dino.DinoPluginSample.config",
-        bodyOnly = true,
-        codeBlockLanguage = "kotlin",
-        attributes = "title=build.gradle.kts"
+        fqName = "com.example.dino.sauropod.samples.BrachiosaurusSample.doTheDino",
+        bodyOnly = false,
+        codeBlockLanguage = "kotlin"
       )
     }
   }

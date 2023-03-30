@@ -15,6 +15,7 @@
 
 package builds
 
+import com.rickbusarow.docusync.gradle.DocusyncTask
 import io.gitlab.arturbosch.detekt.Detekt
 import io.gitlab.arturbosch.detekt.DetektCreateBaselineTask
 import io.gitlab.arturbosch.detekt.DetektGenerateConfigTask
@@ -65,6 +66,8 @@ abstract class DetektConventionPlugin : Plugin<Project> {
       task.parallel = true
       task.config.from(target.files("${target.rootDir}/detekt/detekt-config.yml"))
       task.buildUponDefaultConfig = true
+
+      task.mustRunAfter(target.tasks.withType(DocusyncTask::class.java))
 
       // If in CI, merge sarif reports.  Skip this locally because it's not worth looking at
       // and the task is unnecessarily chatty.

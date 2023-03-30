@@ -355,6 +355,22 @@ class NamedSamplesTest {
       |}""".trimMargin()
   }
 
+  @Test
+  fun `an object can be resolved`() {
+
+    parse(
+      fqName = "com.test.Foo",
+      bodyOnly = false,
+      """
+      package com.test
+
+      object Foo
+      """
+    ) shouldBe """
+      |object Foo
+      |""".trimMargin()
+  }
+
   fun parse(
     fqName: String,
     bodyOnly: Boolean,
@@ -366,7 +382,7 @@ class NamedSamplesTest {
 
     return NamedSamples(DocusyncPsiFileFactory())
       .findAll(
-        ktFiles = files,
+        ktFiles = files.asSequence(),
         requests = listOf(SampleRequest(fqName, bodyOnly))
       )
       .single()

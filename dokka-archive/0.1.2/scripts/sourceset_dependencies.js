@@ -1,0 +1,1 @@
+sourceset_dependencies = '{":doks-gradle-plugin:dokkaHtmlPartial/generatedByKspKotlin":[],":doks-gradle-plugin:dokkaHtmlPartial/main":[]}'

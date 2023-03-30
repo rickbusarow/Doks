@@ -1,0 +1,199 @@
+<!doctype html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>com.rickbusarow.doks</title>
+<link href="../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../";</script>    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../styles/style.css" rel="Stylesheet">
+<link href="../../styles/jetbrains-mono.css" rel="Stylesheet">
+<link href="../../styles/main.css" rel="Stylesheet">
+<link href="../../styles/prism.css" rel="Stylesheet">
+<link href="../../styles/logo-styles.css" rel="Stylesheet">
+<script type="text/javascript" src="../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../scripts/symbol-parameters-wrapper_deferred.js" defer></script>
+<link href="../../styles/multimodule.css" rel="Stylesheet"></head>
+<body>
+<div class="navigation-wrapper" id="navigation-wrapper">
+    <div id="leftToggler"><span class="icon-toggler"></span></div>
+    <div class="library-name">
+<a href="../../index.html">
+<span>Doks</span>            </a>    </div>
+    <div>
+<dokka-template-command data="{&quot;@class&quot;:&quot;org.jetbrains.dokka.base.templating.ReplaceVersionsCommand&quot;,&quot;location&quot;:&quot;com.rickbusarow.doks/index.html&quot;}"><div class="versions-dropdown">
+  <div class="versions-dropdown-button">0.1.2</div>
+  <div class="versions-dropdown-data"><a href="index.html">0.1.2</a><a href="../../not-found-version.html?v=0.1.1">0.1.1</a><a href="../../not-found-version.html?v=0.1.0">0.1.0</a></div>
+</div>
+</dokka-template-command>    </div>
+    <div class="pull-right d-flex">
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector jvm-like" data-active="" data-filter=":doks-gradle-plugin:dokkaHtmlPartial/main">jvm</button>
+        </div>
+        <button id="theme-toggle-button"><span id="theme-toggle"></span></button>
+        <div id="searchBar"></div>
+    </div>
+</div>
+<div id="container">
+    <div id="leftColumn">
+        <div id="sideMenu"></div>
+    </div>
+    <div id="main">
+<div class="main-content" data-page-type="package" id="content" pageids="doks-gradle-plugin::com.rickbusarow.doks////PointingToDeclaration//-1279072695">
+  <div class="breadcrumbs"><a href="../index.html">doks-gradle-plugin</a><span class="delimiter">/</span><span class="current">com.rickbusarow.doks</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>Package-level</span></span> <span><span>declarations</span></span></h1>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="TYPE">Types</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="1517850563%2FClasslikes%2F-1279072695" anchor-label="DoksDocsTask" id="1517850563%2FClasslikes%2F-1279072695" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-filterable-current=":doks-gradle-plugin:dokkaHtmlPartial/main" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-doks-docs-task/index.html"><span>Doks</span><wbr><span>Docs</span><wbr><span><span>Task</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1517850563%2FClasslikes%2F-1279072695"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":doks-gradle-plugin:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword">class </span><a href="-doks-docs-task/index.html">DoksDocsTask</a>&nbsp;<span><span class="token annotation builtin">@</span><span data-unresolved-link="javax.inject/Inject///PointingToDeclaration/"><span class="token annotation builtin">Inject</span></span>&nbsp;</span><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>workerExecutor<span class="token operator">: </span><span data-unresolved-link="org.gradle.workers/WorkerExecutor///PointingToDeclaration/">WorkerExecutor</span><span class="token punctuation">, </span></span><span class="parameter ">objects<span class="token operator">: </span><span data-unresolved-link="org.gradle.api.model/ObjectFactory///PointingToDeclaration/">ObjectFactory</span></span></span><span class="token punctuation">)</span> : <a href="-doks-task/index.html">DoksTask</a></div><div class="brief "><p class="paragraph">Either checks or fixes/updated documentation files for a given <a href="-doks-set/index.html">DoksSet</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-319477472%2FClasslikes%2F-1279072695" anchor-label="DoksExtension" id="-319477472%2FClasslikes%2F-1279072695" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-filterable-current=":doks-gradle-plugin:dokkaHtmlPartial/main" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-doks-extension/index.html"><span>Doks</span><wbr><span><span>Extension</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-319477472%2FClasslikes%2F-1279072695"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":doks-gradle-plugin:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword">class </span><a href="-doks-extension/index.html">DoksExtension</a>&nbsp;<span><span class="token annotation builtin">@</span><span data-unresolved-link="javax.inject/Inject///PointingToDeclaration/"><span class="token annotation builtin">Inject</span></span>&nbsp;</span><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>taskContainer<span class="token operator">: </span><span data-unresolved-link="org.gradle.api.tasks/TaskContainer///PointingToDeclaration/">TaskContainer</span><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>layout<span class="token operator">: </span><span data-unresolved-link="org.gradle.api.file/ProjectLayout///PointingToDeclaration/">ProjectLayout</span></span></span><span class="token punctuation">)</span> : <a href="https://docs.oracle.com/javase/8/docs/api/java/io/Serializable.html">Serializable</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1514372953%2FClasslikes%2F-1279072695" anchor-label="DoksParseTask" id="-1514372953%2FClasslikes%2F-1279072695" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-filterable-current=":doks-gradle-plugin:dokkaHtmlPartial/main" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-doks-parse-task/index.html"><span>Doks</span><wbr><span>Parse</span><wbr><span><span>Task</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1514372953%2FClasslikes%2F-1279072695"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":doks-gradle-plugin:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword">class </span><a href="-doks-parse-task/index.html">DoksParseTask</a> : <a href="-doks-task/index.html">DoksTask</a></div><div class="brief "><p class="paragraph">Parses source code in <a href="-doks-parse-task/sample-code.html">sampleCode</a> in order to find all requested samples. The results are written to <a href="-doks-parse-task/samples-mapping.html">samplesMapping</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1651953968%2FClasslikes%2F-1279072695" anchor-label="DoksPlugin" id="-1651953968%2FClasslikes%2F-1279072695" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-filterable-current=":doks-gradle-plugin:dokkaHtmlPartial/main" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-doks-plugin/index.html"><span>Doks</span><wbr><span><span>Plugin</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1651953968%2FClasslikes%2F-1279072695"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":doks-gradle-plugin:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword">class </span><a href="-doks-plugin/index.html">DoksPlugin</a> : <span data-unresolved-link="org.gradle.api/Plugin///PointingToDeclaration/">Plugin</span><span class="token operator">&lt;</span><span class="token keyword"></span><span data-unresolved-link="org.gradle.api/Project///PointingToDeclaration/">Project</span><span class="token operator">&gt; </span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-230672163%2FClasslikes%2F-1279072695" anchor-label="DoksSet" id="-230672163%2FClasslikes%2F-1279072695" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-filterable-current=":doks-gradle-plugin:dokkaHtmlPartial/main" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-doks-set/index.html"><span>Doks</span><wbr><span><span>Set</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-230672163%2FClasslikes%2F-1279072695"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":doks-gradle-plugin:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword">class </span><a href="-doks-set/index.html">DoksSet</a>&nbsp;<span><span class="token annotation builtin">@</span><span data-unresolved-link="javax.inject/Inject///PointingToDeclaration/"><span class="token annotation builtin">Inject</span></span>&nbsp;</span><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>name<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>objects<span class="token operator">: </span><span data-unresolved-link="org.gradle.api.model/ObjectFactory///PointingToDeclaration/">ObjectFactory</span><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>layout<span class="token operator">: </span><span data-unresolved-link="org.gradle.api.file/ProjectLayout///PointingToDeclaration/">ProjectLayout</span></span></span><span class="token punctuation">)</span> : <a href="-rule-factory/index.html">RuleFactory</a>, <a href="https://docs.oracle.com/javase/8/docs/api/java/io/Serializable.html">Serializable</a></div><div class="brief "><p class="paragraph">An abstract source set for doks documentation and sample code. Provides a <a href="-rule-factory/index.html">RuleFactory</a> to allow for the creation of rules to be applied to the source set's documentation.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1860255038%2FClasslikes%2F-1279072695" anchor-label="DoksTask" id="1860255038%2FClasslikes%2F-1279072695" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-filterable-current=":doks-gradle-plugin:dokkaHtmlPartial/main" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-doks-task/index.html"><span>Doks</span><wbr><span><span>Task</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1860255038%2FClasslikes%2F-1279072695"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":doks-gradle-plugin:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword">class </span><a href="-doks-task/index.html">DoksTask</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">description<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span> : <span data-unresolved-link="org.gradle.api/DefaultTask///PointingToDeclaration/">DefaultTask</span></div><div class="brief "><p class="paragraph">The base class for all Doks tasks.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="468859297%2FClasslikes%2F-1279072695" anchor-label="RuleBuilderScope" id="468859297%2FClasslikes%2F-1279072695" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-filterable-current=":doks-gradle-plugin:dokkaHtmlPartial/main" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-rule-builder-scope/index.html"><span>Rule</span><wbr><span>Builder</span><wbr><span><span>Scope</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="468859297%2FClasslikes%2F-1279072695"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":doks-gradle-plugin:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword">class </span><a href="-rule-builder-scope/index.html">RuleBuilderScope</a> : <span data-unresolved-link="org.gradle.api/Named///PointingToDeclaration/">Named</span>, <a href="https://docs.oracle.com/javase/8/docs/api/java/io/Serializable.html">Serializable</a></div><div class="brief "><p class="paragraph">Models a single replacement action very much like the <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/-regex/index.html">Regex</a> version of <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/index.html">String.replace</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1729246722%2FClasslikes%2F-1279072695" anchor-label="RuleFactory" id="-1729246722%2FClasslikes%2F-1279072695" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-filterable-current=":doks-gradle-plugin:dokkaHtmlPartial/main" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-rule-factory/index.html"><span>Rule</span><wbr><span><span>Factory</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1729246722%2FClasslikes%2F-1279072695"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":doks-gradle-plugin:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-rule-factory/index.html">RuleFactory</a> : <a href="https://docs.oracle.com/javase/8/docs/api/java/io/Serializable.html">Serializable</a></div><div class="brief "><p class="paragraph">An interface for defining and registering <a href="../com.rickbusarow.doks.internal/-rule/index.html">Rule</a> instances.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2023 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+    </div>
+</div>
+</body>
+</html>
+

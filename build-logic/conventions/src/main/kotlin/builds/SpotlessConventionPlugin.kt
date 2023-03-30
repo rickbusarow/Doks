@@ -16,7 +16,6 @@
 package builds
 
 import com.diffplug.gradle.spotless.FormatExtension
-import com.diffplug.gradle.spotless.FreshMarkExtension
 import com.diffplug.gradle.spotless.GroovyGradleExtension
 import com.diffplug.gradle.spotless.JavascriptExtension
 import com.diffplug.gradle.spotless.JsonExtension
@@ -49,7 +48,6 @@ abstract class SpotlessConventionPlugin : Plugin<Project> {
       spotless.addYaml(target)
       spotless.addJson(target)
       spotless.addJavascript(target)
-      spotless.addFreshmark(target)
       spotless.addMarkdown(target)
     }
   }
@@ -87,7 +85,6 @@ abstract class SpotlessConventionPlugin : Plugin<Project> {
       json.target(target) {
         include("website/**/*.json")
         include("**/*.json")
-        exclude("docusync-samples/json/**")
       }
       json.simple().indentWithSpaces(2)
     }
@@ -127,24 +124,6 @@ abstract class SpotlessConventionPlugin : Plugin<Project> {
       ) { groovyGradle ->
         groovyGradle.greclipse()
         groovyGradle.indentWithSpaces(2)
-      }
-    }
-  }
-
-  private fun SpotlessExtension.addFreshmark(target: Project) {
-    format("freshmark", FreshMarkExtension::class.java) { freshmark ->
-      freshmark.target(target) {
-        include("**/*.md")
-        include("**/*.mdx")
-
-        exclude("website/versioned_docs")
-      }
-      freshmark.properties {
-        it["group"] = GROUP
-        it["version"] = target.VERSION_NAME
-        it["org"] = "rbusarow"
-        //language=regexp
-        it["docusync-maven-reg"] = """/($GROUP:[^:]*?docusync[^:]*?:)[^"']+?(["'].*)/g"""
       }
     }
   }

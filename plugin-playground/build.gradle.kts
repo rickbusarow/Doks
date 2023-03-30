@@ -15,16 +15,16 @@
 
 plugins {
   base
-  id("com.rickbusarow.docusync")
+  id("com.rickbusarow.doks")
 }
 
-docusync {
+doks {
 
   docSet("main") {
 
     // Passing in a directory path should be allowed, and that path should automagically be turned
     // into an unfiltered file tree since there's no other good reason for passing in a directory path.
-    sampleCodeSource("../docusync-gradle-plugin/src/main/kotlin")
+    sampleCodeSource("../doks-gradle-plugin/src/main/kotlin")
     // not a valid path in any OS ever.  This should not cause a problem.
     sampleCodeSource("G^7jmF J+y/N-6~0-L1P:+ok+J44f2>u4p# #x0<L}S:93V\\;")
 
@@ -41,7 +41,7 @@ docusync {
     rule("code") {
 
       replacement = sourceCode(
-        fqName = "com.rickbusarow.docusync.gradle.DocusyncTask",
+        fqName = "com.rickbusarow.doks.DoksTask",
         bodyOnly = true,
         codeBlockLanguage = "kotlin",
         attributes = "title=\"build.gradle.kts\""
@@ -71,7 +71,7 @@ val createDocs by tasks.registering {
           """
         ## My File $j
 
-        <!--docusync cats-to-dogs,dogs-to-cats-->
+        <!--doks cats-to-dogs,dogs-to-cats-->
 
         com.example.foo:foo-utils:1.2.3-SNAPSHOT
 
@@ -83,10 +83,10 @@ val createDocs by tasks.registering {
 
         dog
 
-        <!--/docusync-->
+        <!--/doks-->
 
-        <!--docusync code-->
-        <!--/docusync-->
+        <!--doks code-->
+        <!--/doks-->
           """.trimIndent()
         )
 
@@ -96,6 +96,6 @@ val createDocs by tasks.registering {
   }
 }
 
-tasks.withType(com.rickbusarow.docusync.gradle.DocusyncTask::class.java) {
+tasks.withType(com.rickbusarow.doks.DoksTask::class.java) {
   mustRunAfter(createDocs)
 }

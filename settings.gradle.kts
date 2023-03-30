@@ -62,10 +62,10 @@ dependencyResolutionManagement {
   }
 }
 
-rootProject.name = "Docusync"
+rootProject.name = "Doks"
 
 include(
-  ":docusync-gradle-plugin"
+  ":doks-gradle-plugin"
 )
 
 // If this project is the real root of the build, copy the root project's properties file to included

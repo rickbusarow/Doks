@@ -35,13 +35,13 @@ docusync {
   docSet {
     docs("README.md", "CHANGELOG.md")
 
-    sampleCodeSource("docusync-gradle-plugin/src/integration/kotlin") {
+    sampleCodeSource("doks-gradle-plugin/src/integration/kotlin") {
       include("**/*.kt")
     }
 
     rule("kotlin-dsl-config-simple") {
       replacement = sourceCode(
-        fqName = "com.rickbusarow.docusync.gradle.ConfigTest.`kotlin dsl config simple`.config",
+        fqName = "com.rickbusarow.doks.ConfigTest.`kotlin dsl config simple`.config",
         bodyOnly = true,
         codeBlockLanguage = "kotlin",
         attributes = "title=\"build.gradle.kts\""
@@ -50,7 +50,7 @@ docusync {
 
     rule("kotlin-dsl-config-code") {
       replacement = sourceCode(
-        fqName = "com.rickbusarow.docusync.gradle.ConfigTest.`kotlin dsl config code`.config",
+        fqName = "com.rickbusarow.doks.ConfigTest.`kotlin dsl config code`.config",
         bodyOnly = true,
         codeBlockLanguage = "kotlin",
         attributes = "title=\"build.gradle.kts\""

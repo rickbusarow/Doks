@@ -31,7 +31,7 @@ abstract class KnitConventionPlugin : Plugin<Project> {
       extension.moduleDocs = "build/dokka/htmlMultiModule"
       extension.dokkaMultiModuleRoot = "build/dokka/htmlMultiModule"
       extension.moduleMarkers = listOf("build.gradle", "build.gradle.kts")
-      extension.siteRoot = "https://rbusarow.github.io/docusync/api"
+      extension.siteRoot = "https://rbusarow.github.io/doks/api"
     }
 
     target.tasks.withType(KnitTask::class.java) { task ->

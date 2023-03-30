@@ -1,18 +1,18 @@
 [
   {
-    "gradlePath": ":docusync-gradle-plugin",
-    "group": "com.rickbusarow.docusync",
-    "artifactId": "com.rickbusarow.docusync.gradle.plugin",
-    "description": "the Docusync Gradle plugin",
+    "gradlePath": ":doks-gradle-plugin",
+    "group": "com.rickbusarow.doks",
+    "artifactId": "com.rickbusarow.doks.gradle.plugin",
+    "description": "the Doks Gradle plugin",
     "packaging": "pom",
     "javaVersion": "1.8",
-    "publicationName": "docusync-gradle-pluginPluginMarkerMaven"
+    "publicationName": "doks-gradle-pluginPluginMarkerMaven"
   },
   {
-    "gradlePath": ":docusync-gradle-plugin",
-    "group": "com.rickbusarow.docusync",
-    "artifactId": "docusync-gradle-plugin",
-    "description": "the Docusync Gradle plugin",
+    "gradlePath": ":doks-gradle-plugin",
+    "group": "com.rickbusarow.doks",
+    "artifactId": "doks-gradle-plugin",
+    "description": "the Doks Gradle plugin",
     "packaging": "jar",
     "javaVersion": "1.8",
     "publicationName": "pluginMaven"

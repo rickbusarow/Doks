@@ -27,9 +27,9 @@ import org.gradle.api.provider.Provider
  * @since 0.1.0
  */
 val Project.VERSION_NAME: String
-  get() = libsCatalog.version("docusync")
+  get() = libsCatalog.version("doks")
 
-const val GROUP: String = "com.rickbusarow.docusync"
+const val GROUP: String = "com.rickbusarow.doks"
 
 /**
  * "1.6", "1.7", "1.8", etc.

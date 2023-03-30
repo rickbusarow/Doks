@@ -97,9 +97,9 @@ private fun Project.configurePublishPlugin(
       extensions.configure(GradlePluginDevelopmentExtension::class.java) { pluginDevelopmentExtension ->
 
         @Suppress("UnstableApiUsage")
-        pluginDevelopmentExtension.website.set("https://www.github.com/rbusarow/docusync")
+        pluginDevelopmentExtension.website.set("https://www.github.com/rbusarow/doks")
         @Suppress("UnstableApiUsage")
-        pluginDevelopmentExtension.vcsUrl.set("https://www.github.com/rbusarow/docusync.git")
+        pluginDevelopmentExtension.vcsUrl.set("https://www.github.com/rbusarow/doks.git")
       }
     }
   }
@@ -122,7 +122,6 @@ private fun Project.configurePublish(
 
     extension.publishToMavenCentral(DEFAULT, automaticRelease = true)
 
-    @Suppress("UnstableApiUsage")
     extension.signAllPublications()
 
     @Suppress("UnstableApiUsage")
@@ -130,7 +129,7 @@ private fun Project.configurePublish(
       mavenPom.description.set(pomDescription)
       mavenPom.name.set(artifactId)
 
-      mavenPom.url.set("https://www.github.com/rbusarow/docusync/")
+      mavenPom.url.set("https://www.github.com/rbusarow/doks/")
 
       mavenPom.licenses { licenseSpec ->
         licenseSpec.license { license ->
@@ -140,9 +139,9 @@ private fun Project.configurePublish(
         }
       }
       mavenPom.scm { scm ->
-        scm.url.set("https://www.github.com/rbusarow/docusync/")
-        scm.connection.set("scm:git:git://github.com/rbusarow/docusync.git")
-        scm.developerConnection.set("scm:git:ssh://git@github.com/rbusarow/docusync.git")
+        scm.url.set("https://www.github.com/rbusarow/doks/")
+        scm.connection.set("scm:git:git://github.com/rbusarow/doks.git")
+        scm.developerConnection.set("scm:git:ssh://git@github.com/rbusarow/doks.git")
       }
       mavenPom.developers { developerSpec ->
         developerSpec.developer { developer ->

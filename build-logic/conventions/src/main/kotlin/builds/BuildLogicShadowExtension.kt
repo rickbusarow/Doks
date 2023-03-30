@@ -43,7 +43,7 @@ interface BuildLogicShadowExtension {
           "com.charleskorn.kaml",
           "org.intellij.markdown",
         ).forEach {
-          task.relocate(it, "com.rickbusarow.docusync.$it")
+          task.relocate(it, "com.rickbusarow.doks.$it")
         }
 
         task.archiveClassifier.convention(classifier)

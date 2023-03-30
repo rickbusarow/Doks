@@ -1,0 +1,161 @@
+public abstract class com/rickbusarow/doks/DoksDocsTask : com/rickbusarow/doks/DoksTask {
+	public fun <init> (Lorg/gradle/workers/WorkerExecutor;Lorg/gradle/api/model/ObjectFactory;)V
+	public final fun execute (Lorg/gradle/work/InputChanges;)V
+	public final fun getAutoCorrect ()Z
+	public abstract fun getDocs ()Lorg/gradle/api/file/ConfigurableFileCollection;
+	public abstract fun getSamplesMapping ()Lorg/gradle/api/file/RegularFileProperty;
+	public final fun setAutoCorrect (Z)V
+}
+
+public abstract class com/rickbusarow/doks/DoksExtension : java/io/Serializable {
+	public fun <init> (Lorg/gradle/api/tasks/TaskContainer;Lorg/gradle/api/file/ProjectLayout;)V
+	public final fun dokSet (Ljava/lang/String;Lorg/gradle/api/Action;)Lorg/gradle/api/NamedDomainObjectProvider;
+	public static synthetic fun dokSet$default (Lcom/rickbusarow/doks/DoksExtension;Ljava/lang/String;Lorg/gradle/api/Action;ILjava/lang/Object;)Lorg/gradle/api/NamedDomainObjectProvider;
+	public abstract fun getDoksSets ()Lorg/gradle/api/NamedDomainObjectContainer;
+}
+
+public abstract class com/rickbusarow/doks/DoksParseTask : com/rickbusarow/doks/DoksTask {
+	public fun <init> ()V
+	public final fun execute ()V
+	public abstract fun getSampleCode ()Lorg/gradle/api/file/ConfigurableFileCollection;
+	public abstract fun getSamplesMapping ()Lorg/gradle/api/file/RegularFileProperty;
+}
+
+public abstract class com/rickbusarow/doks/DoksPlugin : org/gradle/api/Plugin {
+	public fun <init> ()V
+	public synthetic fun apply (Ljava/lang/Object;)V
+	public fun apply (Lorg/gradle/api/Project;)V
+}
+
+public abstract class com/rickbusarow/doks/DoksSet : com/rickbusarow/doks/RuleFactory, java/io/Serializable {
+	public fun <init> (Ljava/lang/String;Lorg/gradle/api/model/ObjectFactory;Lorg/gradle/api/file/ProjectLayout;)V
+	public final fun docs (Ljava/lang/Object;Lorg/gradle/api/Action;)Lorg/gradle/api/file/ConfigurableFileCollection;
+	public final fun docs ([Ljava/lang/Object;)Lorg/gradle/api/file/ConfigurableFileCollection;
+	public abstract fun getDocs ()Lorg/gradle/api/file/ConfigurableFileCollection;
+	public final fun getName ()Ljava/lang/String;
+	public abstract fun getSampleCodeSource ()Lorg/gradle/api/file/ConfigurableFileCollection;
+	public fun rule (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lorg/gradle/api/NamedDomainObjectProvider;
+	public fun rule (Ljava/lang/String;Lorg/gradle/api/Action;)Lorg/gradle/api/NamedDomainObjectProvider;
+	public final fun sampleCodeSource (Ljava/lang/Object;Lorg/gradle/api/Action;)Lorg/gradle/api/file/ConfigurableFileCollection;
+	public final fun sampleCodeSource ([Ljava/lang/Object;)Lorg/gradle/api/file/ConfigurableFileCollection;
+}
+
+public abstract class com/rickbusarow/doks/DoksTask : org/gradle/api/DefaultTask {
+	public fun <init> (Ljava/lang/String;)V
+	protected final fun getJson ()Lkotlinx/serialization/json/Json;
+}
+
+public abstract class com/rickbusarow/doks/RuleBuilderScope : java/io/Serializable, org/gradle/api/Named {
+	public fun <init> ()V
+	public final fun escapeRegex (Ljava/lang/String;)Ljava/lang/String;
+	public final fun escapeReplacement (Ljava/lang/String;)Ljava/lang/String;
+	public final fun getARTIFACT_ID ()Ljava/lang/String;
+	public final fun getGROUP_ID ()Ljava/lang/String;
+	public final fun getPACKAGING ()Ljava/lang/String;
+	public abstract fun getRegex ()Ljava/lang/String;
+	public abstract fun getReplacement ()Ljava/lang/String;
+	public final fun getSEMVER ()Ljava/lang/String;
+	public final fun getSEMVER_STABLE ()Ljava/lang/String;
+	public final fun getSourceDelim ()C
+	public final fun gradlePlugin (Ljava/lang/String;)Ljava/lang/String;
+	public final fun gradlePluginWithVersion (Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+	public static synthetic fun gradlePluginWithVersion$default (Lcom/rickbusarow/doks/RuleBuilderScope;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Ljava/lang/String;
+	public final fun maven (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+	public static synthetic fun maven$default (Lcom/rickbusarow/doks/RuleBuilderScope;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Ljava/lang/String;
+	public abstract fun setRegex (Ljava/lang/String;)V
+	public abstract fun setReplacement (Ljava/lang/String;)V
+	public final fun sourceCode (Ljava/lang/String;ZLjava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+	public static synthetic fun sourceCode$default (Lcom/rickbusarow/doks/RuleBuilderScope;Ljava/lang/String;ZLjava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Ljava/lang/String;
+}
+
+public abstract interface class com/rickbusarow/doks/RuleFactory : java/io/Serializable {
+	public abstract fun getRules ()Lorg/gradle/api/NamedDomainObjectContainer;
+	public abstract fun rule (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lorg/gradle/api/NamedDomainObjectProvider;
+	public abstract fun rule (Ljava/lang/String;Lorg/gradle/api/Action;)Lorg/gradle/api/NamedDomainObjectProvider;
+}
+
+public final class com/rickbusarow/doks/RuleFactory$DefaultImpls {
+	public static fun rule (Lcom/rickbusarow/doks/RuleFactory;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lorg/gradle/api/NamedDomainObjectProvider;
+	public static fun rule (Lcom/rickbusarow/doks/RuleFactory;Ljava/lang/String;Lorg/gradle/api/Action;)Lorg/gradle/api/NamedDomainObjectProvider;
+}
+
+public final class com/rickbusarow/doks/internal/Rule : java/io/Serializable {
+	public static final field Companion Lcom/rickbusarow/doks/internal/Rule$Companion;
+	public synthetic fun <init> (ILjava/lang/String;Lkotlin/text/Regex;Ljava/lang/String;Lkotlinx/serialization/internal/SerializationConstructorMarker;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (Ljava/lang/String;Lkotlin/text/Regex;Ljava/lang/String;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1-8OcL4yg ()Ljava/lang/String;
+	public final fun component2 ()Lkotlin/text/Regex;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun copy-IFIhv3M (Ljava/lang/String;Lkotlin/text/Regex;Ljava/lang/String;)Lcom/rickbusarow/doks/internal/Rule;
+	public static synthetic fun copy-IFIhv3M$default (Lcom/rickbusarow/doks/internal/Rule;Ljava/lang/String;Lkotlin/text/Regex;Ljava/lang/String;ILjava/lang/Object;)Lcom/rickbusarow/doks/internal/Rule;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getName-8OcL4yg ()Ljava/lang/String;
+	public final fun getRegex ()Lkotlin/text/Regex;
+	public final fun getReplacement ()Ljava/lang/String;
+	public fun hashCode ()I
+	public final fun replaceIn (Ljava/lang/CharSequence;)Ljava/lang/String;
+	public fun toString ()Ljava/lang/String;
+	public static final fun write$Self (Lcom/rickbusarow/doks/internal/Rule;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
+}
+
+public final class com/rickbusarow/doks/internal/Rule$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lcom/rickbusarow/doks/internal/Rule$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/rickbusarow/doks/internal/Rule;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/rickbusarow/doks/internal/Rule;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/rickbusarow/doks/internal/Rule$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/rickbusarow/doks/internal/RuleName : java/io/Serializable, java/lang/Comparable {
+	public static final field Companion Lcom/rickbusarow/doks/internal/RuleName$Companion;
+	public static final synthetic fun box-impl (Ljava/lang/String;)Lcom/rickbusarow/doks/internal/RuleName;
+	public synthetic fun compareTo (Ljava/lang/Object;)I
+	public fun compareTo-wEePdS0 (Ljava/lang/String;)I
+	public static fun compareTo-wEePdS0 (Ljava/lang/String;Ljava/lang/String;)I
+	public static fun constructor-impl (Ljava/lang/String;)Ljava/lang/String;
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl (Ljava/lang/String;Ljava/lang/Object;)Z
+	public static final fun equals-impl0 (Ljava/lang/String;Ljava/lang/String;)Z
+	public final fun getValue ()Ljava/lang/String;
+	public fun hashCode ()I
+	public static fun hashCode-impl (Ljava/lang/String;)I
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl (Ljava/lang/String;)Ljava/lang/String;
+	public final synthetic fun unbox-impl ()Ljava/lang/String;
+}
+
+public final class com/rickbusarow/doks/internal/RuleName$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lcom/rickbusarow/doks/internal/RuleName$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun deserialize-wmWQlzU (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/String;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun serialize-uogO5EI (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/String;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/rickbusarow/doks/internal/RuleName$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/rickbusarow/doks/internal/Rules : java/io/Serializable {
+	public fun <init> (Ljava/util/Map;)V
+	public final fun get-wEePdS0 (Ljava/lang/String;)Lcom/rickbusarow/doks/internal/Rule;
+	public final fun getNames ()Ljava/util/List;
+	public final fun getOrNull-wEePdS0 (Ljava/lang/String;)Lcom/rickbusarow/doks/internal/Rule;
+	public final fun hasName-wEePdS0 (Ljava/lang/String;)Z
+}
+
+public final class com/rickbusarow/doks/internal/gradle/TaskKt$sam$i$org_gradle_api_Action$0 : org/gradle/api/Action {
+	public fun <init> (Lkotlin/jvm/functions/Function1;)V
+	public final synthetic fun execute (Ljava/lang/Object;)V
+}
+

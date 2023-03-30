@@ -67,7 +67,7 @@ dependencies {
   testImplementation(libs.ktlint.test)
 }
 
-val versionRefName = "docusync = "
+val versionRefName = "doks = "
 val catalogs = rootProject.file("../gradle/libs.versions.toml")
 
 buildConfig {

@@ -31,8 +31,8 @@ abstract class TestConventionPlugin : Plugin<Project> {
     val includeTags: ListProperty<String> = target.objects
       .listProperty(String::class.java)
 
-    if (target.hasProperty("docusync.includeTags")) {
-      includeTags.addAll(target.properties["docusync.includeTags"].toString().split(','))
+    if (target.hasProperty("doks.includeTags")) {
+      includeTags.addAll(target.properties["doks.includeTags"].toString().split(','))
     }
 
     target.tasks.withType(Test::class.java) { task ->
@@ -68,7 +68,7 @@ abstract class TestConventionPlugin : Plugin<Project> {
 
       target.properties
         .filter { (key, value) ->
-          key.startsWith("docusync.") && value != null
+          key.startsWith("doks.") && value != null
         }
         .forEach { (key, value) ->
           systemProperty(key, value as String)

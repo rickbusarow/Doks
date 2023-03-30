@@ -112,8 +112,8 @@ abstract class RuleBuilderScope : Named, java.io.Serializable {
    *
    * The replacement string will have a format of:
    *
-   *            ```$codeBlockLanguage $attributes
-   *            // sample code from fqName
+   *             ```$codeBlockLanguage $attributes
+   *             // sample code from fqName
    *     ```
    *
    * ### the bodyOnly flag
@@ -152,11 +152,11 @@ abstract class RuleBuilderScope : Named, java.io.Serializable {
    *
    * The resultant code sample using `bodyOnly = true` would look like this:
    *
-   *            ```groovy
-   *            // build.gradle
-   *            anvil {
-   *              generateDaggerFactories = true
-   *            }
+   *             ```groovy
+   *             // build.gradle
+   *             anvil {
+   *               generateDaggerFactories = true
+   *             }
    *     ```
    *
    * @since 0.1.0

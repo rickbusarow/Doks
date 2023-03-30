@@ -18,8 +18,8 @@ package com.rickbusarow.docusync.internal.stdlib
 /**
  * A simpler SEMVER which does not include any suffix like `-SNAPSHOT`, `-beta01` or `-RC`
  *
- * matches simple semantic versions like `1.0.0` or `10.52.1028`. It does not match if the version is
- * non-semantic, like `1` or `1.2`.
+ * matches simple semantic versions like `1.0.0` or `10.52.1028`. It
+ * does not match if the version is non-semantic, like `1` or `1.2`.
  *
  * @since 0.1.0
  */

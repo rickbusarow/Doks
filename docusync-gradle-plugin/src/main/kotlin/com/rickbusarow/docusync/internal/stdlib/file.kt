@@ -19,17 +19,17 @@ import java.io.File
 import java.nio.file.Path
 
 /**
- * Walks up the tree until [parentFile][File.getParentFile] is null. The first element is the immediate
- * parent of the receiver, and the last is the root.
+ * Walks up the tree until [parentFile][File.getParentFile] is null. The first
+ * element is the immediate parent of the receiver, and the last is the root.
  *
  * @since 0.1.0
  */
 internal fun File.parents(): Sequence<File> = generateSequence(this) { it.parentFile }
 
 /**
- * Makes parent directories, then creates the receiver file. If a [content] argument was provided, it
- * will be written to the newly-created file. If the file already existed, its content will be
- * overwritten.
+ * Makes parent directories, then creates the receiver file. If a
+ * [content] argument was provided, it will be written to the newly-created
+ * file. If the file already existed, its content will be overwritten.
  *
  * @since 0.1.0
  * @see Path.createSafely
@@ -43,9 +43,9 @@ internal fun File.createSafely(content: String? = null): File = apply {
 }
 
 /**
- * Makes parent directories, then creates the receiver file. If a [content] argument was provided, it
- * will be written to the newly-created file. If the file already existed, its content will be
- * overwritten.
+ * Makes parent directories, then creates the receiver file. If a
+ * [content] argument was provided, it will be written to the newly-created
+ * file. If the file already existed, its content will be overwritten.
  *
  * @see File.createSafely
  * @since 0.1.1

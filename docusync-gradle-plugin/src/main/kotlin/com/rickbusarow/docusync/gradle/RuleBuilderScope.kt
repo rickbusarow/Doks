@@ -74,8 +74,8 @@ abstract class RuleBuilderScope : Named, java.io.Serializable {
     get() = SEMVER_REGEX
 
   /**
-   * matches "stable" versions only, like `1.0.0` or `0.10.0`. It does not match pre-release versions
-   * like `1.0.0-SNAPSHOT`.
+   * matches "stable" versions only, like `1.0.0` or `0.10.0`. It
+   * does not match pre-release versions like `1.0.0-SNAPSHOT`.
    *
    * @see SEMVER_REGEX_STABLE
    * @since 0.1.0
@@ -107,19 +107,19 @@ abstract class RuleBuilderScope : Named, java.io.Serializable {
   }
 
   /**
-   * Creates a replacement string of a Markdown code block, where the sample code is taken from the
-   * declaration of [fqName].
+   * Creates a replacement string of a Markdown code block, where
+   * the sample code is taken from the declaration of [fqName].
    *
    * The replacement string will have a format of:
    *
-   *     ```$codeBlockLanguage $attributes
-   *     // sample code from fqName
-   *     ```
+   *    ```$codeBlockLanguage $attributes
+   *    // sample code from fqName
+   *    ```
    *
    * ### the bodyOnly flag
    *
-   * If [bodyOnly] is true, the parsed sample code will only include the body of a declaration instead
-   * of the declaration itself.
+   * If [bodyOnly] is true, the parsed sample code will only include
+   * the body of a declaration instead of the declaration itself.
    *
    * Consider this function:
    *
@@ -130,14 +130,14 @@ abstract class RuleBuilderScope : Named, java.io.Serializable {
    * }
    * ```
    *
-   * If `bodyOnly` is true, the sample code will only include the "body" -- the middle two lines. The
-   * replacement string will also use [trimIndent] so that everything is left-justified as you would
-   * expect. If `bodyOnly` is false, the replacement string will be all four lines of code.
+   * If `bodyOnly` is true, the sample code will only include the "body" -- the middle two lines.
+   * The replacement string will also use [trimIndent] so that everything is left-justified as you
+   * would expect. If `bodyOnly` is false, the replacement string will be all four lines of code.
    *
    * ### sample string literals
    *
-   * When the sample code is a string property declaration, you may use `bodyOnly` to extract the value
-   * of a raw string literal.
+   * When the sample code is a string property declaration, you may
+   * use `bodyOnly` to extract the value of a raw string literal.
    *
    * Given this string property:
    *
@@ -152,12 +152,12 @@ abstract class RuleBuilderScope : Named, java.io.Serializable {
    *
    * The resultant code sample using `bodyOnly = true` would look like this:
    *
-   *     ```groovy
-   *     // build.gradle
-   *     anvil {
-   *       generateDaggerFactories = true
-   *     }
-   *     ```
+   *    ```groovy
+   *    // build.gradle
+   *    anvil {
+   *      generateDaggerFactories = true
+   *    }
+   *    ```
    *
    * @since 0.1.0
    */
@@ -204,15 +204,15 @@ abstract class RuleBuilderScope : Named, java.io.Serializable {
    *
    * The resultant regex has four capturing groups, as in: `"(($group):($artifactId):($version))"`
    *
-   * When this regex matches, `$1` would contain the group, `$2` the artifact ID, and `$3` would
-   * contain the version.
+   * When this regex matches, `$1` would contain the group,
+   * `$2` the artifact ID, and `$3` would contain the version.
    *
-   * @param group matcher for the group component, like `com.example.myLib`. The default value of
-   *   `[\w\.]*[\w]` will match any group.
-   * @param artifactId matcher for the "artifactId" or "name" component, like `myLib-api`. The
-   *   default value of `[\w\-]*[\w]` will match any artifact id.
-   * @param version matcher for the version component, like `1.1.0` or `1.0.0-SNAPSHOT`. The default
-   *   value will match any semantic version.
+   * @param group matcher for the group component, like `com.example.myLib`.
+   *   The default value of `[\w\.]*[\w]` will match any group.
+   * @param artifactId matcher for the "artifactId" or "name" component, like
+   *   `myLib-api`. The default value of `[\w\-]*[\w]` will match any artifact id.
+   * @param version matcher for the version component, like `1.1.0` or
+   *   `1.0.0-SNAPSHOT`. The default value will match any semantic version.
    * @return a regex string to match any maven artifact
    * @since 0.1.0
    */
@@ -223,8 +223,8 @@ abstract class RuleBuilderScope : Named, java.io.Serializable {
   ): String = "($group):($artifactId):($version)"
 
   /**
-   * Builds a regular expression pattern to match a Gradle plugin declaration that uses the given
-   * plugin ID.
+   * Builds a regular expression pattern to match a Gradle
+   * plugin declaration that uses the given plugin ID.
    *
    * The regular expression will match against the following formats of a plugin declaration:
    *
@@ -271,8 +271,8 @@ abstract class RuleBuilderScope : Named, java.io.Serializable {
   }
 
   /**
-   * Builds a regex pattern to match a Gradle plugin declaration that specifies both the plugin ID and
-   * the plugin version.
+   * Builds a regex pattern to match a Gradle plugin declaration
+   * that specifies both the plugin ID and the plugin version.
    *
    * The pattern matches the standard plugin declaration syntax in Gradle build files, such as:
    *
@@ -296,12 +296,12 @@ abstract class RuleBuilderScope : Named, java.io.Serializable {
    * - Capture 5: The matched plugin version
    * - Capture 6: The closing single/double quote and optional parenthesis, like `")`
    *
-   * If the [pluginId] or [version] arguments have their own capture groups, the group numbers will be
-   * affected.
+   * If the [pluginId] or [version] arguments have their
+   * own capture groups, the group numbers will be affected.
    *
    * @param pluginId the plugin ID to match. This may be a regex pattern.
-   * @param version the version of the plugin to match. The default value will match any semantic
-   *   version. This may be a regex pattern.
+   * @param version the version of the plugin to match. The default value
+   *   will match any semantic version. This may be a regex pattern.
    * @return a regex string to match a Gradle plugin declaration with both ID and version specified
    * @since 0.1.0
    */
@@ -323,16 +323,16 @@ abstract class RuleBuilderScope : Named, java.io.Serializable {
   }
 
   /**
-   * An inline version of [Regex.escape]. The receiver string will be interpreted as a literal string.
-   * No characters within the string will have special meaning.
+   * An inline version of [Regex.escape]. The receiver string will be interpreted
+   * as a literal string. No characters within the string will have special meaning.
    *
    * @since 0.1.1
    */
   fun String.escapeRegex(): String = Regex.escape(this)
 
   /**
-   * An inline version of [Regex.escapeReplacement]. The receiver string will be interpreted as a
-   * literal string. No characters within the string will have special meaning.
+   * An inline version of [Regex.escapeReplacement]. The receiver string will be interpreted
+   * as a literal string. No characters within the string will have special meaning.
    *
    * @since 0.1.1
    */

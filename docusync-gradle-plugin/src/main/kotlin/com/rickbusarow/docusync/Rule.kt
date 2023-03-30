@@ -45,8 +45,8 @@ data class Rule(
   ) : this(RuleName(name), regex.toRegex(), replacement)
 
   /**
-   * @return a new string obtained by replacing each substring of the [original] `CharSequence` that
-   *   matches this [regex] regular expression with the [replacement].
+   * @return a new string obtained by replacing each substring of the [original]
+   *   `CharSequence` that matches this [regex] regular expression with the [replacement].
    * @see CharSequence.replace
    * @since 0.1.0
    */

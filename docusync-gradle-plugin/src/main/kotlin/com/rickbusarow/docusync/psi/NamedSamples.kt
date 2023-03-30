@@ -44,6 +44,7 @@ import org.jetbrains.kotlin.psi.psiUtil.getChildrenOfType
 import org.jetbrains.kotlin.psi.psiUtil.parents
 import java.io.File
 import kotlin.LazyThreadSafetyMode.NONE
+import kotlin.io.path.Path
 
 @Serializable
 internal data class SampleRequest(
@@ -159,33 +160,64 @@ internal class NamedSamples(
     ktFiles: Sequence<KtFile>,
     requests: List<SampleRequest>
   ): LazyMap<String?, KtNamedDeclaration?> {
-    val namesAndParentNames = requests
-      .map { FqName(it.fqName) }
+
+    val requestedNames = requests.map { FqName(it.fqName) }
+
+    val namesAndParentNames = requestedNames
       .flatMap { requestedName ->
         generateSequence(requestedName) { if (it.isRoot) null else it.parent() }
       }
       .toSet()
 
-    return ktFiles.flatMap<KtFile, KtNamedDeclaration> { ktFile ->
+    return ktFiles
+      .sortByPathSimilarityTo(requestedNames)
+      .flatMap<KtFile, KtNamedDeclaration> { ktFile ->
 
-      ktFile
-        .getChildrenOfTypeRecursive { element ->
+        ktFile
+          .getChildrenOfTypeRecursive { element ->
 
-          when (element) {
-            is KtFunctionLiteral -> true
+            when (element) {
+              is KtFunctionLiteral -> true
 
-            is KtNamedDeclaration -> element.fqNameIncludingMembers() in namesAndParentNames
+              is KtNamedDeclaration -> element.fqNameIncludingMembers() in namesAndParentNames
 
-            else -> element.couldHaveNamedChildren()
+              else -> element.couldHaveNamedChildren()
+            }
           }
-        }
-    }
+      }
       .distinct()
       .map { it.fqNameIncludingMembers().asString() to it }
       .toLazyMap()
   }
 
-  // private fun FqName.asPathString(): String = pathSegments().joinToString(File.separator)
+  private fun Sequence<KtFile>.sortByPathSimilarityTo(fqNames: List<FqName>): Sequence<KtFile> {
+
+    val fqNamePaths = fqNames.map { Path(it.asPathString()) }
+
+    return map { file ->
+
+      val filePath = Path(file.absolutePath())
+      var score = 0
+
+      fqNamePaths.forEach { fqNamePath ->
+        var matchingSegments = 0
+
+        while (matchingSegments < fqNamePath.nameCount && matchingSegments < filePath.nameCount &&
+          fqNamePath.getName(matchingSegments) == filePath.getName(matchingSegments)
+        ) {
+          matchingSegments++
+        }
+
+        score += matchingSegments
+      }
+
+      Pair(file, score)
+    }
+      .sortedByDescending { it.second }
+      .map { it.first }
+  }
+
+  private fun FqName.asPathString(): String = pathSegments().joinToString(File.separator)
 
   private fun KtElement.textInScope() = getChildrenOfType<PsiElement>()
     .drop(1)

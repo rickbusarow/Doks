@@ -15,6 +15,7 @@
 
 package com.rickbusarow.docusync.psi
 
+import com.rickbusarow.docusync.internal.stdlib.requireNotNull
 import org.intellij.lang.annotations.Language
 import org.jetbrains.kotlin.cli.common.CLIConfigurationKeys
 import org.jetbrains.kotlin.cli.common.messages.MessageRenderer
@@ -23,6 +24,7 @@ import org.jetbrains.kotlin.cli.jvm.compiler.EnvironmentConfigFiles
 import org.jetbrains.kotlin.cli.jvm.compiler.KotlinCoreEnvironment
 import org.jetbrains.kotlin.com.intellij.lang.java.JavaLanguage
 import org.jetbrains.kotlin.com.intellij.openapi.util.Disposer
+import org.jetbrains.kotlin.com.intellij.openapi.util.Key
 import org.jetbrains.kotlin.com.intellij.openapi.util.text.StringUtilRt
 import org.jetbrains.kotlin.com.intellij.psi.PsiFile
 import org.jetbrains.kotlin.com.intellij.psi.PsiFileFactory
@@ -90,15 +92,20 @@ internal class DocusyncPsiFileFactory : java.io.Serializable {
 
   /**
    * @return a "virtual" Psi `KtFile` from this [file].
-   * @throws IllegalArgumentException if the [file] argument is not a Kotlin file ending in `.kt` or
-   *   `.kts`
+   * @throws IllegalArgumentException if the [file] argument
+   *   is not a Kotlin file ending in `.kt` or `.kts`
    * @since 0.1.0
    */
   fun createKotlin(file: File): KtFile {
     require(Regex("""kts?$""").matches(file.extension)) {
       "This file is not a Kotlin file: $file"
     }
-    return createKotlin(file.path, file.readText())
+
+    return createKotlin(
+      name = file.name,
+      path = file.absolutePath,
+      content = file.readText()
+    )
   }
 
   /**
@@ -108,11 +115,14 @@ internal class DocusyncPsiFileFactory : java.io.Serializable {
    */
   internal fun createKotlin(
     name: String,
+    path: String,
     @Language("kotlin")
     content: String
   ): KtFile {
-    return ktFileFactory
-      .createFile(name, content)
+    return ktFileFactory.createFile(name, content)
+      .also {
+        it.putUserData(absolutePathKey, path)
+      }
   }
 
   /**
@@ -133,4 +143,10 @@ internal class DocusyncPsiFileFactory : java.io.Serializable {
         content.trimIndent()
       ) as PsiJavaFile
   }
+}
+
+private val absolutePathKey = Key<String>("absolute_path")
+internal fun KtFile.absolutePath() = getUserData(absolutePathKey).requireNotNull {
+  "This file does not have an absolute path set with the key of $absolutePathKey.  " +
+    "The file's simple name is $name."
 }

@@ -377,7 +377,12 @@ class NamedSamplesTest {
     @Language("kotlin") vararg content: String
   ): String {
     val files = content.mapIndexed { index, code ->
-      DocusyncPsiFileFactory().createKotlin("Source_$index.kt", code.trimIndent())
+      DocusyncPsiFileFactory()
+        .createKotlin(
+          name = "Source_$index.kt",
+          path = "Source_$index.kt",
+          content = code.trimIndent()
+        )
     }
 
     return NamedSamples(DocusyncPsiFileFactory())

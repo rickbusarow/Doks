@@ -16,8 +16,8 @@
 package com.rickbusarow.docusync.psi
 
 /**
- * Creates a [LazyMap] which will invoke [compute] each time a *new* key is requested. Repeated lookups
- * will not invoke the [compute] action again.
+ * Creates a [LazyMap] which will invoke [compute] each time a *new* key is
+ * requested. Repeated lookups will not invoke the [compute] action again.
  *
  * This is not a thread-safe map.
  *
@@ -47,14 +47,14 @@ internal class LazyMap<K, V>(
   val size: Int get() = map.size
 
   /**
-   * @return true if [key] is **already cached**
+   * @return true if [key] is **a lready cached*
    * @since 0.1.0
    */
   fun containsKey(key: K): Boolean = map.containsKey(key)
 
   /**
-   * Tells the map to invoke [value] lazily the next time a value for [key] is requested. [value] will
-   * not be invoked if [key] is not requested.
+   * Tells the map to invoke [value] lazily the next time a value for [key]
+   * is requested. [value] will not be invoked if [key] is not requested.
    *
    * @return the old [V] if one is already cached, else `null`
    * @since 0.1.0
@@ -62,8 +62,8 @@ internal class LazyMap<K, V>(
   fun set(key: K, value: () -> V): V? = put(key, lazy(value))
 
   /**
-   * Tells the map to invoke [value] lazily the next time a value for [key] is requested. [value] will
-   * not be invoked if [key] is not requested.
+   * Tells the map to invoke [value] lazily the next time a value for [key]
+   * is requested. [value] will not be invoked if [key] is not requested.
    *
    * @return the old [V] if one is already cached, else `null`
    * @since 0.1.0
@@ -71,8 +71,8 @@ internal class LazyMap<K, V>(
   fun set(key: K, value: Lazy<V>): V? = put(key, value)
 
   /**
-   * Tells the map to invoke [value] lazily the next time a value for [key] is requested. [value] will
-   * not be invoked if [key] is not requested.
+   * Tells the map to invoke [value] lazily the next time a value for [key]
+   * is requested. [value] will not be invoked if [key] is not requested.
    *
    * @return the old [V] if one is already cached, else `null`
    * @since 0.1.0
@@ -112,13 +112,13 @@ internal class LazyMap<K, V>(
     /**
      * Creates a [LazyMap] which is essentially a lazy [Sequence.associate].
      *
-     * When a key is requested which has not already been cached, the [LazyMap] will iterate over the
-     * receiver [Sequence], caching each pair along the way. It will stop iterating as soon as it
-     * arrives at the requested key. A subsequent request will check the cache and if there's a miss,
-     * it will resume iterating at the point where it left off.
+     * When a key is requested which has not already been cached, the [LazyMap] will iterate
+     * over the receiver [Sequence], caching each pair along the way. It will stop iterating
+     * as soon as it arrives at the requested key. A subsequent request will check the
+     * cache and if there's a miss, it will resume iterating at the point where it left off.
      *
-     * Because the receiver is a [Sequence], the [Pair]s are not computed until the iterator reaches
-     * them.
+     * Because the receiver is a [Sequence], the [Pair]s
+     * are not computed until the iterator reaches them.
      *
      * This is not a thread-safe map.
      *
@@ -151,8 +151,8 @@ internal class LazyMap<K, V>(
 }
 
 /**
- * A Sequence which only yields each element once, but is **not** constrained to only one consumer via
- * [constrainOnce].
+ * A Sequence which only yields each element once, but is **n
+ * ot* constrained to only one consumer via [constrainOnce].
  *
  * Given this code:
  *

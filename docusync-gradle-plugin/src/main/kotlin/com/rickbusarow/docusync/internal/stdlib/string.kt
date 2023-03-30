@@ -52,7 +52,7 @@ internal fun <E> Iterable<E>.joinToStringConcat(
 internal fun String.normaliseLineSeparators(): String = replace("\r\n|\r".toRegex(), "\n")
 
 /**
- * Adds line breaks and indents to the output of data class `toString()`s.
+ * Adds line breaks and indents to the output of data class `toString()`s .
  *
  * @see toStringPretty
  * @since 0.1.0

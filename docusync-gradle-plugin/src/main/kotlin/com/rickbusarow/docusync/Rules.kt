@@ -18,7 +18,7 @@ package com.rickbusarow.docusync
 import com.rickbusarow.docusync.internal.stdlib.requireNotNull
 
 /**
- * Holds all [Rules][Rule] defined for a given set.
+ * Holds all [Rules][ Rule] defined for a given set.
  *
  * @since 0.1.0
  */

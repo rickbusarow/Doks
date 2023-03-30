@@ -21,8 +21,8 @@ import org.gradle.api.internal.GradleInternal
 import org.gradle.api.plugins.PluginContainer
 
 /**
- * Determines whether the receiver project is the "real" root of this composite build, as opposed to
- * the root projects of included builds.
+ * Determines whether the receiver project is the "real" root of this
+ * composite build, as opposed to the root projects of included builds.
  *
  * @since 0.1.0
  */

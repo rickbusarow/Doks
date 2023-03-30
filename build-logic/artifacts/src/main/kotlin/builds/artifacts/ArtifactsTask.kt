@@ -50,8 +50,8 @@ abstract class ArtifactsTask(
    * All artifacts as they are defined in the project right now.
    *
    * This is a lazy delegate because it's accessing [project], and Gradle's configuration caching
-   * doesn't allow direct references to `project` in task properties or inside task actions. Somehow,
-   * it doesn't complain about this even though it's definitely accessed at runtime.
+   * doesn't allow direct references to `project` in task properties or inside task actions.
+   * Somehow, it doesn't complain about this even though it's definitely accessed at runtime.
    *
    * @since 0.1.0
    */

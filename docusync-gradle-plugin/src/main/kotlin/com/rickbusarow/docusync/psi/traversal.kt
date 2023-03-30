@@ -19,8 +19,8 @@ import org.jetbrains.kotlin.com.intellij.psi.PsiElement
 import java.util.LinkedList
 
 /**
- * @return a breadth-first traversal of all nested elements of type [T], including the nested
- *   elements of children, their children, etc.
+ * @return a breadth-first traversal of all nested elements of type [T],
+ *   including the nested elements of children, their children, etc.
  * @since 0.1.0
  */
 internal inline fun <reified T : PsiElement> PsiElement.getChildrenOfTypeRecursive(): Sequence<T> {
@@ -37,8 +37,8 @@ internal inline fun <reified T : PsiElement> PsiElement.getChildrenOfTypeRecursi
 }
 
 /**
- * @return a depth-first traversal of all nested elements of type [T], including the nested elements
- *   of children, their children, etc.
+ * @return a depth-first traversal of all nested elements of type [T],
+ *   including the nested elements of children, their children, etc.
  * @since 0.1.0
  */
 internal inline fun <reified T : PsiElement> PsiElement.getChildrenOfTypeRecursive(

@@ -155,9 +155,9 @@ internal fun File.markdown(
 }
 
 /**
- * Splits the elements by [predicate], where the element matching [predicate] is the first element of
- * each nested list. If the original list starts with an element which does not match [predicate], then
- * the first nested list will contain all elements before the first matching element.
+ * Splits the elements by [predicate], where the element matching [predicate] is the first element
+ * of each nested list. If the original list starts with an element which does not match [predicate],
+ * then the first nested list will contain all elements before the first matching element.
  *
  * @since 0.1.0
  */

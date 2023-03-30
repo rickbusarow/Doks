@@ -23,8 +23,8 @@ import org.intellij.lang.annotations.Language
 /**
  * An interface for defining and registering [Rule][com.rickbusarow.docusync.Rule] instances.
  *
- * A rule is defined as a search and replace operation, where a given regex pattern is matched against
- * some text and replaced with a specified string.
+ * A rule is defined as a search and replace operation, where a given regex
+ * pattern is matched against some text and replaced with a specified string.
  *
  * @since 0.1.0
  */
@@ -41,10 +41,10 @@ interface RuleFactory : java.io.Serializable {
    * Creates and registers a new [Rule][com.rickbusarow.docusync.Rule] instance.
    *
    * @param name the name to register the rule with
-   * @param action an [Action] that configures the [RuleBuilderScope] instance used to build the
-   *   rule. Use this to set the regex matcher and the replacement string.
-   * @return a [NamedDomainObjectProvider] instance for the newly created
-   *   [Rule][com.rickbusarow.docusync.Rule] instance
+   * @param action an [Action] that configures the [RuleBuilderScope] instance used to
+   *   build the rule. Use this to set the regex matcher and the replacement string.
+   * @return a [NamedDomainObjectProvider] instance for the newly
+   *   created [Rule][com.rickbusarow.docusync.Rule] instance
    * @since 0.1.0
    */
   fun rule(
@@ -55,14 +55,14 @@ interface RuleFactory : java.io.Serializable {
   }
 
   /**
-   * Creates and registers a new [Rule][com.rickbusarow.docusync.Rule] instance with the specified
-   * regular expression and replacement string.
+   * Creates and registers a new [Rule][com.rickbusarow.docusync.Rule]
+   * instance with the specified regular expression and replacement string.
    *
    * @param name the name to register the rule with
    * @param regex the regular expression pattern to match against
    * @param replacement the string to replace the matched pattern with
-   * @return a [NamedDomainObjectProvider] instance for the newly created
-   *   [Rule][com.rickbusarow.docusync.Rule] instance
+   * @return a [NamedDomainObjectProvider] instance for the newly
+   *   created [Rule][com.rickbusarow.docusync.Rule] instance
    * @since 0.1.0
    */
   fun rule(

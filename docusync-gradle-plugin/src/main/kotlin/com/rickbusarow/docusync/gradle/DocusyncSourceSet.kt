@@ -28,8 +28,8 @@ import java.nio.file.Path
 import javax.inject.Inject
 
 /**
- * An abstract source set for docusync documentation and sample code. Provides a [RuleFactory] to allow
- * for the creation of rules to be applied to the source set's documentation.
+ * An abstract source set for docusync documentation and sample code. Provides a [RuleFactory]
+ * to allow for the creation of rules to be applied to the source set's documentation.
  *
  * @since 0.1.0
  */
@@ -46,37 +46,37 @@ abstract class DocusyncSourceSet @Inject constructor(
 ) : RuleFactory, java.io.Serializable {
 
   /**
-   * The documentation files in this source set. This is a [ConfigurableFileCollection], meaning that
-   * it can be dynamically configured.
+   * The documentation files in this source set. This is a
+   * [ConfigurableFileCollection], meaning that it can be dynamically configured.
    *
-   * If no value is set, a default collection is configured per
-   * [DocusyncTaskFactory.docsFileCollectionDefault].
+   * If no value is set, a default collection is configured
+   * per [DocusyncTaskFactory.docsFileCollectionDefault].
    *
    * @since 0.1.0
    */
   abstract val docs: ConfigurableFileCollection
 
   /**
-   * The sample code sources for this source set. This is a [ConfigurableFileCollection], meaning that
-   * it can be dynamically configured.
+   * The sample code sources for this source set. This is a
+   * [ConfigurableFileCollection], meaning that it can be dynamically configured.
    *
-   * If no value is set, a default collection is configured per
-   * [DocusyncTaskFactory.samplesFileCollectionDefault].
+   * If no value is set, a default collection is configured
+   * per [DocusyncTaskFactory.samplesFileCollectionDefault].
    *
    * @since 0.1.0
    */
   abstract val sampleCodeSource: ConfigurableFileCollection
 
   /**
-   * Adds a set of document paths to this source set. The given paths are evaluated as per
-   * [Project.files][org.gradle.api.Project.files].
+   * Adds a set of document paths to this source set. The given paths
+   * are evaluated as per [Project.files][org.gradle.api.Project.files].
    *
    * If any [paths] element represents a directory (a [java.io.File], a
-   * [org.gradle.api.file.Directory], a [java.nio.file.Path], or a String path), that element will be
-   * converted to a [ConfigurableFileTree] and added to the [docs] collection.
+   * [org.gradle.api.file.Directory], a [java.nio.file.Path], or a String path), that element
+   * will be converted to a [ConfigurableFileTree] and added to the [docs] collection.
    *
-   * Addition to [docs] is done via [ConfigurableFileCollection.from]. For other operations such as
-   * [setFrom][ConfigurableFileCollection.setFrom], access the [docs] property directly.
+   * Addition to [docs] is done via [ConfigurableFileCollection.from]. For other operations
+   * such as [setFrom][ConfigurableFileCollection.setFrom], access the [docs] property directly.
    *
    * @param paths The files to add.
    * @since 0.1.0
@@ -90,11 +90,11 @@ abstract class DocusyncSourceSet @Inject constructor(
   /**
    * Adds a set of document paths to this source set.
    *
-   * Addition to [docs] is done via [ConfigurableFileCollection.from]. For other operations such as
-   * [setFrom][ConfigurableFileCollection.setFrom], access the [docs] property directly.
+   * Addition to [docs] is done via [ConfigurableFileCollection.from]. For other operations
+   * such as [setFrom][ConfigurableFileCollection.setFrom], access the [docs] property directly.
    *
-   * @param baseDir The base directory of the file tree. Evaluated as per
-   *   [Project.file][org.gradle.api.Project.file].
+   * @param baseDir The base directory of the file tree. Evaluated
+   *   as per [Project.file][org.gradle.api.Project.file].
    * @param configureAction Action to configure the [ConfigurableFileTree] object.
    * @since 0.1.0
    */
@@ -106,16 +106,16 @@ abstract class DocusyncSourceSet @Inject constructor(
   }
 
   /**
-   * Adds a set of sample code paths to this source set. The given paths are *mostly* evaluated as per
-   * [Project.files][org.gradle.api.Project.files].
+   * Adds a set of sample code paths to this source set. The given paths are
+   * *mostly* evaluated as per [Project.files][org.gradle.api.Project.files].
    *
    * If any [paths] element represents a directory (a [java.io.File], a
-   * [org.gradle.api.file.Directory], a [java.nio.file.Path], or a String path), that element will be
-   * converted to a [ConfigurableFileTree] and added to the [sampleCodeSource] collection.
+   * [org.gradle.api.file.Directory], a [java.nio.file.Path], or a String path), that element
+   * will be converted to a [ConfigurableFileTree] and added to the [sampleCodeSource] collection.
    *
-   * Addition to [sampleCodeSource] is done via [ConfigurableFileCollection.from]. For other operations
-   * such as [setFrom][ConfigurableFileCollection.setFrom], access the [sampleCodeSource] property
-   * directly.
+   * Addition to [sampleCodeSource] is done via [ConfigurableFileCollection.from].
+   * For other operations such as [setFrom][ConfigurableFileCollection.setFrom],
+   * access the [sampleCodeSource] property directly.
    *
    * @param paths The files to add.
    * @since 0.1.0
@@ -129,12 +129,12 @@ abstract class DocusyncSourceSet @Inject constructor(
   /**
    * Adds a set of sample code paths to this source set.
    *
-   * Addition to [sampleCodeSource] is done via [ConfigurableFileCollection.from]. For other operations
-   * such as [setFrom][ConfigurableFileCollection.setFrom], access the [sampleCodeSource] property
-   * directly.
+   * Addition to [sampleCodeSource] is done via [ConfigurableFileCollection.from].
+   * For other operations such as [setFrom][ConfigurableFileCollection.setFrom],
+   * access the [sampleCodeSource] property directly.
    *
-   * @param baseDir The base directory of the file tree. Evaluated as per
-   *   [Project.file][org.gradle.api.Project.file].
+   * @param baseDir The base directory of the file tree. Evaluated
+   *   as per [Project.file][org.gradle.api.Project.file].
    * @param configureAction Action to configure the [ConfigurableFileTree] object.
    * @since 0.1.0
    */
@@ -146,10 +146,10 @@ abstract class DocusyncSourceSet @Inject constructor(
   }
 
   /**
-   * If this `Any` represents a directory, then turn that directory into a file tree. If it's anything
-   * else, including an individual File (as in a non-directory), then just return it as itself. This
-   * basically means that any directory path arguments are treated as file trees without the extra
-   * syntax.
+   * If this `Any` represents a directory, then turn that directory into a
+   * file tree. If it's anything else, including an individual File (as in a
+   * non-directory), then just return it as itself. This basically means that any
+   * directory path arguments are treated as file trees without the extra syntax.
    *
    * @since 0.1.0
    */

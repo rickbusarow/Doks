@@ -62,7 +62,7 @@ square-kotlinPoet = "1.12.0"
 square-moshi = "1.14.0"
 square-okio = "3.3.0"
 taskTree = "2.1.1"
-threetenbp = "1.6.7"
+threetenbp = "1.6.8"
 vanniktech-publish = "0.25.1"
 versionCatalogUpdate = "0.8.0"
 

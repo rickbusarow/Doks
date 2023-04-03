@@ -48,6 +48,7 @@ abstract class DoksExtension @Inject constructor(
    * @return The provider for the new source set.
    * @since 0.1.0
    */
+  @JvmOverloads
   fun dokSet(
     name: String = "all",
     action: Action<DoksSet>

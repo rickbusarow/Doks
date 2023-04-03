@@ -18,6 +18,9 @@ package com.rickbusarow.doks.internal.markdown
 import com.rickbusarow.doks.internal.Rule
 import com.rickbusarow.doks.internal.RuleName
 import com.rickbusarow.doks.internal.Rules
+import com.rickbusarow.doks.internal.stdlib.Color.Companion.colorized
+import com.rickbusarow.doks.internal.stdlib.Color.LIGHT_GREEN
+import com.rickbusarow.doks.internal.stdlib.Color.LIGHT_YELLOW
 import com.rickbusarow.doks.internal.stdlib.SEMVER_REGEX
 import io.kotest.assertions.throwables.shouldNotThrowAny
 import io.kotest.assertions.throwables.shouldThrowWithMessage
@@ -113,7 +116,14 @@ class MarkdownTest {
     )
 
     shouldThrowWithMessage<IllegalStateException>(
-      "Doks - file://foo.md > text is out of date"
+      """
+        |Doks - file://foo.md > text is out of date.
+        |
+        |line 4   ${"--  com.rickbusarow.doks:doks-cli:0.0.1-SNAPSHOT".colorized(LIGHT_YELLOW)}
+        |         ${"++  com.rickbusarow.doks:doks-cli:1.2.3".colorized(LIGHT_GREEN)}
+        |line 10  ${"--  'com.rickbusarow.doks:doks-cli:0.0.1-SNAPSHOT'".colorized(LIGHT_YELLOW)}
+        |         ${"++  'com.rickbusarow.doks:doks-cli:1.2.3'".colorized(LIGHT_GREEN)}
+        |""".trimMargin()
     ) {
       original.markdown(
         absolutePath = "foo.md",

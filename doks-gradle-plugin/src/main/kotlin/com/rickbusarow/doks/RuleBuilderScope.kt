@@ -161,6 +161,7 @@ abstract class RuleBuilderScope : Named, java.io.Serializable {
    *
    * @since 0.1.0
    */
+  @JvmOverloads
   fun sourceCode(
     fqName: String,
     bodyOnly: Boolean = false,
@@ -216,6 +217,7 @@ abstract class RuleBuilderScope : Named, java.io.Serializable {
    * @return a regex string to match any maven artifact
    * @since 0.1.0
    */
+  @JvmOverloads
   fun maven(
     @Language("regexp") group: String = GROUP_ID,
     @Language("regexp") artifactId: String = ARTIFACT_ID,
@@ -305,6 +307,7 @@ abstract class RuleBuilderScope : Named, java.io.Serializable {
    * @return a regex string to match a Gradle plugin declaration with both ID and version specified
    * @since 0.1.0
    */
+  @JvmOverloads
   fun gradlePluginWithVersion(
     @Language("regexp") pluginId: String,
     @Language("regexp") version: String = SEMVER

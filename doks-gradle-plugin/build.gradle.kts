@@ -104,12 +104,14 @@ dependencies {
   integrationImplementation(libs.kotlinx.serialization.core)
   integrationImplementation(libs.kotlinx.serialization.json)
 
+  mainConfig(libs.java.diff.utils)
   mainConfig(libs.jetbrains.markdown)
   mainConfig(libs.kotlin.compiler)
   mainConfig(libs.kotlinx.coroutines.core)
   mainConfig(libs.kotlinx.serialization.core)
   mainConfig(libs.kotlinx.serialization.json)
 
+  testImplementation(libs.java.diff.utils)
   testImplementation(libs.jetbrains.markdown)
   testImplementation(libs.junit.engine)
   testImplementation(libs.junit.jupiter)

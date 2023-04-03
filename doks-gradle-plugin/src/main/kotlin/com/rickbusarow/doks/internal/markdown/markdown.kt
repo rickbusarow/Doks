@@ -17,6 +17,7 @@ package com.rickbusarow.doks.internal.markdown
 
 import com.rickbusarow.doks.internal.DoksEngine.FileResult
 import com.rickbusarow.doks.internal.Rules
+import com.rickbusarow.doks.internal.stdlib.diffString
 import com.rickbusarow.doks.internal.stdlib.joinToStringConcat
 import java.io.File
 
@@ -84,7 +85,11 @@ internal fun String.markdown(
   }
 
   if (this != replacedFullString) {
-    check(autoCorrect) { "Doks - file://$absolutePath > text is out of date" }
+
+    check(autoCorrect) {
+      "Doks - file://$absolutePath > text is out of date.\n\n" +
+        diffString(this@markdown, replacedFullString)
+    }
   }
 
   return replacedFullString
@@ -144,7 +149,8 @@ internal fun File.markdown(
   val changed = old != new
   if (changed) {
     writeText(new)
-    println("wrote changes to file://$path")
+    println("wrote changes to file://$path\n")
+    println(diffString(old, new))
   }
   return FileResult(
     file = this,
@@ -155,8 +161,8 @@ internal fun File.markdown(
 }
 
 /**
- * Splits the elements by [predicate], where the element matching [predicate] is the first element
- * of each nested list. If the original list starts with an element which does not match [predicate],
+ * Splits the elements by [predicate], where the element matching [predicate] is the first element of
+ * each nested list. If the original list starts with an element which does not match [predicate],
  * then the first nested list will contain all elements before the first matching element.
  *
  * @since 0.1.0

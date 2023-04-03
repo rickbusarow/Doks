@@ -2,6 +2,9 @@
 
 ## 0.1.3-SNAPSHOT (unreleased)
 
+### Added
+- print a colorized diff to console when a file has been updated
+
 ## [0.1.2] - 2023-03-30
 
 ### Changed

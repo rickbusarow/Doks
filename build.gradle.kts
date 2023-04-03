@@ -13,9 +13,10 @@
  * limitations under the License.
  */
 
+import builds.GROUP
 import builds.VERSION_NAME
 import builds.mustRunAfter
-import com.rickbusarow.docusync.gradle.DocusyncTask
+import com.rickbusarow.doks.DoksTask
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 @Suppress("DSL_SCOPE_VIOLATION")
@@ -23,7 +24,7 @@ plugins {
   id("root")
   alias(libs.plugins.moduleCheck)
   alias(libs.plugins.github.release)
-  alias(libs.plugins.docusync)
+  alias(libs.plugins.doks)
 }
 
 moduleCheck {
@@ -31,8 +32,8 @@ moduleCheck {
   checks.sortDependencies = true
 }
 
-docusync {
-  docSet {
+doks {
+  dokSet {
     docs("README.md", "CHANGELOG.md")
 
     sampleCodeSource("doks-gradle-plugin/src/integration/kotlin") {
@@ -48,6 +49,15 @@ docusync {
       )
     }
 
+    rule("groovy-dsl-config-simple") {
+      replacement = sourceCode(
+        fqName = "com.rickbusarow.doks.ConfigTest.`groovy dsl config simple`.config",
+        bodyOnly = true,
+        codeBlockLanguage = "groovy",
+        attributes = "title=\"build.gradle\""
+      )
+    }
+
     rule("kotlin-dsl-config-code") {
       replacement = sourceCode(
         fqName = "com.rickbusarow.doks.ConfigTest.`kotlin dsl config code`.config",
@@ -57,20 +67,37 @@ docusync {
       )
     }
 
+    rule("groovy-dsl-config-code") {
+      replacement = sourceCode(
+        fqName = "com.rickbusarow.doks.ConfigTest.`groovy dsl config code`.config",
+        bodyOnly = true,
+        codeBlockLanguage = "groovy",
+        attributes = "title=\"build.gradle\""
+      )
+    }
+
     rule("dollar-raw-string") {
-      regex = Regex.escape("\${'$'}")
-      replacement = Regex.escapeReplacement("$")
+      regex = "\${'$'}".escapeRegex()
+      replacement = "$".escapeReplacement()
     }
     rule("buildConfig-version") {
-      regex = Regex.escape("\${BuildConfig.version}")
-      replacement = Regex.escapeReplacement(VERSION_NAME)
+      regex = "\${BuildConfig.version}".escapeRegex()
+      replacement = VERSION_NAME.escapeReplacement()
+    }
+    rule("plugin-with-version") {
+      regex = gradlePluginWithVersion(GROUP)
+      replacement = "$1$2$3$4${VERSION_NAME.escapeReplacement()}$6"
+    }
+    rule("doks-group") {
+      regex = "com\\.(?:rickbusarow|square|squareup)\\.doks"
+      replacement = GROUP
     }
   }
 }
 
 subprojects.map {
   it.tasks.withType(KotlinCompile::class.java)
-    .mustRunAfter(tasks.withType(DocusyncTask::class.java))
+    .mustRunAfter(tasks.withType(DoksTask::class.java))
 }
 
 // TODO move this to a convention plugin

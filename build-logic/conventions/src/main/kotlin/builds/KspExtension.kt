@@ -15,8 +15,6 @@
 
 package builds
 
-import com.google.devtools.ksp.gradle.KspTask
-import com.rickbusarow.docusync.gradle.DocusyncTask
 import org.gradle.api.Project
 
 interface KspExtension {
@@ -24,7 +22,5 @@ interface KspExtension {
   fun Project.ksp() {
 
     pluginManager.apply("com.google.devtools.ksp")
-
-    tasks.withType<DocusyncTask>().mustRunAfter(KspTask::class.java)
   }
 }

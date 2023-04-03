@@ -2,7 +2,13 @@
 
 ## 0.1.3-SNAPSHOT (unreleased)
 
+### Fixed
+
+- added default parameter support in Groovy by adding `@JvmOverloads` to DSL functions
+
 ### Added
+
+- added Groovy config samples to integration tests and README
 - print a colorized diff to console when a file has been updated
 
 ## [0.1.2] - 2023-03-30

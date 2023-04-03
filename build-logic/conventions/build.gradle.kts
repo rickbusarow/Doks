@@ -98,7 +98,7 @@ dependencies {
   implementation(libs.kotlinx.serialization.json)
   implementation(libs.kotlinx.serialization.json.jvm)
   implementation(libs.kotlinx.serialization.protobuf)
-  implementation(libs.rickBusarow.docusync)
+  implementation(libs.rickBusarow.doks)
   implementation(libs.rickBusarow.moduleCheck.gradle.plugin)
   implementation(libs.square.kotlinPoet)
   implementation(libs.undercouch.download)

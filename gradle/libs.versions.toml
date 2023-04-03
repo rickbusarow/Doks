@@ -12,8 +12,8 @@ commons-io = "2.11.0"
 dependencyAnalysis = "1.19.0"
 detekt = "1.22.0"
 diffplug-spotless = "6.17.0"
-doks = "0.1.3-SNAPSHOT"
 dokka = "1.8.10"
+doks = "0.1.3-SNAPSHOT"
 dropbox-dependencyGuard = "0.4.3"
 ec4j = "0.3.0"
 exhaustive = "0.2.0"
@@ -52,7 +52,7 @@ outfoxx-swiftPoet = "1.4.3"
 outfoxx-typescriptPoet = "1.1.2"
 prettier = "2.8.4"
 prettier-plugin-sh = "0.12.8"
-rickBusarow-docusync = "0.1.1"
+rickBusarow-doks = "0.1.2"
 rickBusarow-ktrules = "1.0.3"
 rickBusarow-moduleCheck = "0.12.5"
 slf4j = "2.0.7"
@@ -74,7 +74,7 @@ benManes = { id = "com.github.ben-manes.versions", version.ref = "benManes-versi
 buildconfig = { id = "com.github.gmazzo.buildconfig", version.ref = "buildconfig" }
 dependencyAnalysis = { id = "com.autonomousapps.dependency-analysis", version.ref = "dependencyAnalysis" }
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
-docusync = { id = "com.rickbusarow.docusync", version.ref = "rickBusarow-docusync" }
+doks = { id = "com.rickbusarow.doks", version.ref = "rickBusarow-doks" }
 dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
 dropbox-dependencyGuard = { id = "com.dropbox.dependency-guard", version.ref = "dropbox-dependencyGuard" }
 exhaustive = { id = "app.cash.exhaustive:exhaustive-gradle", version.ref = "exhaustive" }
@@ -212,7 +212,7 @@ ktlint-ruleset-experimental = { module = "com.pinterest.ktlint:ktlint-ruleset-ex
 ktlint-ruleset-standard = { module = "com.pinterest.ktlint:ktlint-ruleset-standard", version.ref = "ktlint-lib" }
 ktlint-test = { module = "com.pinterest.ktlint:ktlint-test", version.ref = "ktlint-lib" }
 
-rickBusarow-docusync = { module = "com.rickbusarow.docusync:docusync-gradle-plugin", version.ref = "rickBusarow-docusync" }
+rickBusarow-doks = { module = "com.rickbusarow.doks:doks-gradle-plugin", version.ref = "rickBusarow-doks" }
 rickBusarow-ktrules = { module = "com.rickbusarow.ktrules:ktrules", version.ref = "rickBusarow-ktrules" }
 
 rickBusarow-moduleCheck-gradle-plugin = { module = "com.rickbusarow.modulecheck:plugin", version.ref = "rickBusarow-moduleCheck" }

@@ -18,16 +18,20 @@ all within your markdown (or other supported language) documentation.
 - [Contributing](#contributing)
 - [License](#license)
 
-### Installation
+## Installation
 
 To use Doks, you'll need to add it as a dependency in your Gradle build script:
+
+<!--doks plugin-with-version:1-->
 
 ```kotlin
 // build.gradle.kts
 plugins {
-  id("com.rickbusarow.doks") version "0.0.1-SNAPSHOT"
+  id("com.rickbusarow.doks") version "0.1.3-SNAPSHOT"
 }
 ```
+
+<!--/doks-->
 
 For snapshots, Doks uses the older Sonatype host (without "s01"):
 
@@ -37,24 +41,31 @@ pluginManagement {
   repositories {
     gradlePluginPortal()
     // Add for SNAPSHOT builds
-    maven("https://oss.sonatype.org/content/repositories/snapshots/")
+    maven {
+      url = uri("https://oss.sonatype.org/content/repositories/snapshots/")
+      content {
+        includeGroup("com.rickbusarow.doks")
+      }
+    }
   }
 }
 ```
 
-### Usage
+## Usage
 
-#### Defining search-and-replace rules
+### Defining search-and-replace rules
 
 To define a search-and-replace rule, you'll need to add it to your Gradle build script using the
 following syntax:
 
-<!--doks kotlin-dsl-config-simple,dollar-raw-string:5,buildConfig-version:1-->
+<details open>
+<summary>Kotlin</summary>
+<!--doks kotlin-dsl-config-simple,dollar-raw-string:1,buildConfig-version:1-->
 
 ```kotlin title="build.gradle.kts"
 // build.gradle.kts
 plugins {
-  id("com.rickbusarow.doks") version "0.1.2-SNAPSHOT"
+  id("com.rickbusarow.doks") version "0.1.3-SNAPSHOT"
 }
 
 doks {
@@ -79,10 +90,44 @@ doks {
 ```
 
 <!--/doks-->
+</details>
+<details>
+<summary>Groovy</summary>
+<!--doks groovy-dsl-config-simple,dollar-raw-string:1,buildConfig-version:1-->
 
-Here, ruleName is the ID you'll use to reference the rule in your documentation, regex is the regular
-expression you want to search for, and replacement is the replacement text that should be inserted in
-its place.
+```groovy title="build.gradle"
+// build.gradle
+plugins {
+  id 'com.rickbusarow.doks' version '0.1.3-SNAPSHOT'
+}
+
+doks {
+  // Define a set of documents with rules.
+  dokSet {
+    // Set the files which will be synced
+    docs(projectDir) {
+      include '**/*.md', '**/*.mdx'
+    }
+
+    // Define a rule used in updating.
+    // This rule's name corresponds to the name used in documentation.
+    rule('maven-artifact') {
+      regex = maven('com\\.example\\.dino')
+      // replace any maven coordinate string with one using the current version,
+      // where '$1' is the group id, '$2' is the artifact id,
+      // and 'CURRENT_VERSION' is just some variable.
+      replacement = "\$1:\$2:$CURRENT_VERSION"
+    }
+  }
+}
+```
+
+<!--/doks-->
+</details>
+
+Here, `ruleName` is the ID you'll use to reference the rule in your documentation, `regex` is the
+regular expression you want to search for, and `replacement` is the replacement text that should be
+inserted in its place.
 
 To use the rule in your documentation, simply add a comment tag that references the rule name:
 
@@ -104,11 +149,13 @@ If the rule has a count _n_, Doks will assert that the rule's regex has exactly 
 the text. This can help protect against silent failures in case formatting or refactoring breaks a
 rule.
 
-#### Sample Code Extraction from Kotlin Files
+### Sample Code Extraction from Kotlin Files
 
 Doks supports the extraction of code samples from Kotlin files.
 Here's an example of how to use it in your doks configuration block:
 
+<details open>
+<summary>Kotlin</summary>
 <!--doks kotlin-dsl-config-code-->
 
 ```kotlin title="build.gradle.kts"
@@ -136,6 +183,37 @@ doks {
 ```
 
 <!--/doks-->
+</details>
+<details>
+<summary>Groovy</summary>
+<!--doks groovy-dsl-config-code-->
+
+```groovy title="build.gradle"
+doks {
+  // Define a set of documents with rules.
+  dokSet {
+    // Set the files which will be synced
+    docs(projectDir) {
+      include '**/*.md', '**/*.mdx'
+    }
+
+    sampleCodeSource 'src/kotlin/com/example/dino/sauropod/samples'
+
+    // Define a rule used in updating.
+    // This rule's name corresponds to the name used in documentation.
+    rule('brachiosaurus') {
+      replacement = sourceCode(
+          "com.example.dino.sauropod.samples.BrachiosaurusSample.doTheDino",
+          false,
+          "kotlin"
+          )
+    }
+  }
+}
+```
+
+<!--/doks-->
+</details>
 
 This will extract the source code from a property named `config` defined
 inside `com.example.dino.DinoPluginSample` in the `src/test/kotlin` directory. That code will be
@@ -189,30 +267,30 @@ then after running `./gradlew doks`, the above snippet will be changed to this:
     ```
     <!--/doks-->
 
-#### Gradle Tasks
+### Gradle Tasks
 
 The Doks plugin adds two main tasks to your Gradle build:
 
-##### doks
+#### doks
 
 The doks task automatically fixes any differences found between your documentation files and
 your rules. This is useful for quickly updating your documentation without having to manually edit it.
 However, be careful when using this task, as it may overwrite changes which are not accounted for in
 your rules.
 
-##### doksCheck
+#### doksCheck
 
 The doksCheck task checks your documentation files for any differences between the actual content
 and the content which would be generated by your defined rules. If any discrepancies are found, the
 task will fail and display an error message indicating where the differences were found. This is useful
 for ensuring that your documentation remains up-to-date and accurate.
 
-### Contributing
+## Contributing
 
 If you'd like to contribute to Doks, please submit a pull request with your changes. Bug reports or
 feature requests are also welcome in the issue tracker.
 
-### License
+## License
 
 ```text
 Copyright (C) 2023 Rick Busarow

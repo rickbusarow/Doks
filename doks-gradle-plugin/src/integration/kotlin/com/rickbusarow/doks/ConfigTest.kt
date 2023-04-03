@@ -15,11 +15,64 @@
 
 package com.rickbusarow.doks
 
+import com.rickbusarow.doks.internal.stdlib.createSafely
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
 
 @Suppress("FunctionName")
 internal class ConfigTest : BaseGradleTest {
+
+  @Test
+  fun `groovy dsl config simple`() = test {
+
+    val config =
+      """
+      // build.gradle
+      plugins {
+        id 'com.rickbusarow.doks' version '${BuildConfig.version}'
+      }
+
+      doks {
+        // Define a set of documents with rules.
+        dokSet {
+          // Set the files which will be synced
+          docs(projectDir) {
+            include '**/*.md', '**/*.mdx'
+          }
+
+          // Define a rule used in updating.
+          // This rule's name corresponds to the name used in documentation.
+          rule('maven-artifact') {
+            regex = maven('com\\.example\\.dino')
+            // replace any maven coordinate string with one using the current version,
+            // where '$1' is the group id, '$2' is the artifact id,
+            // and 'CURRENT_VERSION' is just some variable.
+            replacement = "\$1:\$2:${'$'}CURRENT_VERSION"
+          }
+        }
+      }
+      """.trimIndent()
+
+    buildFile.resolveSibling("build.gradle")
+      .createSafely(config.replace("doks {", "def CURRENT_VERSION = \"1.0.1\"\n\ndoks {"))
+
+    buildFile.delete()
+
+    workingDir.resolve("README.md")
+      .markdown(
+        """
+        <!--doks maven-artifact:1-->
+        ```kotlin
+        dependencies {
+          implementation("com.example.dino:sauropod:1.0.0")
+        }
+        ```
+        <!--/doks-->
+        """
+      )
+
+    shouldSucceed("doks")
+  }
 
   @Test
   fun `kotlin dsl config simple`() = test {
@@ -45,15 +98,13 @@ internal class ConfigTest : BaseGradleTest {
           rule("maven-artifact") {
             regex = maven(group = "com\\.example\\.dino")
             // replace any maven coordinate string with one using the current version,
-            // where '${'$'}1' is the group id, '${'$'}2' is the artifact id,
+            // where '$1' is the group id, '$2' is the artifact id,
             // and 'CURRENT_VERSION' is just some variable.
-            replacement = "${'$'}1:${'$'}2:${'$'}CURRENT_VERSION"
+            replacement = "$1:$2:${'$'}CURRENT_VERSION"
           }
         }
       }
       """.trimIndent()
-
-    buildFile.writeText("$config\n\nval CURRENT_VERSION = \"1.0.1\"\n")
 
     workingDir.resolve("README.md")
       .markdown(
@@ -117,6 +168,71 @@ internal class ConfigTest : BaseGradleTest {
       ```
       <!--/doks-->
     """.trimIndent()
+  }
+
+  @Test
+  fun `groovy dsl config code`() = test {
+
+    val config =
+      //language=groovy
+      """
+      doks {
+        // Define a set of documents with rules.
+        dokSet {
+          // Set the files which will be synced
+          docs(projectDir) {
+            include '**/*.md', '**/*.mdx'
+          }
+
+          sampleCodeSource 'src/kotlin/com/example/dino/sauropod/samples'
+
+          // Define a rule used in updating.
+          // This rule's name corresponds to the name used in documentation.
+          rule('brachiosaurus') {
+            replacement = sourceCode(
+                "com.example.dino.sauropod.samples.BrachiosaurusSample.doTheDino",
+                false,
+                "kotlin"
+                )
+          }
+        }
+      }
+      """.trimIndent()
+
+    buildFile.resolveSibling("build.gradle")
+      .createSafely(
+        """
+        |${buildFile.readText()}
+        |
+        |$config
+        """.replaceIndentByMargin()
+      )
+
+    buildFile.delete()
+
+    workingDir.resolve("README.md")
+      .markdown(
+        """
+        <!--doks brachiosaurus-->
+        <!--/doks-->
+        """
+      )
+
+    workingDir.resolve("src/kotlin/com/example/dino/sauropod/samples/BrachiosaurusSample.kt")
+      .kotlin(
+        """
+        package com.example.dino.sauropod.samples
+
+        class BrachiosaurusSample {
+
+          fun doTheDino() {
+            stomp()
+          }
+        }
+        """
+      )
+
+    shouldSucceed("doks")
   }
 
   @Test

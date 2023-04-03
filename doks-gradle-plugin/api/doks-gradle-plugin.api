@@ -10,6 +10,7 @@ public abstract class com/rickbusarow/doks/DoksDocsTask : com/rickbusarow/doks/D
 public abstract class com/rickbusarow/doks/DoksExtension : java/io/Serializable {
 	public fun <init> (Lorg/gradle/api/tasks/TaskContainer;Lorg/gradle/api/file/ProjectLayout;)V
 	public final fun dokSet (Ljava/lang/String;Lorg/gradle/api/Action;)Lorg/gradle/api/NamedDomainObjectProvider;
+	public final fun dokSet (Lorg/gradle/api/Action;)Lorg/gradle/api/NamedDomainObjectProvider;
 	public static synthetic fun dokSet$default (Lcom/rickbusarow/doks/DoksExtension;Ljava/lang/String;Lorg/gradle/api/Action;ILjava/lang/Object;)Lorg/gradle/api/NamedDomainObjectProvider;
 	public abstract fun getDoksSets ()Lorg/gradle/api/NamedDomainObjectContainer;
 }
@@ -58,12 +59,19 @@ public abstract class com/rickbusarow/doks/RuleBuilderScope : java/io/Serializab
 	public final fun getSEMVER_STABLE ()Ljava/lang/String;
 	public final fun getSourceDelim ()C
 	public final fun gradlePlugin (Ljava/lang/String;)Ljava/lang/String;
+	public final fun gradlePluginWithVersion (Ljava/lang/String;)Ljava/lang/String;
 	public final fun gradlePluginWithVersion (Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
 	public static synthetic fun gradlePluginWithVersion$default (Lcom/rickbusarow/doks/RuleBuilderScope;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Ljava/lang/String;
+	public final fun maven ()Ljava/lang/String;
+	public final fun maven (Ljava/lang/String;)Ljava/lang/String;
+	public final fun maven (Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
 	public final fun maven (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
 	public static synthetic fun maven$default (Lcom/rickbusarow/doks/RuleBuilderScope;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Ljava/lang/String;
 	public abstract fun setRegex (Ljava/lang/String;)V
 	public abstract fun setReplacement (Ljava/lang/String;)V
+	public final fun sourceCode (Ljava/lang/String;)Ljava/lang/String;
+	public final fun sourceCode (Ljava/lang/String;Z)Ljava/lang/String;
+	public final fun sourceCode (Ljava/lang/String;ZLjava/lang/String;)Ljava/lang/String;
 	public final fun sourceCode (Ljava/lang/String;ZLjava/lang/String;Ljava/lang/String;)Ljava/lang/String;
 	public static synthetic fun sourceCode$default (Lcom/rickbusarow/doks/RuleBuilderScope;Ljava/lang/String;ZLjava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Ljava/lang/String;
 }
@@ -95,7 +103,7 @@ public final class com/rickbusarow/doks/internal/Rule : java/io/Serializable {
 	public fun hashCode ()I
 	public final fun replaceIn (Ljava/lang/CharSequence;)Ljava/lang/String;
 	public fun toString ()Ljava/lang/String;
-	public static final fun write$Self (Lcom/rickbusarow/doks/internal/Rule;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
+	public static final synthetic fun write$Self (Lcom/rickbusarow/doks/internal/Rule;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
 }
 
 public final class com/rickbusarow/doks/internal/Rule$$serializer : kotlinx/serialization/internal/GeneratedSerializer {

@@ -21,10 +21,25 @@ import com.rickbusarow.doks.internal.stdlib.diffString
 import com.rickbusarow.doks.internal.stdlib.joinToStringConcat
 import java.io.File
 
-internal const val OPEN = "<!--doks"
-internal const val CLOSE = "<!--/doks-->"
-internal val openReg = Regex("""($OPEN\s)([\s\S]*?)(-->)""")
-internal val closeReg = """([\s\S]*?)(<!--\/doks\s*?-->)([\s\S]*)""".toRegex()
+//language=regexp
+internal const val CLOSE = "<!--doks END-->"
+internal val openReg = buildString {
+  // Match the opening token
+  append("""(<!-{2,}\s*?doks\s+?)""")
+  // Negative lookahead to exclude the word "END" with optional whitespace characters
+  append("""((?!\bEND\b)\S[\s\S]*?)""")
+  // Match anything between the opening and closing tokens
+  append("""(-{2,}>)""")
+}.toRegex(RegexOption.IGNORE_CASE)
+
+internal val closeReg = buildString {
+  // match anything before the closing token
+  append("""([\s\S]*?)""")
+  // match <, at least two dashes, any whitespaces, /doks, any whitespaces, at least two dashes, and >
+  append("""(<!-{2,}\s*?doks\s+?END\s*?-{2,}>)""")
+  // match anything after the closing tag
+  append("""([\s\S]*?)""")
+}.toRegex(RegexOption.IGNORE_CASE)
 
 internal fun String.markdown(
   absolutePath: String,
@@ -35,7 +50,7 @@ internal fun String.markdown(
   val fullText = this
 
   val (beforeFirstNodes, opened) = MarkdownNode.from(fullText)
-    .depthFirst()
+    .childrenDepthFirst()
     .filter { it.isLeaf }
     .toList()
     .split { it.isOpeningTag() }

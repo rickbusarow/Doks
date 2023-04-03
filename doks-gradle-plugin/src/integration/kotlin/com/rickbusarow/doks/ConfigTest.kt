@@ -67,7 +67,7 @@ internal class ConfigTest : BaseGradleTest {
           implementation("com.example.dino:sauropod:1.0.0")
         }
         ```
-        <!--/doks-->
+        <!--doks END-->
         """
       )
 
@@ -115,7 +115,7 @@ internal class ConfigTest : BaseGradleTest {
           implementation("com.example.dino:sauropod:1.0.0")
         }
         ```
-        <!--/doks-->
+        <!--doks END-->
         """
       )
 
@@ -153,7 +153,7 @@ internal class ConfigTest : BaseGradleTest {
           implementation("com.example.dino:sauropod:1.0.0")
         }
         ```
-        <!--/doks-->
+        <!--doks END-->
         """
       )
 
@@ -166,7 +166,7 @@ internal class ConfigTest : BaseGradleTest {
         implementation("com.example.dino:sauropod:1.0.1")
       }
       ```
-      <!--/doks-->
+      <!--doks END-->
     """.trimIndent()
   }
 
@@ -214,7 +214,7 @@ internal class ConfigTest : BaseGradleTest {
       .markdown(
         """
         <!--doks brachiosaurus-->
-        <!--/doks-->
+        <!--doks END-->
         """
       )
 
@@ -278,7 +278,7 @@ internal class ConfigTest : BaseGradleTest {
       .markdown(
         """
         <!--doks brachiosaurus-->
-        <!--/doks-->
+        <!--doks END-->
         """
       )
 
@@ -327,7 +327,7 @@ internal class ConfigTest : BaseGradleTest {
       .markdown(
         """
         <!--doks brachiosaurus-->
-        <!--/doks-->
+        <!--doks END-->
         """
       )
 

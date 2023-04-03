@@ -35,9 +35,12 @@ internal data class MarkdownSection(
       .map { cfg ->
 
         val parts = cfg.split(':')
+          .map { it.trim() }
 
         val name = parts[0]
-        val countSplit = parts.getOrNull(1)?.split('-')
+        val countSplit = parts.getOrNull(1)
+          ?.split('-')
+          ?.map { it.trim() }
 
         val minOrNull = countSplit?.firstOrNull()?.toInt()
         val maxOrNull = countSplit?.getOrNull(1)?.toInt() ?: minOrNull

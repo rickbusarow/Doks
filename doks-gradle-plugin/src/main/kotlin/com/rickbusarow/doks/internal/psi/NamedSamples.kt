@@ -171,10 +171,10 @@ internal class NamedSamples(
 
     return ktFiles
       .sortByPathSimilarityTo(requestedNames)
-      .flatMap<KtFile, KtNamedDeclaration> { ktFile ->
+      .flatMap { ktFile ->
 
         ktFile
-          .getChildrenOfTypeRecursive { element ->
+          .childrenDepthFirst { element ->
 
             when (element) {
               is KtFunctionLiteral -> true
@@ -184,6 +184,7 @@ internal class NamedSamples(
               else -> element.couldHaveNamedChildren()
             }
           }
+          .filterIsInstance<KtNamedDeclaration>()
       }
       .distinct()
       .map { it.fqNameIncludingMembers().asString() to it }

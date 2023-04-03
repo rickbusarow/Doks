@@ -5,6 +5,13 @@
 ### Fixed
 
 - added default parameter support in Groovy by adding `@JvmOverloads` to DSL functions
+- Made the parsing of `<!--doks ___-->` tags in Markdown more lenient, by allowing optional whitespace
+  characters between words.
+
+### Changed
+
+- Changed the format of the closing tag from `<!--/doks-->` to `<!--doks END-->`. This change may not
+  be the final decision and is subject to further discussion.
 
 ### Added
 
@@ -39,5 +46,7 @@
 Hello World
 
 [0.1.0]: https://github.com/rbusarow/doks/releases/tag/0.1.0
+
 [0.1.1]: https://github.com/rbusarow/doks/releases/tag/0.1.1
+
 [0.1.2]: https://github.com/rbusarow/doks/releases/tag/0.1.2

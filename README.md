@@ -217,15 +217,14 @@ doks {
 
 This will extract the source code from a property named `config` defined
 inside `com.example.dino.DinoPluginSample` in the `src/test/kotlin` directory. That code will be
-included
-in the documentation between the opening and closing doks tags, replacing any text in between.
+included in the documentation between the opening and closing doks tags, replacing any text in between.
 
 To reference the extracted code in your documentation, you would use the same doks tags as normal:
 
     Here's an example of how to use the dino plugin:
 
     <!--doks dino-config-sample-->
-    <!--/doks-->
+    <!--doks END-->
 
 Note, however, that there is no text in between the tags. By default, for sample code, Doks will
 replace everything in between the tags will the current sample. There are several reasons for this, but
@@ -265,7 +264,7 @@ then after running `./gradlew doks`, the above snippet will be changed to this:
       favoriteDinosaur.set("Parasaurolophus")
     }
     ```
-    <!--/doks-->
+    <!--doks END-->
 
 ### Gradle Tasks
 

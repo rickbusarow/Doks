@@ -16,24 +16,26 @@
 package com.rickbusarow.doks.internal.markdown
 
 import com.rickbusarow.doks.internal.Rule
-import com.rickbusarow.doks.internal.RuleName
 import com.rickbusarow.doks.internal.Rules
 import com.rickbusarow.doks.internal.stdlib.Color.Companion.colorized
 import com.rickbusarow.doks.internal.stdlib.Color.LIGHT_GREEN
 import com.rickbusarow.doks.internal.stdlib.Color.LIGHT_YELLOW
 import com.rickbusarow.doks.internal.stdlib.SEMVER_REGEX
+import com.rickbusarow.doks.internal.test
 import io.kotest.assertions.throwables.shouldNotThrowAny
+import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.assertions.throwables.shouldThrowWithMessage
 import io.kotest.matchers.shouldBe
 import org.intellij.lang.annotations.Language
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.TestFactory
 
 class MarkdownTest {
 
   val rules = Rules(
     Rule(
-      name = "doks-maven",
-      regex = """(com.rickbusarow.doks:[^:]*?doks[^:]*?:)$SEMVER_REGEX""",
+      name = "dinos-maven",
+      regex = """(com.example.dinos:dinos:)$SEMVER_REGEX""",
       replacement = "$11.2.3"
     ),
     Rule(
@@ -46,22 +48,20 @@ class MarkdownTest {
   @Test
   fun `replacement works`() {
 
-    rules[RuleName("doks-maven")]
-
     val original = md(
       """
       # Title
-      <!--doks doks-maven:1-->
+      <!--doks dinos-maven:1-->
 
-      com.rickbusarow.doks:doks-cli:0.0.1-SNAPSHOT
+      com.example.dinos:dinos:0.0.1-SNAPSHOT
 
-      <!--/doks-->
+      <!--doks END-->
 
-      <!--doks doks-maven:1-->
+      <!--doks dinos-maven:1-->
 
-      'com.rickbusarow.doks:doks-cli:0.0.1-SNAPSHOT'
+      'com.example.dinos:dinos:0.0.1-SNAPSHOT'
 
-      <!--/doks-->
+      <!--doks END-->
 
       fin
       """
@@ -76,17 +76,17 @@ class MarkdownTest {
     new shouldBe md(
       """
       # Title
-      <!--doks doks-maven:1-->
+      <!--doks dinos-maven:1-->
 
-      com.rickbusarow.doks:doks-cli:1.2.3
+      com.example.dinos:dinos:1.2.3
 
-      <!--/doks-->
+      <!--doks END-->
 
-      <!--doks doks-maven:1-->
+      <!--doks dinos-maven:1-->
 
-      'com.rickbusarow.doks:doks-cli:1.2.3'
+      'com.example.dinos:dinos:1.2.3'
 
-      <!--/doks-->
+      <!--doks END-->
 
       fin
       """
@@ -99,38 +99,75 @@ class MarkdownTest {
     val original = md(
       """
       # Title
-      <!--doks doks-maven:1-->
+      <!--doks dinos-maven:1-->
 
-      com.rickbusarow.doks:doks-cli:0.0.1-SNAPSHOT
+      com.example.dinos:dinos:0.0.1-SNAPSHOT
 
-      <!--/doks-->
+      <!--doks END-->
 
-      <!--doks doks-maven:1-->
+      <!--doks dinos-maven:1-->
 
-      'com.rickbusarow.doks:doks-cli:0.0.1-SNAPSHOT'
+      'com.example.dinos:dinos:0.0.1-SNAPSHOT'
 
-      <!--/doks-->
+      <!--doks END-->
 
       fin
       """
     )
 
-    shouldThrowWithMessage<IllegalStateException>(
-      """
-        |Doks - file://foo.md > text is out of date.
-        |
-        |line 4   ${"--  com.rickbusarow.doks:doks-cli:0.0.1-SNAPSHOT".colorized(LIGHT_YELLOW)}
-        |         ${"++  com.rickbusarow.doks:doks-cli:1.2.3".colorized(LIGHT_GREEN)}
-        |line 10  ${"--  'com.rickbusarow.doks:doks-cli:0.0.1-SNAPSHOT'".colorized(LIGHT_YELLOW)}
-        |         ${"++  'com.rickbusarow.doks:doks-cli:1.2.3'".colorized(LIGHT_GREEN)}
-        |""".trimMargin()
-    ) {
+    shouldThrow<IllegalStateException> {
+
       original.markdown(
         absolutePath = "foo.md",
         rules = rules,
         autoCorrect = false
       )
     }
+      .message shouldBe """
+        |Doks - file://foo.md > text is out of date.
+        |
+        |line 4   ${"--  com.example.dinos:dinos:0.0.1-SNAPSHOT".colorized(LIGHT_YELLOW)}
+        |         ${"++  com.example.dinos:dinos:1.2.3".colorized(LIGHT_GREEN)}
+        |line 10  ${"--  'com.example.dinos:dinos:0.0.1-SNAPSHOT'".colorized(LIGHT_YELLOW)}
+        |         ${"++  'com.example.dinos:dinos:1.2.3'".colorized(LIGHT_GREEN)}
+        |""".trimMargin()
+  }
+
+  @TestFactory
+  fun `tag parsing tolerance`() = listOf(
+    Triple("extra leading dash", "<!---doks dinos-maven:1-->", "<!---doks END-->"),
+    Triple("extra trailing dash", "<!--doks dinos-maven:1--->", "<!--doks END--->"),
+    Triple("whitespace before doks", "<!-- doks dinos-maven:1-->", "<!-- doks END-->"),
+    Triple("whitespace before close", "<!--doks dinos-maven:1 -->", "<!--doks END -->"),
+    Triple("extra whitespace before rule name", "<!--doks   dinos-maven:1-->", "<!--doks END-->"),
+    Triple(
+      "extra whitespace before rule count delim",
+      "<!--doks dinos-maven :1-->",
+      "<!--doks END-->"
+    ),
+    Triple("extra whitespace after rule count delim", "<!--doks dinos-maven: 1-->", "<!--doks END-->"),
+    Triple("extra whitespace before END", "<!--doks dinos-maven:1-->", "<!--doks  END-->"),
+  ).test({ it.first }) { (_, openTag, closeTag) ->
+
+    val original = md(
+      """
+      $openTag
+      com.example.dinos:dinos:0.0.1-SNAPSHOT
+      $closeTag
+      """
+    )
+
+    original.markdown(
+      absolutePath = "foo.md",
+      rules = rules,
+      autoCorrect = true
+    ) shouldBe md(
+      """
+      $openTag
+      com.example.dinos:dinos:1.2.3
+      $closeTag
+      """
+    )
   }
 
   @Test
@@ -139,23 +176,23 @@ class MarkdownTest {
     val original = md(
       """
       # Title
-      <!--doks doks-maven:1-->
+      <!--doks dinos-maven:1-->
 
-      com.rickbusarow.doks:doks-cli:0.0.1-SNAPSHOT
+      com.example.dinos:dinos:0.0.1-SNAPSHOT
 
-      <!--doks doks-maven:1-->
+      <!--doks dinos-maven:1-->
 
-      'com.rickbusarow.doks:doks-cli:0.0.1-SNAPSHOT'
+      'com.example.dinos:dinos:0.0.1-SNAPSHOT'
 
-      <!--/doks-->
+      <!--doks END-->
 
       fin
       """
     )
 
     shouldThrowWithMessage<IllegalStateException>(
-      "Doks - file://foo.md:1:0 > The tag '<!--doks doks-maven:1-->' " +
-        "must be closed with `<!--/doks-->` before the next doks opening tag."
+      "Doks - file://foo.md:1:0 > The tag '<!--doks dinos-maven:1-->' " +
+        "must be closed with `<!--doks END-->` before the next doks opening tag."
     ) {
 
       original.markdown(
@@ -172,9 +209,9 @@ class MarkdownTest {
     val original = md(
       """
       # Title
-      <!--doks doks-maven:1-->
+      <!--doks dinos-maven:1-->
 
-      com.rickbusarow.doks:doks-cli:0.0.1-SNAPSHOT
+      com.example.dinos:dinos:0.0.1-SNAPSHOT
 
       fin
       """
@@ -195,16 +232,16 @@ class MarkdownTest {
     val original = md(
       """
       # Title
-      <!--doks doks-maven:1-->
+      <!--doks dinos-maven:1-->
 
-      com.rickbusarow.doks:doks-cli:0.0.1-SNAPSHOT
-      com.rickbusarow.doks:doks-cli:0.0.1-SNAPSHOT
+      com.example.dinos:dinos:0.0.1-SNAPSHOT
+      com.example.dinos:dinos:0.0.1-SNAPSHOT
 
       fin
       """
     )
     shouldThrowWithMessage<java.lang.IllegalStateException>(
-      "The rule 'doks-maven' must find exactly 1 match, but it found 2."
+      "The rule 'dinos-maven' must find exactly 1 match, but it found 2."
     ) {
       original.markdown(
         absolutePath = "foo.md",
@@ -220,17 +257,17 @@ class MarkdownTest {
     val original = md(
       """
       # Title
-      <!--doks doks-maven:1-2-->
+      <!--doks dinos-maven:1-2-->
 
-      com.rickbusarow.doks:doks-cli:0.0.1-SNAPSHOT
-      com.rickbusarow.doks:doks-cli:0.0.1-SNAPSHOT
-      com.rickbusarow.doks:doks-cli:0.0.1-SNAPSHOT
+      com.example.dinos:dinos:0.0.1-SNAPSHOT
+      com.example.dinos:dinos:0.0.1-SNAPSHOT
+      com.example.dinos:dinos:0.0.1-SNAPSHOT
 
       fin
       """
     )
     shouldThrowWithMessage<java.lang.IllegalStateException>(
-      "The rule 'doks-maven' must find a maximum of 2 matches, but it found 3."
+      "The rule 'dinos-maven' must find a maximum of 2 matches, but it found 3."
     ) {
       original.markdown(
         absolutePath = "foo.md",
@@ -246,15 +283,15 @@ class MarkdownTest {
     val original = md(
       """
       # Title
-      <!--doks doks-maven:2-3-->
+      <!--doks dinos-maven:2-3-->
 
-      com.rickbusarow.doks:doks-cli:0.0.1-SNAPSHOT
+      com.example.dinos:dinos:0.0.1-SNAPSHOT
 
       fin
       """
     )
     shouldThrowWithMessage<java.lang.IllegalStateException>(
-      "The rule 'doks-maven' must find a minimum of 2 matches, but it found 1."
+      "The rule 'dinos-maven' must find a minimum of 2 matches, but it found 1."
     ) {
       original.markdown(
         absolutePath = "foo.md",

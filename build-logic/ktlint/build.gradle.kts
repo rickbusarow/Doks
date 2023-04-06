@@ -17,7 +17,6 @@
 plugins {
   kotlin("jvm")
   alias(libs.plugins.google.ksp)
-  alias(libs.plugins.buildconfig)
   id("java-gradle-plugin")
 }
 
@@ -56,34 +55,4 @@ dependencies {
   implementation(libs.rickBusarow.ktrules)
 
   ksp(libs.zacSweers.auto.service.ksp)
-
-  testImplementation(libs.junit.jupiter)
-  testImplementation(libs.junit.jupiter.api)
-  testImplementation(libs.kotest.assertions.core.jvm)
-  testImplementation(libs.kotest.assertions.shared)
-  testImplementation(libs.kotest.common)
-  testImplementation(libs.kotest.extensions)
-  testImplementation(libs.kotest.property.jvm)
-  testImplementation(libs.ktlint.test)
-}
-
-val versionRefName = "doks = "
-val catalogs = rootProject.file("../gradle/libs.versions.toml")
-
-buildConfig {
-  packageName("builds.ktlint.rules")
-
-  buildConfigField(
-    "String",
-    "currentVersion",
-    provider {
-      val currentVersion = catalogs.readText()
-        .lineSequence()
-        .first { it.trim().startsWith(versionRefName) }
-        .trim()
-        .removePrefix(versionRefName)
-        .trim('"')
-      "\"$currentVersion\""
-    }
-  )
 }

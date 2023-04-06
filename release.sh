@@ -72,17 +72,22 @@ function parseVersionAndSyncDocs() {
 
   # Parse the 'doks' version from libs.versions.toml
   # Removes the double quotes around the raw string value
-  VERSION_NAME=$(awk -F ' *= *' '$1=="doks"{print $2}' $VERSION_TOML | sed 's/\"//g')
+  VERSION_NAME=$(awk -F ' *= *' '$1=="doks-dev"{print $2; exit}' $VERSION_TOML | sed 's/\"//g')
 
   # Add `@since ____` tags to any new KDoc
   progress "Add \`@since ____\` tags to any new KDoc"
   ./gradlew ktlintFormat
-  maybeCommit "add @since tags to new KDoc for $VERSION_NAME"
+  maybeCommit "add @since tags to new KDoc for $VERSION_DEV"
+
+  # format docs
+  progress "format docs"
+  ./gradlew spotlessApply
+  maybeCommit "format docs"
 
   # update the version references in docs before versioning them
   progress "Update docs versions"
-  ./gradlew spotlessApply
-  maybeCommit "update version references in docs to $VERSION_NAME"
+  ./gradlew doks
+  maybeCommit "update version references in docs to $VERSION_DEV"
 }
 
 # update all versions/docs for the release version
@@ -117,7 +122,7 @@ progress "create the release on GitHub"
 ./gradlew githubRelease
 
 progress "update the dev version to ${NEXT_VERSION}"
-OLD="(^ *doks *= *)\"${VERSION_NAME}\""
+OLD="(^ *doks-dev *= *)\"${VERSION_NAME}\""
 NEW="\$1\"${NEXT_VERSION}\""
 # Write the new -SNAPSHOT version to the versions toml file
 perl -pi -e "s/$OLD/$NEW/" $VERSION_TOML

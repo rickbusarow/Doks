@@ -27,7 +27,7 @@ import org.gradle.api.provider.Provider
  * @since 0.1.0
  */
 val Project.VERSION_NAME: String
-  get() = libsCatalog.version("doks")
+  get() = libsCatalog.version("doks-dev")
 
 const val GROUP: String = "com.rickbusarow.doks"
 

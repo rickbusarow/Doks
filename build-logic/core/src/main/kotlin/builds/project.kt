@@ -51,8 +51,8 @@ inline fun <reified T : Plugin<*>> PluginContainer.applyOnce() {
 /**
  * throws with [message] if the receiver project is not the root project
  *
- * @throws IllegalStateException if the project is not the root project
  * @since 0.1.0
+ * @throws IllegalStateException if the project is not the root project
  */
 fun Project.checkProjectIsRoot(
   message: () -> Any = { "Only apply this plugin to the project root." }

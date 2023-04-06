@@ -43,9 +43,9 @@ fun File.resolveInParentOrNull(relativePath: String): File? {
 /**
  * Non-nullable version of [resolveInParentOrNull]
  *
- * @throws IllegalArgumentException if a file cannot be resolved
  * @see resolveInParentOrNull for a nullable, non-throwing variant
  * @since 0.1.0
+ * @throws IllegalArgumentException if a file cannot be resolved
  */
 fun File.resolveInParent(relativePath: String): File {
   return requireNotNull(resolveInParentOrNull(relativePath)) {

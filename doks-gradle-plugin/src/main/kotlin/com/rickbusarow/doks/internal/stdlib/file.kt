@@ -33,8 +33,8 @@ internal fun File.segments(): List<String> = path.split(File.separator)
  * [content] argument was provided, it will be written to the newly-created
  * file. If the file already existed, its content will be overwritten.
  *
- * @since 0.1.0
  * @see Path.createSafely
+ * @since 0.1.0
  */
 internal fun File.createSafely(content: String? = null): File = apply {
   if (content != null) {

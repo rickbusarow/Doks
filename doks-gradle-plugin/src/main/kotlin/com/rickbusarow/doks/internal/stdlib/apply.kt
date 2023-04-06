@@ -42,8 +42,8 @@ internal inline fun <T> T.letIf(
 /**
  * shorthand for `requireNotNull(this, lazyMessage)`
  *
- * @throws IllegalArgumentException if receiver is null
  * @since 0.1.0
+ * @throws IllegalArgumentException if receiver is null
  */
 internal inline fun <T : Any> T?.requireNotNull(lazyMessage: () -> Any): T {
   contract {

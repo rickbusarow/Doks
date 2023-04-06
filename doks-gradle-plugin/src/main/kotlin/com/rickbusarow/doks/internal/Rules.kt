@@ -53,9 +53,9 @@ class Rules(
 
   /**
    * @return the [Rule] associated with [ruleName] within this scope
-   * @throws IllegalArgumentException if there is no rule with the requested name
    * @see getOrNull for a safe version which returns null for a missing name
    * @since 0.1.0
+   * @throws IllegalArgumentException if there is no rule with the requested name
    */
   operator fun get(ruleName: RuleName): Rule {
     return map[ruleName]

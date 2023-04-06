@@ -25,6 +25,8 @@ import com.rickbusarow.doks.internal.trees.AbstractTreePrinter
  * ```
  * MarkdownNode.from(someMarkdownString).printEverything()
  * ```
+ *
+ * @since 0.1.3
  */
 internal class MarkdownTreePrinter(
   whitespaceChar: Char = ' '

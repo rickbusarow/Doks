@@ -51,6 +51,7 @@ internal fun diffString(oldStr: String, newStr: String): String {
  * https://github.com/ziggy42/kolor
  *
  * @property code
+ * @since 0.1.3
  */
 @Suppress("MagicNumber")
 internal enum class Color(val code: Int) {

@@ -136,7 +136,7 @@ To use the rule in your documentation, simply add a comment tag that references 
 
 The plugin is available as a maven artifact at 'com.example.dino:dino-gradle-plugin:0.0.0'.
 
-<!--/doks-->
+<!--doks END-->
 ```
 
 If you'd like to ensure that the rule always works, you can add an expected count to the rule id:

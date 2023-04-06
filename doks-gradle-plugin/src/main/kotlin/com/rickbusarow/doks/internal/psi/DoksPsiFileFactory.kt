@@ -92,9 +92,9 @@ internal class DoksPsiFileFactory : java.io.Serializable {
 
   /**
    * @return a "virtual" Psi `KtFile` from this [file].
+   * @since 0.1.0
    * @throws IllegalArgumentException if the [file] argument
    *   is not a Kotlin file ending in `.kt` or `.kts`
-   * @since 0.1.0
    */
   fun createKotlin(file: File): KtFile {
     require(Regex("""kts?$""").matches(file.extension)) {

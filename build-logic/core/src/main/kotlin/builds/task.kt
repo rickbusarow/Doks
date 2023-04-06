@@ -63,8 +63,8 @@ inline fun <reified T : Task> TaskContainer.matchingNameWithType(
  * Finds all tasks named [taskName] in all projects.
  * Does not throw if there are no tasks with that name.
  *
- * @throws IllegalStateException if the project is not the root project
  * @since 0.1.0
+ * @throws IllegalStateException if the project is not the root project
  */
 fun Project.allProjectsTasksMatchingName(taskName: String): List<TaskCollection<Task>> {
   checkProjectIsRoot { "only call `allProjectsTasksMatchingName(...)` from the root project." }
@@ -75,8 +75,8 @@ fun Project.allProjectsTasksMatchingName(taskName: String): List<TaskCollection<
  * Finds all tasks named [taskName] in all projects.
  * Does not throw if there are no tasks with that name.
  *
- * @throws IllegalStateException if the project is not the root project
  * @since 0.1.0
+ * @throws IllegalStateException if the project is not the root project
  */
 inline fun <reified T : Task> Project.allProjectsTasksMatchingNameWithType(taskName: String): List<TaskCollection<T>> {
   checkProjectIsRoot { "only call `allProjectsTasksMatchingName(...)` from the root project." }
@@ -214,8 +214,7 @@ fun <T : Task> TaskContainer.registerOnce(
 }
 
 /**
- * @return the fully qualified name of this task's
- *   type, without any '_Decorated' suffix if one exists
+ * @return the fully qualified name of this task's type, without any '_Decorated' suffix if one exists
  * @since 0.1.0
  */
 fun Task.undecoratedTypeName(): String {

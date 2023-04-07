@@ -39,8 +39,15 @@ internal fun diffString(oldStr: String, newStr: String): String {
     rows.forEachIndexed { line, diffRow ->
       if (diffRow.tag != Tag.EQUAL) {
         append("line ${line.inc().toString().padEnd(linePadding)} ")
+      }
+
+      if (diffRow.tag == Tag.CHANGE || diffRow.tag == Tag.DELETE) {
         appendLine("--  ${diffRow.oldLine}".colorized(LIGHT_YELLOW))
+      }
+      if (diffRow.tag == Tag.CHANGE) {
         append("      " + " ".repeat(linePadding))
+      }
+      if (diffRow.tag == Tag.CHANGE || diffRow.tag == Tag.INSERT) {
         appendLine("++  ${diffRow.newLine}".colorized(LIGHT_GREEN))
       }
     }

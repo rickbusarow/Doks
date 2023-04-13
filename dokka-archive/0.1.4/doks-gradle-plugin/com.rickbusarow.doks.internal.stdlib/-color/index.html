@@ -1,0 +1,441 @@
+<!doctype html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>Color</title>
+<link href="../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../";</script>    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/jetbrains-mono.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script>
+<link href="../../../styles/multimodule.css" rel="Stylesheet"></head>
+<body>
+<div class="navigation-wrapper" id="navigation-wrapper">
+    <div id="leftToggler"><span class="icon-toggler"></span></div>
+    <div class="library-name">
+<a href="../../../index.html">
+<span>Doks</span>            </a>    </div>
+    <div>
+<dokka-template-command data="{&quot;@class&quot;:&quot;org.jetbrains.dokka.base.templating.ReplaceVersionsCommand&quot;,&quot;location&quot;:&quot;com.rickbusarow.doks.internal.stdlib/-color/index.html&quot;}"><div class="versions-dropdown">
+  <div class="versions-dropdown-button">0.1.4</div>
+  <div class="versions-dropdown-data"><a href="index.html">0.1.4</a><a href="../../../older/0.1.3/doks-gradle-plugin/com.rickbusarow.doks.internal.stdlib/-color/index.html">0.1.3</a><a href="../../../not-found-version.html?v=0.1.2">0.1.2</a><a href="../../../not-found-version.html?v=0.1.1">0.1.1</a><a href="../../../not-found-version.html?v=0.1.0">0.1.0</a></div>
+</div>
+</dokka-template-command>    </div>
+    <div class="pull-right d-flex">
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector jvm-like" data-active="" data-filter=":doks-gradle-plugin:dokkaHtmlPartial/main">jvm</button>
+        </div>
+        <button id="theme-toggle-button"><span id="theme-toggle"></span></button>
+        <div id="searchBar"></div>
+    </div>
+</div>
+<div id="container">
+    <div id="leftColumn">
+        <div id="sideMenu"></div>
+    </div>
+    <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="doks-gradle-plugin::com.rickbusarow.doks.internal.stdlib/Color///PointingToDeclaration//-1279072695">
+  <div class="breadcrumbs"><a href="../../index.html">doks-gradle-plugin</a><span class="delimiter">/</span><a href="../index.html">com.rickbusarow.doks.internal.stdlib</a><span class="delimiter">/</span><span class="current">Color</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>Color</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":doks-gradle-plugin:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">internal </span><span class="token keyword">enum </span><a href="index.html">Color</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>code<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span> : <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-enum/index.html">Enum</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">Color</a><span class="token operator">&gt; </span><span class="clearfix"><span class="floating-right">(<a href="https://github.com/rbusarow/doks/blob/main/doks-gradle-plugin/src/main/kotlin/com/rickbusarow/doks/internal/stdlib/diff.kt#L64">source</a>)</span></span></div><p class="paragraph">https://github.com/ziggy42/kolor</p><span class="kdoc-tag"><h4 class="">Since</h4><p class="paragraph">0.1.3</p></span></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,FUNCTION,PROPERTY">Members</button><button class="section-tab" data-togglable="ENTRY">Entries</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="2109374042%2FConstructors%2F-1279072695" anchor-label="Color" id="2109374042%2FConstructors%2F-1279072695" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":doks-gradle-plugin:dokkaHtmlPartial/main" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-color.html"><span><span>Color</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2109374042%2FConstructors%2F-1279072695"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":doks-gradle-plugin:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">private </span><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">code<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="ENTRY">
+        <h2 class="">Entries</h2>
+        <div class="table"><a data-name="-809448910%2FClasslikes%2F-1279072695" anchor-label="BLACK" id="-809448910%2FClasslikes%2F-1279072695" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":doks-gradle-plugin:dokkaHtmlPartial/main" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-b-l-a-c-k/index.html">BLACK</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-809448910%2FClasslikes%2F-1279072695"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":doks-gradle-plugin:dokkaHtmlPartial/main"><div class="symbol monospace"><div class="block"><a href="-b-l-a-c-k/index.html">BLACK</a></div></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="643628804%2FClasslikes%2F-1279072695" anchor-label="RED" id="643628804%2FClasslikes%2F-1279072695" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":doks-gradle-plugin:dokkaHtmlPartial/main" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-r-e-d/index.html">RED</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="643628804%2FClasslikes%2F-1279072695"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":doks-gradle-plugin:dokkaHtmlPartial/main"><div class="symbol monospace"><div class="block"><a href="-r-e-d/index.html">RED</a></div></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1131300298%2FClasslikes%2F-1279072695" anchor-label="GREEN" id="-1131300298%2FClasslikes%2F-1279072695" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":doks-gradle-plugin:dokkaHtmlPartial/main" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-g-r-e-e-n/index.html">GREEN</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1131300298%2FClasslikes%2F-1279072695"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":doks-gradle-plugin:dokkaHtmlPartial/main"><div class="symbol monospace"><div class="block"><a href="-g-r-e-e-n/index.html">GREEN</a></div></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1825394153%2FClasslikes%2F-1279072695" anchor-label="YELLOW" id="1825394153%2FClasslikes%2F-1279072695" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":doks-gradle-plugin:dokkaHtmlPartial/main" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-y-e-l-l-o-w/index.html">YELLOW</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1825394153%2FClasslikes%2F-1279072695"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":doks-gradle-plugin:dokkaHtmlPartial/main"><div class="symbol monospace"><div class="block"><a href="-y-e-l-l-o-w/index.html">YELLOW</a></div></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1372996495%2FClasslikes%2F-1279072695" anchor-label="BLUE" id="1372996495%2FClasslikes%2F-1279072695" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":doks-gradle-plugin:dokkaHtmlPartial/main" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-b-l-u-e/index.html">BLUE</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1372996495%2FClasslikes%2F-1279072695"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":doks-gradle-plugin:dokkaHtmlPartial/main"><div class="symbol monospace"><div class="block"><a href="-b-l-u-e/index.html">BLUE</a></div></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="766498204%2FClasslikes%2F-1279072695" anchor-label="MAGENTA" id="766498204%2FClasslikes%2F-1279072695" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":doks-gradle-plugin:dokkaHtmlPartial/main" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-m-a-g-e-n-t-a/index.html">MAGENTA</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="766498204%2FClasslikes%2F-1279072695"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":doks-gradle-plugin:dokkaHtmlPartial/main"><div class="symbol monospace"><div class="block"><a href="-m-a-g-e-n-t-a/index.html">MAGENTA</a></div></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-559319912%2FClasslikes%2F-1279072695" anchor-label="CYAN" id="-559319912%2FClasslikes%2F-1279072695" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":doks-gradle-plugin:dokkaHtmlPartial/main" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-c-y-a-n/index.html">CYAN</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-559319912%2FClasslikes%2F-1279072695"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":doks-gradle-plugin:dokkaHtmlPartial/main"><div class="symbol monospace"><div class="block"><a href="-c-y-a-n/index.html">CYAN</a></div></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-596456703%2FClasslikes%2F-1279072695" anchor-label="LIGHT_GRAY" id="-596456703%2FClasslikes%2F-1279072695" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":doks-gradle-plugin:dokkaHtmlPartial/main" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-l-i-g-h-t_-g-r-a-y/index.html">LIGHT_GRAY</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-596456703%2FClasslikes%2F-1279072695"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":doks-gradle-plugin:dokkaHtmlPartial/main"><div class="symbol monospace"><div class="block"><a href="-l-i-g-h-t_-g-r-a-y/index.html">LIGHT_GRAY</a></div></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1887838305%2FClasslikes%2F-1279072695" anchor-label="DARK_GRAY" id="-1887838305%2FClasslikes%2F-1279072695" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":doks-gradle-plugin:dokkaHtmlPartial/main" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-d-a-r-k_-g-r-a-y/index.html">DARK_GRAY</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1887838305%2FClasslikes%2F-1279072695"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":doks-gradle-plugin:dokkaHtmlPartial/main"><div class="symbol monospace"><div class="block"><a href="-d-a-r-k_-g-r-a-y/index.html">DARK_GRAY</a></div></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1440012613%2FClasslikes%2F-1279072695" anchor-label="LIGHT_RED" id="-1440012613%2FClasslikes%2F-1279072695" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":doks-gradle-plugin:dokkaHtmlPartial/main" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-l-i-g-h-t_-r-e-d/index.html">LIGHT_RED</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1440012613%2FClasslikes%2F-1279072695"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":doks-gradle-plugin:dokkaHtmlPartial/main"><div class="symbol monospace"><div class="block"><a href="-l-i-g-h-t_-r-e-d/index.html">LIGHT_RED</a></div></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2055942099%2FClasslikes%2F-1279072695" anchor-label="LIGHT_GREEN" id="-2055942099%2FClasslikes%2F-1279072695" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":doks-gradle-plugin:dokkaHtmlPartial/main" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-l-i-g-h-t_-g-r-e-e-n/index.html">LIGHT_GREEN</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2055942099%2FClasslikes%2F-1279072695"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":doks-gradle-plugin:dokkaHtmlPartial/main"><div class="symbol monospace"><div class="block"><a href="-l-i-g-h-t_-g-r-e-e-n/index.html">LIGHT_GREEN</a></div></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1068697902%2FClasslikes%2F-1279072695" anchor-label="LIGHT_YELLOW" id="-1068697902%2FClasslikes%2F-1279072695" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":doks-gradle-plugin:dokkaHtmlPartial/main" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-l-i-g-h-t_-y-e-l-l-o-w/index.html">LIGHT_YELLOW</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1068697902%2FClasslikes%2F-1279072695"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":doks-gradle-plugin:dokkaHtmlPartial/main"><div class="symbol monospace"><div class="block"><a href="-l-i-g-h-t_-y-e-l-l-o-w/index.html">LIGHT_YELLOW</a></div></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1204622008%2FClasslikes%2F-1279072695" anchor-label="LIGHT_BLUE" id="1204622008%2FClasslikes%2F-1279072695" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":doks-gradle-plugin:dokkaHtmlPartial/main" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-l-i-g-h-t_-b-l-u-e/index.html">LIGHT_BLUE</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1204622008%2FClasslikes%2F-1279072695"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":doks-gradle-plugin:dokkaHtmlPartial/main"><div class="symbol monospace"><div class="block"><a href="-l-i-g-h-t_-b-l-u-e/index.html">LIGHT_BLUE</a></div></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1243957715%2FClasslikes%2F-1279072695" anchor-label="LIGHT_MAGENTA" id="1243957715%2FClasslikes%2F-1279072695" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":doks-gradle-plugin:dokkaHtmlPartial/main" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-l-i-g-h-t_-m-a-g-e-n-t-a/index.html">LIGHT_MAGENTA</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1243957715%2FClasslikes%2F-1279072695"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":doks-gradle-plugin:dokkaHtmlPartial/main"><div class="symbol monospace"><div class="block"><a href="-l-i-g-h-t_-m-a-g-e-n-t-a/index.html">LIGHT_MAGENTA</a></div></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-727694399%2FClasslikes%2F-1279072695" anchor-label="LIGHT_CYAN" id="-727694399%2FClasslikes%2F-1279072695" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":doks-gradle-plugin:dokkaHtmlPartial/main" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-l-i-g-h-t_-c-y-a-n/index.html">LIGHT_CYAN</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-727694399%2FClasslikes%2F-1279072695"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":doks-gradle-plugin:dokkaHtmlPartial/main"><div class="symbol monospace"><div class="block"><a href="-l-i-g-h-t_-c-y-a-n/index.html">LIGHT_CYAN</a></div></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1839687900%2FClasslikes%2F-1279072695" anchor-label="WHITE" id="1839687900%2FClasslikes%2F-1279072695" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":doks-gradle-plugin:dokkaHtmlPartial/main" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-w-h-i-t-e/index.html">WHITE</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1839687900%2FClasslikes%2F-1279072695"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":doks-gradle-plugin:dokkaHtmlPartial/main"><div class="symbol monospace"><div class="block"><a href="-w-h-i-t-e/index.html">WHITE</a></div></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="1026272742%2FClasslikes%2F-1279072695" anchor-label="Companion" id="1026272742%2FClasslikes%2F-1279072695" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-filterable-current=":doks-gradle-plugin:dokkaHtmlPartial/main" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-companion/index.html"><span><span>Companion</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1026272742%2FClasslikes%2F-1279072695"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":doks-gradle-plugin:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">object </span><a href="-companion/index.html">Companion</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="-924363923%2FFunctions%2F-1279072695" anchor-label="valueOf" id="-924363923%2FFunctions%2F-1279072695" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-filterable-current=":doks-gradle-plugin:dokkaHtmlPartial/main" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="value-of.html"><span>value</span><wbr><span><span>Of</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-924363923%2FFunctions%2F-1279072695"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":doks-gradle-plugin:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="value-of.html"><span class="token function">valueOf</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">value<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">Color</a></div><div class="brief "><p class="paragraph">Returns the enum constant of this type with the specified name. The string must match exactly an identifier used to declare an enum constant in this type. (Extraneous whitespace characters are not permitted.)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="540930873%2FFunctions%2F-1279072695" anchor-label="values" id="540930873%2FFunctions%2F-1279072695" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-filterable-current=":doks-gradle-plugin:dokkaHtmlPartial/main" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="values.html"><span><span>values</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="540930873%2FFunctions%2F-1279072695"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":doks-gradle-plugin:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="values.html"><span class="token function">values</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html">Array</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">Color</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Returns an array containing the constants of this enum type, in the order they're declared.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="-1578841010%2FProperties%2F-1279072695" anchor-label="code" id="-1578841010%2FProperties%2F-1279072695" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-filterable-current=":doks-gradle-plugin:dokkaHtmlPartial/main" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="code.html"><span><span>code</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1578841010%2FProperties%2F-1279072695"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":doks-gradle-plugin:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="code.html">code</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-372974862%2FProperties%2F-1279072695" anchor-label="name" id="-372974862%2FProperties%2F-1279072695" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-filterable-current=":doks-gradle-plugin:dokkaHtmlPartial/main" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-w-h-i-t-e/index.html#-372974862%2FProperties%2F-1279072695"><span><span>name</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-372974862%2FProperties%2F-1279072695"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":doks-gradle-plugin:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="-w-h-i-t-e/index.html#-372974862%2FProperties%2F-1279072695">name</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-739389684%2FProperties%2F-1279072695" anchor-label="ordinal" id="-739389684%2FProperties%2F-1279072695" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-filterable-current=":doks-gradle-plugin:dokkaHtmlPartial/main" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-w-h-i-t-e/index.html#-739389684%2FProperties%2F-1279072695"><span><span>ordinal</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-739389684%2FProperties%2F-1279072695"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":doks-gradle-plugin:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="-w-h-i-t-e/index.html#-739389684%2FProperties%2F-1279072695">ordinal</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2023 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+    </div>
+</div>
+</body>
+</html>
+

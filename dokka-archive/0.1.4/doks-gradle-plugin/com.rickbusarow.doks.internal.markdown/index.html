@@ -1,0 +1,597 @@
+<!doctype html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>com.rickbusarow.doks.internal.markdown</title>
+<link href="../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../";</script>    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../styles/style.css" rel="Stylesheet">
+<link href="../../styles/jetbrains-mono.css" rel="Stylesheet">
+<link href="../../styles/main.css" rel="Stylesheet">
+<link href="../../styles/prism.css" rel="Stylesheet">
+<link href="../../styles/logo-styles.css" rel="Stylesheet">
+<script type="text/javascript" src="../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../scripts/symbol-parameters-wrapper_deferred.js" defer></script>
+<link href="../../styles/multimodule.css" rel="Stylesheet"></head>
+<body>
+<div class="navigation-wrapper" id="navigation-wrapper">
+    <div id="leftToggler"><span class="icon-toggler"></span></div>
+    <div class="library-name">
+<a href="../../index.html">
+<span>Doks</span>            </a>    </div>
+    <div>
+<dokka-template-command data="{&quot;@class&quot;:&quot;org.jetbrains.dokka.base.templating.ReplaceVersionsCommand&quot;,&quot;location&quot;:&quot;com.rickbusarow.doks.internal.markdown/index.html&quot;}"><div class="versions-dropdown">
+  <div class="versions-dropdown-button">0.1.4</div>
+  <div class="versions-dropdown-data"><a href="index.html">0.1.4</a><a href="../../older/0.1.3/doks-gradle-plugin/com.rickbusarow.doks.internal.markdown/index.html">0.1.3</a><a href="../../older/0.1.2/doks-gradle-plugin/com.rickbusarow.doks.internal.markdown/index.html">0.1.2</a><a href="../../not-found-version.html?v=0.1.1">0.1.1</a><a href="../../not-found-version.html?v=0.1.0">0.1.0</a></div>
+</div>
+</dokka-template-command>    </div>
+    <div class="pull-right d-flex">
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector jvm-like" data-active="" data-filter=":doks-gradle-plugin:dokkaHtmlPartial/main">jvm</button>
+        </div>
+        <button id="theme-toggle-button"><span id="theme-toggle"></span></button>
+        <div id="searchBar"></div>
+    </div>
+</div>
+<div id="container">
+    <div id="leftColumn">
+        <div id="sideMenu"></div>
+    </div>
+    <div id="main">
+<div class="main-content" data-page-type="package" id="content" pageids="doks-gradle-plugin::com.rickbusarow.doks.internal.markdown////PointingToDeclaration//-1279072695">
+  <div class="breadcrumbs"><a href="../index.html">doks-gradle-plugin</a><span class="delimiter">/</span><span class="current">com.rickbusarow.doks.internal.markdown</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>Package-level</span></span> <span><span>declarations</span></span></h1>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="TYPE">Types</button><button class="section-tab" data-togglable="FUNCTION,EXTENSION_FUNCTION">Functions</button><button class="section-tab" data-togglable="PROPERTY,EXTENSION_PROPERTY">Properties</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="-2057128777%2FClasslikes%2F-1279072695" anchor-label="MarkdownNode" id="-2057128777%2FClasslikes%2F-1279072695" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-filterable-current=":doks-gradle-plugin:dokkaHtmlPartial/main" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-markdown-node/index.html"><span>Markdown</span><wbr><span><span>Node</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2057128777%2FClasslikes%2F-1279072695"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":doks-gradle-plugin:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">internal </span><span class="token keyword">data </span><span class="token keyword">class </span><a href="-markdown-node/index.html">MarkdownNode</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>node<span class="token operator">: </span><span data-unresolved-link="org.intellij.markdown.ast/ASTNode///PointingToDeclaration/">ASTNode</span><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>fullText<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>parent<span class="token operator">: </span><a href="-markdown-node/index.html">MarkdownNode</a><span class="token operator">?</span></span></span><span class="token punctuation">)</span> : <span data-unresolved-link="org.jetbrains.kotlin.com.intellij.openapi.util/UserDataHolder///PointingToDeclaration/">UserDataHolder</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1686718372%2FClasslikes%2F-1279072695" anchor-label="MarkdownSection" id="1686718372%2FClasslikes%2F-1279072695" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-filterable-current=":doks-gradle-plugin:dokkaHtmlPartial/main" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-markdown-section/index.html"><span>Markdown</span><wbr><span><span>Section</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1686718372%2FClasslikes%2F-1279072695"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":doks-gradle-plugin:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">internal </span><span class="token keyword">data </span><span class="token keyword">class </span><a href="-markdown-section/index.html">MarkdownSection</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>match<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>openTagFull<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>openTagStart<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>openTagMatchersBlob<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>openTagEnd<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>body<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>closeTag<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>afterCloseTag<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="894220237%2FClasslikes%2F-1279072695" anchor-label="MarkdownTreePrinter" id="894220237%2FClasslikes%2F-1279072695" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-filterable-current=":doks-gradle-plugin:dokkaHtmlPartial/main" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-markdown-tree-printer/index.html"><span>Markdown</span><wbr><span>Tree</span><wbr><span><span>Printer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="894220237%2FClasslikes%2F-1279072695"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":doks-gradle-plugin:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">internal </span><span class="token keyword">class </span><a href="-markdown-tree-printer/index.html">MarkdownTreePrinter</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">whitespaceChar<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char/index.html">Char</a><span class="token operator"> = </span>' '</span></span><span class="token punctuation">)</span> : <a href="../com.rickbusarow.doks.internal.trees/-abstract-tree-printer/index.html">AbstractTreePrinter</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-markdown-node/index.html">MarkdownNode</a><span class="token operator">&gt; </span></div><div class="brief "><p class="paragraph">prints a tree starting at any markdown tree element, showing all its children types and their text</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="EXTENSION_FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="-1694858360%2FFunctions%2F-1279072695" anchor-label="childrenDepthFirst" id="-1694858360%2FFunctions%2F-1279072695" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":doks-gradle-plugin:dokkaHtmlPartial/main" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="children-depth-first.html"><span>children</span><wbr><span>Depth</span><wbr><span><span>First</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1694858360%2FFunctions%2F-1279072695"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":doks-gradle-plugin:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">internal </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="-markdown-node/index.html">MarkdownNode</a><span class="token punctuation">.</span><a href="children-depth-first.html"><span class="token function">childrenDepthFirst</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.sequences/-sequence/index.html">Sequence</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-markdown-node/index.html">MarkdownNode</a><span class="token operator">&gt;</span></div><div class="symbol monospace"><span class="token keyword">internal </span><span class="token keyword">inline </span><span class="token keyword">fun </span><a href="-markdown-node/index.html">MarkdownNode</a><span class="token punctuation">.</span><a href="children-depth-first.html"><span class="token function">childrenDepthFirst</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">crossinline </span>predicate<span class="token operator">: </span><span class="token punctuation">(</span><span class="token keyword"></span><a href="-markdown-node/index.html">MarkdownNode</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.sequences/-sequence/index.html">Sequence</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-markdown-node/index.html">MarkdownNode</a><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1302651134%2FFunctions%2F-1279072695" anchor-label="concat" id="1302651134%2FFunctions%2F-1279072695" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":doks-gradle-plugin:dokkaHtmlPartial/main" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="concat.html"><span><span>concat</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1302651134%2FFunctions%2F-1279072695"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":doks-gradle-plugin:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">private </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-markdown-node/index.html">MarkdownNode</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="concat.html"><span class="token function">concat</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="352916745%2FFunctions%2F-1279072695" anchor-label="countParentBlockQuotes" id="352916745%2FFunctions%2F-1279072695" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":doks-gradle-plugin:dokkaHtmlPartial/main" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="count-parent-block-quotes.html"><span>count</span><wbr><span>Parent</span><wbr><span>Block</span><wbr><span><span>Quotes</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="352916745%2FFunctions%2F-1279072695"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":doks-gradle-plugin:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">internal </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="-markdown-node/index.html">MarkdownNode</a><span class="token punctuation">.</span><a href="count-parent-block-quotes.html"><span class="token function">countParentBlockQuotes</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-138649478%2FFunctions%2F-1279072695" anchor-label="countParentLists" id="-138649478%2FFunctions%2F-1279072695" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":doks-gradle-plugin:dokkaHtmlPartial/main" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="count-parent-lists.html"><span>count</span><wbr><span>Parent</span><wbr><span><span>Lists</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-138649478%2FFunctions%2F-1279072695"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":doks-gradle-plugin:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">internal </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="-markdown-node/index.html">MarkdownNode</a><span class="token punctuation">.</span><a href="count-parent-lists.html"><span class="token function">countParentLists</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="492968492%2FFunctions%2F-1279072695" anchor-label="firstChildOfType" id="492968492%2FFunctions%2F-1279072695" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":doks-gradle-plugin:dokkaHtmlPartial/main" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="first-child-of-type.html"><span>first</span><wbr><span>Child</span><wbr><span>Of</span><wbr><span><span>Type</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="492968492%2FFunctions%2F-1279072695"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":doks-gradle-plugin:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">internal </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="-markdown-node/index.html">MarkdownNode</a><span class="token punctuation">.</span><a href="first-child-of-type.html"><span class="token function">firstChildOfType</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">vararg </span>types<span class="token operator">: </span><span data-unresolved-link="org.intellij.markdown/IElementType///PointingToDeclaration/">IElementType</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-markdown-node/index.html">MarkdownNode</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1683444502%2FFunctions%2F-1279072695" anchor-label="firstChildOfTypeOrNull" id="1683444502%2FFunctions%2F-1279072695" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":doks-gradle-plugin:dokkaHtmlPartial/main" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="first-child-of-type-or-null.html"><span>first</span><wbr><span>Child</span><wbr><span>Of</span><wbr><span>Type</span><wbr><span>Or</span><wbr><span><span>Null</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1683444502%2FFunctions%2F-1279072695"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":doks-gradle-plugin:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">internal </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="-markdown-node/index.html">MarkdownNode</a><span class="token punctuation">.</span><a href="first-child-of-type-or-null.html"><span class="token function">firstChildOfTypeOrNull</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">vararg </span>types<span class="token operator">: </span><span data-unresolved-link="org.intellij.markdown/IElementType///PointingToDeclaration/">IElementType</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-markdown-node/index.html">MarkdownNode</a><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1725855494%2FFunctions%2F-1279072695" anchor-label="isBlockQuoteElement" id="1725855494%2FFunctions%2F-1279072695" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":doks-gradle-plugin:dokkaHtmlPartial/main" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-block-quote-element.html"><span>is</span><wbr><span>Block</span><wbr><span>Quote</span><wbr><span><span>Element</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1725855494%2FFunctions%2F-1279072695"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":doks-gradle-plugin:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">internal </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="-markdown-node/index.html">MarkdownNode</a><span class="token operator">?</span><span class="token punctuation">.</span><a href="is-block-quote-element.html"><span class="token function">isBlockQuoteElement</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1941863703%2FFunctions%2F-1279072695" anchor-label="isBlockQuoteToken" id="-1941863703%2FFunctions%2F-1279072695" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":doks-gradle-plugin:dokkaHtmlPartial/main" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-block-quote-token.html"><span>is</span><wbr><span>Block</span><wbr><span>Quote</span><wbr><span><span>Token</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1941863703%2FFunctions%2F-1279072695"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":doks-gradle-plugin:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">internal </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="-markdown-node/index.html">MarkdownNode</a><span class="token operator">?</span><span class="token punctuation">.</span><a href="is-block-quote-token.html"><span class="token function">isBlockQuoteToken</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1798487129%2FFunctions%2F-1279072695" anchor-label="isBlockQuoteTokenInWhiteSpace" id="-1798487129%2FFunctions%2F-1279072695" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":doks-gradle-plugin:dokkaHtmlPartial/main" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-block-quote-token-in-white-space.html"><span>is</span><wbr><span>Block</span><wbr><span>Quote</span><wbr><span>Token</span><wbr><span>In</span><wbr><span>White</span><wbr><span><span>Space</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1798487129%2FFunctions%2F-1279072695"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":doks-gradle-plugin:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">internal </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="-markdown-node/index.html">MarkdownNode</a><span class="token operator">?</span><span class="token punctuation">.</span><a href="is-block-quote-token-in-white-space.html"><span class="token function">isBlockQuoteTokenInWhiteSpace</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">When a block quote is nested, any angle brackets other than the last one are incorrectly parsed as WHITE_SPACE, and added as the last node of the parent block quote.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1969075731%2FFunctions%2F-1279072695" anchor-label="isClosingTag" id="-1969075731%2FFunctions%2F-1279072695" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":doks-gradle-plugin:dokkaHtmlPartial/main" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-closing-tag.html"><span>is</span><wbr><span>Closing</span><wbr><span><span>Tag</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1969075731%2FFunctions%2F-1279072695"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":doks-gradle-plugin:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">internal </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="-markdown-node/index.html">MarkdownNode</a><span class="token punctuation">.</span><a href="is-closing-tag.html"><span class="token function">isClosingTag</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1273516495%2FFunctions%2F-1279072695" anchor-label="isEOL" id="-1273516495%2FFunctions%2F-1279072695" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":doks-gradle-plugin:dokkaHtmlPartial/main" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-e-o-l.html"><span>is</span><wbr><span><span>EOL</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1273516495%2FFunctions%2F-1279072695"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":doks-gradle-plugin:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">internal </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="-markdown-node/index.html">MarkdownNode</a><span class="token operator">?</span><span class="token punctuation">.</span><a href="is-e-o-l.html"><span class="token function">isEOL</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1575482194%2FFunctions%2F-1279072695" anchor-label="isEolFollowedByParagraph" id="-1575482194%2FFunctions%2F-1279072695" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":doks-gradle-plugin:dokkaHtmlPartial/main" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-eol-followed-by-paragraph.html"><span>is</span><wbr><span>Eol</span><wbr><span>Followed</span><wbr><span>By</span><wbr><span><span>Paragraph</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1575482194%2FFunctions%2F-1279072695"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":doks-gradle-plugin:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">internal </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="-markdown-node/index.html">MarkdownNode</a><span class="token operator">?</span><span class="token punctuation">.</span><a href="is-eol-followed-by-paragraph.html"><span class="token function">isEolFollowedByParagraph</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1166649397%2FFunctions%2F-1279072695" anchor-label="isFirstParagraphInParent" id="1166649397%2FFunctions%2F-1279072695" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":doks-gradle-plugin:dokkaHtmlPartial/main" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-first-paragraph-in-parent.html"><span>is</span><wbr><span>First</span><wbr><span>Paragraph</span><wbr><span>In</span><wbr><span><span>Parent</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1166649397%2FFunctions%2F-1279072695"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":doks-gradle-plugin:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">internal </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="-markdown-node/index.html">MarkdownNode</a><span class="token punctuation">.</span><a href="is-first-paragraph-in-parent.html"><span class="token function">isFirstParagraphInParent</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1636185182%2FFunctions%2F-1279072695" anchor-label="isListItem" id="-1636185182%2FFunctions%2F-1279072695" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":doks-gradle-plugin:dokkaHtmlPartial/main" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-list-item.html"><span>is</span><wbr><span>List</span><wbr><span><span>Item</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1636185182%2FFunctions%2F-1279072695"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":doks-gradle-plugin:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">internal </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="-markdown-node/index.html">MarkdownNode</a><span class="token operator">?</span><span class="token punctuation">.</span><a href="is-list-item.html"><span class="token function">isListItem</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1840540962%2FFunctions%2F-1279072695" anchor-label="isListItemDelimiter" id="-1840540962%2FFunctions%2F-1279072695" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":doks-gradle-plugin:dokkaHtmlPartial/main" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-list-item-delimiter.html"><span>is</span><wbr><span>List</span><wbr><span>Item</span><wbr><span><span>Delimiter</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1840540962%2FFunctions%2F-1279072695"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":doks-gradle-plugin:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">internal </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="-markdown-node/index.html">MarkdownNode</a><span class="token punctuation">.</span><a href="is-list-item-delimiter.html"><span class="token function">isListItemDelimiter</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1736560918%2FFunctions%2F-1279072695" anchor-label="isOpeningTag" id="-1736560918%2FFunctions%2F-1279072695" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":doks-gradle-plugin:dokkaHtmlPartial/main" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-opening-tag.html"><span>is</span><wbr><span>Opening</span><wbr><span><span>Tag</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1736560918%2FFunctions%2F-1279072695"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":doks-gradle-plugin:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">internal </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="-markdown-node/index.html">MarkdownNode</a><span class="token punctuation">.</span><a href="is-opening-tag.html"><span class="token function">isOpeningTag</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1007097302%2FFunctions%2F-1279072695" anchor-label="isParagraphInBlockQuote" id="-1007097302%2FFunctions%2F-1279072695" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":doks-gradle-plugin:dokkaHtmlPartial/main" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-paragraph-in-block-quote.html"><span>is</span><wbr><span>Paragraph</span><wbr><span>In</span><wbr><span>Block</span><wbr><span><span>Quote</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1007097302%2FFunctions%2F-1279072695"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":doks-gradle-plugin:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">internal </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="-markdown-node/index.html">MarkdownNode</a><span class="token punctuation">.</span><a href="is-paragraph-in-block-quote.html"><span class="token function">isParagraphInBlockQuote</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1681695436%2FFunctions%2F-1279072695" anchor-label="isParagraphInListItem" id="1681695436%2FFunctions%2F-1279072695" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":doks-gradle-plugin:dokkaHtmlPartial/main" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-paragraph-in-list-item.html"><span>is</span><wbr><span>Paragraph</span><wbr><span>In</span><wbr><span>List</span><wbr><span><span>Item</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1681695436%2FFunctions%2F-1279072695"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":doks-gradle-plugin:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">internal </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="-markdown-node/index.html">MarkdownNode</a><span class="token punctuation">.</span><a href="is-paragraph-in-list-item.html"><span class="token function">isParagraphInListItem</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="109013413%2FFunctions%2F-1279072695" anchor-label="isWhiteSpace" id="109013413%2FFunctions%2F-1279072695" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":doks-gradle-plugin:dokkaHtmlPartial/main" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-white-space.html"><span>is</span><wbr><span>White</span><wbr><span><span>Space</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="109013413%2FFunctions%2F-1279072695"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":doks-gradle-plugin:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">internal </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="-markdown-node/index.html">MarkdownNode</a><span class="token punctuation">.</span><a href="is-white-space.html"><span class="token function">isWhiteSpace</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1703936387%2FFunctions%2F-1279072695" anchor-label="isWhiteSpaceAfterNewLine" id="-1703936387%2FFunctions%2F-1279072695" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":doks-gradle-plugin:dokkaHtmlPartial/main" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-white-space-after-new-line.html"><span>is</span><wbr><span>White</span><wbr><span>Space</span><wbr><span>After</span><wbr><span>New</span><wbr><span><span>Line</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1703936387%2FFunctions%2F-1279072695"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":doks-gradle-plugin:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">internal </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="-markdown-node/index.html">MarkdownNode</a><span class="token punctuation">.</span><a href="is-white-space-after-new-line.html"><span class="token function">isWhiteSpaceAfterNewLine</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1561639963%2FFunctions%2F-1279072695" anchor-label="markdown" id="-1561639963%2FFunctions%2F-1279072695" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":doks-gradle-plugin:dokkaHtmlPartial/main" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="markdown.html"><span><span>markdown</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1561639963%2FFunctions%2F-1279072695"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":doks-gradle-plugin:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">internal </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="https://docs.oracle.com/javase/8/docs/api/java/io/File.html">File</a><span class="token punctuation">.</span><a href="markdown.html"><span class="token function">markdown</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">rules<span class="token operator">: </span><a href="../com.rickbusarow.doks.internal/-rules/index.html">Rules</a><span class="token punctuation">, </span></span><span class="parameter ">autoCorrect<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../com.rickbusarow.doks.internal/-doks-engine/-file-result/index.html">DoksEngine.FileResult</a></div><div class="symbol monospace"><span class="token keyword">internal </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">.</span><a href="markdown.html"><span class="token function">markdown</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">absolutePath<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">rules<span class="token operator">: </span><a href="../com.rickbusarow.doks.internal/-rules/index.html">Rules</a><span class="token punctuation">, </span></span><span class="parameter ">autoCorrect<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1741346945%2FFunctions%2F-1279072695" anchor-label="nextSibling" id="1741346945%2FFunctions%2F-1279072695" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":doks-gradle-plugin:dokkaHtmlPartial/main" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="next-sibling.html"><span>next</span><wbr><span><span>Sibling</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1741346945%2FFunctions%2F-1279072695"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":doks-gradle-plugin:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">internal </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="-markdown-node/index.html">MarkdownNode</a><span class="token punctuation">.</span><a href="next-sibling.html"><span class="token function">nextSibling</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-markdown-node/index.html">MarkdownNode</a><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="939473154%2FFunctions%2F-1279072695" anchor-label="nextSiblings" id="939473154%2FFunctions%2F-1279072695" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":doks-gradle-plugin:dokkaHtmlPartial/main" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="next-siblings.html"><span>next</span><wbr><span><span>Siblings</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="939473154%2FFunctions%2F-1279072695"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":doks-gradle-plugin:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">internal </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="-markdown-node/index.html">MarkdownNode</a><span class="token punctuation">.</span><a href="next-siblings.html"><span class="token function">nextSiblings</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.sequences/-sequence/index.html">Sequence</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-markdown-node/index.html">MarkdownNode</a><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1262456635%2FFunctions%2F-1279072695" anchor-label="parents" id="1262456635%2FFunctions%2F-1279072695" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":doks-gradle-plugin:dokkaHtmlPartial/main" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="parents.html"><span><span>parents</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1262456635%2FFunctions%2F-1279072695"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":doks-gradle-plugin:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">internal </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="-markdown-node/index.html">MarkdownNode</a><span class="token punctuation">.</span><a href="parents.html"><span class="token function">parents</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.sequences/-sequence/index.html">Sequence</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-markdown-node/index.html">MarkdownNode</a><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="239949053%2FFunctions%2F-1279072695" anchor-label="previousSibling" id="239949053%2FFunctions%2F-1279072695" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":doks-gradle-plugin:dokkaHtmlPartial/main" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="previous-sibling.html"><span>previous</span><wbr><span><span>Sibling</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="239949053%2FFunctions%2F-1279072695"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":doks-gradle-plugin:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">internal </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="-markdown-node/index.html">MarkdownNode</a><span class="token punctuation">.</span><a href="previous-sibling.html"><span class="token function">previousSibling</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-markdown-node/index.html">MarkdownNode</a><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1640778758%2FFunctions%2F-1279072695" anchor-label="previousSiblings" id="1640778758%2FFunctions%2F-1279072695" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":doks-gradle-plugin:dokkaHtmlPartial/main" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="previous-siblings.html"><span>previous</span><wbr><span><span>Siblings</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1640778758%2FFunctions%2F-1279072695"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":doks-gradle-plugin:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">internal </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="-markdown-node/index.html">MarkdownNode</a><span class="token punctuation">.</span><a href="previous-siblings.html"><span class="token function">previousSiblings</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.sequences/-sequence/index.html">Sequence</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-markdown-node/index.html">MarkdownNode</a><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1204987026%2FFunctions%2F-1279072695" anchor-label="split" id="-1204987026%2FFunctions%2F-1279072695" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":doks-gradle-plugin:dokkaHtmlPartial/main" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="split.html"><span><span>split</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1204987026%2FFunctions%2F-1279072695"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":doks-gradle-plugin:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">internal </span><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="split.html">E</a><span class="token operator">&gt; </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="split.html">E</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="split.html"><span class="token function">split</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">predicate<span class="token operator">: </span><span class="token punctuation">(</span><span class="token keyword"></span><a href="split.html">E</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="split.html">E</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Splits the elements by <a href="split.html">predicate</a>, where the element matching <a href="split.html">predicate</a> is the first element of each nested list. If the original list starts with an element which does not match <a href="split.html">predicate</a>, then the first nested list will contain all elements before the first matching element.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1050387011%2FFunctions%2F-1279072695" anchor-label="toMarkdownSection" id="1050387011%2FFunctions%2F-1279072695" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":doks-gradle-plugin:dokkaHtmlPartial/main" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="to-markdown-section.html"><span>to</span><wbr><span>Markdown</span><wbr><span><span>Section</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1050387011%2FFunctions%2F-1279072695"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":doks-gradle-plugin:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">private </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-markdown-node/index.html">MarkdownNode</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="to-markdown-section.html"><span class="token function">toMarkdownSection</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-markdown-section/index.html">MarkdownSection</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="1064012587%2FProperties%2F-1279072695" anchor-label="CLOSE" id="1064012587%2FProperties%2F-1279072695" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-filterable-current=":doks-gradle-plugin:dokkaHtmlPartial/main" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-c-l-o-s-e.html"><span><span>CLOSE</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1064012587%2FProperties%2F-1279072695"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":doks-gradle-plugin:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">internal </span><span class="token keyword">const </span><span class="token keyword">val </span><a href="-c-l-o-s-e.html">CLOSE</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1130147909%2FProperties%2F-1279072695" anchor-label="closeReg" id="-1130147909%2FProperties%2F-1279072695" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-filterable-current=":doks-gradle-plugin:dokkaHtmlPartial/main" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="close-reg.html"><span>close</span><wbr><span><span>Reg</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1130147909%2FProperties%2F-1279072695"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":doks-gradle-plugin:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">internal </span><span class="token keyword"></span><span class="token keyword">val </span><a href="close-reg.html">closeReg</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/-regex/index.html">Regex</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2090610215%2FProperties%2F-1279072695" anchor-label="openReg" id="-2090610215%2FProperties%2F-1279072695" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-filterable-current=":doks-gradle-plugin:dokkaHtmlPartial/main" data-filterable-set=":doks-gradle-plugin:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="open-reg.html"><span>open</span><wbr><span><span>Reg</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2090610215%2FProperties%2F-1279072695"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":doks-gradle-plugin:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">internal </span><span class="token keyword"></span><span class="token keyword">val </span><a href="open-reg.html">openReg</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/-regex/index.html">Regex</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2023 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+    </div>
+</div>
+</body>
+</html>
+

@@ -27,11 +27,11 @@ To use Doks, you'll need to add it as a dependency in your Gradle build script:
 ```kotlin
 // build.gradle.kts
 plugins {
-  id("com.rickbusarow.doks") version "0.1.4-SNAPSHOT"
+  id("com.rickbusarow.doks") version "0.1.4"
 }
 ```
 
-<!--/doks-->
+<!--doks END-->
 
 For snapshots, Doks uses the older Sonatype host (without "s01"):
 
@@ -65,7 +65,7 @@ following syntax:
 ```kotlin title="build.gradle.kts"
 // build.gradle.kts
 plugins {
-  id("com.rickbusarow.doks") version "0.1.4-SNAPSHOT"
+  id("com.rickbusarow.doks") version "0.1.4"
 }
 
 doks {
@@ -89,7 +89,7 @@ doks {
 }
 ```
 
-<!--/doks-->
+<!--doks END-->
 </details>
 <details>
 <summary>Groovy</summary>
@@ -98,7 +98,7 @@ doks {
 ```groovy title="build.gradle"
 // build.gradle
 plugins {
-  id 'com.rickbusarow.doks' version '0.1.4-SNAPSHOT'
+  id 'com.rickbusarow.doks' version '0.1.4'
 }
 
 doks {
@@ -122,7 +122,7 @@ doks {
 }
 ```
 
-<!--/doks-->
+<!--doks END-->
 </details>
 
 Here, `ruleName` is the ID you'll use to reference the rule in your documentation, `regex` is the
@@ -182,7 +182,7 @@ doks {
 }
 ```
 
-<!--/doks-->
+<!--doks END-->
 </details>
 <details>
 <summary>Groovy</summary>
@@ -212,7 +212,7 @@ doks {
 }
 ```
 
-<!--/doks-->
+<!--doks END-->
 </details>
 
 This will extract the source code from a property named `config` defined

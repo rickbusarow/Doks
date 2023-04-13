@@ -105,6 +105,28 @@ jobs:
           arguments: ktlintCheck
           cache-read-only: false
 
+      - name: Doks update (used by main repo)
+        if: github.event.pull_request.head.repo.full_name == github.repository
+        uses: gradle/gradle-build-action@v2
+        with:
+          arguments: doks
+          cache-read-only: false
+
+      # If Doks generated changes, commit and push those changes.
+      - name: commit changes (used by main repo)
+        if: github.event.pull_request.head.repo.full_name == github.repository
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Apply Doks updates
+          commit_options: "--no-verify --signoff"
+
+      - name: Doks check (used by forks)
+        if: github.event.pull_request.head.repo.full_name != github.repository
+        uses: gradle/gradle-build-action@v2
+        with:
+          arguments: doksCheck
+          cache-read-only: false
+
       - name: ModuleCheck with auto-correct (used by main repo)
         if: github.event.pull_request.head.repo.full_name == github.repository
         uses: gradle/gradle-build-action@v2

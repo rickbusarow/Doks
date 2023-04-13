@@ -164,8 +164,12 @@ internal fun File.markdown(
   val changed = old != new
   if (changed) {
     writeText(new)
-    println("wrote changes to file://$path\n")
-    println(diffString(old, new))
+    println(
+      """
+      |wrote changes to file://$path
+      |${diffString(old, new)}
+      |""".replaceIndentByMargin()
+    )
   }
   return FileResult(
     file = this,

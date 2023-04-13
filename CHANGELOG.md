@@ -2,6 +2,14 @@
 
 ## 0.1.4-SNAPSHOT (unreleased)
 
+### Fixed
+
+- combine all console output for a markdown update into a single `println()`
+
+### Added
+
+- nicer formatting of a markdown file diff
+
 ## [0.1.3] - 2023-04-06
 
 ### Fixed
@@ -48,6 +56,9 @@
 Hello World
 
 [0.1.0]: https://github.com/rbusarow/doks/releases/tag/0.1.0
+
 [0.1.1]: https://github.com/rbusarow/doks/releases/tag/0.1.1
+
 [0.1.2]: https://github.com/rbusarow/doks/releases/tag/0.1.2
+
 [0.1.3]: https://github.com/rbusarow/doks/releases/tag/0.1.3

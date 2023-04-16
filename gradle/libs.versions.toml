@@ -63,7 +63,7 @@ square-moshi = "1.14.0"
 square-okio = "3.3.0"
 taskTree = "2.1.1"
 threetenbp = "1.6.8"
-vanniktech-publish = "0.25.1"
+vanniktech-publish = "0.25.2"
 versionCatalogUpdate = "0.8.0"
 
 [plugins]

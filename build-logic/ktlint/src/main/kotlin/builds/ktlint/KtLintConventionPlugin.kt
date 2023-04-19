@@ -68,7 +68,7 @@ abstract class KtLintConventionPlugin : Plugin<Project> {
       }
     }
 
-    target.tasks.withType(ConfigurableKtLintTask::class.java) { task ->
+    target.tasks.withType(ConfigurableKtLintTask::class.java).configureEach { task ->
       task.source(target.buildFile)
       task.dependsOn(":updateEditorConfigVersion")
     }
@@ -94,7 +94,7 @@ abstract class KtLintConventionPlugin : Plugin<Project> {
 
     target.afterEvaluate {
 
-      target.tasks.withType(ConfigurableKtLintTask::class.java) { task ->
+      target.tasks.withType(ConfigurableKtLintTask::class.java).configureEach { task ->
         excludeGenerated(task, target)
       }
     }

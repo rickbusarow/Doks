@@ -35,7 +35,7 @@ abstract class TestConventionPlugin : Plugin<Project> {
       includeTags.addAll(target.properties["doks.includeTags"].toString().split(','))
     }
 
-    target.tasks.withType(Test::class.java) { task ->
+    target.tasks.withType(Test::class.java).configureEach { task ->
       task.useJUnitPlatform()
 
       val junitPlatformOptions = task.testFrameworkProperty

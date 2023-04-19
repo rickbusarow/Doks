@@ -34,7 +34,7 @@ abstract class DokkaConventionPlugin : Plugin<Project> {
 
     target.plugins.applyOnce("org.jetbrains.dokka")
 
-    target.tasks.withType(AbstractDokkaLeafTask::class.java) { task ->
+    target.tasks.withType(AbstractDokkaLeafTask::class.java).configureEach { task ->
 
       // Dokka doesn't support configuration caching
       task.notCompatibleWithConfigurationCache("Dokka doesn't support configuration caching")
@@ -96,7 +96,7 @@ abstract class DokkaConventionPlugin : Plugin<Project> {
     val versionName = target.VERSION_NAME
     val versionWithoutSnapshot = versionName.removeSuffix("-SNAPSHOT")
 
-    target.tasks.withType(AbstractDokkaTask::class.java) { task ->
+    target.tasks.withType(AbstractDokkaTask::class.java).configureEach { task ->
 
       task.pluginConfiguration<VersioningPlugin, VersioningConfiguration> {
         version = versionName

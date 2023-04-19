@@ -33,7 +33,7 @@ gradlePlugin {
 // 'Entry classpath.index is a duplicate but no duplicate handling strategy has been set.'
 // when executing a Jar task
 // https://github.com/gradle/gradle/issues/17236
-tasks.withType<Jar> {
+tasks.withType<Jar>().configureEach {
   duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
 

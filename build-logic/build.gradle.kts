@@ -54,13 +54,13 @@ allprojects {
     }
   }
 
-  tasks.withType<KotlinCompile> {
+  tasks.withType<KotlinCompile>().configureEach {
     kotlinOptions {
       jvmTarget = "11"
     }
   }
 
-  tasks.withType<Test> {
+  tasks.withType<Test>().configureEach {
     useJUnitPlatform()
   }
 }

@@ -35,7 +35,7 @@ abstract class SpotlessConventionPlugin : Plugin<Project> {
 
     target.plugins.apply(SpotlessPlugin::class.java)
 
-    target.tasks.withType(SpotlessTask::class.java) { spotlessTask ->
+    target.tasks.withType(SpotlessTask::class.java).configureEach { spotlessTask ->
       spotlessTask.mustRunAfter(":artifactsDump")
       spotlessTask.mustRunAfter(target.allProjectsTasksMatchingName("apiDump"))
       spotlessTask.mustRunAfter(target.allProjectsTasksMatchingName("dependencyGuard"))
@@ -44,27 +44,10 @@ abstract class SpotlessConventionPlugin : Plugin<Project> {
 
     target.extensions.configure(SpotlessExtension::class.java) { spotless ->
 
-      spotless.addShell(target)
       spotless.addYaml(target)
       spotless.addJson(target)
       spotless.addJavascript(target)
       spotless.addMarkdown(target)
-    }
-  }
-
-  private fun SpotlessExtension.addShell(target: Project) {
-    format("shell") { shell ->
-
-      shell.target(target) {
-        include("**/*.sh")
-      }
-
-      shell.prettier(
-        mapOf(
-          "prettier" to target.libsCatalog.version("prettier"),
-          "prettier-plugin-sh" to target.libsCatalog.version("prettier-plugin-sh")
-        )
-      )
     }
   }
 

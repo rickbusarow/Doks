@@ -38,7 +38,7 @@ abstract class KotlinJvmConventionPlugin : Plugin<Project> {
       }
     }
 
-    target.tasks.withType(KotlinCompile::class.java) { task ->
+    target.tasks.withType(KotlinCompile::class.java).configureEach { task ->
       task.kotlinOptions {
         allWarningsAsErrors = false
 
@@ -58,11 +58,11 @@ abstract class KotlinJvmConventionPlugin : Plugin<Project> {
       }
     }
 
-    target.plugins.withType(MavenPublishBasePlugin::class.java) {
+    target.plugins.withType(MavenPublishBasePlugin::class.java).configureEach {
       target.extensions.configure(JavaPluginExtension::class.java) { extension ->
         extension.sourceCompatibility = JavaVersion.toVersion(target.JVM_TARGET)
       }
-      target.tasks.withType(JavaCompile::class.java) { task ->
+      target.tasks.withType(JavaCompile::class.java).configureEach { task ->
         task.options.release.set(target.JVM_TARGET_INT)
       }
     }
@@ -73,7 +73,7 @@ abstract class KotlinJvmConventionPlugin : Plugin<Project> {
     // 'Entry classpath.index is a duplicate but no duplicate handling strategy has been set.'
     // when executing a Jar task
     // https://github.com/gradle/gradle/issues/17236
-    target.tasks.withType(Jar::class.java) { task ->
+    target.tasks.withType(Jar::class.java).configureEach { task ->
       task.duplicatesStrategy = DuplicatesStrategy.INCLUDE
     }
   }

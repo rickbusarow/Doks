@@ -84,7 +84,7 @@ idea {
   }
 }
 
-tasks.withType<Test> {
+tasks.withType<Test>().configureEach {
   onlyIf { true }
 }
 

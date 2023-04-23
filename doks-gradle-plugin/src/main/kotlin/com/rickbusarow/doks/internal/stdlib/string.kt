@@ -131,9 +131,65 @@ internal fun String.remove(vararg regex: Regex): String = regex.fold(this) { acc
   acc.replace(reg, "")
 }
 
+/**
+ * Removes trailing whitespaces from all lines in a string.
+ *
+ * Shorthand for `lines().joinToString("\n") { it.trimEnd() }`
+ */
+fun String.trimLineEnds(): String = mapLines { it.trimEnd() }
+
+/**
+ * performs [transform] on each line
+ */
+fun String.mapLines(transform: (String) -> CharSequence): String =
+  lineSequence().joinToString("\n", transform = transform)
+
 internal fun String.trimIndentAfterFirstLine(): String {
   val split = lines()
   val first = split.first()
   val remaining = split.drop(1).joinToString("\n").trimIndent()
   return "$first\n$remaining"
+}
+
+/**
+ * Shorthand version of [StringBuilder.indent][com.rickbusarow.doks.internal.stdlib.indent] for when
+ * the first line of the `buildString { ... }` block would just be a call to `indent(...) { ... }`.
+ *
+ * example:
+ *
+ * ```
+ * override fun toString() = buildStringIndented(baseIndent = "      ") {
+ *   appendLine("SomeClass(")
+ *   indent {
+ *     appendLine("prop1=$prop1")
+ *     appendLine("prop2=$prop2")
+ *   }
+ *   appendLine(")")
+ * }
+ * ```
+ */
+inline fun buildStringIndented(
+  tab: String = "  ",
+  action: StringBuilder.() -> Unit
+): String = buildString(action).prependIndent(tab)
+
+/**
+ * example:
+ *
+ * ```
+ * override fun toString() = buildString {
+ *   appendLine("SomeClass(")
+ *   indent {
+ *     appendLine("prop1=$prop1")
+ *     appendLine("prop2=$prop2")
+ *   }
+ *   appendLine(")")
+ * }
+ * ```
+ */
+inline fun StringBuilder.indent(
+  tab: String = "  ",
+  action: StringBuilder.() -> Unit
+) {
+  appendLine(buildString(action).prependIndent(tab))
 }

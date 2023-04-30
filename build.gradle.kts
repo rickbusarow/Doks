@@ -152,3 +152,105 @@ githubRelease {
   dryRun.set(false)
   draft.set(true)
 }
+
+val printTaskGraph by tasks.registering {
+
+  group = "Help"
+  description = "Prints the task graph starting from the root project's check task."
+
+  // val graph = StringBuilder("graph TD\n")
+  //
+  // val rootTask = allprojects.mapNotNull { it.tasks.findByName("check") }
+  // val taskQueue = ArrayDeque<Task>().apply { addAll(rootTask) }
+  // val processedTasks = mutableSetOf<Task>()
+  //
+  // while (taskQueue.isNotEmpty()) {
+  //   val task = taskQueue.removeFirst()
+  //   if (!processedTasks.contains(task)) {
+  //     processedTasks.add(task)
+  //     graph.append("${task.path}[${task.path}]")
+  //
+  //     for (dependency in task.taskDependencies.getDependencies(task)) {
+  //       val dependencyTask = dependency as Task
+  //       if (
+  //         dependencyTask.project != project &&
+  //         !rootTask.any { it.dependsOn.contains(dependencyTask) }
+  //       ) {
+  //         graph.append("\n${task.path} --> ${dependencyTask.path}[${dependencyTask.path}]")
+  //         if (dependencyTask != rootTask.first()) {
+  //           rootTask.first().dependsOn(dependencyTask)
+  //         }
+  //       }
+  //       taskQueue.addLast(dependencyTask)
+  //     }
+  //
+  //     graph.append("\n")
+  //   }
+  // }
+  //
+  // // Generate code to initialize a list of nodes
+  // val nodes = processedTasks.map { task ->
+  //   val dependencyNames = task.taskDependencies.getDependencies(task)
+  //     .mapNotNull { (it as? Task)?.path }
+  //     .toSet()
+  //   "TaskWithDependencyNames(${task.path.quote()}, setOf(${dependencyNames.joinToString { it.quote() }}))"
+  // }
+  //
+  // doLast {
+  //   println(graph)
+  //   val foo = buildDir.resolve("foo.md")
+  //   foo.writeText("```mermaid\n$graph\n```")
+  //
+  //   println("List of nodes:")
+  //   println("val nodes = listOf(")
+  //   println(nodes.joinToString(",\n"))
+  //   println(")")
+  // }
+
+  doLast {
+    println("#############################################")
+    val tasksToCheck = mutableListOf<Task>()
+    tasksToCheck.addAll(project.allprojects.mapNotNull { it.tasks.findByPath(":${it.name}:check") })
+
+    val visited = mutableSetOf<Task>()
+    val queue = tasksToCheck.toMutableList()
+
+    while (queue.isNotEmpty()) {
+      val task = queue.removeAt(0)
+      if (task in visited) continue
+      visited.add(task)
+
+      println("############################################################## ${task.path}")
+      println(task.dependsOnUnwrapped().joinToString("\n") {
+        "${it.path.padEnd(70)}  ${it::class.java.canonicalName}"
+      })
+      println("##############################################################")
+
+      val dependencies = task.dependsOnUnwrapped()
+      queue.addAll(dependencies)
+    }
+  }
+}
+
+fun Any.tasks(project: Project): List<Task> {
+  return when (val t = this) {
+    is Task -> listOf(t)
+    is String -> listOfNotNull(project.tasks.findByPath(t))
+    is Provider<*> -> t.orNull?.tasks(project).orEmpty()
+    is Iterable<*> -> t.flatMap { it?.tasks(project).orEmpty() }
+    is Buildable -> t.buildDependencies.tasks(project)
+    else -> {
+      println("%%%%%%%%%%%%%%%%%%%%% bailing out on -- $t  --  ${t::class.java.canonicalName}")
+      emptyList()
+    }
+  }
+}
+
+fun Task.dependsOnUnwrapped() = dependsOn.flatMap { it.tasks(project) }
+fun String.quote() = "\"$this\""
+
+data class TaskWithDependencyNames(
+  val path: String,
+  val dependencyNames: Set<String>,
+  val weight: Double = 1.0
+)

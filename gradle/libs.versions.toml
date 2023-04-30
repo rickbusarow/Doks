@@ -53,7 +53,7 @@ outfoxx-typescriptPoet = "1.1.2"
 prettier = "2.8.4"
 prettier-plugin-sh = "0.12.8"
 rickBusarow-doks = "0.1.4"
-rickBusarow-ktrules = "1.1.0"
+rickBusarow-ktrules = "1.1.1"
 rickBusarow-moduleCheck = "0.12.5"
 slf4j = "2.0.7"
 square-anvil = "2.4.5"
@@ -213,7 +213,7 @@ ktlint-ruleset-standard = { module = "com.pinterest.ktlint:ktlint-ruleset-standa
 ktlint-test = { module = "com.pinterest.ktlint:ktlint-test", version.ref = "ktlint-lib" }
 
 rickBusarow-doks = { module = "com.rickbusarow.doks:doks-gradle-plugin", version.ref = "rickBusarow-doks" }
-rickBusarow-ktrules = { module = "com.rickbusarow.ktrules:ktrules", version.ref = "rickBusarow-ktrules" }
+rickBusarow-ktrules = { module = "com.rickbusarow.ktrules:ktrules-48", version.ref = "rickBusarow-ktrules" }
 
 rickBusarow-moduleCheck-gradle-plugin = { module = "com.rickbusarow.modulecheck:plugin", version.ref = "rickBusarow-moduleCheck" }
 

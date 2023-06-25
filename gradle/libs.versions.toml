@@ -4,9 +4,9 @@ antlr = "4.10.1"
 autoManifest = "2.0"
 benManes-caffeine = "3.1.1"
 benManes-versions = "0.47.0"
-buildconfig = "4.0.4"
+buildconfig = "4.1.1"
 classgraph = "4.8.160"
-clikt = "3.5.2"
+clikt = "3.5.4"
 coditory-integration-test = "1.4.5"
 commons-io = "2.13.0"
 dependencyAnalysis = "1.20.0"
@@ -127,8 +127,8 @@ ec4j-core = { module = "org.ec4j.core:ec4j-core", version.ref = "ec4j" }
 
 github-release = { module = "com.github.breadmoirai:github-release", version.ref = "github-release" }
 
-google-auto-service-annotations = "com.google.auto.service:auto-service-annotations:1.1.0"
-google-auto-service-processor = "com.google.auto.service:auto-service:1.1.0"
+google-auto-service-annotations = "com.google.auto.service:auto-service-annotations:1.1.1"
+google-auto-service-processor = "com.google.auto.service:auto-service:1.1.1"
 
 google-dagger-api = { module = "com.google.dagger:dagger", version.ref = "google-dagger" }
 google-dagger-compiler = { module = "com.google.dagger:dagger-compiler", version.ref = "google-dagger" }

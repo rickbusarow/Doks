@@ -33,6 +33,8 @@ plugins {
 
 <!--doks END-->
 
+<details>
+<summary>Snapshot Builds</summary>
 For snapshots, Doks uses the older Sonatype host (without "s01"):
 
 ```kotlin
@@ -50,6 +52,8 @@ pluginManagement {
   }
 }
 ```
+
+</details>
 
 ## Usage
 

@@ -17,6 +17,7 @@ import builds.GROUP
 import builds.VERSION_NAME
 import builds.mustRunAfter
 import com.rickbusarow.doks.DoksTask
+import org.gradle.execution.taskgraph.DefaultTaskExecutionGraph
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 @Suppress("DSL_SCOPE_VIOLATION")
@@ -211,38 +212,82 @@ val printTaskGraph by tasks.registering {
   //   println(")")
   // }
 
+  dependsOn("check")
+
   doLast {
+
+    val taskGraph: DefaultTaskExecutionGraph = project.gradle.taskGraph as DefaultTaskExecutionGraph
+    // val taskGraph: TaskExecutionGraph = project.gradle.taskGraph
+
     println("#############################################")
-    val tasksToCheck = mutableListOf<Task>()
-    tasksToCheck.addAll(project.allprojects.mapNotNull { it.tasks.findByPath(":${it.name}:check") })
+    println("#############################################")
+    taskGraph.getDependencies(tasks.getByPath("check"))
+      .forEach { t ->
 
-    val visited = mutableSetOf<Task>()
-    val queue = tasksToCheck.toMutableList()
+        // val deps = runCatching {
+        //   t.project.gradle.taskGraph.getDependencies(t)
+        // }
+        //   .getOrNull() ?: error("task was -- ${t.path} -- ${t::class.java}")
 
-    while (queue.isNotEmpty()) {
-      val task = queue.removeAt(0)
-      if (task in visited) continue
-      visited.add(task)
+        if (t.project.gradle != project.gradle) {
+          println(t.dependsOn.toList())
+        } else {
+          val deps = t.project.gradle.taskGraph.getDependencies(t)
 
-      println("############################################################## ${task.path}")
-      println(task.dependsOnUnwrapped().joinToString("\n") {
-        "${it.path.padEnd(70)}  ${it::class.java.canonicalName}"
-      })
-      println("##############################################################")
+          println("${t.path.padEnd(50)} -- ${deps.map { it.path }}")
+        }
+      }
 
-      val dependencies = task.dependsOnUnwrapped()
-      queue.addAll(dependencies)
+    println("#############################################")
+    println("#############################################")
+
+    // taskGraph.visitScheduledNodes { nodes ->
+    //
+    //   println("#############################################")
+    //   println("#############################################\n\n")
+    //
+    //   for (node in nodes) {
+    //
+    //     println(
+    //       "########  node  ${node.toString().padEnd(70)} " +
+    //         "${node::class}\n\n" +
+    //         node.allSuccessors
+    //           .joinToString("\n") { "${it.toString().padEnd(70)} --  ${it::class.java}" }
+    //           .prependIndent(" ".repeat(50)) + "\n\n"
+    //     )
+    //   }
+    // }
+  }
+}
+
+gradle.taskGraph.whenReady {
+  val doingTheThing = project.gradle.taskGraph.allTasks
+    .any { task -> task.name == "printTaskGraph" }
+
+  println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -- $doingTheThing")
+
+  if (doingTheThing) {
+    project.tasks.configureEach {
+      if (name != "printTaskGraph") {
+        enabled = false
+      }
     }
   }
 }
 
-fun Any.tasks(project: Project): List<Task> {
+fun Any.tasks(project: Project, task: Task): List<Task> {
   return when (val t = this) {
     is Task -> listOf(t)
     is String -> listOfNotNull(project.tasks.findByPath(t))
-    is Provider<*> -> t.orNull?.tasks(project).orEmpty()
-    is Iterable<*> -> t.flatMap { it?.tasks(project).orEmpty() }
-    is Buildable -> t.buildDependencies.tasks(project)
+    is Provider<*> -> t.orNull?.tasks(project, task).orEmpty()
+    is Iterable<*> -> t.flatMap { it?.tasks(project, task).orEmpty() }
+    is Buildable -> t.buildDependencies.tasks(project, task)
+    is TaskDependency -> t.getDependencies(task).flatMap { it.tasks(project, task) }
+      // TODO <Rick> delete me
+      .also {
+        println(it.joinToString("\n").prependIndent("   ".repeat(30)))
+      }
+
     else -> {
       println("%%%%%%%%%%%%%%%%%%%%% bailing out on -- $t  --  ${t::class.java.canonicalName}")
       emptyList()
@@ -250,7 +295,8 @@ fun Any.tasks(project: Project): List<Task> {
   }
 }
 
-fun Task.dependsOnUnwrapped() = dependsOn.flatMap { it.tasks(project) }
+// fun Task.dependsOnUnwrapped() = dependsOn.flatMap { it.tasks(project, task = this) }
+fun Task.dependsOnUnwrapped() = taskDependencies.getDependencies(this).orEmpty().filterNotNull()
 fun String.quote() = "\"$this\""
 
 data class TaskWithDependencyNames(

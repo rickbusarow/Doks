@@ -15,12 +15,8 @@
 
 package com.rickbusarow.doks.internal.sharding
 
-import com.rickbusarow.doks.internal.sharding.Shard.Companion.mermaid
 import com.rickbusarow.doks.internal.sharding.Shard.Companion.toShards
-import com.rickbusarow.doks.internal.sharding.Shard.Companion.workflow
-import com.rickbusarow.doks.internal.sharding.TaskNode.Companion.mermaid
 import com.rickbusarow.doks.internal.sharding.TaskNode.Companion.toNodes
-import com.rickbusarow.doks.internal.sharding.TaskWithDependencyNames.Companion.mermaid
 import com.rickbusarow.doks.internal.sharding.TaskWithDependencyNames.Companion.removeRedundantDependencies
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
@@ -795,15 +791,15 @@ class ShardTests {
     writeText("```mermaid\n$graph```\n")
   }
 
-  @Test
-  fun `shard graph`() {
-
-    shardGraph.mermaid(shards.mermaid())
-    taskWithDependencyNamesGraph.mermaid(nodesWithNames.mermaid())
-    taskNodeGraph.mermaid(nodes.mermaid())
-
-    shartifyYaml.writeText(shards.workflow())
-  }
+  // @Test
+  // fun `shard graph`() {
+  //
+  //   shardGraph.mermaid(shards.mermaid())
+  //   taskWithDependencyNamesGraph.mermaid(nodesWithNames.mermaid())
+  //   taskNodeGraph.mermaid(nodes.mermaid())
+  //
+  //   shartifyYaml.writeText(shards.workflow())
+  // }
 
   @Test
   fun `remove redundant dependencies`() {

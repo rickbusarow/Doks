@@ -15,7 +15,6 @@
 
 package builds
 
-import builds.ktlint.KtLintConventionPlugin
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 

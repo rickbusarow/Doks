@@ -42,6 +42,5 @@ include(
   ":artifacts",
   ":conventions",
   ":core",
-  ":ktlint",
   ":module"
 )

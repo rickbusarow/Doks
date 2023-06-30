@@ -130,7 +130,8 @@ class MarkdownTest {
         |         ${"++  com.example.dinos:dinos:1.2.3".colorized(LIGHT_GREEN)}
         |line 10  ${"--  'com.example.dinos:dinos:0.0.1-SNAPSHOT'".colorized(LIGHT_YELLOW)}
         |         ${"++  'com.example.dinos:dinos:1.2.3'".colorized(LIGHT_GREEN)}
-        |""".trimMargin()
+        |
+    """.trimMargin()
   }
 
   @TestFactory
@@ -145,8 +146,12 @@ class MarkdownTest {
       "<!--doks dinos-maven :1-->",
       "<!--doks END-->"
     ),
-    Triple("extra whitespace after rule count delim", "<!--doks dinos-maven: 1-->", "<!--doks END-->"),
-    Triple("extra whitespace before END", "<!--doks dinos-maven:1-->", "<!--doks  END-->"),
+    Triple(
+      "extra whitespace after rule count delim",
+      "<!--doks dinos-maven: 1-->",
+      "<!--doks END-->"
+    ),
+    Triple("extra whitespace before END", "<!--doks dinos-maven:1-->", "<!--doks  END-->")
   ).test({ it.first }) { (_, openTag, closeTag) ->
 
     val original = md(

@@ -41,7 +41,7 @@ interface BuildLogicShadowExtension {
           "kotlinx.coroutines",
           "kotlinx.serialization",
           "com.charleskorn.kaml",
-          "org.intellij.markdown",
+          "org.intellij.markdown"
         ).forEach {
           task.relocate(it, "com.rickbusarow.doks.$it")
         }

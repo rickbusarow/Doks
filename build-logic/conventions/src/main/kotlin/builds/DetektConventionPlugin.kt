@@ -46,7 +46,10 @@ abstract class DetektConventionPlugin : Plugin<Project> {
         )
       }
 
-    target.dependencies.add("detektPlugins", target.libsCatalog.dependency("detekt-rules-libraries"))
+    target.dependencies.add(
+      "detektPlugins",
+      target.libsCatalog.dependency("detekt-rules-libraries")
+    )
 
     target.extensions.configure(DetektExtension::class.java) { extension ->
 

@@ -69,10 +69,7 @@ fun Project.editorConfigKotlinProperties(): Map<String, String> {
  *
  * @since 0.1.0
  */
-fun editorConfigKotlinProperties(
-  editorConfigFile: File,
-  rootDir: File
-): Map<String, String> {
+fun editorConfigKotlinProperties(editorConfigFile: File, rootDir: File): Map<String, String> {
 
   val myCache = Caches.none()
   val propService = ResourcePropertiesService.builder()

@@ -49,10 +49,7 @@ abstract class DoksExtension @Inject constructor(
    * @since 0.1.0
    */
   @JvmOverloads
-  fun dokSet(
-    name: String = "all",
-    action: Action<DoksSet>
-  ): NamedDomainObjectProvider<DoksSet> {
+  fun dokSet(name: String = "all", action: Action<DoksSet>): NamedDomainObjectProvider<DoksSet> {
 
     return doksSets.registerOnce(name, action)
       .also { sourceSet ->

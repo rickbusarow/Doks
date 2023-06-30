@@ -53,10 +53,7 @@ internal data class MarkdownSection(
       }
   }
 
-  fun position(
-    leadingString: String,
-    substring: String = match
-  ): Position {
+  fun position(leadingString: String, substring: String = match): Position {
 
     val scopeString = leadingString + match
 

@@ -331,7 +331,8 @@ class NamedSamplesTest {
     ) shouldBe """
       |fun foo() {
       |  val variable = "a string"
-      |}""".trimMargin()
+      |}
+    """.trimMargin()
   }
 
   @Test
@@ -352,7 +353,8 @@ class NamedSamplesTest {
     ) shouldBe """
       |class Inner {
       |  val variable = "a string"
-      |}""".trimMargin()
+      |}
+    """.trimMargin()
   }
 
   @Test
@@ -368,14 +370,11 @@ class NamedSamplesTest {
       """
     ) shouldBe """
       |object Foo
-      |""".trimMargin()
+      |
+    """.trimMargin()
   }
 
-  fun parse(
-    fqName: String,
-    bodyOnly: Boolean,
-    @Language("kotlin") vararg content: String
-  ): String {
+  fun parse(fqName: String, bodyOnly: Boolean, @Language("kotlin") vararg content: String): String {
     val files = content.mapIndexed { index, code ->
       DoksPsiFileFactory()
         .createKotlin(

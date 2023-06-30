@@ -32,7 +32,7 @@ import org.jetbrains.kotlin.com.intellij.openapi.util.UserDataHolder
 internal data class MarkdownNode(
   val node: ASTNode,
   private val fullText: String,
-  val parent: MarkdownNode?,
+  val parent: MarkdownNode?
 ) : UserDataHolder {
   val text: String by lazy { node.getTextInNode(fullText).toString() }
 
@@ -122,7 +122,8 @@ internal fun MarkdownNode.isFirstParagraphInParent(): Boolean {
 }
 
 internal fun MarkdownNode.isListItemDelimiter(): Boolean {
-  return elementType == MarkdownTokenTypes.LIST_BULLET || elementType == MarkdownTokenTypes.LIST_NUMBER
+  return elementType == MarkdownTokenTypes.LIST_BULLET ||
+    elementType == MarkdownTokenTypes.LIST_NUMBER
 }
 
 internal fun MarkdownNode.countParentBlockQuotes(): Int {

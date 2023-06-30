@@ -66,9 +66,8 @@ internal fun <T : Task> TaskProvider<T>.mustRunAfter(vararg objects: Any): TaskP
  *
  * @since 0.1.1
  */
-internal fun TaskContainer.matchingName(
-  taskName: String
-): TaskCollection<Task> = matching { it.name == taskName }
+internal fun TaskContainer.matchingName(taskName: String): TaskCollection<Task> =
+  matching { it.name == taskName }
 
 /**
  * Returns a collection containing the objects in this collection of the
@@ -126,13 +125,12 @@ internal inline fun <reified T : Task> TaskContainer.registerOnce(
   configurationAction: Action<in T>
 ): TaskProvider<T> = registerOnce(name, T::class.java, configurationAction)
 
-internal inline fun <reified T : Task> TaskContainer.registerOnce(
-  name: String
-): TaskProvider<T> = if (names.contains(name)) {
-  named(name, T::class.java)
-} else {
-  register(name, T::class.java)
-}
+internal inline fun <reified T : Task> TaskContainer.registerOnce(name: String): TaskProvider<T> =
+  if (names.contains(name)) {
+    named(name, T::class.java)
+  } else {
+    register(name, T::class.java)
+  }
 
 internal fun <T : Task> TaskContainer.registerOnce(
   name: String,

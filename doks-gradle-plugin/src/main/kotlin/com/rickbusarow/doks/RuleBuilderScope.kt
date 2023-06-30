@@ -166,7 +166,7 @@ abstract class RuleBuilderScope : Named, java.io.Serializable {
     fqName: String,
     bodyOnly: Boolean = false,
     codeBlockLanguage: String = "kotlin",
-    attributes: String? = null,
+    attributes: String? = null
   ): String {
 
     val request = SampleRequest(fqName = fqName, bodyOnly = bodyOnly)

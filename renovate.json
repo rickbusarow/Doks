@@ -1,18 +1,30 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:base"],
-  "rebaseWhen": "conflicted",
-  "rebaseLabel": "rebase",
-  "packageRules": [{
-    "groupName": "Kotlin and compiler plugins",
-    "matchPackagePatterns": [
-      "^org\\.jetbrains\\.kotlin:(?:[\\w-]+)$",
-      "^com\\.google\\.devtools\\.ksp:(?:[\\w-]+)$",
-      "^com\\.square\\.anvil:(?:[\\w-]+)$"
-    ]
-  }],
   "labels": [
     "dependencies",
     "automerge"
+  ],
+  "extends": [
+    "config:base"
+  ],
+  "rebaseWhen": "conflicted",
+  "rebaseLabel": "rebase",
+  "packageRules": [
+    {
+      "matchPackagePatterns": [
+        "^org\\.jetbrains\\.kotlin:(?:[\\w-]+)$",
+        "^com\\.google\\.devtools\\.ksp:(?:[\\w-]+)$",
+        "^com\\.square\\.anvil:(?:[\\w-]+)$"
+      ],
+      "groupName": "Kotlin and compiler plugins"
+    },
+    {
+      "matchPackagePatterns": [
+        "^com\\.pinterest\\.ktlint:(?:[\\w-]+)$",
+        "^com\\.rickbusarow\\.ktlint:(?:[\\w-]+)$",
+        "^com\\.rickbusarow\\.ktrules:(?:[\\w-]+)$"
+      ],
+      "groupName": "KtLint things"
+    }
   ]
-}
+} 

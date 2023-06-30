@@ -27,6 +27,7 @@ plugins {
   base
   alias(libs.plugins.kotlin.jvm)
   alias(libs.plugins.moduleCheck)
+  alias(libs.plugins.ktlint) apply false
 }
 
 moduleCheck {
@@ -34,7 +35,27 @@ moduleCheck {
   checks.sortDependencies = true
 }
 
-allprojects {
+val kotlinVersion = libs.versions.kotlin.get()
+val ktlintPluginId = libs.plugins.ktlint.get().pluginId
+
+allprojects ap@{
+
+  val innerProject = this@ap
+
+  apply(plugin = ktlintPluginId)
+  dependencies {
+    "ktlint"(rootProject.libs.rickBusarow.ktrules)
+  }
+
+  if (innerProject != rootProject) {
+    rootProject.tasks.named("ktlintCheck") {
+      dependsOn(innerProject.tasks.named("ktlintCheck"))
+    }
+    rootProject.tasks.named("ktlintFormat") {
+      dependsOn(innerProject.tasks.named("ktlintFormat"))
+    }
+  }
+
   configurations.all {
     resolutionStrategy {
       eachDependency {

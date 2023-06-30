@@ -40,7 +40,6 @@ dependencies {
   api(project(":artifacts"))
   api(project(":conventions"))
   api(project(":core"))
-  api(project(":ktlint"))
 
   compileOnly(gradleApi())
 

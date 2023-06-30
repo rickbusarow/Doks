@@ -96,6 +96,6 @@ val createDocs by tasks.registering {
   }
 }
 
-tasks.withType(com.rickbusarow.doks.DoksTask::class.java) {
+tasks.withType(com.rickbusarow.doks.DoksTask::class.java).configureEach {
   mustRunAfter(createDocs)
 }

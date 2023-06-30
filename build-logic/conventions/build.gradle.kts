@@ -58,6 +58,10 @@ gradlePlugin {
       id = "builds.knit"
       implementationClass = "builds.KnitConventionPlugin"
     }
+    create("builds.ktlint") {
+      id = "builds.ktlint"
+      implementationClass = "builds.KtLintConventionPlugin"
+    }
     create("builds.spotless") {
       id = "builds.spotless"
       implementationClass = "builds.SpotlessConventionPlugin"
@@ -98,6 +102,7 @@ dependencies {
   implementation(libs.kotlinx.serialization.json)
   implementation(libs.kotlinx.serialization.json.jvm)
   implementation(libs.kotlinx.serialization.protobuf)
+  implementation(libs.rickBusarow.ktlint)
   implementation(libs.rickBusarow.doks)
   implementation(libs.rickBusarow.moduleCheck.gradle.plugin)
   implementation(libs.square.kotlinPoet)

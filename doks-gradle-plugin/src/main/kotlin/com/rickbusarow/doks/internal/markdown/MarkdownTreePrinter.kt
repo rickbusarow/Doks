@@ -18,7 +18,8 @@ package com.rickbusarow.doks.internal.markdown
 import com.rickbusarow.doks.internal.trees.AbstractTreePrinter
 
 /**
- * prints a tree starting at any markdown tree element, showing all its children types and their text
+ * prints a tree starting at any markdown tree element,
+ * showing all its children types and their text
  *
  * ex:
  *
@@ -44,9 +45,7 @@ internal class MarkdownTreePrinter(
 
   companion object {
 
-    internal fun MarkdownNode.printEverything(
-      whitespaceChar: Char = ' '
-    ) = apply {
+    internal fun MarkdownNode.printEverything(whitespaceChar: Char = ' ') = apply {
       MarkdownTreePrinter(whitespaceChar).visitRoot(this)
     }
   }

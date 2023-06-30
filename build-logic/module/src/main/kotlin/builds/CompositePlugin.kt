@@ -76,7 +76,7 @@ abstract class CompositePlugin : Plugin<Project> {
         /* publishing */
         AbstractPublishToMaven::class, PublishToMavenLocal::class,
         /* shadow */
-        JavaJarExec::class, ShadowJar::class,
+        JavaJarExec::class, ShadowJar::class
       )
       val propagatedTaskTypeNames = propagatedTaskTypes
         .mapTo(mutableSetOf()) { it.qualifiedName!! }

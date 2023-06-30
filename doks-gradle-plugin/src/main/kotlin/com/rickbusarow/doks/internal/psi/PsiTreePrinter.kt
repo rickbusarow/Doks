@@ -19,7 +19,8 @@ import com.rickbusarow.doks.internal.trees.AbstractTreePrinter
 import org.jetbrains.kotlin.com.intellij.psi.PsiElement
 
 /**
- * prints a tree starting at any arbitrary psi element, showing all its children types and their text
+ * prints a tree starting at any arbitrary psi element,
+ * showing all its children types and their text
  *
  * ex:
  *
@@ -44,9 +45,7 @@ internal class PsiTreePrinter(
 
   companion object {
 
-    internal fun PsiElement.printEverything(
-      whitespaceChar: Char = ' '
-    ) = apply {
+    internal fun PsiElement.printEverything(whitespaceChar: Char = ' ') = apply {
       PsiTreePrinter(whitespaceChar).visitRoot(this)
     }
   }

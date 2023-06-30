@@ -31,18 +31,16 @@ internal fun String.capitalize(): String = replaceFirstChar {
  *
  * @since 0.1.0
  */
-internal fun <E> Sequence<E>.joinToStringConcat(
-  transform: ((E) -> CharSequence)? = null
-): String = joinToString("", transform = transform)
+internal fun <E> Sequence<E>.joinToStringConcat(transform: ((E) -> CharSequence)? = null): String =
+  joinToString("", transform = transform)
 
 /**
  * shorthand for `joinToString("") { ... }`
  *
  * @since 0.1.0
  */
-internal fun <E> Iterable<E>.joinToStringConcat(
-  transform: ((E) -> CharSequence)? = null
-): String = joinToString("", transform = transform)
+internal fun <E> Iterable<E>.joinToStringConcat(transform: ((E) -> CharSequence)? = null): String =
+  joinToString("", transform = transform)
 
 /**
  * Converts all line separators in the receiver string to use `\n`.

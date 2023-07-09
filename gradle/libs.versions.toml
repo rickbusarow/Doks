@@ -251,7 +251,7 @@ undercouch-download = "de.undercouch:gradle-download-task:5.4.0"
 vanniktech-publish-base = { module = "com.vanniktech:gradle-maven-publish-plugin-base", version.ref = "vanniktech-publish" }
 vanniktech-publish = { module = "com.vanniktech:gradle-maven-publish-plugin", version.ref = "vanniktech-publish" }
 
-zacSweers-auto-service-ksp = "dev.zacsweers.autoservice:auto-service-ksp:1.0.0"
+zacSweers-auto-service-ksp = "dev.zacsweers.autoservice:auto-service-ksp:1.1.0"
 
 [bundles]
 jUnit = [

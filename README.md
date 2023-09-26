@@ -3,7 +3,7 @@
 [![Sonatype Nexus (Snapshots)](https://img.shields.io/nexus/s/com.rickbusarow.doks/doks-gradle-plugin?label=snapshots&server=https%3A%2F%2Foss.sonatype.org&style=flat-square)](https://oss.sonatype.org/#nexus-search;quick~com.rickbusarow.doks)
 [![License](https://img.shields.io/badge/license-apache2.0-blue?style=flat-square.svg)](https://opensource.org/licenses/Apache-2.0)
 
-Doks is a lightweight documentation tool that makes it easy to manage and maintain
+Doks is a lightweight documentation tool that makes it easy to maintain
 documentation for your project. Built as a Gradle plugin, Doks allows you to define custom
 regex-based search-and-replace rules and extract code samples from source code,
 all within your markdown (or other supported language) documentation.

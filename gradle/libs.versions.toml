@@ -37,7 +37,7 @@ jvmTarget = "1.8" # the jdk used in packaging
 kaml = "0.56.0"
 kct = "1.5.0"
 knit = "0.4.0"
-kotest = "5.7.2"
+kotest = "5.8.0"
 kotlin = "1.8.22"
 kotlinApi = "1.7"
 kotlinx-binaryCompatibility = "0.13.2"
@@ -64,7 +64,7 @@ square-moshi = "1.15.0"
 square-okio = "3.5.0"
 taskTree = "2.1.1"
 threetenbp = "1.6.8"
-vanniktech-publish = "0.25.3"
+vanniktech-publish = "0.26.0"
 versionCatalogUpdate = "0.8.1"
 
 [plugins]

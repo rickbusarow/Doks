@@ -23,7 +23,10 @@ import org.gradle.api.tasks.TaskCollection
 import org.gradle.api.tasks.TaskContainer
 import org.gradle.api.tasks.TaskProvider
 
-fun TaskContainer.maybeNamed(taskName: String, configuration: Task.() -> Unit) {
+fun TaskContainer.maybeNamed(
+  taskName: String,
+  configuration: Task.() -> Unit
+) {
 
   if (names.contains(taskName)) {
     named(taskName, configuration)
@@ -135,24 +138,22 @@ fun <T : Task> TaskProvider<T>.dependsOn(vararg objects: Any): TaskProvider<T> {
  *
  * @since 0.1.0
  */
-fun <T : Task> TaskCollection<T>.mustRunAfter(vararg objects: Any): TaskCollection<T> {
-  return also { taskCollection ->
+fun <T : Task> TaskCollection<T>.mustRunAfter(vararg objects: Any): TaskCollection<T> =
+  also { taskCollection ->
     taskCollection.configureEach { task -> task.mustRunAfter(*objects) }
   }
-}
 
 /**
  * adds all [objects] as `mustRunAfter` inside a configuration block, inside a `configure { }`
  *
  * @since 0.1.0
  */
-fun <T : Task> TaskProvider<T>.mustRunAfter(vararg objects: Any): TaskProvider<T> {
-  return also { provider ->
+fun <T : Task> TaskProvider<T>.mustRunAfter(vararg objects: Any): TaskProvider<T> =
+  also { provider ->
     provider.configure { task ->
       task.mustRunAfter(*objects)
     }
   }
-}
 
 /**
  * Returns a collection containing the objects in this collection of the
@@ -201,24 +202,24 @@ inline fun <reified T : Task> TaskContainer.register(
   name: String,
   vararg constructorArguments: Any,
   noinline configuration: (T) -> Unit
-): TaskProvider<T> = register(name, T::class.java, *constructorArguments)
-  .apply { configure { configuration(it) } }
+): TaskProvider<T> =
+  register(name, T::class.java, *constructorArguments)
+    .apply { configure { configuration(it) } }
 
 fun <T : Task> TaskContainer.registerOnce(
   name: String,
   type: Class<T>,
   configurationAction: Action<in T>
-): TaskProvider<T> = if (names.contains(name)) {
-  named(name, type, configurationAction)
-} else {
-  register(name, type, configurationAction)
-}
+): TaskProvider<T> =
+  if (names.contains(name)) {
+    named(name, type, configurationAction)
+  } else {
+    register(name, type, configurationAction)
+  }
 
 /**
  * @return the fully qualified name of this task's
  *   type, without any '_Decorated' suffix if one exists
  * @since 0.1.0
  */
-fun Task.undecoratedTypeName(): String {
-  return javaClass.canonicalName.removeSuffix("_Decorated")
-}
+fun Task.undecoratedTypeName(): String = javaClass.canonicalName.removeSuffix("_Decorated")

@@ -35,7 +35,6 @@ data class Rule(
   val regex: Regex,
   val replacement: String
 ) : java.io.Serializable {
-
   internal constructor(
     name: String,
     @Language("RegExp")
@@ -81,11 +80,9 @@ data class Rule(
  */
 @Serializable
 @JvmInline
-value class RuleName(val value: String) :
-  java.io.Serializable,
+value class RuleName(
+  val value: String
+) : java.io.Serializable,
   Comparable<RuleName> {
-
-  override fun compareTo(other: RuleName): Int {
-    return value.compareTo(other.value)
-  }
+  override fun compareTo(other: RuleName): Int = value.compareTo(other.value)
 }

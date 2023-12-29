@@ -24,7 +24,8 @@ internal inline fun <T : UserDataHolder> T.depthFirstTraversal(
   stack.addLast(this)
 
   return generateSequence {
-    stack.removeLastOrNull()
+    stack
+      .removeLastOrNull()
       ?.also { current ->
         val children = childrenFactory(current)
         when (children.size) {
@@ -43,7 +44,8 @@ internal inline fun <T : UserDataHolder> T.breadthFirstTraversal(
   queue.addLast(this)
 
   return generateSequence {
-    queue.removeFirstOrNull()
+    queue
+      .removeFirstOrNull()
       ?.also { current ->
         val children = childrenFactory(current)
         when (children.size) {

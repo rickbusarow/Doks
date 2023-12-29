@@ -31,14 +31,17 @@ abstract class DetektConventionPlugin : Plugin<Project> {
 
     target.plugins.applyOnce("io.gitlab.arturbosch.detekt")
 
-    val detektExcludes = listOf(
-      "**/resources/**",
-      "**/build/**"
-    )
+    val detektExcludes =
+      listOf(
+        "**/resources/**",
+        "**/build/**"
+      )
 
-    target.tasks
+    target
+      .tasks
       .register("detektReportMerge", ReportMergeTask::class.java) { reportMergeTask ->
-        reportMergeTask.output
+        reportMergeTask
+          .output
           .set(target.rootProject.buildDir.resolve("reports/detekt/merged.sarif"))
 
         reportMergeTask.input.from(
@@ -57,12 +60,13 @@ abstract class DetektConventionPlugin : Plugin<Project> {
       extension.config = target.files("${target.rootDir}/detekt/detekt-config.yml")
       extension.buildUponDefaultConfig = true
 
-      extension.source = target.files(
-        "src/main/java",
-        "src/test/java",
-        "src/main/kotlin",
-        "src/test/kotlin"
-      )
+      extension.source =
+        target.files(
+          "src/main/java",
+          "src/test/java",
+          "src/main/kotlin",
+          "src/test/kotlin"
+        )
 
       extension.parallel = true
     }
@@ -116,8 +120,8 @@ abstract class DetektConventionPlugin : Plugin<Project> {
   private fun Project.otherDetektTasks(
     targetTask: Task,
     withAutoCorrect: Boolean
-  ): TaskCollection<Detekt> {
-    return tasks.withType(Detekt::class.java)
+  ): TaskCollection<Detekt> =
+    tasks
+      .withType(Detekt::class.java)
       .matching { it.autoCorrect == withAutoCorrect && it != targetTask }
-  }
 }

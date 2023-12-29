@@ -25,7 +25,6 @@ import java.io.ObjectOutputStream
 const val TRIPLE_QUOTES = "\"\"\""
 
 class NamedSamplesTest {
-
   @Test
   fun `can be serialized as java serializable`() {
 
@@ -38,10 +37,11 @@ class NamedSamplesTest {
 
   @Test
   fun `string template property within a class and bodyOnly = true`() {
-    val result = parse(
-      fqName = "com.test.MyClass.groovy",
-      bodyOnly = true,
-      """
+    val result =
+      parse(
+        fqName = "com.test.MyClass.groovy",
+        bodyOnly = true,
+        """
       package com.test
 
       class MyClass {
@@ -60,9 +60,10 @@ class NamedSamplesTest {
         $TRIPLE_QUOTES.trimIndent()
       }
       """
-    )
+      )
 
-    result.trimIndent() shouldBe """
+    result.trimIndent() shouldBe
+      """
       plugins {
         id 'com.squareup.anvil' version '2.4.4'
       }
@@ -74,15 +75,16 @@ class NamedSamplesTest {
       dependencies {
         compileOnly 'javax:inject:1'
       }
-    """.trimIndent()
+      """.trimIndent()
   }
 
   @Test
   fun `string template property within a class and bodyOnly = false`() {
-    val result = parse(
-      fqName = "com.test.MyClass.groovy",
-      bodyOnly = false,
-      """
+    val result =
+      parse(
+        fqName = "com.test.MyClass.groovy",
+        bodyOnly = false,
+        """
       package com.test
 
       class MyClass {
@@ -101,9 +103,10 @@ class NamedSamplesTest {
         $TRIPLE_QUOTES.trimIndent()
       }
       """
-    )
+      )
 
-    result.trimIndent() shouldBe """
+    result.trimIndent() shouldBe
+      """
       val groovy = $TRIPLE_QUOTES
           plugins {
             id 'com.squareup.anvil' version '2.4.4'
@@ -117,15 +120,16 @@ class NamedSamplesTest {
             compileOnly 'javax:inject:1'
           }
         $TRIPLE_QUOTES.trimIndent()
-    """.trimIndent()
+      """.trimIndent()
   }
 
   @Test
   fun `top level string template property and bodyOnly = true`() {
-    val result = parse(
-      fqName = "com.test.groovy",
-      bodyOnly = true,
-      """
+    val result =
+      parse(
+        fqName = "com.test.groovy",
+        bodyOnly = true,
+        """
       package com.test
 
       val groovy = $TRIPLE_QUOTES
@@ -142,9 +146,10 @@ class NamedSamplesTest {
         }
       $TRIPLE_QUOTES
       """
-    )
+      )
 
-    result.trimIndent() shouldBe """
+    result.trimIndent() shouldBe
+      """
       plugins {
         id 'com.squareup.anvil' version '2.4.4'
       }
@@ -156,15 +161,16 @@ class NamedSamplesTest {
       dependencies {
         compileOnly 'javax:inject:1'
       }
-    """.trimIndent()
+      """.trimIndent()
   }
 
   @Test
   fun `top level string template property with trimIndent and bodyOnly = true`() {
-    val result = parse(
-      fqName = "com.test.groovy",
-      bodyOnly = true,
-      """
+    val result =
+      parse(
+        fqName = "com.test.groovy",
+        bodyOnly = true,
+        """
       package com.test
 
       val groovy = $TRIPLE_QUOTES
@@ -181,9 +187,10 @@ class NamedSamplesTest {
         }
       $TRIPLE_QUOTES.trimIndent()
       """
-    )
+      )
 
-    result.trimIndent() shouldBe """
+    result.trimIndent() shouldBe
+      """
       plugins {
         id 'com.squareup.anvil' version '2.4.4'
       }
@@ -195,15 +202,16 @@ class NamedSamplesTest {
       dependencies {
         compileOnly 'javax:inject:1'
       }
-    """.trimIndent()
+      """.trimIndent()
   }
 
   @Test
   fun `top level string template property and bodyOnly = false`() {
-    val result = parse(
-      fqName = "com.test.groovy",
-      bodyOnly = false,
-      """
+    val result =
+      parse(
+        fqName = "com.test.groovy",
+        bodyOnly = false,
+        """
       package com.test
 
       val groovy = $TRIPLE_QUOTES
@@ -220,9 +228,10 @@ class NamedSamplesTest {
         }
       $TRIPLE_QUOTES.trimIndent()
       """
-    )
+      )
 
-    result.trimIndent() shouldBe """
+    result.trimIndent() shouldBe
+      """
       val groovy = $TRIPLE_QUOTES
         plugins {
           id 'com.squareup.anvil' version '2.4.4'
@@ -236,7 +245,7 @@ class NamedSamplesTest {
           compileOnly 'javax:inject:1'
         }
       $TRIPLE_QUOTES.trimIndent()
-    """.trimIndent()
+      """.trimIndent()
   }
 
   @Test
@@ -328,11 +337,12 @@ class NamedSamplesTest {
         }
       }
       """
-    ) shouldBe """
+    ) shouldBe
+      """
       |fun foo() {
       |  val variable = "a string"
       |}
-    """.trimMargin()
+      """.trimMargin()
   }
 
   @Test
@@ -350,11 +360,12 @@ class NamedSamplesTest {
         }
       }
       """
-    ) shouldBe """
+    ) shouldBe
+      """
       |class Inner {
       |  val variable = "a string"
       |}
-    """.trimMargin()
+      """.trimMargin()
   }
 
   @Test
@@ -368,28 +379,33 @@ class NamedSamplesTest {
 
       object Foo
       """
-    ) shouldBe """
+    ) shouldBe
+      """
       |object Foo
       |
-    """.trimMargin()
+      """.trimMargin()
   }
 
-  fun parse(fqName: String, bodyOnly: Boolean, @Language("kotlin") vararg content: String): String {
-    val files = content.mapIndexed { index, code ->
-      DoksPsiFileFactory()
-        .createKotlin(
-          name = "Source_$index.kt",
-          path = "Source_$index.kt",
-          content = code.trimIndent()
-        )
-    }
+  fun parse(
+    fqName: String,
+    bodyOnly: Boolean,
+    @Language("kotlin") vararg content: String
+  ): String {
+    val files =
+      content.mapIndexed { index, code ->
+        DoksPsiFileFactory()
+          .createKotlin(
+            name = "Source_$index.kt",
+            path = "Source_$index.kt",
+            content = code.trimIndent()
+          )
+      }
 
     return NamedSamples(DoksPsiFileFactory())
       .findAll(
         ktFiles = files.asSequence(),
         requests = listOf(SampleRequest(fqName, bodyOnly))
-      )
-      .single()
+      ).single()
       .content
   }
 }

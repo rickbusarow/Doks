@@ -21,18 +21,22 @@ import com.rickbusarow.doks.internal.stdlib.Color.Companion.colorized
 import com.rickbusarow.doks.internal.stdlib.Color.LIGHT_GREEN
 import com.rickbusarow.doks.internal.stdlib.Color.LIGHT_YELLOW
 
-internal fun diffString(oldStr: String, newStr: String): String {
+internal fun diffString(
+  oldStr: String,
+  newStr: String
+): String =
+  buildString {
 
-  return buildString {
-
-    val rows = DiffRowGenerator.create()
-      .showInlineDiffs(true)
-      // .mergeOriginalRevised(true)
-      .inlineDiffByWord(true)
-      .oldTag { _: Boolean? -> "" }
-      .newTag { _: Boolean? -> "" }
-      .build()
-      .generateDiffRows(oldStr.lines(), newStr.lines())
+    val rows =
+      DiffRowGenerator
+        .create()
+        .showInlineDiffs(true)
+        // .mergeOriginalRevised(true)
+        .inlineDiffByWord(true)
+        .oldTag { _: Boolean? -> "" }
+        .newTag { _: Boolean? -> "" }
+        .build()
+        .generateDiffRows(oldStr.lines(), newStr.lines())
 
     val linePadding = rows.size.toString().length + 1
 
@@ -52,7 +56,6 @@ internal fun diffString(oldStr: String, newStr: String): String {
       }
     }
   }
-}
 
 /**
  * https://github.com/ziggy42/kolor
@@ -61,7 +64,9 @@ internal fun diffString(oldStr: String, newStr: String): String {
  * @since 0.1.3
  */
 @Suppress("MagicNumber")
-internal enum class Color(val code: Int) {
+internal enum class Color(
+  val code: Int
+) {
   BLACK(30),
   RED(31),
   GREEN(32),
@@ -80,7 +85,6 @@ internal enum class Color(val code: Int) {
   WHITE(97);
 
   companion object {
-
     private val supported = "win" !in System.getProperty("os.name").lowercase()
 
     /**
@@ -88,10 +92,11 @@ internal enum class Color(val code: Int) {
      *
      * @since 0.1.0
      */
-    fun String.colorized(color: Color) = if (supported) {
-      "\u001B[${color.code}m$this\u001B[0m"
-    } else {
-      this
-    }
+    fun String.colorized(color: Color) =
+      if (supported) {
+        "\u001B[${color.code}m$this\u001B[0m"
+      } else {
+        this
+      }
   }
 }

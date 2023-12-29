@@ -47,12 +47,24 @@ dependencies {
 
   compileOnly(gradleApi())
 
-  implementation(libs.google.auto.service.annotations)
+  implementation(
+    libs
+      .google
+      .auto
+      .service
+      .annotations
+  )
   implementation(libs.jetbrains.markdown)
   implementation(libs.jmailen.kotlinter)
   implementation(libs.kotlin.compiler)
   implementation(libs.kotlin.reflect)
   implementation(libs.rickBusarow.ktrules)
 
-  ksp(libs.zacSweers.auto.service.ksp)
+  ksp(
+    libs
+      .zacSweers
+      .auto
+      .service
+      .ksp
+  )
 }

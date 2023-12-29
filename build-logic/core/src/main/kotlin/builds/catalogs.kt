@@ -95,9 +95,8 @@ val Project.libsCatalog: VersionCatalog
  *
  * @since 0.1.0
  */
-fun VersionCatalog.dependency(alias: String): Provider<MinimalExternalModuleDependency> {
-  return findLibrary(alias).get()
-}
+fun VersionCatalog.dependency(alias: String): Provider<MinimalExternalModuleDependency> =
+  findLibrary(alias).get()
 
 /**
  * non-dsl version of `libs.versions._____.get()`
@@ -110,6 +109,4 @@ fun VersionCatalog.dependency(alias: String): Provider<MinimalExternalModuleDepe
  *
  * @since 0.1.0
  */
-fun VersionCatalog.version(alias: String): String {
-  return findVersion(alias).get().requiredVersion
-}
+fun VersionCatalog.version(alias: String): String = findVersion(alias).get().requiredVersion

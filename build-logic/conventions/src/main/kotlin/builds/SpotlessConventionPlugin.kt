@@ -90,7 +90,8 @@ abstract class SpotlessConventionPlugin : Plugin<Project> {
       ) { kotlin ->
 
         // KtLint 0.48.0+ is failing when trying to format the snippets
-        kotlin.ktlint("0.47.1")
+        kotlin
+          .ktlint("0.47.1")
           .setUseExperimental(true)
           .setEditorConfigPath(target.rootProject.file(".editorconfig"))
           // Editorconfig doesn't work for code blocks, since they don't have a path which matches the
@@ -122,26 +123,24 @@ abstract class SpotlessConventionPlugin : Plugin<Project> {
     }
   }
 
-  private fun ConfigurableFileTree.commonExcludes(target: Project): PatternFilterable {
-    return exclude(
+  private fun ConfigurableFileTree.commonExcludes(target: Project): PatternFilterable =
+    exclude(
       target.subprojects.flatMap { subproject ->
         listOf(
           "${subproject.file("api")}/**",
           "${subproject.file("dependencies")}/**"
         )
       }
+    ).exclude(
+      "**/.docusaurus/**",
+      "**/build/**",
+      "**/dokka-archive/**",
+      "**/node_modules/**",
+      "website/static/api/**",
+      "artifacts.json",
+      ".gradle/**",
+      ".git/**"
     )
-      .exclude(
-        "**/.docusaurus/**",
-        "**/build/**",
-        "**/dokka-archive/**",
-        "**/node_modules/**",
-        "website/static/api/**",
-        "artifacts.json",
-        ".gradle/**",
-        ".git/**"
-      )
-  }
 
   private inline fun FormatExtension.target(
     target: Project,

@@ -34,7 +34,8 @@ val moduleDescription = "the Doks Gradle plugin"
 
 @Suppress("UnstableApiUsage")
 val pluginDeclaration: NamedDomainObjectProvider<PluginDeclaration> =
-  gradlePlugin.plugins
+  gradlePlugin
+    .plugins
     .register(pluginArtifactId) {
       id = pluginId
       displayName = "Doks"
@@ -88,11 +89,12 @@ tasks.withType<Test>().configureEach {
   onlyIf { true }
 }
 
-val mainConfig: String = if (rootProject.isRealRootProject()) {
-  shade.name
-} else {
-  "implementation"
-}
+val mainConfig: String =
+  if (rootProject.isRealRootProject()) {
+    shade.name
+  } else {
+    "implementation"
+  }
 
 dependencies {
 
@@ -118,7 +120,13 @@ dependencies {
   testImplementation(libs.junit.jupiter.api)
   testImplementation(libs.junit.params)
   testImplementation(libs.kotest.assertions.api)
-  testImplementation(libs.kotest.assertions.core.jvm)
+  testImplementation(
+    libs
+      .kotest
+      .assertions
+      .core
+      .jvm
+  )
   testImplementation(libs.kotest.assertions.shared)
   testImplementation(libs.kotest.common)
   testImplementation(libs.kotest.extensions)

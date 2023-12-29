@@ -22,7 +22,10 @@ import kotlin.contracts.contract
  *
  * @since 0.1.0
  */
-internal inline fun <T : Any, E> T.applyEach(elements: Iterable<E>, block: T.(E) -> Unit): T =
+internal inline fun <T : Any, E> T.applyEach(
+  elements: Iterable<E>,
+  block: T.(E) -> Unit
+): T =
   apply {
     elements.forEach { element -> this.block(element) }
   }
@@ -32,8 +35,10 @@ internal inline fun <T : Any, E> T.applyEach(elements: Iterable<E>, block: T.(E)
  *
  * @since 0.1.0
  */
-internal inline fun <T> T.letIf(predicate: Boolean, body: T.() -> T): T =
-  if (predicate) body() else this
+internal inline fun <T> T.letIf(
+  predicate: Boolean,
+  body: T.() -> T
+): T = if (predicate) body() else this
 
 /**
  * shorthand for `requireNotNull(this, lazyMessage)`

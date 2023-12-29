@@ -20,17 +20,19 @@ import com.rickbusarow.doks.internal.trees.depthFirstTraversal
 import org.jetbrains.kotlin.com.intellij.psi.PsiElement
 import org.jetbrains.kotlin.psi.psiUtil.getNonStrictParentOfType
 
-internal fun PsiElement.childrenDepthFirst(): Sequence<PsiElement> {
-  return depthFirstTraversal { children.toList() }
-}
+internal fun PsiElement.childrenDepthFirst(): Sequence<PsiElement> =
+  depthFirstTraversal {
+    children.toList()
+  }
 
 internal inline fun PsiElement.childrenDepthFirst(
   crossinline predicate: (PsiElement) -> Boolean
 ): Sequence<PsiElement> = depthFirstTraversal { children.filter(predicate) }
 
-internal fun PsiElement.childrenBreadthFirst(): Sequence<PsiElement> {
-  return breadthFirstTraversal { children.toList() }
-}
+internal fun PsiElement.childrenBreadthFirst(): Sequence<PsiElement> =
+  breadthFirstTraversal {
+    children.toList()
+  }
 
 internal inline fun PsiElement.childrenBreadthFirst(
   crossinline predicate: (PsiElement) -> Boolean

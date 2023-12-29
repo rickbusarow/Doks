@@ -65,9 +65,10 @@ fun IncludedBuild.requireProjectRegistry(): ProjectRegistry<ProjectInternal> {
  * @return all projects from all included builds
  * @since 0.1.0
  */
-fun Gradle.allIncludedProjects(): List<ProjectInternal> {
-  return includedBuilds.flatMap { it.allProjects() }
-}
+fun Gradle.allIncludedProjects(): List<ProjectInternal> =
+  includedBuilds.flatMap {
+    it.allProjects()
+  }
 
 /**
  * Look at the internal modules of an included build, find
@@ -77,9 +78,8 @@ fun Gradle.allIncludedProjects(): List<ProjectInternal> {
  *
  * @since 0.1.0
  */
-fun Gradle.includedAllProjectsTasks(taskName: String): List<TaskCollection<Task>> {
-  return allIncludedProjects().map { it.tasks.matchingName(taskName) }
-}
+fun Gradle.includedAllProjectsTasks(taskName: String): List<TaskCollection<Task>> =
+  allIncludedProjects().map { it.tasks.matchingName(taskName) }
 
 /**
  * Look at the root project of an included build, find any task with a
@@ -91,8 +91,8 @@ fun Gradle.includedAllProjectsTasks(taskName: String): List<TaskCollection<Task>
  *
  * @since 0.1.0
  */
-fun Gradle.includedRootProjectsTasks(taskName: String): List<TaskCollection<Task>> {
-  return includedBuilds.mapNotNull { included ->
+fun Gradle.includedRootProjectsTasks(taskName: String): List<TaskCollection<Task>> =
+  includedBuilds.mapNotNull { included ->
 
     val includedImpl = included as IncludedBuildImpl
 
@@ -100,6 +100,9 @@ fun Gradle.includedRootProjectsTasks(taskName: String): List<TaskCollection<Task
 
     implState.ensureProjectsConfigured()
 
-    implState.mutableModel.rootProject.tasks.matchingName(taskName)
+    implState
+      .mutableModel
+      .rootProject
+      .tasks
+      .matchingName(taskName)
   }
-}

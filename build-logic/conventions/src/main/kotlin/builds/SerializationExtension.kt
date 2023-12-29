@@ -18,13 +18,13 @@ package builds
 import org.gradle.api.Project
 
 interface SerializationExtension {
-
   fun Project.serialization() {
     if (!pluginManager.hasPlugin("org.jetbrains.kotlin.plugin.serialization")) {
 
       pluginManager.apply("org.jetbrains.kotlin.plugin.serialization")
 
-      dependencies.constraints
+      dependencies
+        .constraints
         .add(
           "implementation",
           libsCatalog.dependency("kotlinx-serialization-core")

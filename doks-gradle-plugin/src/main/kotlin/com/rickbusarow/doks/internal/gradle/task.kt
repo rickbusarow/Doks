@@ -29,37 +29,34 @@ import org.gradle.api.tasks.TaskProvider
  *
  * @since 0.1.0
  */
-internal fun <T : Task> TaskProvider<T>.dependsOn(vararg objects: Any): TaskProvider<T> {
-  return also { provider ->
+internal fun <T : Task> TaskProvider<T>.dependsOn(vararg objects: Any): TaskProvider<T> =
+  also { provider ->
     provider.configure { task ->
       task.dependsOn(*objects)
     }
   }
-}
 
 /**
  * adds all [objects] as dependencies to every task in the collection, inside a `configureEach { }`
  *
  * @since 0.1.1
  */
-internal fun <T : Task> TaskCollection<T>.dependOn(vararg objects: Any): TaskCollection<T> {
-  return also { taskCollection ->
+internal fun <T : Task> TaskCollection<T>.dependOn(vararg objects: Any): TaskCollection<T> =
+  also { taskCollection ->
     taskCollection.configureEach { task -> task.dependsOn(*objects) }
   }
-}
 
 /**
  * adds all [objects] as `mustRunAfter` inside a configuration block, inside a `configure { }`
  *
  * @since 0.1.1
  */
-internal fun <T : Task> TaskProvider<T>.mustRunAfter(vararg objects: Any): TaskProvider<T> {
-  return also { provider ->
+internal fun <T : Task> TaskProvider<T>.mustRunAfter(vararg objects: Any): TaskProvider<T> =
+  also { provider ->
     provider.configure { task ->
       task.mustRunAfter(*objects)
     }
   }
-}
 
 /**
  * code golf for `matching { it.name == taskName }`
@@ -116,8 +113,9 @@ internal inline fun <reified T : Task> TaskContainer.register(
   name: String,
   vararg constructorArguments: Any,
   noinline configuration: (T) -> Unit
-): TaskProvider<T> = register(name, T::class.java, *constructorArguments)
-  .apply { configure { configuration(it) } }
+): TaskProvider<T> =
+  register(name, T::class.java, *constructorArguments)
+    .apply { configure { configuration(it) } }
 
 @JvmName("registerOnceInline")
 internal inline fun <reified T : Task> TaskContainer.registerOnce(
@@ -136,17 +134,19 @@ internal fun <T : Task> TaskContainer.registerOnce(
   name: String,
   type: Class<T>,
   configurationAction: Action<in T>
-): TaskProvider<T> = if (names.contains(name)) {
-  named(name, type, configurationAction)
-} else {
-  register(name, type, configurationAction)
-}
+): TaskProvider<T> =
+  if (names.contains(name)) {
+    named(name, type, configurationAction)
+  } else {
+    register(name, type, configurationAction)
+  }
 
 internal fun <T> NamedDomainObjectContainer<T>.registerOnce(
   name: String,
   configurationAction: Action<in T>
-): NamedDomainObjectProvider<T> = if (names.contains(name)) {
-  named(name, configurationAction)
-} else {
-  register(name, configurationAction)
-}
+): NamedDomainObjectProvider<T> =
+  if (names.contains(name)) {
+    named(name, configurationAction)
+  } else {
+    register(name, configurationAction)
+  }

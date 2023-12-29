@@ -36,7 +36,12 @@ moduleCheck {
 }
 
 val kotlinVersion = libs.versions.kotlin.get()
-val ktlintPluginId = libs.plugins.ktlint.get().pluginId
+val ktlintPluginId =
+  libs
+    .plugins
+    .ktlint
+    .get()
+    .pluginId
 
 allprojects ap@{
 
@@ -61,7 +66,13 @@ allprojects ap@{
       eachDependency {
         when {
           requested.name.startsWith("kotlinx-serialization") -> {
-            useVersion(libs.versions.kotlinx.serialization.get())
+            useVersion(
+              libs
+                .versions
+                .kotlinx
+                .serialization
+                .get()
+            )
           }
         }
       }

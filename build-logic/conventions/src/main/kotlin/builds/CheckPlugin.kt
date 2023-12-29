@@ -24,20 +24,21 @@ abstract class CheckPlugin : Plugin<Project> {
 
     target.plugins.applyOnce("base")
 
-    val fix = target.tasks.register("fix", BuildLogicTask::class.java) { task ->
+    val fix =
+      target.tasks.register("fix", BuildLogicTask::class.java) { task ->
 
-      task.group = "Verification"
-      task.description = "Runs all auto-fix linting tasks"
+        task.group = "Verification"
+        task.description = "Runs all auto-fix linting tasks"
 
-      task.dependsOn(target.rootProject.tasks.matchingName("artifactsDump"))
-      task.dependsOn(target.rootProject.tasks.matchingName("spotlessApply"))
-      task.dependsOn(target.rootProject.tasks.matchingName("updateChangelogVersionLinks"))
-      task.dependsOn(target.tasks.matchingName("apiDump"))
-      task.dependsOn(target.tasks.matchingName("dependencyGuardBaseline"))
-      task.dependsOn(target.tasks.matchingName("formatKotlin"))
-      task.dependsOn(target.tasks.matchingName("deleteEmptyDirs"))
-      task.dependsOn(target.tasks.matchingName("moduleCheckAuto"))
-    }
+        task.dependsOn(target.rootProject.tasks.matchingName("artifactsDump"))
+        task.dependsOn(target.rootProject.tasks.matchingName("spotlessApply"))
+        task.dependsOn(target.rootProject.tasks.matchingName("updateChangelogVersionLinks"))
+        task.dependsOn(target.tasks.matchingName("apiDump"))
+        task.dependsOn(target.tasks.matchingName("dependencyGuardBaseline"))
+        task.dependsOn(target.tasks.matchingName("formatKotlin"))
+        task.dependsOn(target.tasks.matchingName("deleteEmptyDirs"))
+        task.dependsOn(target.tasks.matchingName("moduleCheckAuto"))
+      }
 
     // This is a convenience task which applies all available fixes before running `check`. Each
     // of the fixable linters use `mustRunAfter` to ensure that their auto-fix task runs before their

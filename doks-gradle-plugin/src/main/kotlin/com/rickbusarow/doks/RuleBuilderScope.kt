@@ -29,8 +29,9 @@ import org.intellij.lang.annotations.Language
  * @since 0.1.0
  */
 @Suppress("MemberVisibilityCanBePrivate", "PropertyName", "VariableNaming")
-abstract class RuleBuilderScope : Named, java.io.Serializable {
-
+abstract class RuleBuilderScope :
+  Named,
+  java.io.Serializable {
   @PublishedApi
   internal val sourceDelim: Char = '​'
 
@@ -173,11 +174,12 @@ abstract class RuleBuilderScope : Named, java.io.Serializable {
 
     _sampleRequests.add(request)
 
-    val fenceOpen = if (!attributes.isNullOrBlank()) {
-      "```$codeBlockLanguage $attributes"
-    } else {
-      "```$codeBlockLanguage"
-    }
+    val fenceOpen =
+      if (!attributes.isNullOrBlank()) {
+        "```$codeBlockLanguage $attributes"
+      } else {
+        "```$codeBlockLanguage"
+      }
 
     if (regex == null) {
       // match a code block which has the same opening fence as this one, any content,
@@ -254,7 +256,9 @@ abstract class RuleBuilderScope : Named, java.io.Serializable {
    * @return a regex string to match the given plugin ID in a Gradle plugin declaration
    * @since 0.1.0
    */
-  fun gradlePlugin(@Language("regexp") pluginId: String): String {
+  fun gradlePlugin(
+    @Language("regexp") pluginId: String
+  ): String {
 
     //language=regexp
     return buildString {
@@ -345,9 +349,10 @@ abstract class RuleBuilderScope : Named, java.io.Serializable {
    * @return a [Rule] from the current values of [regex] and [replacement]
    * @since 0.1.0
    */
-  internal fun toRule(): Rule = Rule(
-    name = name,
-    regex = requireRegex(),
-    replacement = replacement
-  )
+  internal fun toRule(): Rule =
+    Rule(
+      name = name,
+      regex = requireRegex(),
+      replacement = replacement
+    )
 }

@@ -21,7 +21,6 @@ import java.io.ByteArrayOutputStream
 import java.io.ObjectOutputStream
 
 class DoksPsiFileFactoryTest {
-
   @Test
   fun `can be serialized as java serializable`() {
 

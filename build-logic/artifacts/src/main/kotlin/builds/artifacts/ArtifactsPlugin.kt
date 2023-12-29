@@ -23,7 +23,6 @@ import org.gradle.api.publish.maven.tasks.AbstractPublishToMaven
 import org.gradle.language.base.plugins.LifecycleBasePlugin
 
 abstract class ArtifactsPlugin : Plugin<Project> {
-
   override fun apply(target: Project) {
 
     target.checkProjectIsRoot()
@@ -31,7 +30,9 @@ abstract class ArtifactsPlugin : Plugin<Project> {
     target.tasks.register("artifactsDump", ArtifactsDumpTask::class.java)
     val artifactsCheck = target.tasks.register("artifactsCheck", ArtifactsCheckTask::class.java)
 
-    target.tasks.matchingName(LifecycleBasePlugin.CHECK_TASK_NAME)
+    target
+      .tasks
+      .matchingName(LifecycleBasePlugin.CHECK_TASK_NAME)
       .configureEach { task ->
         task.dependsOn(artifactsCheck)
       }

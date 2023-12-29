@@ -31,25 +31,26 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestFactory
 
 class MarkdownTest {
-
-  val rules = Rules(
-    Rule(
-      name = "dinos-maven",
-      regex = """(com.example.dinos:dinos:)$SEMVER_REGEX""",
-      replacement = "$11.2.3"
-    ),
-    Rule(
-      name = "cats",
-      regex = """cats""",
-      replacement = "dogs"
+  val rules =
+    Rules(
+      Rule(
+        name = "dinos-maven",
+        regex = """(com.example.dinos:dinos:)$SEMVER_REGEX""",
+        replacement = "$11.2.3"
+      ),
+      Rule(
+        name = "cats",
+        regex = """cats""",
+        replacement = "dogs"
+      )
     )
-  )
 
   @Test
   fun `replacement works`() {
 
-    val original = md(
-      """
+    val original =
+      md(
+        """
       # Title
       <!--doks dinos-maven:1-->
 
@@ -65,16 +66,18 @@ class MarkdownTest {
 
       fin
       """
-    )
+      )
 
-    val new = original.markdown(
-      absolutePath = "foo.md",
-      rules = rules,
-      autoCorrect = true
-    )
+    val new =
+      original.markdown(
+        absolutePath = "foo.md",
+        rules = rules,
+        autoCorrect = true
+      )
 
-    new shouldBe md(
-      """
+    new shouldBe
+      md(
+        """
       # Title
       <!--doks dinos-maven:1-->
 
@@ -90,14 +93,15 @@ class MarkdownTest {
 
       fin
       """
-    )
+      )
   }
 
   @Test
   fun `replacement fails if autoCorrect is false`() {
 
-    val original = md(
-      """
+    val original =
+      md(
+        """
       # Title
       <!--doks dinos-maven:1-->
 
@@ -113,7 +117,7 @@ class MarkdownTest {
 
       fin
       """
-    )
+      )
 
     shouldThrow<IllegalStateException> {
 
@@ -122,8 +126,8 @@ class MarkdownTest {
         rules = rules,
         autoCorrect = false
       )
-    }
-      .message shouldBe """
+    }.message shouldBe
+      """
         |Doks - file://foo.md > text is out of date.
         |
         |line 4   ${"--  com.example.dinos:dinos:0.0.1-SNAPSHOT".colorized(LIGHT_YELLOW)}
@@ -131,55 +135,59 @@ class MarkdownTest {
         |line 10  ${"--  'com.example.dinos:dinos:0.0.1-SNAPSHOT'".colorized(LIGHT_YELLOW)}
         |         ${"++  'com.example.dinos:dinos:1.2.3'".colorized(LIGHT_GREEN)}
         |
-    """.trimMargin()
+      """.trimMargin()
   }
 
   @TestFactory
-  fun `tag parsing tolerance`() = listOf(
-    Triple("extra leading dash", "<!---doks dinos-maven:1-->", "<!---doks END-->"),
-    Triple("extra trailing dash", "<!--doks dinos-maven:1--->", "<!--doks END--->"),
-    Triple("whitespace before doks", "<!-- doks dinos-maven:1-->", "<!-- doks END-->"),
-    Triple("whitespace before close", "<!--doks dinos-maven:1 -->", "<!--doks END -->"),
-    Triple("extra whitespace before rule name", "<!--doks   dinos-maven:1-->", "<!--doks END-->"),
-    Triple(
-      "extra whitespace before rule count delim",
-      "<!--doks dinos-maven :1-->",
-      "<!--doks END-->"
-    ),
-    Triple(
-      "extra whitespace after rule count delim",
-      "<!--doks dinos-maven: 1-->",
-      "<!--doks END-->"
-    ),
-    Triple("extra whitespace before END", "<!--doks dinos-maven:1-->", "<!--doks  END-->")
-  ).test({ it.first }) { (_, openTag, closeTag) ->
+  fun `tag parsing tolerance`() =
+    listOf(
+      Triple("extra leading dash", "<!---doks dinos-maven:1-->", "<!---doks END-->"),
+      Triple("extra trailing dash", "<!--doks dinos-maven:1--->", "<!--doks END--->"),
+      Triple("whitespace before doks", "<!-- doks dinos-maven:1-->", "<!-- doks END-->"),
+      Triple("whitespace before close", "<!--doks dinos-maven:1 -->", "<!--doks END -->"),
+      Triple("extra whitespace before rule name", "<!--doks   dinos-maven:1-->", "<!--doks END-->"),
+      Triple(
+        "extra whitespace before rule count delim",
+        "<!--doks dinos-maven :1-->",
+        "<!--doks END-->"
+      ),
+      Triple(
+        "extra whitespace after rule count delim",
+        "<!--doks dinos-maven: 1-->",
+        "<!--doks END-->"
+      ),
+      Triple("extra whitespace before END", "<!--doks dinos-maven:1-->", "<!--doks  END-->")
+    ).test({ it.first }) { (_, openTag, closeTag) ->
 
-    val original = md(
-      """
+      val original =
+        md(
+          """
       $openTag
       com.example.dinos:dinos:0.0.1-SNAPSHOT
       $closeTag
       """
-    )
+        )
 
-    original.markdown(
-      absolutePath = "foo.md",
-      rules = rules,
-      autoCorrect = true
-    ) shouldBe md(
-      """
+      original.markdown(
+        absolutePath = "foo.md",
+        rules = rules,
+        autoCorrect = true
+      ) shouldBe
+        md(
+          """
       $openTag
       com.example.dinos:dinos:1.2.3
       $closeTag
       """
-    )
-  }
+        )
+    }
 
   @Test
   fun `a tag must be closed before opening another tag`() {
 
-    val original = md(
-      """
+    val original =
+      md(
+        """
       # Title
       <!--doks dinos-maven:1-->
 
@@ -193,7 +201,7 @@ class MarkdownTest {
 
       fin
       """
-    )
+      )
 
     shouldThrowWithMessage<IllegalStateException>(
       "Doks - file://foo.md:1:0 > The tag '<!--doks dinos-maven:1-->' " +
@@ -211,8 +219,9 @@ class MarkdownTest {
   @Test
   fun `a tag does not need to be closed if there are no more tags after it`() {
 
-    val original = md(
-      """
+    val original =
+      md(
+        """
       # Title
       <!--doks dinos-maven:1-->
 
@@ -220,7 +229,7 @@ class MarkdownTest {
 
       fin
       """
-    )
+      )
 
     shouldNotThrowAny {
       original.markdown(
@@ -234,8 +243,9 @@ class MarkdownTest {
   @Test
   fun `a rule with only one number must match that number of times`() {
 
-    val original = md(
-      """
+    val original =
+      md(
+        """
       # Title
       <!--doks dinos-maven:1-->
 
@@ -244,7 +254,7 @@ class MarkdownTest {
 
       fin
       """
-    )
+      )
     shouldThrowWithMessage<java.lang.IllegalStateException>(
       "The rule 'dinos-maven' must find exactly 1 match, but it found 2."
     ) {
@@ -259,8 +269,9 @@ class MarkdownTest {
   @Test
   fun `a rule with a range cannot be above that range`() {
 
-    val original = md(
-      """
+    val original =
+      md(
+        """
       # Title
       <!--doks dinos-maven:1-2-->
 
@@ -270,7 +281,7 @@ class MarkdownTest {
 
       fin
       """
-    )
+      )
     shouldThrowWithMessage<java.lang.IllegalStateException>(
       "The rule 'dinos-maven' must find a maximum of 2 matches, but it found 3."
     ) {
@@ -285,8 +296,9 @@ class MarkdownTest {
   @Test
   fun `a rule with a range cannot be below that range`() {
 
-    val original = md(
-      """
+    val original =
+      md(
+        """
       # Title
       <!--doks dinos-maven:2-3-->
 
@@ -294,7 +306,7 @@ class MarkdownTest {
 
       fin
       """
-    )
+      )
     shouldThrowWithMessage<java.lang.IllegalStateException>(
       "The rule 'dinos-maven' must find a minimum of 2 matches, but it found 1."
     ) {
@@ -306,5 +318,7 @@ class MarkdownTest {
     }
   }
 
-  fun md(@Language("markdown") content: String): String = content.trimIndent()
+  fun md(
+    @Language("markdown") content: String
+  ): String = content.trimIndent()
 }

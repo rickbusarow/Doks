@@ -23,34 +23,42 @@ import java.io.File
 
 //language=regexp
 internal const val CLOSE = "<!--doks END-->"
-internal val openReg = buildString {
-  // Match the opening token
-  append("""(<!-{2,}\s*?doks\s+?)""")
-  // Negative lookahead to exclude the word "END" with optional whitespace characters
-  append("""((?!\bEND\b)\S[\s\S]*?)""")
-  // Match anything between the opening and closing tokens
-  append("""(-{2,}>)""")
-}.toRegex(RegexOption.IGNORE_CASE)
+internal val openReg =
+  buildString {
+    // Match the opening token
+    append("""(<!-{2,}\s*?doks\s+?)""")
+    // Negative lookahead to exclude the word "END" with optional whitespace characters
+    append("""((?!\bEND\b)\S[\s\S]*?)""")
+    // Match anything between the opening and closing tokens
+    append("""(-{2,}>)""")
+  }.toRegex(RegexOption.IGNORE_CASE)
 
-internal val closeReg = buildString {
-  // match anything before the closing token
-  append("""([\s\S]*?)""")
-  // match <, at least two dashes, any whitespaces, /doks, any whitespaces, at least two dashes, and >
-  append("""(<!-{2,}\s*?doks\s+?END\s*?-{2,}>)""")
-  // match anything after the closing tag
-  append("""([\s\S]*?)""")
-}.toRegex(RegexOption.IGNORE_CASE)
+internal val closeReg =
+  buildString {
+    // match anything before the closing token
+    append("""([\s\S]*?)""")
+    // match <, at least two dashes, any whitespaces, /doks, any whitespaces, at least two dashes, and >
+    append("""(<!-{2,}\s*?doks\s+?END\s*?-{2,}>)""")
+    // match anything after the closing tag
+    append("""([\s\S]*?)""")
+  }.toRegex(RegexOption.IGNORE_CASE)
 
-internal fun String.markdown(absolutePath: String, rules: Rules, autoCorrect: Boolean): String {
+internal fun String.markdown(
+  absolutePath: String,
+  rules: Rules,
+  autoCorrect: Boolean
+): String {
 
   val fullText = this
 
-  val (beforeFirstNodes, opened) = MarkdownNode.from(fullText)
-    .childrenDepthFirst()
-    .filter { it.isLeaf }
-    .toList()
-    .split { it.isOpeningTag() }
-    .partition { it.firstOrNull()?.isOpeningTag() == false }
+  val (beforeFirstNodes, opened) =
+    MarkdownNode
+      .from(fullText)
+      .childrenDepthFirst()
+      .filter { it.isLeaf }
+      .toList()
+      .split { it.isOpeningTag() }
+      .partition { it.firstOrNull()?.isOpeningTag() == false }
 
   val beforeFirst = beforeFirstNodes.singleOrNull()?.concat().orEmpty()
 
@@ -76,24 +84,28 @@ internal fun String.markdown(absolutePath: String, rules: Rules, autoCorrect: Bo
     return this@markdown
   }
 
-  val replacedFullString = beforeFirst + sections.joinToStringConcat { section ->
+  val replacedFullString =
+    beforeFirst +
+      sections.joinToStringConcat { section ->
 
-    val newBody = section.ruleConfigs
-      .fold(section.body) { acc, ruleConfig ->
+        val newBody =
+          section
+            .ruleConfigs
+            .fold(section.body) { acc, ruleConfig ->
 
-        val rule = rules[ruleConfig.name]
+              val rule = rules[ruleConfig.name]
 
-        val matches = rule.regex.findAll(acc).toList()
+              val matches = rule.regex.findAll(acc).toList()
 
-        ruleConfig.checkCount(matches.map { it.value })
+              ruleConfig.checkCount(matches.map { it.value })
 
-        rule.replaceIn(acc)
+              rule.replaceIn(acc)
+            }
+
+        with(section) {
+          "$openTagFull$newBody${closeTag.orEmpty()}$afterCloseTag"
+        }
       }
-
-    with(section) {
-      "$openTagFull$newBody${closeTag.orEmpty()}$afterCloseTag"
-    }
-  }
 
   if (this != replacedFullString) {
 
@@ -119,14 +131,17 @@ private fun List<MarkdownNode>.toMarkdownSection(): MarkdownSection {
   val openTagMatchersBlob = groupValues[2]
   val openTagEnd = groupValues[3]
 
-  val body = drop(1)
-    .takeWhile { !it.isClosingTag() }.concat()
+  val body =
+    drop(1)
+      .takeWhile { !it.isClosingTag() }
+      .concat()
 
   val closeTag = firstOrNull { it.isClosingTag() }?.text
 
-  val afterCloseTag = dropWhile { !it.isClosingTag() }
-    .drop(1)
-    .concat()
+  val afterCloseTag =
+    dropWhile { !it.isClosingTag() }
+      .drop(1)
+      .concat()
 
   return MarkdownSection(
     match = concat(),
@@ -140,7 +155,10 @@ private fun List<MarkdownNode>.toMarkdownSection(): MarkdownSection {
   )
 }
 
-internal fun File.markdown(rules: Rules, autoCorrect: Boolean): FileResult {
+internal fun File.markdown(
+  rules: Rules,
+  autoCorrect: Boolean
+): FileResult {
 
   require(extension == "md" || extension == "mdx") {
     "This file doesn't seem to be markdown: file://$absolutePath"
@@ -148,11 +166,12 @@ internal fun File.markdown(rules: Rules, autoCorrect: Boolean): FileResult {
 
   val old = readText()
 
-  val new = old.markdown(
-    absolutePath = absolutePath,
-    rules = rules,
-    autoCorrect = autoCorrect
-  )
+  val new =
+    old.markdown(
+      absolutePath = absolutePath,
+      rules = rules,
+      autoCorrect = autoCorrect
+    )
 
   val changed = old != new
   if (changed) {

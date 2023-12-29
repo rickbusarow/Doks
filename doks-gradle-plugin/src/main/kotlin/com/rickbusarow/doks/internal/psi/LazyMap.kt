@@ -36,7 +36,6 @@ package com.rickbusarow.doks.internal.psi
 internal class LazyMap<K, V>(
   private val compute: LazyMap<K, V>.(K) -> V
 ) : java.io.Serializable {
-
   internal val map: MutableMap<K, Lazy<V>> = mutableMapOf()
 
   /**
@@ -59,7 +58,10 @@ internal class LazyMap<K, V>(
    * @return the old [V] if one is already cached, else `null`
    * @since 0.1.0
    */
-  fun set(key: K, value: () -> V): V? = put(key, lazy(value))
+  fun set(
+    key: K,
+    value: () -> V
+  ): V? = put(key, lazy(value))
 
   /**
    * Tells the map to invoke [value] lazily the next time a value for [key]
@@ -68,7 +70,10 @@ internal class LazyMap<K, V>(
    * @return the old [V] if one is already cached, else `null`
    * @since 0.1.0
    */
-  fun set(key: K, value: Lazy<V>): V? = put(key, value)
+  fun set(
+    key: K,
+    value: Lazy<V>
+  ): V? = put(key, value)
 
   /**
    * Tells the map to invoke [value] lazily the next time a value for [key]
@@ -77,7 +82,10 @@ internal class LazyMap<K, V>(
    * @return the old [V] if one is already cached, else `null`
    * @since 0.1.0
    */
-  fun put(key: K, value: Lazy<V>): V? = map.put(key, value)?.value
+  fun put(
+    key: K,
+    value: Lazy<V>
+  ): V? = map.put(key, value)?.value
 
   /**
    * Tells the map to immediately store [value] for [key].
@@ -85,7 +93,10 @@ internal class LazyMap<K, V>(
    * @return the old [V] if one is already cached, else `null`
    * @since 0.1.0
    */
-  fun set(key: K, value: V): V? = put(key, value)
+  fun set(
+    key: K,
+    value: V
+  ): V? = put(key, value)
 
   /**
    * Tells the map to immediately store [value] for [key].
@@ -93,7 +104,10 @@ internal class LazyMap<K, V>(
    * @return the old [V] if one is already cached, else `null`
    * @since 0.1.0
    */
-  fun put(key: K, value: V): V? = map.put(key, lazy { value })?.value
+  fun put(
+    key: K,
+    value: V
+  ): V? = map.put(key, lazy { value })?.value
 
   /**
    * Fetches the value for [key] or throws if the value cannot be computed.
@@ -108,7 +122,6 @@ internal class LazyMap<K, V>(
   }
 
   companion object {
-
     /**
      * Creates a [LazyMap] which is essentially a lazy [Sequence.associate].
      *

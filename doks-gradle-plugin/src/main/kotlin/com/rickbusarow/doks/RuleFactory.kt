@@ -29,7 +29,6 @@ import org.intellij.lang.annotations.Language
  * @since 0.1.0
  */
 interface RuleFactory : java.io.Serializable {
-
   /**
    * All registered [RuleBuilderScope] instances within this [DoksSet].
    *
@@ -50,9 +49,7 @@ interface RuleFactory : java.io.Serializable {
   fun rule(
     name: String,
     action: Action<RuleBuilderScope>
-  ): NamedDomainObjectProvider<RuleBuilderScope> {
-    return rules.register(name) { action.execute(it) }
-  }
+  ): NamedDomainObjectProvider<RuleBuilderScope> = rules.register(name) { action.execute(it) }
 
   /**
    * Creates and registers a new [Rule][com.rickbusarow.doks.internal.Rule]
@@ -69,10 +66,9 @@ interface RuleFactory : java.io.Serializable {
     name: String,
     @Language("regexp") regex: String,
     replacement: String
-  ): NamedDomainObjectProvider<RuleBuilderScope> {
-    return rules.register(name) {
+  ): NamedDomainObjectProvider<RuleBuilderScope> =
+    rules.register(name) {
       it.regex = regex
       it.replacement = replacement
     }
-  }
 }

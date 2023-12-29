@@ -28,7 +28,6 @@ import org.jetbrains.kotlin.gradle.dsl.KotlinJvmProjectExtension
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 abstract class KotlinJvmConventionPlugin : Plugin<Project> {
-
   override fun apply(target: Project) {
     target.plugins.applyOnce("org.jetbrains.kotlin.jvm")
 
@@ -48,13 +47,14 @@ abstract class KotlinJvmConventionPlugin : Plugin<Project> {
 
         jvmTarget = target.JVM_TARGET
 
-        freeCompilerArgs = freeCompilerArgs + listOf(
-          "-Xinline-classes",
-          "-Xsam-conversions=class",
-          "-opt-in=kotlin.ExperimentalStdlibApi",
-          "-opt-in=kotlin.RequiresOptIn",
-          "-opt-in=kotlin.contracts.ExperimentalContracts"
-        )
+        freeCompilerArgs = freeCompilerArgs +
+          listOf(
+            "-Xinline-classes",
+            "-Xsam-conversions=class",
+            "-opt-in=kotlin.ExperimentalStdlibApi",
+            "-opt-in=kotlin.RequiresOptIn",
+            "-opt-in=kotlin.contracts.ExperimentalContracts"
+          )
       }
     }
 

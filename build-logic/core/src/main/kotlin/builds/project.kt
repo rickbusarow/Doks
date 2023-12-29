@@ -26,9 +26,8 @@ import org.gradle.api.plugins.PluginContainer
  *
  * @since 0.1.0
  */
-fun Project.isRealRootProject(): Boolean {
-  return (gradle as GradleInternal).isRootBuild && this == rootProject
-}
+fun Project.isRealRootProject(): Boolean =
+  (gradle as GradleInternal).isRootBuild && this == rootProject
 
 /**
  * Add the plugin if it hasn't been applied already.

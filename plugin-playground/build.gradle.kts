@@ -40,12 +40,13 @@ doks {
 
     rule("code") {
 
-      replacement = sourceCode(
-        fqName = "com.rickbusarow.doks.DoksTask",
-        bodyOnly = true,
-        codeBlockLanguage = "kotlin",
-        attributes = "title=\"build.gradle.kts\""
-      )
+      replacement =
+        sourceCode(
+          fqName = "com.rickbusarow.doks.DoksTask",
+          bodyOnly = true,
+          codeBlockLanguage = "kotlin",
+          attributes = "title=\"build.gradle.kts\""
+        )
     }
   }
 }
@@ -69,24 +70,24 @@ val createDocs by tasks.registering {
 
         file.writeText(
           """
-        ## My File $j
+          ## My File $j
 
-        <!--doks cats-to-dogs,dogs-to-cats-->
+          <!--doks cats-to-dogs,dogs-to-cats-->
 
-        com.example.foo:foo-utils:1.2.3-SNAPSHOT
+          com.example.foo:foo-utils:1.2.3-SNAPSHOT
 
-        cats
+          cats
 
-        category
+          category
 
-        api 'com.rickbusarow.modulecheck:modulecheck-core:0.12.5'
+          api 'com.rickbusarow.modulecheck:modulecheck-core:0.12.5'
 
-        dog
+          dog
 
-        <!--/doks-->
+          <!--/doks-->
 
-        <!--doks code-->
-        <!--/doks-->
+          <!--doks code-->
+          <!--/doks-->
           """.trimIndent()
         )
 

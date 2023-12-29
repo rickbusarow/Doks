@@ -21,15 +21,15 @@ import java.io.ByteArrayOutputStream
 import java.io.ObjectOutputStream
 
 class JavaSerializationTest {
-
   @Test
   fun `Rule serializes and deserializes without issue`() {
 
-    val rule = Rule(
-      name = "some-rule",
-      regex = "(com.rickbusarow.doks:[^:]*?doks[^:]*?:)",
-      replacement = "foo"
-    )
+    val rule =
+      Rule(
+        name = "some-rule",
+        regex = "(com.rickbusarow.doks:[^:]*?doks[^:]*?:)",
+        replacement = "foo"
+      )
 
     shouldNotThrowAny {
       ObjectOutputStream(ByteArrayOutputStream()).writeObject(rule)
@@ -39,11 +39,12 @@ class JavaSerializationTest {
   @Test
   fun `Rules serializes and deserializes without issue`() {
 
-    val rule = Rule(
-      name = "some-rule",
-      regex = "(com.rickbusarow.doks:[^:]*?doks[^:]*?:)",
-      replacement = "foo"
-    )
+    val rule =
+      Rule(
+        name = "some-rule",
+        regex = "(com.rickbusarow.doks:[^:]*?doks[^:]*?:)",
+        replacement = "foo"
+      )
 
     val cache = Rules(rule)
 
@@ -55,11 +56,12 @@ class JavaSerializationTest {
   @Test
   fun `DoksEngine serializes and deserializes without issue`() {
 
-    val rule = Rule(
-      name = "some-rule",
-      regex = "(com.rickbusarow.doks:[^:]*?doks[^:]*?:)",
-      replacement = "foo"
-    )
+    val rule =
+      Rule(
+        name = "some-rule",
+        regex = "(com.rickbusarow.doks:[^:]*?doks[^:]*?:)",
+        replacement = "foo"
+      )
 
     val cache = Rules(rule)
 

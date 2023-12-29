@@ -41,7 +41,8 @@ internal data class MarkdownNode(
   val isHtmlBlock: Boolean get() = node.type == MarkdownElementTypes.HTML_BLOCK
   val isLeafOrParagraph: Boolean get() = isLeaf || isParagraph
   val children: List<MarkdownNode> by lazy {
-    node.children
+    node
+      .children
       .map { child ->
         MarkdownNode(
           node = child,
@@ -54,12 +55,16 @@ internal data class MarkdownNode(
   val elementType: IElementType get() = node.type
 
   private val _userData = mutableMapOf<Key<*>, Any?>()
+
   override fun <T : Any?> getUserData(key: Key<T>): T? {
     @Suppress("UNCHECKED_CAST")
     return _userData[key] as? T
   }
 
-  override fun <T : Any?> putUserData(key: Key<T>, value: T?) {
+  override fun <T : Any?> putUserData(
+    key: Key<T>,
+    value: T?
+  ) {
     _userData[key] = value
   }
 
@@ -74,18 +79,23 @@ internal data class MarkdownNode(
     fun from(
       @Language("markdown") markdown: String,
       markdownParser: MarkdownParser = MarkdownParser(GFMFlavourDescriptor())
-    ): MarkdownNode = MarkdownNode(
-      node = markdownParser.buildMarkdownTreeFromString(markdown),
-      fullText = markdown,
-      parent = null
-    )
+    ): MarkdownNode =
+      MarkdownNode(
+        node = markdownParser.buildMarkdownTreeFromString(markdown),
+        fullText = markdown,
+        parent = null
+      )
   }
 }
 
 internal fun MarkdownNode?.isEOL(): Boolean = this != null && elementType == MarkdownTokenTypes.EOL
 
 internal fun MarkdownNode.previousSiblings(): Sequence<MarkdownNode> {
-  return parent?.children.orEmpty().asSequence().takeWhile { it != this }
+  return parent
+    ?.children
+    .orEmpty()
+    .asSequence()
+    .takeWhile { it != this }
 }
 
 internal fun MarkdownNode.previousSibling(): MarkdownNode? {
@@ -93,7 +103,12 @@ internal fun MarkdownNode.previousSibling(): MarkdownNode? {
 }
 
 internal fun MarkdownNode.nextSiblings(): Sequence<MarkdownNode> {
-  return parent?.children.orEmpty().asSequence().dropWhile { it != this }.drop(1)
+  return parent
+    ?.children
+    .orEmpty()
+    .asSequence()
+    .dropWhile { it != this }
+    .drop(1)
 }
 
 internal fun MarkdownNode.nextSibling(): MarkdownNode? {
@@ -102,8 +117,9 @@ internal fun MarkdownNode.nextSibling(): MarkdownNode? {
 
 internal fun MarkdownNode.parents(): Sequence<MarkdownNode> = generateSequence(parent) { it.parent }
 
-internal fun MarkdownNode.countParentLists() = parents()
-  .count { it.elementType == MarkdownElementTypes.LIST_ITEM }
+internal fun MarkdownNode.countParentLists() =
+  parents()
+    .count { it.elementType == MarkdownElementTypes.LIST_ITEM }
 
 internal fun MarkdownNode?.isListItem(): Boolean {
   return this != null && elementType == MarkdownElementTypes.LIST_ITEM
@@ -172,19 +188,18 @@ internal fun MarkdownNode?.isEolFollowedByParagraph(): Boolean {
   }
 }
 
-internal fun MarkdownNode.firstChildOfTypeOrNull(vararg types: IElementType): MarkdownNode? {
-  return childrenDepthFirst()
+internal fun MarkdownNode.firstChildOfTypeOrNull(vararg types: IElementType): MarkdownNode? =
+  childrenDepthFirst()
     .firstOrNull { it.elementType in types }
-}
 
-internal fun MarkdownNode.firstChildOfType(vararg types: IElementType): MarkdownNode {
-  return childrenDepthFirst()
+internal fun MarkdownNode.firstChildOfType(vararg types: IElementType): MarkdownNode =
+  childrenDepthFirst()
     .first { it.elementType in types }
-}
 
-internal fun MarkdownNode.childrenDepthFirst(): Sequence<MarkdownNode> {
-  return depthFirstTraversal(MarkdownNode::children)
-}
+internal fun MarkdownNode.childrenDepthFirst(): Sequence<MarkdownNode> =
+  depthFirstTraversal(
+    MarkdownNode::children
+  )
 
 internal inline fun MarkdownNode.childrenDepthFirst(
   crossinline predicate: (MarkdownNode) -> Boolean

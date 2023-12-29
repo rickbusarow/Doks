@@ -51,7 +51,6 @@ dependencies {
       .annotations
   )
 
-  implementation(libs.benManes.versions)
   implementation(
     libs
       .dependency
@@ -59,13 +58,6 @@ dependencies {
       .gradle
       .plugin
   )
-  implementation(libs.detekt.gradle)
-  implementation(libs.dokka.gradle)
-  implementation(libs.dokka.versioning)
-  implementation(libs.dropbox.dependencyGuard)
-  implementation(libs.jmailen.kotlinter)
-  implementation(libs.johnrengelman.shadowJar)
-  implementation(libs.kotlinx.binaryCompatibility)
   implementation(
     libs
       .rickBusarow
@@ -73,4 +65,12 @@ dependencies {
       .gradle
       .plugin
   )
+  implementation(libs.benManes.versions)
+  implementation(libs.detekt.gradle)
+  implementation(libs.dokka.gradle)
+  implementation(libs.dokka.versioning)
+  implementation(libs.dropbox.dependencyGuard)
+  implementation(libs.jmailen.kotlinter)
+  implementation(libs.johnrengelman.shadowJar)
+  implementation(libs.kotlinx.binaryCompatibility)
 }

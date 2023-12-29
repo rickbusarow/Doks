@@ -81,6 +81,20 @@ dependencies {
 
   compileOnly(gradleApi())
 
+  implementation(
+    libs
+      .kotlinx
+      .serialization
+      .json
+      .jvm
+  )
+  implementation(
+    libs
+      .rickBusarow
+      .moduleCheck
+      .gradle
+      .plugin
+  )
   implementation(libs.benManes.versions)
   implementation(libs.detekt.gradle)
   implementation(libs.diffplug.spotless)
@@ -100,23 +114,9 @@ dependencies {
   implementation(libs.kotlinx.knit)
   implementation(libs.kotlinx.serialization.core)
   implementation(libs.kotlinx.serialization.json)
-  implementation(
-    libs
-      .kotlinx
-      .serialization
-      .json
-      .jvm
-  )
   implementation(libs.kotlinx.serialization.protobuf)
   implementation(libs.rickBusarow.doks)
   implementation(libs.rickBusarow.ktlint)
-  implementation(
-    libs
-      .rickBusarow
-      .moduleCheck
-      .gradle
-      .plugin
-  )
   implementation(libs.square.kotlinPoet)
   implementation(libs.undercouch.download)
   implementation(libs.vanniktech.publish)

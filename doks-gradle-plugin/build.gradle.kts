@@ -113,13 +113,6 @@ dependencies {
   mainConfig(libs.kotlinx.serialization.core)
   mainConfig(libs.kotlinx.serialization.json)
 
-  testImplementation(libs.java.diff.utils)
-  testImplementation(libs.jetbrains.markdown)
-  testImplementation(libs.junit.engine)
-  testImplementation(libs.junit.jupiter)
-  testImplementation(libs.junit.jupiter.api)
-  testImplementation(libs.junit.params)
-  testImplementation(libs.kotest.assertions.api)
   testImplementation(
     libs
       .kotest
@@ -127,6 +120,13 @@ dependencies {
       .core
       .jvm
   )
+  testImplementation(libs.java.diff.utils)
+  testImplementation(libs.jetbrains.markdown)
+  testImplementation(libs.junit.engine)
+  testImplementation(libs.junit.jupiter)
+  testImplementation(libs.junit.jupiter.api)
+  testImplementation(libs.junit.params)
+  testImplementation(libs.kotest.assertions.api)
   testImplementation(libs.kotest.assertions.shared)
   testImplementation(libs.kotest.common)
   testImplementation(libs.kotest.extensions)

@@ -172,21 +172,17 @@ internal fun MarkdownNode?.isBlockQuoteTokenInWhiteSpace(): Boolean {
     text.matches("^>\\s&&[^\\n]+\$".toRegex())
 }
 
-internal fun MarkdownNode.isWhiteSpace(): Boolean {
-  return elementType == MarkdownTokenTypes.WHITE_SPACE
-}
+internal fun MarkdownNode.isWhiteSpace(): Boolean = elementType == MarkdownTokenTypes.WHITE_SPACE
 
-internal fun MarkdownNode.isWhiteSpaceAfterNewLine(): Boolean {
-  return isWhiteSpace() && previousSibling()?.elementType == MarkdownTokenTypes.EOL
-}
+internal fun MarkdownNode.isWhiteSpaceAfterNewLine(): Boolean =
+  isWhiteSpace() && previousSibling()?.elementType == MarkdownTokenTypes.EOL
 
-internal fun MarkdownNode?.isEolFollowedByParagraph(): Boolean {
-  return when {
+internal fun MarkdownNode?.isEolFollowedByParagraph(): Boolean =
+  when {
     this == null -> false
     !isEOL() -> false
     else -> nextSiblings().any { it.isParagraph }
   }
-}
 
 internal fun MarkdownNode.firstChildOfTypeOrNull(vararg types: IElementType): MarkdownNode? =
   childrenDepthFirst()

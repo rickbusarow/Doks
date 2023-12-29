@@ -39,7 +39,7 @@ jobs:
       # If the versions matrix was just updated, commit and push those changes.
       - name: commit dependency-guard baseline changes (used by main repo)
         if: github.actor == 'renovate[bot]'
-        uses: stefanzweifel/git-auto-commit-action@v4
+        uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: update versions matrix in yaml
           commit_options: "--no-verify --signoff"
@@ -61,7 +61,7 @@ jobs:
       # If dependency-guard generated changes, commit and push those changes.
       - name: commit dependency-guard baseline changes (used by main repo)
         if: github.actor == 'renovate[bot]'
-        uses: stefanzweifel/git-auto-commit-action@v4
+        uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: update dependency-guard baseline
           commit_options: "--no-verify --signoff"
@@ -88,7 +88,7 @@ jobs:
       # If KtLint generated changes, commit and push those changes.
       - name: commit changes (used by main repo)
         if: github.event.pull_request.head.repo.full_name == github.repository
-        uses: stefanzweifel/git-auto-commit-action@v4
+        uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: Apply KtLint format
           commit_options: "--no-verify --signoff"
@@ -110,7 +110,7 @@ jobs:
       # If Doks generated changes, commit and push those changes.
       - name: commit changes (used by main repo)
         if: github.event.pull_request.head.repo.full_name == github.repository
-        uses: stefanzweifel/git-auto-commit-action@v4
+        uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: Apply Doks updates
           commit_options: "--no-verify --signoff"
@@ -132,7 +132,7 @@ jobs:
       # If KtLint generated changes, commit and push those changes.
       - name: commit changes (used by main repo)
         if: github.event.pull_request.head.repo.full_name == github.repository
-        uses: stefanzweifel/git-auto-commit-action@v4
+        uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: Apply ModuleCheck fixes
           commit_options: "--no-verify --signoff"

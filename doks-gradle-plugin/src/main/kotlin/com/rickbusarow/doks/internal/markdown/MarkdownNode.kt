@@ -151,14 +151,13 @@ internal fun MarkdownNode?.isBlockQuoteElement(): Boolean {
   return elementType == MarkdownElementTypes.BLOCK_QUOTE
 }
 
-internal fun MarkdownNode?.isBlockQuoteToken(): Boolean {
-  return when {
+internal fun MarkdownNode?.isBlockQuoteToken(): Boolean =
+  when {
     this == null -> false
     !isLeaf -> false
     elementType == MarkdownTokenTypes.BLOCK_QUOTE -> true
     else -> isBlockQuoteTokenInWhiteSpace()
   }
-}
 
 /**
  * When a block quote is nested, any angle brackets other than the last one are
@@ -166,11 +165,10 @@ internal fun MarkdownNode?.isBlockQuoteToken(): Boolean {
  *
  * @since 0.1.3
  */
-internal fun MarkdownNode?.isBlockQuoteTokenInWhiteSpace(): Boolean {
-  return this != null &&
+internal fun MarkdownNode?.isBlockQuoteTokenInWhiteSpace(): Boolean =
+  this != null &&
     elementType == MarkdownTokenTypes.WHITE_SPACE &&
     text.matches("^>\\s&&[^\\n]+\$".toRegex())
-}
 
 internal fun MarkdownNode.isWhiteSpace(): Boolean = elementType == MarkdownTokenTypes.WHITE_SPACE
 

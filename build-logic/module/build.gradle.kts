@@ -51,7 +51,6 @@ dependencies {
   implementation(libs.dokka.gradle)
   implementation(libs.dokka.versioning)
   implementation(libs.dropbox.dependencyGuard)
-  implementation(libs.jmailen.kotlinter)
   implementation(libs.johnrengelman.shadowJar)
   implementation(libs.kotlinx.binaryCompatibility)
   implementation(libs.rickBusarow.moduleCheck.gradle.plugin)

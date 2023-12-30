@@ -90,7 +90,6 @@ dependencies {
   implementation(libs.google.dagger.api)
   implementation(libs.google.ksp)
   implementation(libs.gradle.plugin.publish)
-  implementation(libs.jmailen.kotlinter)
   implementation(libs.johnrengelman.shadowJar)
   implementation(libs.kotlin.compiler)
   implementation(libs.kotlin.gradle.plugin)

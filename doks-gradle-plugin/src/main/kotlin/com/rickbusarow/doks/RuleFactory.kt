@@ -28,6 +28,7 @@ import org.intellij.lang.annotations.Language
  *
  * @since 0.1.0
  */
+@DoksDsl
 interface RuleFactory : java.io.Serializable {
 
   /**

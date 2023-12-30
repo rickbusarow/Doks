@@ -19,6 +19,7 @@ import com.rickbusarow.doks.internal.DoksEngine.FileResult
 import com.rickbusarow.doks.internal.Rules
 import com.rickbusarow.doks.internal.stdlib.diffString
 import com.rickbusarow.doks.internal.stdlib.joinToStringConcat
+import com.rickbusarow.doks.internal.stdlib.requireNotNull
 import java.io.File
 
 //language=regexp
@@ -113,7 +114,9 @@ private fun List<MarkdownNode>.toMarkdownSection(): MarkdownSection {
 
   val openTagFull = first().text
 
-  val groupValues = openReg.find(openTagFull)!!.groupValues
+  val groupValues = openReg.find(openTagFull)
+    .requireNotNull { "Could not find an opening tag in '$openTagFull`" }
+    .groupValues
 
   val openTagStart = groupValues[1]
   val openTagMatchersBlob = groupValues[2]

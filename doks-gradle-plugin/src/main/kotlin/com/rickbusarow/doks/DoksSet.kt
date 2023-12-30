@@ -36,9 +36,7 @@ import javax.inject.Inject
  */
 @DoksDsl
 @Suppress("MemberVisibilityCanBePrivate")
-abstract class DoksSet
-@Inject
-constructor(
+abstract class DoksSet @Inject constructor(
   /**
    * any arbitrary unique name, like "main" or "tutorials"
    *
@@ -170,6 +168,7 @@ constructor(
             .asFile
             .resolve(this)
             .takeIf { it.exists() }
+
         else -> null
       }
 

@@ -36,15 +36,16 @@ abstract class DetektConventionPlugin : Plugin<Project> {
       "**/build/**"
     )
 
-    target.tasks
-      .register("detektReportMerge", ReportMergeTask::class.java) { reportMergeTask ->
-        reportMergeTask.output
-          .set(target.rootProject.buildDir.resolve("reports/detekt/merged.sarif"))
+    val reportsDir = target.rootProject.layout.buildDirectory
+      .map { it.dir("reports/detekt") }
+    val configFile = target.rootProject.file("detekt/detekt-config.yml")
 
-        reportMergeTask.input.from(
-          target.tasks.withType(Detekt::class.java).map { it.sarifReportFile }
-        )
-      }
+    target.tasks.register("detektReportMerge", ReportMergeTask::class.java) { reportMergeTask ->
+      reportMergeTask.output.set(reportsDir.map { it.file("merged.sarif") })
+      reportMergeTask.input.from(
+        target.tasks.withType(Detekt::class.java).map { it.sarifReportFile }
+      )
+    }
 
     target.dependencies.add(
       "detektPlugins",
@@ -54,10 +55,10 @@ abstract class DetektConventionPlugin : Plugin<Project> {
     target.extensions.configure(DetektExtension::class.java) { extension ->
 
       extension.autoCorrect = false
-      extension.config = target.files("${target.rootDir}/detekt/detekt-config.yml")
+      extension.config.from(configFile)
       extension.buildUponDefaultConfig = true
 
-      extension.source = target.files(
+      extension.source.from(
         "src/main/java",
         "src/test/java",
         "src/main/kotlin",
@@ -71,7 +72,7 @@ abstract class DetektConventionPlugin : Plugin<Project> {
 
       task.autoCorrect = false
       task.parallel = true
-      task.config.from(target.files("${target.rootDir}/detekt/detekt-config.yml"))
+      task.config.from(configFile)
       task.buildUponDefaultConfig = true
 
       task.reports {
@@ -90,7 +91,6 @@ abstract class DetektConventionPlugin : Plugin<Project> {
       task.exclude { "/build/generated/" in it.file.absolutePath }
 
       task.dependsOn(target.tasks.withType(BuildCodeGeneratorLogicTask::class.java))
-      task.dependsOn(target.tasks.matchingName("generateMainProtos"))
     }
 
     target.tasks.register("detektAll", Detekt::class.java) {

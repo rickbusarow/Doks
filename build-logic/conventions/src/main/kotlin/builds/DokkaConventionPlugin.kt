@@ -25,8 +25,6 @@ import org.jetbrains.dokka.gradle.AbstractDokkaTask
 import org.jetbrains.dokka.versioning.VersioningConfiguration
 import org.jetbrains.dokka.versioning.VersioningPlugin
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-import org.jmailen.gradle.kotlinter.tasks.FormatTask
-import org.jmailen.gradle.kotlinter.tasks.LintTask
 import java.net.URL
 
 abstract class DokkaConventionPlugin : Plugin<Project> {
@@ -41,8 +39,6 @@ abstract class DokkaConventionPlugin : Plugin<Project> {
 
       // Dokka uses their outputs but doesn't explicitly depend upon them.
       task.mustRunAfter(target.tasks.withType(KotlinCompile::class.java))
-      task.mustRunAfter(target.tasks.withType(LintTask::class.java))
-      task.mustRunAfter(target.tasks.withType(FormatTask::class.java))
 
       val fullModuleName = target.path.removePrefix(":")
       task.moduleName.set(fullModuleName)

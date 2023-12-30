@@ -27,7 +27,7 @@ To use Doks, you'll need to add it as a dependency in your Gradle build script:
 ```kotlin
 // build.gradle.kts
 plugins {
-  id("com.rickbusarow.doks") version "0.1.5-SNAPSHOT"
+  id("com.rickbusarow.doks") version "0.1.5"
 }
 ```
 
@@ -69,7 +69,7 @@ following syntax:
 ```kotlin title="build.gradle.kts"
 // build.gradle.kts
 plugins {
-  id("com.rickbusarow.doks") version "0.1.5-SNAPSHOT"
+  id("com.rickbusarow.doks") version "0.1.5"
 }
 
 doks {
@@ -102,7 +102,7 @@ doks {
 ```groovy title="build.gradle"
 // build.gradle
 plugins {
-  id 'com.rickbusarow.doks' version '0.1.5-SNAPSHOT'
+  id 'com.rickbusarow.doks' version '0.1.5'
 }
 
 doks {

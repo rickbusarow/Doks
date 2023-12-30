@@ -16,6 +16,7 @@
 package com.rickbusarow.doks.internal.psi
 
 import io.kotest.assertions.throwables.shouldNotThrowAny
+import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.matchers.shouldBe
 import org.intellij.lang.annotations.Language
 import org.junit.jupiter.api.Test
@@ -240,6 +241,95 @@ class NamedSamplesTest {
   }
 
   @Test
+  fun `an class without a body and bodyOnly = true`() {
+
+    // test for: https://github.com/rickbusarow/Doks/issues/223
+
+    val exception = shouldThrow<IllegalArgumentException> {
+      parse(
+        fqName = "com.test.MyClass",
+        bodyOnly = true,
+        """
+      package com.test
+
+      class MyClass
+      """
+      )
+    }
+
+    exception.message shouldBe """
+      src/Source_0.kt > A type declaration must have a body when using 'bodyOnly = true'.
+      requested name: com.test.MyClass
+      matched code:
+      ---
+      class MyClass
+      ---
+    """.trimIndent()
+  }
+
+  @Test
+  fun `an expression syntax function that invokes a lambda and bodyOnly = true`() {
+
+    // test for: https://github.com/rickbusarow/Doks/issues/223
+
+    val exception = shouldThrow<IllegalArgumentException> {
+      parse(
+        fqName = "com.test.MyClass.myFunction",
+        bodyOnly = true,
+        """
+      package com.test
+
+      class MyClass {
+        fun myFunction() = runBlocking {
+          println("boo!")
+        }
+      }
+      """
+      )
+    }
+
+    exception.message shouldBe """
+      src/Source_0.kt > A function must use body syntax when using 'bodyOnly = true'.
+      requested name: com.test.MyClass.myFunction
+      matched code:
+      ---
+      fun myFunction() = runBlocking {
+        println("boo!")
+      }
+      ---
+    """.trimIndent()
+  }
+
+  @Test
+  fun `an expression syntax function that does not invoke lambda and bodyOnly = true`() {
+
+    // test for: https://github.com/rickbusarow/Doks/issues/223
+
+    val exception = shouldThrow<IllegalArgumentException> {
+      parse(
+        fqName = "com.test.MyClass.myFunction",
+        bodyOnly = true,
+        """
+      package com.test
+
+      class MyClass {
+        fun myFunction() = Unit
+      }
+      """
+      )
+    }
+
+    exception.message shouldBe """
+      src/Source_0.kt > A function must use body syntax when using 'bodyOnly = true'.
+      requested name: com.test.MyClass.myFunction
+      matched code:
+      ---
+      fun myFunction() = Unit
+      ---
+    """.trimIndent()
+  }
+
+  @Test
   fun `a variable inside a nested function can be resolved`() {
 
     parse(
@@ -370,7 +460,6 @@ class NamedSamplesTest {
       """
     ) shouldBe """
       |object Foo
-      |
     """.trimMargin()
   }
 
@@ -379,7 +468,7 @@ class NamedSamplesTest {
       DoksPsiFileFactory()
         .createKotlin(
           name = "Source_$index.kt",
-          path = "Source_$index.kt",
+          path = "src/Source_$index.kt",
           content = code.trimIndent()
         )
     }

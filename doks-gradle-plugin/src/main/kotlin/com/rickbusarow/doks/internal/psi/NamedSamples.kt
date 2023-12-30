@@ -44,6 +44,7 @@ import org.jetbrains.kotlin.psi.psiUtil.getChildrenOfType
 import org.jetbrains.kotlin.psi.psiUtil.parents
 import java.io.File
 import kotlin.LazyThreadSafetyMode.NONE
+import kotlin.contracts.contract
 import kotlin.io.path.Path
 
 @Serializable
@@ -118,21 +119,23 @@ internal class NamedSamples(
       val content =
         when (val namedDeclaration = cache[request.fqName]) {
           is KtClassOrObject -> if (request.bodyOnly) {
-            namedDeclaration.body!!.textInScope()
+            namedDeclaration.body
+              .requireBodyNotNull(namedDeclaration, request.fqName) {
+                "A type declaration must have a body"
+              }
+              .textInScope()
           } else {
             namedDeclaration.text.trimIndentAfterFirstLine()
           }
 
           is KtProperty -> if (request.bodyOnly) {
             namedDeclaration.initializer
-              .requireNotNull {
-                "${namedDeclaration.containingKtFile} > " +
-                  "A property must have an initializer when using 'bodyOnly = true'."
+              .requireBodyNotNull(namedDeclaration, request.fqName) {
+                "A property must have an initializer"
               }
               .let { (it as? KtStringTemplateExpression) ?: it.getChildOfType() }
-              .requireNotNull {
-                "${namedDeclaration.containingKtFile} > " +
-                  "A property initializer must be a string template."
+              .requireBodyNotNull(namedDeclaration, request.fqName) {
+                "A property initializer must be a string template"
               }
               .textInScope()
           } else {
@@ -140,7 +143,11 @@ internal class NamedSamples(
           }
 
           is KtNamedFunction -> if (request.bodyOnly) {
-            namedDeclaration.bodyBlockExpression!!.textInScope()
+            namedDeclaration.bodyBlockExpression
+              .requireBodyNotNull(namedDeclaration, request.fqName) {
+                "A function must use body syntax"
+              }
+              .textInScope()
           } else {
             namedDeclaration.text.trimIndentAfterFirstLine()
           }
@@ -153,6 +160,26 @@ internal class NamedSamples(
         }
 
       SampleResult(request, content)
+    }
+  }
+
+  inline fun <T : Any> T?.requireBodyNotNull(
+    psi: KtElement,
+    fqName: String,
+    message: () -> String
+  ): T {
+    contract {
+      returns() implies (this@requireBodyNotNull != null)
+    }
+    return requireNotNull(this) {
+      """
+      |${psi.containingKtFile.absolutePath()} > ${message()} when using 'bodyOnly = true'.
+      |requested name: $fqName
+      |matched code:
+      |---
+      |${psi.text.trimIndentAfterFirstLine()}
+      |---
+      """.trimMargin()
     }
   }
 

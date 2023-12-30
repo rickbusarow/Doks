@@ -103,31 +103,34 @@ fun Project.subProjectsTasksMatchingName(taskName: String): List<TaskCollection<
  */
 inline fun <reified T : Task> Project.subProjectsTasksMatchingNameWithType(
   taskName: String
-): List<TaskCollection<T>> =
-  subprojects
+): List<TaskCollection<T>> {
+  return subprojects
     .map { proj -> proj.tasks.matchingNameWithType(taskName) }
+}
 
 /**
  * adds all [objects] as dependencies to every task in the collection, inside a `configureEach { }`
  *
  * @since 0.1.0
  */
-fun <T : Task> TaskCollection<T>.dependOn(vararg objects: Any): TaskCollection<T> =
-  also { taskCollection ->
+fun <T : Task> TaskCollection<T>.dependOn(vararg objects: Any): TaskCollection<T> {
+  return also { taskCollection ->
     taskCollection.configureEach { task -> task.dependsOn(*objects) }
   }
+}
 
 /**
  * adds all [objects] as dependencies inside a configuration block, inside a `configure { }`
  *
  * @since 0.1.0
  */
-fun <T : Task> TaskProvider<T>.dependsOn(vararg objects: Any): TaskProvider<T> =
-  also { provider ->
+fun <T : Task> TaskProvider<T>.dependsOn(vararg objects: Any): TaskProvider<T> {
+  return also { provider ->
     provider.configure { task ->
       task.dependsOn(*objects)
     }
   }
+}
 
 /**
  * adds all [objects] as `mustRunAfter` to every task

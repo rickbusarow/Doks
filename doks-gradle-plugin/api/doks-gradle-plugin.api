@@ -7,6 +7,9 @@ public abstract class com/rickbusarow/doks/DoksDocsTask : com/rickbusarow/doks/D
 	public final fun setAutoCorrect (Z)V
 }
 
+public abstract interface annotation class com/rickbusarow/doks/DoksDsl : java/lang/annotation/Annotation {
+}
+
 public abstract class com/rickbusarow/doks/DoksExtension : java/io/Serializable {
 	public fun <init> (Lorg/gradle/api/tasks/TaskContainer;Lorg/gradle/api/file/ProjectLayout;)V
 	public final fun dokSet (Ljava/lang/String;Lorg/gradle/api/Action;)Lorg/gradle/api/NamedDomainObjectProvider;

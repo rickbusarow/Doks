@@ -82,11 +82,13 @@ doks {
     }
     rule("buildConfig-version") {
       regex = "\${BuildConfig.version}".escapeRegex()
-      replacement = VERSION_NAME.escapeReplacement()
+      val version = libs.versions.rickBusarow.doks.get()
+      replacement = version.escapeReplacement()
     }
     rule("plugin-with-version") {
+      val version = libs.versions.rickBusarow.doks.get()
       regex = gradlePluginWithVersion(GROUP)
-      replacement = "$1$2$3$4${VERSION_NAME.escapeReplacement()}$6"
+      replacement = "$1$2$3$4${version.escapeReplacement()}$6"
     }
     rule("doks-group") {
       regex = "com\\.(?:rickbusarow|square|squareup)\\.doks"

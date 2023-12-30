@@ -12,5 +12,7 @@
       </list>
     </option>
     <option name="enableAllRules" value="true" />
+    <option name="enableDetekt" value="true" />
+    <option name="enableForProjectResult" value="Accepted" />
   </component>
 </project>

@@ -34,6 +34,7 @@ import javax.inject.Inject
  *
  * @since 0.1.0
  */
+@DoksDsl
 @Suppress("MemberVisibilityCanBePrivate")
 abstract class DoksSet @Inject constructor(
   /**
@@ -44,8 +45,8 @@ abstract class DoksSet @Inject constructor(
   val name: String,
   private val objects: ObjectFactory,
   private val layout: ProjectLayout
-) : RuleFactory, java.io.Serializable {
-
+) : RuleFactory,
+  java.io.Serializable {
   /**
    * The documentation files in this source set. This is a
    * [ConfigurableFileCollection], meaning that it can be dynamically configured.
@@ -156,13 +157,20 @@ abstract class DoksSet @Inject constructor(
    */
   private fun Any.asFileTreeOrAny(): Any {
 
-    val maybeFile = when (this) {
-      is File -> this
-      is Directory -> asFile
-      is Path -> toFile()
-      is String -> layout.projectDirectory.asFile.resolve(this).takeIf { it.exists() }
-      else -> null
-    }
+    val maybeFile =
+      when (this) {
+        is File -> this
+        is Directory -> asFile
+        is Path -> toFile()
+        is String ->
+          layout
+            .projectDirectory
+            .asFile
+            .resolve(this)
+            .takeIf { it.exists() }
+
+        else -> null
+      }
 
     return if (maybeFile?.isDirectory == true) {
       sampleCodeSource.from(objects.fileTree(maybeFile))

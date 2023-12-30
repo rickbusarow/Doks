@@ -16,7 +16,7 @@
 import builds.VERSION_NAME
 import builds.dependsOn
 import builds.isRealRootProject
-import com.github.gmazzo.gradle.plugins.BuildConfigTask
+import com.github.gmazzo.buildconfig.BuildConfigTask
 
 plugins {
   id("module")

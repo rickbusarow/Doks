@@ -82,11 +82,13 @@ doks {
     }
     rule("buildConfig-version") {
       regex = "\${BuildConfig.version}".escapeRegex()
-      replacement = VERSION_NAME.escapeReplacement()
+      val version = libs.versions.rickBusarow.doks.get()
+      replacement = version.escapeReplacement()
     }
     rule("plugin-with-version") {
+      val version = libs.versions.rickBusarow.doks.get()
       regex = gradlePluginWithVersion(GROUP)
-      replacement = "$1$2$3$4${VERSION_NAME.escapeReplacement()}$6"
+      replacement = "$1$2$3$4${version.escapeReplacement()}$6"
     }
     rule("doks-group") {
       regex = "com\\.(?:rickbusarow|square|squareup)\\.doks"
@@ -113,40 +115,42 @@ githubRelease {
 
   owner.set("rbusarow")
 
-  tagName { VERSION_NAME }
-  releaseName { VERSION_NAME }
+  tagName.set(VERSION_NAME)
+  releaseName.set(VERSION_NAME)
 
   generateReleaseNotes.set(false)
 
-  body {
+  body.set(
+    provider {
 
-    if (VERSION_NAME.endsWith("-SNAPSHOT")) {
-      throw GradleException(
-        "do not create a GitHub release for a snapshot. (version is $VERSION_NAME)."
-      )
-    }
-
-    val escapedVersion = Regex.escape(VERSION_NAME)
-
-    // capture everything in between '## [<this version>]' and a new line which starts with '## '
-    val versionSectionRegex = Regex(
-      """(?:^|\n)## \[$escapedVersion]\s+.+\n([\s\S]*?)(?=\n+## |\[$escapedVersion])"""
-    )
-
-    versionSectionRegex
-      .find(file("CHANGELOG.md").readText())
-      ?.groupValues
-      ?.getOrNull(1)
-      ?.trim()
-      ?.also { body ->
-        if (body.isBlank()) {
-          throw GradleException("The changelog for this version cannot be blank.")
-        }
+      if (VERSION_NAME.endsWith("-SNAPSHOT")) {
+        throw GradleException(
+          "do not create a GitHub release for a snapshot. (version is $VERSION_NAME)."
+        )
       }
-      ?: throw GradleException(
-        "could not find a matching change log for $versionSectionRegex"
+
+      val escapedVersion = Regex.escape(VERSION_NAME)
+
+      // capture everything in between '## [<this version>]' and a new line which starts with '## '
+      val versionSectionRegex = Regex(
+        """(?:^|\n)## \[$escapedVersion]\s+.+\n([\s\S]*?)(?=\n+## |\[$escapedVersion])"""
       )
-  }
+
+      versionSectionRegex
+        .find(file("CHANGELOG.md").readText())
+        ?.groupValues
+        ?.getOrNull(1)
+        ?.trim()
+        ?.also { body ->
+          if (body.isBlank()) {
+            throw GradleException("The changelog for this version cannot be blank.")
+          }
+        }
+        ?: throw GradleException(
+          "could not find a matching change log for $versionSectionRegex"
+        )
+    }
+  )
 
   overwrite.set(false)
   dryRun.set(false)

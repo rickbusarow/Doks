@@ -91,8 +91,9 @@ inline fun <reified T : Task> Project.allProjectsTasksMatchingNameWithType(
  *
  * @since 0.1.0
  */
-fun Project.subProjectsTasksMatchingName(taskName: String): List<TaskCollection<Task>> =
-  subprojects.map { proj -> proj.tasks.matchingName(taskName) }
+fun Project.subProjectsTasksMatchingName(taskName: String): List<TaskCollection<Task>> {
+  return subprojects.map { proj -> proj.tasks.matchingName(taskName) }
+}
 
 /**
  * Finds all tasks named [taskName] in this project's subprojects.

@@ -105,7 +105,6 @@ dependencies {
   implementation(libs.rickBusarow.ktlint)
   implementation(libs.rickBusarow.moduleCheck.gradle.plugin)
   implementation(libs.square.kotlinPoet)
-  implementation(libs.undercouch.download)
   implementation(libs.vanniktech.publish)
 
   ksp(libs.square.moshi.codegen)

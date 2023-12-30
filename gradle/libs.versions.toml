@@ -1,8 +1,4 @@
 [versions]
-androidTools = "7.1.0"
-antlr = "4.10.1"
-autoManifest = "2.0"
-benManes-caffeine = "3.1.1"
 benManes-versions = "0.50.0"
 buildconfig = "4.2.0"
 classgraph = "4.8.162"
@@ -16,22 +12,15 @@ dokka = "1.9.10"
 doks-dev = "0.1.5-SNAPSHOT"
 dropbox-dependencyGuard = "0.4.3"
 ec4j = "0.3.0"
-exhaustive = "0.2.0"
 github-release = "2.4.1"
 google-dagger = "2.47"
 google-guava = "33.0.0-jre"
 google-ksp = "1.8.22-1.0.11"
 gradle-plugin-publish = "1.2.1"
-gradleDoctor = "0.8.1"
-graphviz = "0.18.1"
-groovy = "3.0.10"
 jUnit = "5.10.0"
-jackson = "2.16.1"
 java-diff-utils = "4.12"
-javaParser = "3.25.5"
 jdk = "11" # the jdk used to build the project
 jetbrains-markdown = "0.5.1"
-jmailen-kotlinter = "3.14.0"
 johnrengelman-shadow = "8.1.1"
 jvmTarget = "1.8" # the jdk used in packaging
 kaml = "0.56.0"
@@ -47,9 +36,6 @@ kotlinx-datetime = "0.4.1"
 kotlinx-knit = "0.4.0"
 kotlinx-serialization = "1.6.2"
 ktlint-lib = "1.0.1"
-ktlint-plugin = "11.5.1"
-outfoxx-swiftPoet = "1.5.0"
-outfoxx-typescriptPoet = "1.1.2"
 prettier = "2.8.4"
 prettier-plugin-sh = "0.12.8"
 rickBusarow-doks = "0.1.4"
@@ -59,20 +45,13 @@ rickBusarow-ktlint = "0.2.1"
 rickBusarow-ktrules = "1.2.1"
 rickBusarow-moduleCheck = "0.12.5"
 slf4j = "2.0.9"
-square-anvil = "2.4.7-1-8"
-square-javaPoet = "1.13.0"
 square-kotlinPoet = "1.15.3"
 square-moshi = "1.15.0"
-square-okio = "3.5.0"
 taskTree = "2.1.1"
-threetenbp = "1.6.8"
 vanniktech-publish = "0.26.0"
-versionCatalogUpdate = "0.8.1"
 
 [plugins]
 
-anvil = { id = "com.squareup.anvil", version.ref = "square-anvil" }
-autoManifest = { id = "com.gradleup.auto.manifest", version.ref = "autoManifest" }
 benManes = { id = "com.github.ben-manes.versions", version.ref = "benManes-versions" }
 buildconfig = { id = "com.github.gmazzo.buildconfig", version.ref = "buildconfig" }
 dependencyAnalysis = { id = "com.autonomousapps.dependency-analysis", version.ref = "dependencyAnalysis" }
@@ -80,14 +59,11 @@ detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
 doks = { id = "com.rickbusarow.doks", version.ref = "rickBusarow-doks" }
 dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
 dropbox-dependencyGuard = { id = "com.dropbox.dependency-guard", version.ref = "dropbox-dependencyGuard" }
-exhaustive = { id = "app.cash.exhaustive:exhaustive-gradle", version.ref = "exhaustive" }
 github-release = { id = "com.github.breadmoirai.github-release", version.ref = "github-release" }
 google-ksp = { id = "com.google.devtools.ksp", version.ref = "google-ksp" }
 gradle-plugin-publish = { id = "com.gradle.plugin-publish", version.ref = "gradle-plugin-publish" }
-gradleDoctor = { id = "com.osacky.doctor", version.ref = "gradleDoctor" }
 integration-test = { id = "com.coditory.integration-test", version.ref = "coditory-integration-test" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
-kotlinter = { id = "org.jmailen.kotlinter", version.ref = "jmailen-kotlinter" }
 kotlinx-binaryCompatibility = { id = "org.jetbrains.kotlinx.binary-compatibility-validator", version.ref = "kotlinx-binaryCompatibility" }
 kotlinx-knit = { id = "kotlinx-knit", version.ref = "kotlinx-knit" }
 kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
@@ -95,7 +71,6 @@ ktlint = { id = "com.rickbusarow.ktlint", version.ref = "rickBusarow-ktlint" }
 moduleCheck = { id = "com.rickbusarow.module-check", version.ref = "rickBusarow-moduleCheck" }
 shadowJar = { id = "com.github.johnrengelman.shadow", version.ref = "johnrengelman-shadow" }
 taskTree = { id = "com.dorongold.task-tree", version.ref = "taskTree" }
-versionCatalogUpdate = { id = "nl.littlerobots.version-catalog-update", version.ref = "versionCatalogUpdate" }
 
 [libraries]
 benManes-versions = { module = "com.github.ben-manes:gradle-versions-plugin", version.ref = "benManes-versions" }
@@ -131,7 +106,6 @@ ec4j-core = { module = "org.ec4j.core:ec4j-core", version.ref = "ec4j" }
 github-release = { module = "com.github.breadmoirai:github-release", version.ref = "github-release" }
 
 google-auto-service-annotations = "com.google.auto.service:auto-service-annotations:1.1.1"
-google-auto-service-processor = "com.google.auto.service:auto-service:1.1.1"
 
 google-dagger-api = { module = "com.google.dagger:dagger", version.ref = "google-dagger" }
 google-dagger-compiler = { module = "com.google.dagger:dagger-compiler", version.ref = "google-dagger" }
@@ -142,12 +116,7 @@ gradle-plugin-publish = { module = "com.gradle.publish:plugin-publish-plugin", v
 
 google-guava = { module = "com.google.guava:guava", version.ref = "google-guava" }
 
-jackson-toml = { module = "com.fasterxml.jackson.dataformat:jackson-dataformat-toml", version.ref = "jackson" }
-
 java-diff-utils = { module = "io.github.java-diff-utils:java-diff-utils", version.ref = "java-diff-utils" }
-
-javaParser-core = { module = "com.github.javaparser:javaparser-core", version.ref = "javaParser" }
-javaParser-symbols = { module = "com.github.javaparser:javaparser-symbol-solver-core", version.ref = "javaParser" }
 
 javax-inject = "javax.inject:javax.inject:1"
 
@@ -228,47 +197,12 @@ rickBusarow-moduleCheck-gradle-plugin = { module = "com.rickbusarow.modulecheck:
 slf4j-api = { module = "org.slf4j:slf4j-api", version.ref = "slf4j" }
 slf4j-simple = { module = "org.slf4j:slf4j-simple", version.ref = "slf4j" }
 
-square-anvil-annotations = { module = "com.squareup.anvil:annotations", version.ref = "square-anvil" }
-square-anvil-compiler-api = { module = "com.squareup.anvil:compiler-api", version.ref = "square-anvil" }
-square-anvil-compiler-core = { module = "com.squareup.anvil:compiler", version.ref = "square-anvil" }
-square-anvil-compiler-utils = { module = "com.squareup.anvil:compiler-utils", version.ref = "square-anvil" }
-square-anvil-gradle = { module = "com.squareup.anvil:gradle-plugin", version.ref = "square-anvil" }
-
-square-javaPoet = { module = "com.squareup:javapoet", version.ref = "square-javaPoet" }
 square-kotlinPoet = { module = "com.squareup:kotlinpoet", version.ref = "square-kotlinPoet" }
 
 square-moshi = { module = "com.squareup.moshi:moshi", version.ref = "square-moshi" }
 square-moshi-codegen = { module = "com.squareup.moshi:moshi-kotlin-codegen", version.ref = "square-moshi" }
 
-square-okio = { module = "com.squareup.okio:okio", version.ref = "square-okio" }
-square-okio-bom = { module = "com.squareup.okio:okio-bom", version.ref = "square-okio" }
-square-okio-fakefilesystem = { module = "com.squareup.okio:okio-fakefilesystem-jvm", version.ref = "square-okio" }
-square-okio-jvm = { module = "com.squareup.okio:okio-jvm", version.ref = "square-okio" }
 
-outfoxx-swiftPoet = { module = "io.outfoxx:swiftpoet", version.ref = "outfoxx-swiftPoet" }
-outfoxx-typescriptPoet = { module = "io.outfoxx:typescriptpoet", version.ref = "outfoxx-typescriptPoet" }
-
-threetenbp = { module = "org.threeten:threetenbp", version.ref = "threetenbp" }
-
-undercouch-download = "de.undercouch:gradle-download-task:5.5.0"
-
-vanniktech-publish-base = { module = "com.vanniktech:gradle-maven-publish-plugin-base", version.ref = "vanniktech-publish" }
 vanniktech-publish = { module = "com.vanniktech:gradle-maven-publish-plugin", version.ref = "vanniktech-publish" }
 
 zacSweers-auto-service-ksp = "dev.zacsweers.autoservice:auto-service-ksp:1.1.0"
-
-[bundles]
-jUnit = [
-  "junit-engine",
-  "junit-jupiter",
-  "junit-jupiter-api",
-  "junit-params",
-]
-kotest = [
-  "kotest-assertions-api",
-  "kotest-assertions-core-jvm",
-  "kotest-assertions-shared",
-  "kotest-common",
-  "kotest-extensions",
-  "kotest-property-jvm",
-]

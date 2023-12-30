@@ -61,54 +61,47 @@ internal data class SampleResult(
 internal class NamedSamples(
   private val psiFactory: DoksPsiFileFactory
 ) : java.io.Serializable {
-  private val nameCache =
-    LazyMap<KtNamedDeclaration, FqName> { psi ->
 
-      val fqName = psi.fqName
+  private val nameCache = LazyMap<KtNamedDeclaration, FqName> { psi ->
 
-      val identifierText =
-        psi.identifyingElement?.text
-          ?: psi.name.requireNotNull {
-            """
+    val fqName = psi.fqName
+
+    val identifierText = psi.identifyingElement?.text
+      ?: psi.name.requireNotNull {
+        """
         |This psi element does not have a name: $psi
         |================
         |${psi.text}
         |================
         """.replaceIndentByMargin()
-          }
-
-      val identifierName by lazy(NONE) { Name.identifier(identifierText) }
-
-      if (fqName != null) {
-        return@LazyMap when {
-          // An object's identifier is the "object" keyword, but named objects can't be declared inside a
-          // function, so they don't need the identifier workaround.
-          psi is KtObjectDeclaration -> fqName
-          // If the identifier's text is different from the parsed `name`, it's probably because Kotlin
-          // removed backticks wrapping the name. In this case, we want to retain the backticks.
-          identifierText != psi.name -> fqName.parentOrNull()?.child(identifierName) ?: fqName
-          else -> fqName
-        }
       }
 
-      val parentFqName =
-        psi
-          .parents
-          .filterIsInstance<KtNamedDeclaration>()
-          .first { it !is KtFunctionLiteral }
-          .fqNameIncludingMembers()
+    val identifierName by lazy(NONE) { Name.identifier(identifierText) }
 
-      parentFqName.child(identifierName)
+    if (fqName != null) {
+      return@LazyMap when {
+        // An object's identifier is the "object" keyword, but named objects can't be declared inside a
+        // function, so they don't need the identifier workaround.
+        psi is KtObjectDeclaration -> fqName
+        // If the identifier's text is different from the parsed `name`, it's probably because Kotlin
+        // removed backticks wrapping the name. In this case, we want to retain the backticks.
+        identifierText != psi.name -> fqName.parentOrNull()?.child(identifierName) ?: fqName
+        else -> fqName
+      }
     }
 
-  fun findAll(
-    files: Collection<File>,
-    requests: List<SampleRequest>
-  ): List<SampleResult> {
-    val ktFiles =
-      files
-        .asSequence()
-        .map { psiFactory.createKotlin(it) }
+    val parentFqName = psi.parents
+      .filterIsInstance<KtNamedDeclaration>()
+      .first { it !is KtFunctionLiteral }
+      .fqNameIncludingMembers()
+
+    parentFqName.child(identifierName)
+  }
+
+  fun findAll(files: Collection<File>, requests: List<SampleRequest>): List<SampleResult> {
+    val ktFiles = files
+      .asSequence()
+      .map { psiFactory.createKotlin(it) }
 
     return findAll(
       ktFiles = ktFiles,
@@ -116,10 +109,7 @@ internal class NamedSamples(
     )
   }
 
-  fun findAll(
-    ktFiles: Sequence<KtFile>,
-    requests: List<SampleRequest>
-  ): List<SampleResult> {
+  fun findAll(ktFiles: Sequence<KtFile>, requests: List<SampleRequest>): List<SampleResult> {
 
     val cache = createDeclarationCache(ktFiles, requests)
 
@@ -127,35 +117,33 @@ internal class NamedSamples(
 
       val content =
         when (val namedDeclaration = cache[request.fqName]) {
-          is KtClassOrObject ->
-            if (request.bodyOnly) {
-              namedDeclaration.body!!.textInScope()
-            } else {
-              namedDeclaration.text.trimIndentAfterFirstLine()
-            }
+          is KtClassOrObject -> if (request.bodyOnly) {
+            namedDeclaration.body!!.textInScope()
+          } else {
+            namedDeclaration.text.trimIndentAfterFirstLine()
+          }
 
-          is KtProperty ->
-            if (request.bodyOnly) {
-              namedDeclaration
-                .initializer
-                .requireNotNull {
-                  "${namedDeclaration.containingKtFile} > " +
-                    "A property must have an initializer when using 'bodyOnly = true'."
-                }.let { (it as? KtStringTemplateExpression) ?: it.getChildOfType() }
-                .requireNotNull {
-                  "${namedDeclaration.containingKtFile} > " +
-                    "A property initializer must be a string template."
-                }.textInScope()
-            } else {
-              namedDeclaration.text
-            }
+          is KtProperty -> if (request.bodyOnly) {
+            namedDeclaration.initializer
+              .requireNotNull {
+                "${namedDeclaration.containingKtFile} > " +
+                  "A property must have an initializer when using 'bodyOnly = true'."
+              }
+              .let { (it as? KtStringTemplateExpression) ?: it.getChildOfType() }
+              .requireNotNull {
+                "${namedDeclaration.containingKtFile} > " +
+                  "A property initializer must be a string template."
+              }
+              .textInScope()
+          } else {
+            namedDeclaration.text
+          }
 
-          is KtNamedFunction ->
-            if (request.bodyOnly) {
-              namedDeclaration.bodyBlockExpression!!.textInScope()
-            } else {
-              namedDeclaration.text.trimIndentAfterFirstLine()
-            }
+          is KtNamedFunction -> if (request.bodyOnly) {
+            namedDeclaration.bodyBlockExpression!!.textInScope()
+          } else {
+            namedDeclaration.text.trimIndentAfterFirstLine()
+          }
 
           null -> {
             error("could not find a psi element with the name of `${request.fqName}`")
@@ -175,11 +163,11 @@ internal class NamedSamples(
 
     val requestedNames = requests.map { FqName(it.fqName) }
 
-    val namesAndParentNames =
-      requestedNames
-        .flatMap { requestedName ->
-          generateSequence(requestedName) { if (it.isRoot) null else it.parent() }
-        }.toSet()
+    val namesAndParentNames = requestedNames
+      .flatMap { requestedName ->
+        generateSequence(requestedName) { if (it.isRoot) null else it.parent() }
+      }
+      .toSet()
 
     return ktFiles
       .sortByPathSimilarityTo(requestedNames)
@@ -195,8 +183,10 @@ internal class NamedSamples(
 
               else -> element.couldHaveNamedChildren()
             }
-          }.filterIsInstance<KtNamedDeclaration>()
-      }.distinct()
+          }
+          .filterIsInstance<KtNamedDeclaration>()
+      }
+      .distinct()
       .map { it.fqNameIncludingMembers().asString() to it }
       .toLazyMap()
   }
@@ -223,24 +213,24 @@ internal class NamedSamples(
       }
 
       Pair(file, score)
-    }.sortedByDescending { it.second }
+    }
+      .sortedByDescending { it.second }
       .map { it.first }
   }
 
   private fun FqName.asPathString(): String = pathSegments().joinToString(File.separator)
 
-  private fun KtElement.textInScope() =
-    getChildrenOfType<PsiElement>()
-      .drop(1)
-      .dropLast(1)
-      .joinToStringConcat { it.text }
-      .trimIndent()
+  private fun KtElement.textInScope() = getChildrenOfType<PsiElement>()
+    .drop(1)
+    .dropLast(1)
+    .joinToStringConcat { it.text }
+    .trimIndent()
 
   private fun KtNamedDeclaration.fqNameIncludingMembers(): FqName = nameCache[this]
 }
 
-internal fun PsiElement.couldHaveNamedChildren(): Boolean =
-  when (this) {
+internal fun PsiElement.couldHaveNamedChildren(): Boolean {
+  return when (this) {
     is LeafPsiElement -> false
 
     is KtFunctionLiteral,
@@ -252,3 +242,4 @@ internal fun PsiElement.couldHaveNamedChildren(): Boolean =
 
     else -> false
   }
+}

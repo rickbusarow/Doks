@@ -24,11 +24,8 @@ internal abstract class AbstractTreePrinter<T : Any>(
   private val parentNameMap = mutableMapOf<T, String>()
 
   abstract fun T.simpleClassName(): String
-
   abstract fun T.parent(): T?
-
   abstract fun T.typeName(): String
-
   abstract fun T.text(): String
 
   abstract fun depthFirstChildren(root: T): Sequence<T>
@@ -73,37 +70,36 @@ internal abstract class AbstractTreePrinter<T : Any>(
         append('\n')
         append('\n')
         append(
-          "   %|$nodeText"
-            .replaceIndentByMargin(
-              newIndent = "",
-              marginPrefix = "%|"
-            ).prependIndent("│")
+          "   %|$nodeText".replaceIndentByMargin(
+            newIndent = "",
+            marginPrefix = "%|"
+          ).prependIndent("│")
         )
         append('\n')
-      }.lines()
+      }
+        .lines()
         .let {
           it.dropLast(1) + it.last().replaceFirst("  ", "└─")
-        }.joinToString("\n")
+        }
+        .joinToString("\n")
         .prependIndent("│   ".repeat(level))
     )
   }
 
-  private fun T.parentName() =
-    parent()?.let { parent ->
+  private fun T.parentName() = parent()?.let { parent ->
 
-      parentNameMap.getOrPut(parent) {
-        val typeCount = parentNameMap.keys.count { it.typeName() == parent.typeName() }
+    parentNameMap.getOrPut(parent) {
+      val typeCount = parentNameMap.keys.count { it.typeName() == parent.typeName() }
 
-        val simpleName = parent.typeName()
+      val simpleName = parent.typeName()
 
-        val start =
-          if (typeCount == 0) {
-            simpleName
-          } else {
-            "$simpleName (${typeCount + 1})"
-          }
-
-        start
+      val start = if (typeCount == 0) {
+        simpleName
+      } else {
+        "$simpleName (${typeCount + 1})"
       }
+
+      start
     }
+  }
 }

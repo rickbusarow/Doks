@@ -34,35 +34,29 @@ internal class DoksTaskFactory(
   private val taskContainer: TaskContainer,
   private val layout: ProjectLayout
 ) : java.io.Serializable {
-  internal fun registerAll(
-    name: String,
-    sourceSet: NamedDomainObjectProvider<DoksSet>
-  ) {
 
-    val samplesMappingFile =
-      layout
-        .buildDirectory
-        .file("tmp/doks/samples_$name.json")
+  internal fun registerAll(name: String, sourceSet: NamedDomainObjectProvider<DoksSet>) {
+
+    val samplesMappingFile = layout.buildDirectory
+      .file("tmp/doks/samples_$name.json")
 
     val parse = registerParseTask(name, sourceSet, samplesMappingFile)
 
-    val check =
-      registerDocsTask(
-        docSetName = name,
-        autoCorrect = false,
-        sourceSet = sourceSet,
-        samplesMappingFile = samplesMappingFile,
-        parseTask = parse
-      )
+    val check = registerDocsTask(
+      docSetName = name,
+      autoCorrect = false,
+      sourceSet = sourceSet,
+      samplesMappingFile = samplesMappingFile,
+      parseTask = parse
+    )
 
-    val fix =
-      registerDocsTask(
-        docSetName = name,
-        autoCorrect = true,
-        sourceSet = sourceSet,
-        samplesMappingFile = samplesMappingFile,
-        parseTask = parse
-      )
+    val fix = registerDocsTask(
+      docSetName = name,
+      autoCorrect = true,
+      sourceSet = sourceSet,
+      samplesMappingFile = samplesMappingFile,
+      parseTask = parse
+    )
 
     check.mustRunAfter(fix)
 
@@ -88,14 +82,12 @@ internal class DoksTaskFactory(
       // execution phase would break configuration caching.
       val subprojectDirs = task.subprojectDirs()
 
-      val sampleCodeSourceFiles =
-        sourceSet.map { ss ->
-          ss
-            .sampleCodeSource
-            .letIf(ss.name.isNotBlank() && !ss.sampleCodeSource.hasFiles()) {
-              samplesFileCollectionDefault(ss, subprojectDirs)
-            }
-        }
+      val sampleCodeSourceFiles = sourceSet.map { ss ->
+        ss.sampleCodeSource
+          .letIf(ss.name.isNotBlank() && !ss.sampleCodeSource.hasFiles()) {
+            samplesFileCollectionDefault(ss, subprojectDirs)
+          }
+      }
 
       task.sampleCode.from(sampleCodeSourceFiles)
 
@@ -119,24 +111,22 @@ internal class DoksTaskFactory(
     parseTask: TaskProvider<DoksParseTask>
   ): TaskProvider<DoksDocsTask> {
 
-    val taskName =
-      if (autoCorrect) {
-        "doks${docSetName.capitalize()}"
-      } else {
-        "doksCheck${docSetName.capitalize()}"
-      }
+    val taskName = if (autoCorrect) {
+      "doks${docSetName.capitalize()}"
+    } else {
+      "doksCheck${docSetName.capitalize()}"
+    }
 
     return taskContainer.registerOnce(taskName, DoksDocsTask::class.java) { task ->
 
       task.autoCorrect = autoCorrect
 
       task.group = "Doks"
-      task.description =
-        if (autoCorrect) {
-          "Automatically fixes any out-of-date documentation."
-        } else {
-          "Searches for any out-of-date documentation and fails if it finds any."
-        }
+      task.description = if (autoCorrect) {
+        "Automatically fixes any out-of-date documentation."
+      } else {
+        "Searches for any out-of-date documentation and fails if it finds any."
+      }
 
       task.samplesMapping.set(
         samplesMappingFile.map { regularFile ->
@@ -154,14 +144,12 @@ internal class DoksTaskFactory(
       // execution phase would break configuration caching.
       val subprojectDirs = task.subprojectDirs()
 
-      val docsFiles =
-        sourceSet.map { ss ->
-          ss
-            .docs
-            .letIf(ss.name.isNotBlank() && !ss.docs.hasFiles()) {
-              docsFileCollectionDefault(ss, subprojectDirs)
-            }
-        }
+      val docsFiles = sourceSet.map { ss ->
+        ss.docs
+          .letIf(ss.name.isNotBlank() && !ss.docs.hasFiles()) {
+            docsFileCollectionDefault(ss, subprojectDirs)
+          }
+      }
 
       task.onlyIf { docsFiles.get().files.isNotEmpty() }
 
@@ -176,40 +164,22 @@ internal class DoksTaskFactory(
     }
   }
 
-  private fun samplesFileCollectionDefault(
-    ss: DoksSet,
-    subprojectDirs: List<String>
-  ) = ss.sampleCodeSource(layout.projectDirectory.dir("src")) {
-    it.include("**/*.kt", "**/*.kts")
-    it.exclude(
-      layout
-        .buildDirectory
-        .get()
-        .asFile
-        .path
-    )
-    it.exclude(subprojectDirs)
-  }
+  private fun samplesFileCollectionDefault(ss: DoksSet, subprojectDirs: List<String>) =
+    ss.sampleCodeSource(layout.projectDirectory.dir("src")) {
+      it.include("**/*.kt", "**/*.kts")
+      it.exclude(layout.buildDirectory.get().asFile.path)
+      it.exclude(subprojectDirs)
+    }
 
-  private fun docsFileCollectionDefault(
-    ss: DoksSet,
-    subprojectDirs: List<String>
-  ) = ss.docs(layout.projectDirectory.asFile) {
-    it.include("**/*.md", "**/*.mdx")
-    it.exclude(
-      layout
-        .buildDirectory
-        .get()
-        .asFile
-        .path
-    )
-    it.exclude(subprojectDirs)
-  }
+  private fun docsFileCollectionDefault(ss: DoksSet, subprojectDirs: List<String>) =
+    ss.docs(layout.projectDirectory.asFile) {
+      it.include("**/*.md", "**/*.mdx")
+      it.exclude(layout.buildDirectory.get().asFile.path)
+      it.exclude(subprojectDirs)
+    }
 
-  private fun Task.subprojectDirs() =
-    project
-      .subprojects
-      .map { it.projectDir.relativeTo(layout.projectDirectory.asFile).path }
+  private fun Task.subprojectDirs() = project.subprojects
+    .map { it.projectDir.relativeTo(layout.projectDirectory.asFile).path }
 
   private fun FileCollection.hasFiles(): Boolean = !filter { it.isFile }.isEmpty
 }

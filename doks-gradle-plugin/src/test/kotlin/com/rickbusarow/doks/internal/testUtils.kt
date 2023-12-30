@@ -23,20 +23,12 @@ import java.util.stream.Stream
 fun <T> Iterable<T>.container(
   name: (T) -> String,
   action: (T) -> Iterable<DynamicNode>
-): Stream<DynamicContainer> =
-  map { t ->
-    DynamicContainer.dynamicContainer(name(t), action(t))
-  }.stream()
+): Stream<DynamicContainer> = map { t ->
+  DynamicContainer.dynamicContainer(name(t), action(t))
+}.stream()
 
-fun test(
-  name: String,
-  action: () -> Unit
-): DynamicTest = DynamicTest.dynamicTest(name, action)
+fun test(name: String, action: () -> Unit): DynamicTest = DynamicTest.dynamicTest(name, action)
 
-fun <T> Iterable<T>.test(
-  name: (T) -> String,
-  action: (T) -> Unit
-): List<DynamicTest> =
-  map { t ->
-    DynamicTest.dynamicTest(name(t)) { action(t) }
-  }
+fun <T> Iterable<T>.test(name: (T) -> String, action: (T) -> Unit): List<DynamicTest> = map { t ->
+  DynamicTest.dynamicTest(name(t)) { action(t) }
+}

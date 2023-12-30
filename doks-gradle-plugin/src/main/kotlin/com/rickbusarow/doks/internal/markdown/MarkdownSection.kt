@@ -31,21 +31,16 @@ internal data class MarkdownSection(
   val afterCloseTag: String
 ) {
   val ruleConfigs: List<RuleConfig> by lazy(LazyThreadSafetyMode.NONE) {
-    openTagMatchersBlob
-      .split(',')
+    openTagMatchersBlob.split(',')
       .map { cfg ->
 
-        val parts =
-          cfg
-            .split(':')
-            .map { it.trim() }
+        val parts = cfg.split(':')
+          .map { it.trim() }
 
         val name = parts[0]
-        val countSplit =
-          parts
-            .getOrNull(1)
-            ?.split('-')
-            ?.map { it.trim() }
+        val countSplit = parts.getOrNull(1)
+          ?.split('-')
+          ?.map { it.trim() }
 
         val minOrNull = countSplit?.firstOrNull()?.toInt()
         val maxOrNull = countSplit?.getOrNull(1)?.toInt() ?: minOrNull
@@ -58,10 +53,7 @@ internal data class MarkdownSection(
       }
   }
 
-  fun position(
-    leadingString: String,
-    substring: String = match
-  ): Position {
+  fun position(leadingString: String, substring: String = match): Position {
 
     val scopeString = leadingString + match
 

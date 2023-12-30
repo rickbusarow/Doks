@@ -41,22 +41,21 @@ abstract class KnitConventionPlugin : Plugin<Project> {
 
       task.rootDir = target.rootProject.rootDir
 
-      task.files =
-        target.fileTree(target.rootDir) { tree ->
-          tree.include(
-            "**/*.md",
-            "**/*.kt",
-            "**/*.kts"
-          )
-          tree.exclude(
-            "**/node_modules/**",
-            "**/build/**",
-            "**/docs/**",
-            "**/versioned_docs/**",
-            "**/sample/**",
-            "**/.gradle/**"
-          )
-        }
+      task.files = target.fileTree(target.rootDir) { tree ->
+        tree.include(
+          "**/*.md",
+          "**/*.kt",
+          "**/*.kts"
+        )
+        tree.exclude(
+          "**/node_modules/**",
+          "**/build/**",
+          "**/docs/**",
+          "**/versioned_docs/**",
+          "**/sample/**",
+          "**/.gradle/**"
+        )
+      }
     }
   }
 }

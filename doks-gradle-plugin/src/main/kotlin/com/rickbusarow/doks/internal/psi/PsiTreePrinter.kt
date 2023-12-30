@@ -33,21 +33,20 @@ import org.jetbrains.kotlin.com.intellij.psi.PsiElement
 internal class PsiTreePrinter(
   whitespaceChar: Char = ' '
 ) : AbstractTreePrinter<PsiElement>(whitespaceChar) {
-  override fun depthFirstChildren(root: PsiElement): Sequence<PsiElement> =
-    root.childrenDepthFirst()
+
+  override fun depthFirstChildren(root: PsiElement): Sequence<PsiElement> {
+    return root.childrenDepthFirst()
+  }
 
   override fun PsiElement.text(): String = text
-
   override fun PsiElement.typeName(): String = node.elementType.toString()
-
   override fun PsiElement.parent(): PsiElement? = parent
-
   override fun PsiElement.simpleClassName(): String = this::class.java.simpleName
 
   companion object {
-    internal fun PsiElement.printEverything(whitespaceChar: Char = ' ') =
-      apply {
-        PsiTreePrinter(whitespaceChar).visitRoot(this)
-      }
+
+    internal fun PsiElement.printEverything(whitespaceChar: Char = ' ') = apply {
+      PsiTreePrinter(whitespaceChar).visitRoot(this)
+    }
   }
 }

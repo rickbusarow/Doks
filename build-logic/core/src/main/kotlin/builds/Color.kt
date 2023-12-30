@@ -21,9 +21,7 @@ package builds
  * @since 0.1.0
  */
 @Suppress("MagicNumber")
-enum class Color(
-  val code: Int
-) {
+enum class Color(val code: Int) {
   BLACK(30),
   RED(31),
   GREEN(32),
@@ -42,6 +40,7 @@ enum class Color(
   WHITE(97);
 
   companion object {
+
     private val supported = "win" !in System.getProperty("os.name").lowercase()
 
     /**
@@ -49,11 +48,10 @@ enum class Color(
      *
      * @since 0.1.0
      */
-    fun String.colorized(color: Color) =
-      if (supported) {
-        "\u001B[${color.code}m$this\u001B[0m"
-      } else {
-        this
-      }
+    fun String.colorized(color: Color) = if (supported) {
+      "\u001B[${color.code}m$this\u001B[0m"
+    } else {
+      this
+    }
   }
 }

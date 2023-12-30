@@ -27,8 +27,7 @@ abstract class KtLintConventionPlugin : Plugin<Project> {
 
     target.plugins.apply(KtLintPlugin::class.java)
 
-    target
-      .dependencies
+    target.dependencies
       .add("ktlint", target.libsCatalog.dependency("rickBusarow-ktrules"))
 
     target.tasks.withType(KtLintTask::class.java).configureEach { task ->

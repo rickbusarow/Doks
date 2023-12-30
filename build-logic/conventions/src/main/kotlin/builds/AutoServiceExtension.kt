@@ -18,6 +18,7 @@ package builds
 import org.gradle.api.Project
 
 interface AutoServiceExtension : KspExtension {
+
   fun Project.autoService() {
     ksp()
 

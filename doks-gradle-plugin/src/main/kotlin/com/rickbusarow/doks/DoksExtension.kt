@@ -25,42 +25,39 @@ import org.gradle.api.tasks.TaskContainer
 import javax.inject.Inject
 
 /** @since 0.1.0 */
-abstract class DoksExtension
-  @Inject
-  constructor(
-    private val taskContainer: TaskContainer,
-    private val layout: ProjectLayout
-  ) : java.io.Serializable {
-    /** @since 0.1.0 */
-    abstract val doksSets: NamedDomainObjectContainer<DoksSet>
+abstract class DoksExtension @Inject constructor(
+  private val taskContainer: TaskContainer,
+  private val layout: ProjectLayout
+) : java.io.Serializable {
 
-    private val taskFactory: DoksTaskFactory by lazy {
-      DoksTaskFactory(
-        taskContainer = taskContainer,
-        layout = layout
-      )
-    }
+  /** @since 0.1.0 */
+  abstract val doksSets: NamedDomainObjectContainer<DoksSet>
 
-    /**
-     * Convenience method for defining a new [DoksSet].
-     *
-     * @param name The name of the new source set. Defaults to "main".
-     * @param action The configuration action for the new source set.
-     * @return The provider for the new source set.
-     * @since 0.1.0
-     */
-    @JvmOverloads
-    fun dokSet(
-      name: String = "all",
-      action: Action<DoksSet>
-    ): NamedDomainObjectProvider<DoksSet> =
-      doksSets
-        .registerOnce(name, action)
-        .also { sourceSet ->
-
-          taskFactory.registerAll(
-            name = name,
-            sourceSet = sourceSet
-          )
-        }
+  private val taskFactory: DoksTaskFactory by lazy {
+    DoksTaskFactory(
+      taskContainer = taskContainer,
+      layout = layout
+    )
   }
+
+  /**
+   * Convenience method for defining a new [DoksSet].
+   *
+   * @param name The name of the new source set. Defaults to "main".
+   * @param action The configuration action for the new source set.
+   * @return The provider for the new source set.
+   * @since 0.1.0
+   */
+  @JvmOverloads
+  fun dokSet(name: String = "all", action: Action<DoksSet>): NamedDomainObjectProvider<DoksSet> {
+
+    return doksSets.registerOnce(name, action)
+      .also { sourceSet ->
+
+        taskFactory.registerAll(
+          name = name,
+          sourceSet = sourceSet
+        )
+      }
+  }
+}

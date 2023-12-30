@@ -24,4 +24,6 @@ internal fun ObjectFactory.fileTree(baseDir: Any): ConfigurableFileTree = fileTr
 internal fun ObjectFactory.fileTree(
   baseDir: Any,
   configureAction: Action<in ConfigurableFileTree>
-): ConfigurableFileTree = fileTree().from(baseDir).also(configureAction::execute)
+): ConfigurableFileTree {
+  return fileTree().from(baseDir).also(configureAction::execute)
+}

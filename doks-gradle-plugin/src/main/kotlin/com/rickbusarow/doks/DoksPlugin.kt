@@ -24,22 +24,19 @@ import org.gradle.language.base.plugins.LifecycleBasePlugin
 /** @since 0.1.0 */
 @Suppress("UnnecessaryAbstractClass")
 abstract class DoksPlugin : Plugin<Project> {
+
   override fun apply(target: Project) {
 
-    val extension =
-      target
-        .extensions
-        .create("doks", DoksExtension::class.java)
+    val extension = target.extensions
+      .create("doks", DoksExtension::class.java)
 
     extension.dokSet("") {}
 
-    target
-      .tasks
+    target.tasks
       .matchingName(LifecycleBasePlugin.CHECK_TASK_NAME)
       .dependOn("doksCheck")
 
-    target
-      .tasks
+    target.tasks
       .matchingName("fix")
       .dependOn("doks")
   }

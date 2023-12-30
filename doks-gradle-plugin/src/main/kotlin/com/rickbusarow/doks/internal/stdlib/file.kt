@@ -36,14 +36,13 @@ internal fun File.segments(): List<String> = path.split(File.separator)
  * @see Path.createSafely
  * @since 0.1.0
  */
-internal fun File.createSafely(content: String? = null): File =
-  apply {
-    if (content != null) {
-      makeParentDir().writeText(content)
-    } else {
-      makeParentDir().createNewFile()
-    }
+internal fun File.createSafely(content: String? = null): File = apply {
+  if (content != null) {
+    makeParentDir().writeText(content)
+  } else {
+    makeParentDir().createNewFile()
   }
+}
 
 /**
  * Makes parent directories, then creates the receiver file. If a
@@ -83,11 +82,10 @@ internal fun Path.mkdirsInline(): Path = apply { toFile().mkdirsInline() }
  * @see Path.makeParentDir
  * @since 0.1.0
  */
-internal fun File.makeParentDir(): File =
-  apply {
-    val fileParent = parentFile.requireNotNull { "File's `parentFile` must not be null." }
-    fileParent.mkdirs()
-  }
+internal fun File.makeParentDir(): File = apply {
+  val fileParent = parentFile.requireNotNull { "File's `parentFile` must not be null." }
+  fileParent.mkdirs()
+}
 
 /**
  * Creates the parent directory if it doesn't already exist.
@@ -97,8 +95,7 @@ internal fun File.makeParentDir(): File =
  * @see File.makeParentDir
  * @since 0.1.1
  */
-internal fun Path.makeParentDir(): Path =
-  apply {
-    val fileParent = parent.requireNotNull { "Path's `parentFile` must not be null." }
-    fileParent.mkdirsInline()
-  }
+internal fun Path.makeParentDir(): Path = apply {
+  val fileParent = parent.requireNotNull { "Path's `parentFile` must not be null." }
+  fileParent.mkdirsInline()
+}

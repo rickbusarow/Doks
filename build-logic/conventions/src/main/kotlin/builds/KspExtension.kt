@@ -18,6 +18,7 @@ package builds
 import org.gradle.api.Project
 
 interface KspExtension {
+
   fun Project.ksp() {
 
     pluginManager.apply("com.google.devtools.ksp")

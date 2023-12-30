@@ -36,6 +36,7 @@ import org.gradle.api.tasks.TaskAction
  * @since 0.1.0
  */
 abstract class DoksParseTask : DoksTask("Parses source files for requested samples") {
+
   /**
    * The requests to be parsed by this task. The content of
    * [samplesMapping] will hold these requests and their results.
@@ -70,15 +71,11 @@ abstract class DoksParseTask : DoksTask("Parses source files for requested sampl
 
     val namedSamples = NamedSamples(DoksPsiFileFactory())
 
-    val requests =
-      sampleRequests
-        .get()
-        .map { SampleRequest(it.fqName, it.bodyOnly) }
+    val requests = sampleRequests.get()
+      .map { SampleRequest(it.fqName, it.bodyOnly) }
 
-    val results =
-      namedSamples
-        .findAll(sampleCode.filter { it.isFile }.files, requests)
-        .map { SampleResult(request = it.request, content = it.content) }
+    val results = namedSamples.findAll(sampleCode.filter { it.isFile }.files, requests)
+      .map { SampleResult(request = it.request, content = it.content) }
 
     val jsonString = json.encodeToString(results.associateBy { it.request })
 

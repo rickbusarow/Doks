@@ -33,10 +33,8 @@ import org.gradle.plugins.signing.Sign
 import org.jetbrains.dokka.gradle.AbstractDokkaLeafTask
 
 interface PublishingExtension {
-  fun Project.published(
-    artifactId: String,
-    pomDescription: String
-  ) {
+
+  fun Project.published(artifactId: String, pomDescription: String) {
     published(
       groupId = GROUP,
       artifactId = artifactId,
@@ -44,11 +42,7 @@ interface PublishingExtension {
     )
   }
 
-  fun Project.published(
-    groupId: String,
-    artifactId: String,
-    pomDescription: String
-  ) {
+  fun Project.published(groupId: String, artifactId: String, pomDescription: String) {
 
     plugins.apply("com.vanniktech.maven.publish.base")
     plugins.apply("builds.dokka")
@@ -110,11 +104,7 @@ private fun Project.versionIsSnapshot(): Boolean {
   return VERSION_NAME.endsWith("-SNAPSHOT")
 }
 
-private fun Project.configurePublish(
-  artifactId: String,
-  pomDescription: String,
-  groupId: String
-) {
+private fun Project.configurePublish(artifactId: String, pomDescription: String, groupId: String) {
 
   version = VERSION_NAME
 
@@ -183,15 +173,13 @@ private fun Project.configurePublish(
     }
 
     extensions.configure(PublishingExtension::class.java) { publishingExtension ->
-      publishingExtension
-        .publications
-        .withType(
-          MavenPublication::class.java
-        ).configureEach { publication ->
-          publication.artifactId = artifactId
-          publication.pom.description.set(pomDescription)
-          publication.groupId = groupId
-        }
+      publishingExtension.publications.withType(
+        MavenPublication::class.java
+      ).configureEach { publication ->
+        publication.artifactId = artifactId
+        publication.pom.description.set(pomDescription)
+        publication.groupId = groupId
+      }
     }
   }
 
@@ -212,44 +200,38 @@ private fun Project.configurePublish(
   }
 }
 
-private fun Project.registerCoordinatesStringsCheckTask(
-  groupId: String,
-  artifactId: String
-) {
+private fun Project.registerCoordinatesStringsCheckTask(groupId: String, artifactId: String) {
 
-  val checkTask =
-    tasks.registerOnce(
-      "checkMavenCoordinatesStrings",
-      BuildLogicTask::class.java
-    ) { task ->
-      task.group = "publishing"
-      task.description = "checks that the project's maven group and artifact ID are valid for Maven"
+  val checkTask = tasks.registerOnce(
+    "checkMavenCoordinatesStrings",
+    BuildLogicTask::class.java
+  ) { task ->
+    task.group = "publishing"
+    task.description = "checks that the project's maven group and artifact ID are valid for Maven"
 
-      task.doLast {
+    task.doLast {
 
-        val allowedRegex = "^[A-Za-z0-9_\\-.]+$".toRegex()
+      val allowedRegex = "^[A-Za-z0-9_\\-.]+$".toRegex()
 
-        check(groupId.matches(allowedRegex)) {
+      check(groupId.matches(allowedRegex)) {
 
-          val actualString =
-            when {
-              groupId.isEmpty() -> "<<empty string>>"
-              else -> groupId
-            }
-          "groupId ($actualString) is not a valid Maven identifier ($allowedRegex)."
+        val actualString = when {
+          groupId.isEmpty() -> "<<empty string>>"
+          else -> groupId
         }
+        "groupId ($actualString) is not a valid Maven identifier ($allowedRegex)."
+      }
 
-        check(artifactId.matches(allowedRegex)) {
+      check(artifactId.matches(allowedRegex)) {
 
-          val actualString =
-            when {
-              artifactId.isEmpty() -> "<<empty string>>"
-              else -> artifactId
-            }
-          "artifactId ($actualString) is not a valid Maven identifier ($allowedRegex)."
+        val actualString = when {
+          artifactId.isEmpty() -> "<<empty string>>"
+          else -> artifactId
         }
+        "artifactId ($actualString) is not a valid Maven identifier ($allowedRegex)."
       }
     }
+  }
 
   tasks.named(LifecycleBasePlugin.CHECK_TASK_NAME) { task ->
     task.dependsOn(checkTask)
@@ -298,18 +280,17 @@ private fun Project.configureSkipDokka() {
   }
 
   var skipDokka = false
-  val setSkipDokka =
-    tasks.register(
-      "setSkipDokka",
-      BuildLogicTask::class.java
-    ) { task ->
+  val setSkipDokka = tasks.register(
+    "setSkipDokka",
+    BuildLogicTask::class.java
+  ) { task ->
 
-      task.group = "publishing"
-      task.description = "sets `skipDokka` to true before `publishToMavenLocal` is evaluated."
+    task.group = "publishing"
+    task.description = "sets `skipDokka` to true before `publishToMavenLocal` is evaluated."
 
-      task.doFirst { skipDokka = true }
-      task.onlyIf { true }
-    }
+    task.doFirst { skipDokka = true }
+    task.onlyIf { true }
+  }
 
   tasks.register("publishToMavenLocalNoDokka", BuildLogicTask::class.java) {
 

@@ -23,11 +23,10 @@ internal data class RuleConfig(
   fun checkCount(matches: List<String>): Boolean {
     val actualCount = matches.size
 
-    fun plural(count: Int) =
-      when (count) {
-        1 -> "match"
-        else -> "matches"
-      }
+    fun plural(count: Int) = when (count) {
+      1 -> "match"
+      else -> "matches"
+    }
 
     check(minimumCount != maximumCount || actualCount == minimumCount) {
       "The rule '${name.value}' must find exactly $minimumCount ${plural(minimumCount)}, " +

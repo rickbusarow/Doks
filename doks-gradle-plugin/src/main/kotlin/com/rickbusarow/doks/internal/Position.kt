@@ -24,19 +24,18 @@ internal data class Position(
   val row: Int,
   val column: Int
 ) : Comparable<Position> {
+
   override fun compareTo(other: Position): Int {
     return row.compareTo(other.row)
   }
 
   companion object {
+
     /**
      * @return the [Position] of the next [token] after [startIndex]
      * @since 0.1.0
      */
-    fun String.positionOfSubstring(
-      token: String,
-      startIndex: Int
-    ): Position {
+    fun String.positionOfSubstring(token: String, startIndex: Int): Position {
 
       val lines = lines()
 

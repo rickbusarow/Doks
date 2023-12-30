@@ -25,9 +25,7 @@ import org.gradle.api.tasks.Internal
  * @since 0.1.0
  */
 @Suppress("UnnecessaryAbstractClass")
-abstract class DoksTask(
-  description: String
-) : DefaultTask() {
+abstract class DoksTask(description: String) : DefaultTask() {
   init {
     group = "Doks"
     this.description = description

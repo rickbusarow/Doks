@@ -22,10 +22,9 @@ import java.util.Locale
  *
  * @since 0.1.0
  */
-internal fun String.capitalize(): String =
-  replaceFirstChar {
-    if (it.isLowerCase()) it.titlecase(Locale.US) else it.toString()
-  }
+internal fun String.capitalize(): String = replaceFirstChar {
+  if (it.isLowerCase()) it.titlecase(Locale.US) else it.toString()
+}
 
 /**
  * shorthand for `joinToString("") { ... }`
@@ -76,11 +75,10 @@ internal fun String.prettyToString(): String {
  * @see prettyToString
  * @since 0.1.0
  */
-internal fun Any?.toStringPretty(): String =
-  when (this) {
-    is Map<*, *> -> toList().joinToString("\n")
-    else -> toString().prettyToString()
-  }
+internal fun Any?.toStringPretty(): String = when (this) {
+  is Map<*, *> -> toList().joinToString("\n")
+  else -> toString().prettyToString()
+}
 
 /**
  * A naive auto-indent which just counts brackets.
@@ -120,20 +118,18 @@ internal fun String.indentByBrackets(tab: String = "  "): String {
  *
  * @since 0.1.0
  */
-internal fun String.remove(vararg strings: String): String =
-  strings.fold(this) { acc, string ->
-    acc.replace(string, "")
-  }
+internal fun String.remove(vararg strings: String): String = strings.fold(this) { acc, string ->
+  acc.replace(string, "")
+}
 
 /**
  * shorthand for `replace(___, "")` against multiple tokens
  *
  * @since 0.1.0
  */
-internal fun String.remove(vararg regex: Regex): String =
-  regex.fold(this) { acc, reg ->
-    acc.replace(reg, "")
-  }
+internal fun String.remove(vararg regex: Regex): String = regex.fold(this) { acc, reg ->
+  acc.replace(reg, "")
+}
 
 internal fun String.trimIndentAfterFirstLine(): String {
   val split = lines()

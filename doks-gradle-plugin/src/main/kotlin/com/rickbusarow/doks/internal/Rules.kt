@@ -25,6 +25,7 @@ import com.rickbusarow.doks.internal.stdlib.requireNotNull
 class Rules(
   private val map: Map<RuleName, Rule>
 ) : java.io.Serializable {
+
   /**
    * The sorted list of names present in this cache.
    *
@@ -46,7 +47,9 @@ class Rules(
    * @see get for a non-nullable version which throws if the name is missing
    * @since 0.1.0
    */
-  fun getOrNull(ruleName: RuleName): Rule? = map[ruleName]
+  fun getOrNull(ruleName: RuleName): Rule? {
+    return map[ruleName]
+  }
 
   /**
    * @return the [Rule] associated with [ruleName] within this scope
@@ -54,8 +57,8 @@ class Rules(
    * @since 0.1.0
    * @throws IllegalArgumentException if there is no rule with the requested name
    */
-  operator fun get(ruleName: RuleName): Rule =
-    map[ruleName]
+  operator fun get(ruleName: RuleName): Rule {
+    return map[ruleName]
       .requireNotNull {
         buildString {
           appendLine("There is no defined rule for this name.")
@@ -66,4 +69,5 @@ class Rules(
           }
         }
       }
+  }
 }

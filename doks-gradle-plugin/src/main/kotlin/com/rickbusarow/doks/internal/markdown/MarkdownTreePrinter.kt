@@ -32,22 +32,21 @@ import com.rickbusarow.doks.internal.trees.AbstractTreePrinter
 internal class MarkdownTreePrinter(
   whitespaceChar: Char = ' '
 ) : AbstractTreePrinter<MarkdownNode>(whitespaceChar) {
+
   override fun MarkdownNode.simpleClassName(): String = this::class.java.simpleName
-
   override fun MarkdownNode.typeName(): String = elementType.toString()
-
   override fun MarkdownNode.text(): String = text
 
-  override fun depthFirstChildren(root: MarkdownNode): Sequence<MarkdownNode> =
-    root
-      .childrenDepthFirst()
+  override fun depthFirstChildren(root: MarkdownNode): Sequence<MarkdownNode> {
+    return root.childrenDepthFirst()
+  }
 
   override fun MarkdownNode.parent(): MarkdownNode? = parent
 
   companion object {
-    internal fun MarkdownNode.printEverything(whitespaceChar: Char = ' ') =
-      apply {
-        MarkdownTreePrinter(whitespaceChar).visitRoot(this)
-      }
+
+    internal fun MarkdownNode.printEverything(whitespaceChar: Char = ' ') = apply {
+      MarkdownTreePrinter(whitespaceChar).visitRoot(this)
+    }
   }
 }

@@ -27,28 +27,29 @@ internal class DoksEngine(
   private val ruleCache: Rules,
   private val autoCorrect: Boolean
 ) : java.io.Serializable {
+
   /** @since 0.1.0 */
-  fun run(files: List<File>): List<FileResult> =
-    runBlocking {
+  fun run(files: List<File>): List<FileResult> = runBlocking {
 
-      files
-        .map { file ->
-          async(Dispatchers.Default) {
+    files.map { file ->
+      async(Dispatchers.Default) {
 
-            file.markdown(
-              rules = ruleCache,
-              autoCorrect = autoCorrect
-            )
-          }
-        }.awaitAll()
+        file.markdown(
+          rules = ruleCache,
+          autoCorrect = autoCorrect
+        )
+      }
     }
+      .awaitAll()
+  }
 
   /** @since 0.1.0 */
-  fun run(file: File): FileResult =
-    file.markdown(
+  fun run(file: File): FileResult {
+    return file.markdown(
       rules = ruleCache,
       autoCorrect = autoCorrect
     )
+  }
 
   /**
    * @property file the targeted file

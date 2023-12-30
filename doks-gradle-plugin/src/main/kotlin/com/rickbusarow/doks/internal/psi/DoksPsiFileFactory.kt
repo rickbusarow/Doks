@@ -36,6 +36,7 @@ import java.io.File
 import java.io.FileNotFoundException
 
 internal class DoksPsiFileFactory : java.io.Serializable {
+
   @delegate:Transient
   private val configuration: CompilerConfiguration by lazy {
     CompilerConfiguration().apply {
@@ -72,18 +73,16 @@ internal class DoksPsiFileFactory : java.io.Serializable {
     if (!file.exists()) throw FileNotFoundException("could not find file $file")
 
     return when (file.extension) {
-      "java" ->
-        javaFileFactory.createFileFromText(
-          file.name,
-          JavaLanguage.INSTANCE,
-          file.readText()
-        ) as PsiJavaFile
+      "java" -> javaFileFactory.createFileFromText(
+        file.name,
+        JavaLanguage.INSTANCE,
+        file.readText()
+      ) as PsiJavaFile
 
-      "kt", "kts" ->
-        ktFileFactory.createPhysicalFile(
-          file.name,
-          StringUtilRt.convertLineSeparators(file.readText().trimIndent())
-        )
+      "kt", "kts" -> ktFileFactory.createPhysicalFile(
+        file.name,
+        StringUtilRt.convertLineSeparators(file.readText().trimIndent())
+      )
 
       else -> throw IllegalArgumentException(
         "file extension must be one of [java, kt, kts], but it was `${file.extension}`."
@@ -119,12 +118,12 @@ internal class DoksPsiFileFactory : java.io.Serializable {
     path: String,
     @Language("kotlin")
     content: String
-  ): KtFile =
-    ktFileFactory
-      .createFile(name, content)
+  ): KtFile {
+    return ktFileFactory.createFile(name, content)
       .also {
         it.putUserData(absolutePathKey, path)
       }
+  }
 
   /**
    * @return a "virtual" Psi `PsiJavaFile` with the given [name] and
@@ -135,19 +134,19 @@ internal class DoksPsiFileFactory : java.io.Serializable {
     name: String,
     @Language("java")
     content: String
-  ): PsiJavaFile =
-    javaFileFactory
+  ): PsiJavaFile {
+
+    return javaFileFactory
       .createFileFromText(
         name,
         JavaLanguage.INSTANCE,
         content.trimIndent()
       ) as PsiJavaFile
+  }
 }
 
 private val absolutePathKey = Key<String>("absolute_path")
-
-internal fun KtFile.absolutePath() =
-  getUserData(absolutePathKey).requireNotNull {
-    "This file does not have an absolute path set with the key of $absolutePathKey.  " +
-      "The file's simple name is $name."
-  }
+internal fun KtFile.absolutePath() = getUserData(absolutePathKey).requireNotNull {
+  "This file does not have an absolute path set with the key of $absolutePathKey.  " +
+    "The file's simple name is $name."
+}

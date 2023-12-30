@@ -41,43 +41,39 @@ doks {
     }
 
     rule("kotlin-dsl-config-simple") {
-      replacement =
-        sourceCode(
-          fqName = "com.rickbusarow.doks.ConfigTest.`kotlin dsl config simple`.config",
-          bodyOnly = true,
-          codeBlockLanguage = "kotlin",
-          attributes = "title=\"build.gradle.kts\""
-        )
+      replacement = sourceCode(
+        fqName = "com.rickbusarow.doks.ConfigTest.`kotlin dsl config simple`.config",
+        bodyOnly = true,
+        codeBlockLanguage = "kotlin",
+        attributes = "title=\"build.gradle.kts\""
+      )
     }
 
     rule("groovy-dsl-config-simple") {
-      replacement =
-        sourceCode(
-          fqName = "com.rickbusarow.doks.ConfigTest.`groovy dsl config simple`.config",
-          bodyOnly = true,
-          codeBlockLanguage = "groovy",
-          attributes = "title=\"build.gradle\""
-        )
+      replacement = sourceCode(
+        fqName = "com.rickbusarow.doks.ConfigTest.`groovy dsl config simple`.config",
+        bodyOnly = true,
+        codeBlockLanguage = "groovy",
+        attributes = "title=\"build.gradle\""
+      )
     }
 
     rule("kotlin-dsl-config-code") {
-      replacement =
-        sourceCode(
-          fqName = "com.rickbusarow.doks.ConfigTest.`kotlin dsl config code`.config",
-          bodyOnly = true,
-          codeBlockLanguage = "kotlin",
-          attributes = "title=\"build.gradle.kts\""
-        )
+      replacement = sourceCode(
+        fqName = "com.rickbusarow.doks.ConfigTest.`kotlin dsl config code`.config",
+        bodyOnly = true,
+        codeBlockLanguage = "kotlin",
+        attributes = "title=\"build.gradle.kts\""
+      )
     }
 
     rule("groovy-dsl-config-code") {
-      replacement =
-        sourceCode(
-          fqName = "com.rickbusarow.doks.ConfigTest.`groovy dsl config code`.config",
-          bodyOnly = true,
-          codeBlockLanguage = "groovy",
-          attributes = "title=\"build.gradle\""
-        )
+      replacement = sourceCode(
+        fqName = "com.rickbusarow.doks.ConfigTest.`groovy dsl config code`.config",
+        bodyOnly = true,
+        codeBlockLanguage = "groovy",
+        attributes = "title=\"build.gradle\""
+      )
     }
 
     rule("dollar-raw-string") {
@@ -100,9 +96,7 @@ doks {
 }
 
 subprojects.map {
-  it
-    .tasks
-    .withType(KotlinCompile::class.java)
+  it.tasks.withType(KotlinCompile::class.java)
     .mustRunAfter(tasks.withType(DoksTask::class.java))
 }
 
@@ -135,10 +129,9 @@ githubRelease {
     val escapedVersion = Regex.escape(VERSION_NAME)
 
     // capture everything in between '## [<this version>]' and a new line which starts with '## '
-    val versionSectionRegex =
-      Regex(
-        """(?:^|\n)## \[$escapedVersion]\s+.+\n([\s\S]*?)(?=\n+## |\[$escapedVersion])"""
-      )
+    val versionSectionRegex = Regex(
+      """(?:^|\n)## \[$escapedVersion]\s+.+\n([\s\S]*?)(?=\n+## |\[$escapedVersion])"""
+    )
 
     versionSectionRegex
       .find(file("CHANGELOG.md").readText())

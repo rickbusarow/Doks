@@ -23,22 +23,20 @@ package com.rickbusarow.doks.internal.stdlib
  *
  * @since 0.1.0
  */
-internal val SEMVER_REGEX_STABLE: String =
-  buildString {
-    append("(?:0|[1-9]\\d*)\\.")
-    append("(?:0|[1-9]\\d*)\\.")
-    append("(?:0|[1-9]\\d*)")
-  }
+internal val SEMVER_REGEX_STABLE: String = buildString {
+  append("(?:0|[1-9]\\d*)\\.")
+  append("(?:0|[1-9]\\d*)\\.")
+  append("(?:0|[1-9]\\d*)")
+}
 
 /**
  * from here: https://ihateregex.io/expr/semver/ but no capturing groups
  *
  * @since 0.1.0
  */
-internal val SEMVER_REGEX: String =
-  buildString {
-    append(SEMVER_REGEX_STABLE)
-    append("(?:-(?:(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)")
-    append("(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?")
-    append("(?:\\+(?:[0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?")
-  }
+internal val SEMVER_REGEX: String = buildString {
+  append(SEMVER_REGEX_STABLE)
+  append("(?:-(?:(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)")
+  append("(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?")
+  append("(?:\\+(?:[0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?")
+}

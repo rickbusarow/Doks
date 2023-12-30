@@ -133,7 +133,13 @@ internal fun String.remove(vararg regex: Regex): String = regex.fold(this) { acc
 
 internal fun String.trimIndentAfterFirstLine(): String {
   val split = lines()
+
+  // If there's only one line, there's nothing to trim,
+  // and the remaining logic would just append an extra newline.
+  if (split.size == 1) return this
+
   val first = split.first()
-  val remaining = split.drop(1).joinToString("\n").trimIndent()
+  val remaining = split.drop(1).joinToString("\n")
+    .trimIndent()
   return "$first\n$remaining"
 }

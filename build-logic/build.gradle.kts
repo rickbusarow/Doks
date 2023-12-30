@@ -13,12 +13,14 @@
  * limitations under the License.
  */
 
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.jetbrains.kotlin.gradle.dsl.KotlinJvmProjectExtension
+import org.jetbrains.kotlin.gradle.plugin.KotlinBasePlugin
 
 buildscript {
   dependencies {
     classpath(libs.kotlin.gradle.plugin)
     classpath(libs.vanniktech.publish)
+    classpath(libs.rickBusarow.kgx)
   }
 }
 
@@ -35,7 +37,9 @@ moduleCheck {
   checks.sortDependencies = true
 }
 
+val jdk = libs.versions.jdk.get()
 val kotlinVersion = libs.versions.kotlin.get()
+val kotlinApiVersion = libs.versions.kotlinApi.get()
 val ktlintPluginId = libs.plugins.ktlint.get().pluginId
 
 allprojects ap@{
@@ -43,6 +47,7 @@ allprojects ap@{
   val innerProject = this@ap
 
   apply(plugin = ktlintPluginId)
+
   dependencies {
     "ktlint"(rootProject.libs.rickBusarow.ktrules)
   }
@@ -56,31 +61,25 @@ allprojects ap@{
     }
   }
 
-  configurations.all {
-    resolutionStrategy {
-      eachDependency {
-        when {
-          requested.name.startsWith("kotlinx-serialization") -> {
-            useVersion(libs.versions.kotlinx.serialization.get())
-          }
-        }
+  plugins.withType(KotlinBasePlugin::class.java).configureEach {
+    extensions.configure(KotlinJvmProjectExtension::class.java) {
+      jvmToolchain {
+        languageVersion.set(JavaLanguageVersion.of(jdk))
       }
     }
   }
 
-  afterEvaluate {
-    configure<JavaPluginExtension> {
-      @Suppress("MagicNumber")
-      toolchain.languageVersion.set(JavaLanguageVersion.of(11))
-    }
-  }
-
-  tasks.withType<KotlinCompile>().configureEach {
+  tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
     kotlinOptions {
-      jvmTarget = "11"
+
+      apiVersion = kotlinApiVersion
+
+      freeCompilerArgs = freeCompilerArgs +
+        listOf(
+          "-opt-in=kotlin.RequiresOptIn"
+        )
     }
   }
-
   tasks.withType<Test>().configureEach {
     useJUnitPlatform()
   }

@@ -18,7 +18,6 @@ import builds.dependsOn
 import builds.isRealRootProject
 import com.github.gmazzo.gradle.plugins.BuildConfigTask
 
-@Suppress("DSL_SCOPE_VIOLATION")
 plugins {
   id("module")
   id("java-gradle-plugin")

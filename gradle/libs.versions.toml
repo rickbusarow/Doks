@@ -1,6 +1,6 @@
 [versions]
 benManes-versions = "0.50.0"
-buildconfig = "5.2.0"
+buildconfig = "5.3.0"
 classgraph = "4.8.165"
 clikt = "4.2.1"
 coditory-integration-test = "1.4.5"

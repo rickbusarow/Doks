@@ -264,7 +264,7 @@ gradle.taskGraph.whenReady {
   val doingTheThing = project.gradle.taskGraph.allTasks
     .any { task -> task.name == "printTaskGraph" }
 
-  println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -- $doingTheThing")
+  println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% doingTheThing: $doingTheThing")
 
   if (doingTheThing) {
     project.tasks.configureEach {

@@ -53,5 +53,6 @@ dependencies {
   implementation(libs.dropbox.dependencyGuard)
   implementation(libs.johnrengelman.shadowJar)
   implementation(libs.kotlinx.binaryCompatibility)
+  implementation(libs.typesafe.github.workflows)
   implementation(libs.rickBusarow.moduleCheck.gradle.plugin)
 }

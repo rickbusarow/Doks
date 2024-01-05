@@ -58,5 +58,7 @@ abstract class RootPlugin : Plugin<Project> {
     if (inCI() && target.isRealRootProject()) {
       target.logger.lifecycle("CI environment detected.")
     }
+
+    target.plugins.apply(ShartifyPlugin::class.java)
   }
 }

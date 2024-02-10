@@ -1,7 +1,7 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:base",
+    "config:best-practices",
     "default:disableRateLimiting"
   ],
   "rebaseWhen": "conflicted",
@@ -25,13 +25,15 @@
       ]
     },
     {
-      "matchPackageNames": ["com.rickbusarow.module-check"],
+      "matchPackageNames": [
+        "com.rickbusarow.module-check"
+      ],
       "automergeStrategy": "rebase",
       "matchRepositories": [
         "repo.maven.apache.org/maven2",
         "plugins.gradle.org/m2"
       ],
-      "rebaseWhen": "smart",
+      "rebaseWhen": "auto",
       "matchPackagePrefixes": [
         "com.rickbusarow.dispatch:",
         "com.rickbusarow.doks:",
@@ -46,7 +48,10 @@
       ],
       "autoApprove": true,
       "automerge": true,
-      "automergeType": "pr"
+      "automergeType": "pr",
+      "labels": [
+        "dependencies"
+      ]
     }
   ],
   "labels": [

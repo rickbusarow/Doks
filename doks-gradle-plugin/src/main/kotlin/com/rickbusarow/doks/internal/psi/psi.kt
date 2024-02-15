@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Rick Busarow
+ * Copyright (C) 2024 Rick Busarow
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -20,13 +20,22 @@ import com.rickbusarow.doks.internal.trees.depthFirstTraversal
 import org.jetbrains.kotlin.com.intellij.psi.PsiElement
 import org.jetbrains.kotlin.psi.psiUtil.getNonStrictParentOfType
 
-internal fun PsiElement.childrenDepthFirst(): Sequence<PsiElement> {
-  return depthFirstTraversal { children.toList() }
+internal fun PsiElement.childrenDepthFirst(includeSelf: Boolean = false): Sequence<PsiElement> {
+  return if (includeSelf) {
+    sequenceOf(this) + depthFirstTraversal { children.toList() }
+  } else {
+    depthFirstTraversal { children.toList() }
+  }
 }
 
 internal inline fun PsiElement.childrenDepthFirst(
+  includeSelf: Boolean = false,
   crossinline predicate: (PsiElement) -> Boolean
-): Sequence<PsiElement> = depthFirstTraversal { children.filter(predicate) }
+): Sequence<PsiElement> = if (includeSelf) {
+  sequenceOf(this) + depthFirstTraversal { children.filter(predicate) }
+} else {
+  depthFirstTraversal { children.filter(predicate) }
+}
 
 internal fun PsiElement.childrenBreadthFirst(): Sequence<PsiElement> {
   return breadthFirstTraversal { children.toList() }

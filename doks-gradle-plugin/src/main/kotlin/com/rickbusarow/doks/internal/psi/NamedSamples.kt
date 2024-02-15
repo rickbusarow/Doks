@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Rick Busarow
+ * Copyright (C) 2024 Rick Busarow
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -22,7 +22,9 @@ import com.rickbusarow.doks.internal.stdlib.trimIndentAfterFirstLine
 import kotlinx.serialization.Serializable
 import org.jetbrains.kotlin.com.intellij.psi.PsiElement
 import org.jetbrains.kotlin.com.intellij.psi.PsiModifiableCodeBlock
+import org.jetbrains.kotlin.com.intellij.psi.PsiNamedElement
 import org.jetbrains.kotlin.com.intellij.psi.impl.source.tree.LeafPsiElement
+import org.jetbrains.kotlin.fileClasses.javaFileFacadeFqName
 import org.jetbrains.kotlin.name.FqName
 import org.jetbrains.kotlin.name.Name
 import org.jetbrains.kotlin.name.parentOrNull
@@ -152,6 +154,8 @@ internal class NamedSamples(
             namedDeclaration.text.trimIndentAfterFirstLine()
           }
 
+          is KtFile -> namedDeclaration.text
+
           null -> {
             error("could not find a psi element with the name of `${request.fqName}`")
           }
@@ -186,7 +190,7 @@ internal class NamedSamples(
   private fun createDeclarationCache(
     ktFiles: Sequence<KtFile>,
     requests: List<SampleRequest>
-  ): LazyMap<String?, KtNamedDeclaration?> {
+  ): LazyMap<String?, PsiNamedElement?> {
 
     val requestedNames = requests.map { FqName(it.fqName) }
 
@@ -200,21 +204,28 @@ internal class NamedSamples(
       .sortByPathSimilarityTo(requestedNames)
       .flatMap { ktFile ->
 
-        ktFile
-          .childrenDepthFirst { element ->
+        ktFile.childrenDepthFirst(includeSelf = true) { element ->
 
-            when (element) {
-              is KtFunctionLiteral -> true
+          when (element) {
+            is KtFile -> true
 
-              is KtNamedDeclaration -> element.fqNameIncludingMembers() in namesAndParentNames
+            is KtFunctionLiteral -> true
 
-              else -> element.couldHaveNamedChildren()
-            }
+            is KtNamedDeclaration -> element.fqNameIncludingMembers() in namesAndParentNames
+
+            else -> element.couldHaveNamedChildren()
           }
-          .filterIsInstance<KtNamedDeclaration>()
+        }
+          .filter { it is KtFile || it is KtNamedDeclaration }
       }
       .distinct()
-      .map { it.fqNameIncludingMembers().asString() to it }
+      .map { element ->
+        when (element) {
+          is KtFile -> element.javaFileFacadeFqName.asString() to element
+          is KtNamedDeclaration -> element.fqNameIncludingMembers().asString() to element
+          else -> error("unexpected element type: ${element::class}")
+        }
+      }
       .toLazyMap()
   }
 

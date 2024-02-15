@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Rick Busarow
+ * Copyright (C) 2024 Rick Busarow
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -310,12 +310,12 @@ class NamedSamplesTest {
         fqName = "com.test.MyClass.myFunction",
         bodyOnly = true,
         """
-      package com.test
+        package com.test
 
-      class MyClass {
-        fun myFunction() = Unit
-      }
-      """
+        class MyClass {
+          fun myFunction() = Unit
+        }
+        """
       )
     }
 
@@ -326,6 +326,57 @@ class NamedSamplesTest {
       ---
       fun myFunction() = Unit
       ---
+    """.trimIndent()
+  }
+
+  @Test
+  fun `an empty file without a custom name can be resolved by its jvm file facade fqName`() {
+
+    parse(
+      fqName = "com.test.Source_0Kt",
+      bodyOnly = false,
+      """
+      package com.test
+
+      """
+    ) shouldBe "package com.test\n"
+  }
+
+  @Test
+  fun `a file without a custom name can be resolved by its jvm file facade fqName`() {
+
+    parse(
+      fqName = "com.test.Source_0Kt",
+      bodyOnly = false,
+      """
+      package com.test
+
+      class MyClass
+      """
+    ) shouldBe """
+      package com.test
+
+      class MyClass
+    """.trimIndent()
+  }
+
+  @Test
+  fun `a file with a custom name can be resolved by its jvm file facade fqName`() {
+
+    parse(
+      fqName = "com.test.Bananas",
+      bodyOnly = false,
+      """
+      @file:JvmName("Bananas")
+      package com.test
+
+      class MyClass
+      """
+    ) shouldBe """
+      @file:JvmName("Bananas")
+      package com.test
+
+      class MyClass
     """.trimIndent()
   }
 

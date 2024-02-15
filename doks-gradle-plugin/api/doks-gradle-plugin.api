@@ -92,7 +92,6 @@ public final class com/rickbusarow/doks/RuleFactory$DefaultImpls {
 
 public final class com/rickbusarow/doks/internal/Rule : java/io/Serializable {
 	public static final field Companion Lcom/rickbusarow/doks/internal/Rule$Companion;
-	public synthetic fun <init> (ILjava/lang/String;Lkotlin/text/Regex;Ljava/lang/String;Lkotlinx/serialization/internal/SerializationConstructorMarker;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public synthetic fun <init> (Ljava/lang/String;Lkotlin/text/Regex;Ljava/lang/String;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1-8OcL4yg ()Ljava/lang/String;
 	public final fun component2 ()Lkotlin/text/Regex;
@@ -106,7 +105,6 @@ public final class com/rickbusarow/doks/internal/Rule : java/io/Serializable {
 	public fun hashCode ()I
 	public final fun replaceIn (Ljava/lang/CharSequence;)Ljava/lang/String;
 	public fun toString ()Ljava/lang/String;
-	public static final synthetic fun write$Self (Lcom/rickbusarow/doks/internal/Rule;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
 }
 
 public final class com/rickbusarow/doks/internal/Rule$$serializer : kotlinx/serialization/internal/GeneratedSerializer {

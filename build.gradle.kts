@@ -17,6 +17,7 @@ import builds.GROUP
 import builds.VERSION_NAME
 import builds.mustRunAfter
 import com.rickbusarow.doks.DoksTask
+import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 @Suppress("DSL_SCOPE_VIOLATION")
@@ -36,9 +37,11 @@ doks {
   dokSet {
     docs("README.md", "CHANGELOG.md")
 
-    sampleCodeSource("doks-gradle-plugin/src/integration/kotlin") {
-      include("**/*.kt")
-    }
+    sampleCodeSource(
+      project(":doks-gradle-plugin").kotlin.sourceSets
+        .named("gradleTest")
+        .map(KotlinSourceSet::kotlin)
+    )
 
     rule("kotlin-dsl-config-simple") {
       replacement = sourceCode(

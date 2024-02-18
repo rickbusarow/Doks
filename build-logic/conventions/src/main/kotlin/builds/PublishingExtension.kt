@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Rick Busarow
+ * Copyright (C) 2024 Rick Busarow
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -15,6 +15,8 @@
 
 package builds
 
+import com.rickbusarow.kgx.dependsOn
+import com.rickbusarow.kgx.extras
 import com.vanniktech.maven.publish.GradlePlugin
 import com.vanniktech.maven.publish.JavadocJar.Dokka
 import com.vanniktech.maven.publish.KotlinJvm
@@ -22,6 +24,8 @@ import com.vanniktech.maven.publish.MavenPublishBaseExtension
 import com.vanniktech.maven.publish.SonatypeHost.Companion.DEFAULT
 import org.gradle.api.NamedDomainObjectProvider
 import org.gradle.api.Project
+import org.gradle.api.file.Directory
+import org.gradle.api.provider.Provider
 import org.gradle.api.publish.PublishingExtension
 import org.gradle.api.publish.maven.MavenPublication
 import org.gradle.api.publish.maven.tasks.PublishToMavenRepository
@@ -186,6 +190,7 @@ private fun Project.configurePublish(artifactId: String, pomDescription: String,
   registerCoordinatesStringsCheckTask(groupId = groupId, artifactId = artifactId)
   registerSnapshotVersionCheckTask()
   configureSkipDokka()
+  setUpPublishToBuildM2(this)
 
   tasks.withType(PublishToMavenRepository::class.java).configureEach {
     it.notCompatibleWithConfigurationCache("See https://github.com/gradle/gradle/issues/13468")
@@ -198,6 +203,45 @@ private fun Project.configurePublish(artifactId: String, pomDescription: String,
     // skip signing for -SNAPSHOT publishing
     it.onlyIf { !(version as String).endsWith("SNAPSHOT") }
   }
+}
+
+internal val Project.gradlePublishingExtension: PublishingExtension
+  get() = extensions.getByType(PublishingExtension::class.java)
+
+/** */
+val Project.buildM2RootDirectory: Provider<Directory>
+  get() = rootProject.layout.buildDirectory.dir("gradle-test-m2")
+
+internal const val PUBLISH_TO_BUILD_M2 = "publishToBuildM2"
+
+/**
+ * Registers this [target]'s version of the `publishToBuildM2`
+ * task and adds it as a dependency to the root project's version.
+ */
+private fun setUpPublishToBuildM2(target: Project) {
+
+  // We publish all artifacts to `anvil/build/m2` for the plugin integration tests.
+  // The generated projects in tests use this repository to get the plugin
+  // and the other published artifacts, so that the tests have a realistic classpath.
+  target.gradlePublishingExtension.repositories { repositories ->
+    repositories.maven {
+      it.name = "buildM2"
+      it.setUrl(target.buildM2RootDirectory)
+    }
+  }
+
+  val publishToBuildM2 = target.tasks.register(PUBLISH_TO_BUILD_M2) {
+    it.group = "Publishing"
+    it.description = "Delegates to the publishAllPublicationsToBuildM2Repository task " +
+      "on projects where publishing is enabled."
+
+    it.dependsOn("publishAllPublicationsToBuildM2Repository")
+
+    // Don't generate javadoc for integration tests.
+    target.extras["skipDokka"] = true
+  }
+
+  target.rootProject.tasks.named(PUBLISH_TO_BUILD_M2).dependsOn(publishToBuildM2)
 }
 
 private fun Project.registerCoordinatesStringsCheckTask(groupId: String, artifactId: String) {

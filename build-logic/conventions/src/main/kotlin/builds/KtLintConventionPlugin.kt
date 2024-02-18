@@ -28,7 +28,7 @@ abstract class KtLintConventionPlugin : Plugin<Project> {
     target.plugins.apply(KtLintPlugin::class.java)
 
     target.dependencies
-      .add("ktlint", target.libsCatalog.dependency("rickBusarow-ktrules"))
+      .addProvider("ktlint", target.libs.rickBusarow.ktrules)
 
     target.tasks.withType(KtLintTask::class.java).configureEach { task ->
       task.mustRunAfter(
@@ -43,7 +43,7 @@ abstract class KtLintConventionPlugin : Plugin<Project> {
     }
 
     target.extensions.configure(KtLintExtension::class.java) {
-      it.ktlintVersion.set(target.libsCatalog.version("ktlint-lib"))
+      it.ktlintVersion.set(target.libs.versions.ktlint.lib)
     }
   }
 }

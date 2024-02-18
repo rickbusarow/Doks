@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Rick Busarow
+ * Copyright (C) 2024 Rick Busarow
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -21,7 +21,8 @@ import com.rickbusarow.doks.internal.stdlib.Color.Companion.colorized
 import com.rickbusarow.doks.internal.stdlib.Color.LIGHT_GREEN
 import com.rickbusarow.doks.internal.stdlib.Color.LIGHT_YELLOW
 import com.rickbusarow.doks.internal.stdlib.SEMVER_REGEX
-import com.rickbusarow.doks.internal.test
+import com.rickbusarow.kase.asTests
+import com.rickbusarow.kase.kase
 import io.kotest.assertions.throwables.shouldNotThrowAny
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.assertions.throwables.shouldThrowWithMessage
@@ -136,23 +137,23 @@ class MarkdownTest {
 
   @TestFactory
   fun `tag parsing tolerance`() = listOf(
-    Triple("extra leading dash", "<!---doks dinos-maven:1-->", "<!---doks END-->"),
-    Triple("extra trailing dash", "<!--doks dinos-maven:1--->", "<!--doks END--->"),
-    Triple("whitespace before doks", "<!-- doks dinos-maven:1-->", "<!-- doks END-->"),
-    Triple("whitespace before close", "<!--doks dinos-maven:1 -->", "<!--doks END -->"),
-    Triple("extra whitespace before rule name", "<!--doks   dinos-maven:1-->", "<!--doks END-->"),
-    Triple(
+    kase("extra leading dash", "<!---doks dinos-maven:1-->", "<!---doks END-->"),
+    kase("extra trailing dash", "<!--doks dinos-maven:1--->", "<!--doks END--->"),
+    kase("whitespace before doks", "<!-- doks dinos-maven:1-->", "<!-- doks END-->"),
+    kase("whitespace before close", "<!--doks dinos-maven:1 -->", "<!--doks END -->"),
+    kase("extra whitespace before rule name", "<!--doks   dinos-maven:1-->", "<!--doks END-->"),
+    kase(
       "extra whitespace before rule count delim",
       "<!--doks dinos-maven :1-->",
       "<!--doks END-->"
     ),
-    Triple(
+    kase(
       "extra whitespace after rule count delim",
       "<!--doks dinos-maven: 1-->",
       "<!--doks END-->"
     ),
-    Triple("extra whitespace before END", "<!--doks dinos-maven:1-->", "<!--doks  END-->")
-  ).test({ it.first }) { (_, openTag, closeTag) ->
+    kase("extra whitespace before END", "<!--doks dinos-maven:1-->", "<!--doks  END-->")
+  ).asTests { (openTag, closeTag) ->
 
     val original = md(
       """

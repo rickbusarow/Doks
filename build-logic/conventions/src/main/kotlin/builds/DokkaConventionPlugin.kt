@@ -85,7 +85,10 @@ abstract class DokkaConventionPlugin : Plugin<Project> {
       }
     }
 
-    target.dependencies.add("dokkaPlugin", target.libsCatalog.dependency("dokka-versioning"))
+    target.dependencies.addProvider(
+      "dokkaPlugin",
+      target.libs.dokka.versioning
+    )
 
     val dokkaArchiveDir = target.rootDir.resolve("dokka-archive")
 

@@ -24,15 +24,15 @@ interface AutoServiceExtension : KspExtension {
 
     dependencies.add(
       "compileOnly",
-      libsCatalog.dependency("google-auto-service-annotations")
+      libs.google.auto.service.annotations
     )
     dependencies.add(
       "testCompileOnly",
-      libsCatalog.dependency("google-auto-service-annotations")
+      libs.google.auto.service.annotations
     )
     dependencies.add(
       "ksp",
-      libsCatalog.dependency("zacSweers-auto-service-ksp")
+      libs.zacSweers.auto.service.ksp
     )
   }
 }

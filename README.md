@@ -166,18 +166,15 @@ Here's an example of how to use it in your doks configuration block:
 doks {
   // Define a set of documents with rules.
   dokSet {
-    // Set the files which will be synced
     docs(projectDir) {
       include("**/*.md", "**/*.mdx")
     }
 
-    sampleCodeSource("src/kotlin/com/example/dino/sauropod/samples")
+    sampleCodeSource("src/main/kotlin/com/dino/samples")
 
-    // Define a rule used in updating.
-    // This rule's name corresponds to the name used in documentation.
     rule("brachiosaurus") {
       replacement = sourceCode(
-        fqName = "com.example.dino.sauropod.samples.BrachiosaurusSample.doTheDino",
+        fqName = "com.dino.samples.BrachiosaurusSample",
         bodyOnly = false,
         codeBlockLanguage = "kotlin"
       )
@@ -201,16 +198,16 @@ doks {
       include '**/*.md', '**/*.mdx'
     }
 
-    sampleCodeSource 'src/kotlin/com/example/dino/sauropod/samples'
+    sampleCodeSource 'src/main/kotlin/com/dino/samples'
 
     // Define a rule used in updating.
     // This rule's name corresponds to the name used in documentation.
     rule('brachiosaurus') {
       replacement = sourceCode(
-          "com.example.dino.sauropod.samples.BrachiosaurusSample.doTheDino",
-          false,
-          "kotlin"
-          )
+        "com.dino.samples.BrachiosaurusSample",
+        false,
+        "kotlin"
+      )
     }
   }
 }

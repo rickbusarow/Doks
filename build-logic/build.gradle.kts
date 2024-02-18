@@ -24,7 +24,6 @@ buildscript {
   }
 }
 
-@Suppress("DSL_SCOPE_VIOLATION")
 plugins {
   base
   alias(libs.plugins.kotlin.jvm)
@@ -37,28 +36,18 @@ moduleCheck {
   checks.sortDependencies = true
 }
 
-val jdk = libs.versions.jdk.get()
-val kotlinVersion = libs.versions.kotlin.get()
-val kotlinApiVersion = libs.versions.kotlinApi.get()
 val ktlintPluginId = libs.plugins.ktlint.get().pluginId
 
 allprojects ap@{
 
-  val innerProject = this@ap
+  val kotlinApiVersion = project.property("KOTLIN_API").toString()
+
+  val jdk = project.property("JDK_BUILD_LOGIC").toString()
 
   apply(plugin = ktlintPluginId)
 
   dependencies {
     "ktlint"(rootProject.libs.rickBusarow.ktrules)
-  }
-
-  if (innerProject != rootProject) {
-    rootProject.tasks.named("ktlintCheck") {
-      dependsOn(innerProject.tasks.named("ktlintCheck"))
-    }
-    rootProject.tasks.named("ktlintFormat") {
-      dependsOn(innerProject.tasks.named("ktlintFormat"))
-    }
   }
 
   plugins.withType(KotlinBasePlugin::class.java).configureEach {
@@ -74,10 +63,9 @@ allprojects ap@{
 
       apiVersion = kotlinApiVersion
 
-      freeCompilerArgs = freeCompilerArgs +
-        listOf(
-          "-opt-in=kotlin.RequiresOptIn"
-        )
+      freeCompilerArgs = freeCompilerArgs + listOf(
+        "-opt-in=kotlin.RequiresOptIn"
+      )
     }
   }
   tasks.withType<Test>().configureEach {

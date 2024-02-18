@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Rick Busarow
+ * Copyright (C) 2024 Rick Busarow
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -15,6 +15,7 @@
 
 package com.rickbusarow.doks.internal
 
+import com.rickbusarow.doks.internal.psi.DoksPsiFileFactory
 import io.kotest.assertions.throwables.shouldNotThrowAny
 import org.junit.jupiter.api.Test
 import java.io.ByteArrayOutputStream
@@ -67,6 +68,16 @@ class JavaSerializationTest {
 
     shouldNotThrowAny {
       outStream.writeObject(DoksEngine(cache, true))
+    }
+  }
+
+  @Test
+  fun `DoksPsiFileFactory can be serialized as java serializable`() {
+
+    val factory = DoksPsiFileFactory()
+
+    shouldNotThrowAny {
+      ObjectOutputStream(ByteArrayOutputStream()).writeObject(factory)
     }
   }
 }

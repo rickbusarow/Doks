@@ -15,101 +15,71 @@
 
 package builds
 
+import com.rickbusarow.kgx.extras
+import com.rickbusarow.kgx.getOrPut
+import org.gradle.accessors.dm.LibrariesForLibs
 import org.gradle.api.Project
-import org.gradle.api.artifacts.MinimalExternalModuleDependency
-import org.gradle.api.artifacts.VersionCatalog
-import org.gradle.api.artifacts.VersionCatalogsExtension
-import org.gradle.api.provider.Provider
+import org.gradle.api.internal.catalog.ExternalModuleDependencyFactory
 
-/**
- * Convenience for reading the library version from `libs.versions.toml`
- *
- * @since 0.1.0
- */
+/**  */
+val Project.libs: LibrariesForLibs
+  get() = extensions.getByType(LibrariesForLibs::class.java)
+
+/**  */
+fun ExternalModuleDependencyFactory.VersionNotationSupplier.get(): String = asProvider().get()
+
+/**  */
 val Project.VERSION_NAME: String
-  get() = libsCatalog.version("doks-dev")
+  get() = property("VERSION_NAME") as String
 
-const val GROUP: String = "com.rickbusarow.doks"
+/**  */
+val Project.versionIsSnapshot: Boolean
+  get() = extras.getOrPut("versionIsSnapshot") { VERSION_NAME.endsWith("-SNAPSHOT") }
 
-/**
- * "1.6", "1.7", "1.8", etc.
- *
- * @since 0.1.0
- */
+/**  */
+val Project.GROUP: String
+  get() = property("GROUP") as String
+
+/** "1.6", "1.7", "1.8", etc. */
 val Project.KOTLIN_API: String
-  get() = libsCatalog.version("kotlinApi")
+  get() = property("KOTLIN_API") as String
+
+/** ex: `rbusarow` */
+val Project.GITHUB_OWNER: String
+  get() = property("GITHUB_OWNER") as String
+
+/** ex: `rbusarow/kase` */
+val Project.GITHUB_OWNER_REPO: String
+  get() = property("GITHUB_OWNER_REPO") as String
+
+/** ex: `https://github.com/rbusarow/kase` */
+val Project.GITHUB_REPOSITORY: String
+  get() = property("GITHUB_REPOSITORY") as String
 
 /**
  * the jdk used in packaging
  *
  * "1.6", "1.8", "11", etc.
- *
- * @since 0.1.0
  */
 val Project.JVM_TARGET: String
-  get() = libsCatalog.version("jvmTarget")
+  get() = property("JVM_TARGET") as String
+
+/** `6`, `8`, `11`, etc. */
+val Project.JVM_TARGET_INT: Int
+  get() = JVM_TARGET.substringAfterLast('.').toInt()
 
 /**
  * the jdk used to build the project
  *
  * "1.6", "1.8", "11", etc.
- *
- * @since 0.1.0
  */
 val Project.JDK: String
-  get() = libsCatalog.version("jdk")
+  get() = property("JDK") as String
 
 /**
- * `6`, `8`, `11`, etc.
+ * the jdk used to build the project
  *
- * @since 0.1.0
+ * "1.6", "1.8", "11", etc.
  */
-val Project.JVM_TARGET_INT: Int
-  get() = JVM_TARGET.substringAfterLast('.').toInt()
-
-private val Project.catalogs: VersionCatalogsExtension
-  get() = extensions.getByType(VersionCatalogsExtension::class.java)
-
-/**
- * non-dsl version of `libs`
- *
- * ex:
- *
- * ```
- * val myCatalog = project.libsCatalog
- * ```
- *
- * @since 0.1.0
- */
-val Project.libsCatalog: VersionCatalog
-  get() = catalogs.named("libs")
-
-/**
- * non-dsl version of `libs._____`
- *
- * ex:
- *
- * ```
- * "api"(project.libsCatalog.dependency("square-anvil-annotations"))
- * ```
- *
- * @since 0.1.0
- */
-fun VersionCatalog.dependency(alias: String): Provider<MinimalExternalModuleDependency> {
-  return findLibrary(alias).get()
-}
-
-/**
- * non-dsl version of `libs.versions._____.get()`
- *
- * ex:
- *
- * ```
- * val anvilVersion = project.libsCatalog.version("square-anvil")
- * ```
- *
- * @since 0.1.0
- */
-fun VersionCatalog.version(alias: String): String {
-  return findVersion(alias).get().requiredVersion
-}
+val Project.JDK_INT: Int
+  get() = JDK.substringAfterLast('.').toInt()

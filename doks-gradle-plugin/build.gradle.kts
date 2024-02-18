@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Rick Busarow
+ * Copyright (C) 2024 Rick Busarow
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -13,16 +13,17 @@
  * limitations under the License.
  */
 
+import builds.GROUP
 import builds.VERSION_NAME
+import builds.buildM2RootDirectory
 import builds.dependsOn
 import builds.isRealRootProject
-import com.github.gmazzo.buildconfig.BuildConfigTask
+import com.gradle.scan.agent.serialization.scan.serializer.kryo.it
 
 plugins {
   id("module")
   id("java-gradle-plugin")
   id("com.gradle.plugin-publish")
-  alias(libs.plugins.integration.test)
   alias(libs.plugins.buildconfig)
   idea
 }
@@ -46,7 +47,6 @@ val pluginDeclaration: NamedDomainObjectProvider<PluginDeclaration> =
 val shade by configurations.register("shadowCompileOnly")
 
 module {
-  autoService()
   serialization()
   shadow(shade)
 
@@ -58,33 +58,68 @@ module {
   publishedPlugin(pluginDeclaration = pluginDeclaration)
 }
 
+@Suppress("UnstableApiUsage")
+testing {
+  suites {
+
+    val gradleTest by registering(JvmTestSuite::class) {
+
+      useJUnitJupiter()
+
+      testType.set(TestSuiteType.INTEGRATION_TEST)
+
+      dependencies {
+        implementation(project())
+      }
+
+      targets {
+        configureEach {
+
+          testTask.configure {
+            dependsOn("publishToBuildM2")
+          }
+        }
+      }
+    }
+
+    tasks.named("check").dependsOn(gradleTest)
+  }
+}
+
+val gradleTestSourceSet by sourceSets.named("gradleTest", SourceSet::class)
+
+gradlePlugin {
+  @Suppress("UnstableApiUsage")
+  testSourceSet(gradleTestSourceSet)
+}
+
 buildConfig {
 
-  this@buildConfig.sourceSets.named(java.sourceSets.integration.name) {
+  this@buildConfig.sourceSets.named(gradleTestSourceSet.name) {
 
-    this@named.packageName(builds.GROUP)
-    this@named.className("BuildConfig")
+    packageName(GROUP)
+    className("BuildConfig")
 
-    this@named.buildConfigField("String", "pluginId", "\"$pluginId\"")
-    this@named.buildConfigField("String", "version", "\"${VERSION_NAME}\"")
-    this@named.buildConfigField("String", "kotlinVersion", "\"${libs.versions.kotlin.get()}\"")
-  }
-}
-
-rootProject.tasks.named("prepareKotlinBuildScriptModel") {
-  dependsOn(tasks.withType(BuildConfigTask::class.java))
-}
-
-idea {
-  module {
-    java.sourceSets.integration {
-      this@module.testSources.from(allSource.srcDirs)
+    useKotlinOutput {
+      internalVisibility = true
     }
+
+    val buildM2 = buildM2RootDirectory.map { it.asFile }
+    buildConfigField("localBuildM2Dir", buildM2)
+
+    buildConfigField("pluginId", pluginId)
+    buildConfigField("version", VERSION_NAME)
+    buildConfigField("doksVersion", VERSION_NAME)
+    buildConfigField("kotlinVersion", libs.versions.kotlin)
+    buildConfigField("gradleVersion", gradle.gradleVersion)
   }
 }
 
-tasks.withType<Test>().configureEach {
-  onlyIf { true }
+kotlin {
+  val compilations = target.compilations
+  compilations.named("gradleTest") {
+    associateWith(compilations.getByName("main"))
+  }
 }
 
 val mainConfig: String = if (rootProject.isRealRootProject()) {
@@ -93,15 +128,27 @@ val mainConfig: String = if (rootProject.isRealRootProject()) {
   "implementation"
 }
 
+val gradleTestImplementation by configurations
+val testImplementation by configurations
+
 dependencies {
 
   compileOnly(gradleApi())
 
-  integrationImplementation(libs.jetbrains.markdown)
-  integrationImplementation(libs.kotlin.compiler)
-  integrationImplementation(libs.kotlinx.coroutines.core)
-  integrationImplementation(libs.kotlinx.serialization.core)
-  integrationImplementation(libs.kotlinx.serialization.json)
+  for (testImpl in listOf(testImplementation, gradleTestImplementation)) {
+
+    testImpl(libs.junit.jupiter)
+    testImpl(libs.junit.jupiter.api)
+    testImpl(libs.kotest.assertions.core.jvm)
+    testImpl(libs.kotest.assertions.shared)
+    testImpl(libs.kotest.common)
+    testImpl(libs.kotest.property.jvm)
+    testImpl(libs.rickBusarow.kase)
+  }
+
+  gradleTestImplementation(libs.kotlin.compiler)
+  gradleTestImplementation(libs.rickBusarow.kase.gradle)
+  gradleTestImplementation(libs.rickBusarow.kase.gradle.dsl)
 
   mainConfig(libs.java.diff.utils)
   mainConfig(libs.jetbrains.markdown)
@@ -112,20 +159,8 @@ dependencies {
 
   testImplementation(libs.java.diff.utils)
   testImplementation(libs.jetbrains.markdown)
-  testImplementation(libs.junit.engine)
-  testImplementation(libs.junit.jupiter)
-  testImplementation(libs.junit.jupiter.api)
-  testImplementation(libs.junit.params)
-  testImplementation(libs.kotest.assertions.api)
-  testImplementation(libs.kotest.assertions.core.jvm)
-  testImplementation(libs.kotest.assertions.shared)
-  testImplementation(libs.kotest.common)
-  testImplementation(libs.kotest.extensions)
-  testImplementation(libs.kotest.property.jvm)
   testImplementation(libs.kotlin.compiler)
   testImplementation(libs.kotlinx.coroutines.core)
   testImplementation(libs.kotlinx.serialization.core)
   testImplementation(libs.kotlinx.serialization.json)
 }
-
-tasks.named("integrationTest").dependsOn("publishToMavenLocalNoDokka")

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Rick Busarow
+ * Copyright (C) 2024 Rick Busarow
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -17,6 +17,19 @@ package com.rickbusarow.doks.internal.stdlib
 
 import java.io.File
 import java.nio.file.Path
+import kotlin.LazyThreadSafetyMode.NONE
+
+private val kotlinExtensions: Set<String> by lazy(NONE) { setOf("kt", "kts") }
+
+/** `isFile && extension in setOf("kt", "kts")` */
+internal fun File.isExistanttKotlinFile(): Boolean {
+  return isFile && extension in kotlinExtensions
+}
+
+/** `extension in setOf("kt", "kts")` */
+internal fun File.isKotlinFile(): Boolean {
+  return extension in kotlinExtensions
+}
 
 /**
  * Walks up the tree until [parentFile][File.getParentFile] is null. The first

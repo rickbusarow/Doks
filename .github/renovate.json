@@ -25,7 +25,9 @@
       ]
     },
     {
-      "matchPackageNames": ["com.rickbusarow.module-check"],
+      "matchPackageNames": [
+        "com.rickbusarow.module-check"
+      ],
       "automergeStrategy": "rebase",
       "matchRepositories": [
         "repo.maven.apache.org/maven2",
@@ -47,11 +49,14 @@
       "automerge": true,
       "automergeType": "pr",
       "autoApprove": true,
-      "labels": ["dependencies"]
+      "labels": [
+        "automerge",
+        "dependencies"
+      ]
     }
   ],
   "labels": [
-    "dependencies",
-    "automerge"
+    "automerge",
+    "dependencies"
   ]
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Rick Busarow
+ * Copyright (C) 2024 Rick Busarow
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -19,8 +19,10 @@ import com.rickbusarow.doks.internal.Position
 import com.rickbusarow.doks.internal.Position.Companion.positionOfSubstring
 import com.rickbusarow.doks.internal.RuleConfig
 import com.rickbusarow.doks.internal.RuleName
+import dev.drewhamilton.poko.Poko
 
-internal data class MarkdownSection(
+@Poko
+internal class MarkdownSection(
   val match: String,
   val openTagFull: String,
   val openTagStart: String,
@@ -29,7 +31,7 @@ internal data class MarkdownSection(
   val body: String,
   val closeTag: String?,
   val afterCloseTag: String
-) {
+) : java.io.Serializable {
   val ruleConfigs: List<RuleConfig> by lazy(LazyThreadSafetyMode.NONE) {
     openTagMatchersBlob.split(',')
       .map { cfg ->

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Rick Busarow
+ * Copyright (C) 2024 Rick Busarow
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -15,6 +15,7 @@
 
 package com.rickbusarow.doks.internal.stdlib
 
+import kotlin.contracts.ExperimentalContracts
 import kotlin.contracts.contract
 
 /**
@@ -41,6 +42,7 @@ internal inline fun <T> T.letIf(predicate: Boolean, body: T.() -> T): T =
  * @since 0.1.0
  * @throws IllegalArgumentException if receiver is null
  */
+@OptIn(ExperimentalContracts::class)
 internal inline fun <T : Any> T?.requireNotNull(lazyMessage: () -> Any): T {
   contract {
     returns() implies (this@requireNotNull != null)

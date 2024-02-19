@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Rick Busarow
+ * Copyright (C) 2024 Rick Busarow
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -15,21 +15,26 @@
 
 package com.rickbusarow.doks.internal
 
+import dev.drewhamilton.poko.Poko
+
 /**
  * @property row starts at 0
  * @property column starts at 0
  * @since 0.1.0
  */
-internal data class Position(
+@Poko
+internal class Position(
   val row: Int,
   val column: Int
-) : Comparable<Position> {
+) : Comparable<Position>, java.io.Serializable {
 
   override fun compareTo(other: Position): Int {
     return row.compareTo(other.row)
   }
 
   companion object {
+
+    private const val serialVersionUID: Long = -202684948263383290L
 
     /**
      * @return the [Position] of the next [token] after [startIndex]

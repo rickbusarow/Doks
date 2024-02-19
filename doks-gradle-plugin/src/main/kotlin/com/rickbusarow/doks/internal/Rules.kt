@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Rick Busarow
+ * Copyright (C) 2024 Rick Busarow
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -16,13 +16,15 @@
 package com.rickbusarow.doks.internal
 
 import com.rickbusarow.doks.internal.stdlib.requireNotNull
+import dev.drewhamilton.poko.Poko
 
 /**
  * Holds all [Rules][Rule] defined for a given set.
  *
  * @since 0.1.0
  */
-class Rules(
+@Poko
+public class Rules(
   private val map: Map<RuleName, Rule>
 ) : java.io.Serializable {
 
@@ -31,7 +33,7 @@ class Rules(
    *
    * @since 0.1.0
    */
-  val names: List<RuleName> get() = map.keys.sorted()
+  public val names: List<RuleName> get() = map.keys.sorted()
 
   internal constructor(globalRules: List<Rule>) : this(globalRules.associateBy { it.name })
   internal constructor(vararg globalRules: Rule) : this(globalRules.associateBy { it.name })
@@ -40,14 +42,14 @@ class Rules(
    * @return true if a rule named [ruleName] is defined in this cache
    * @since 0.1.0
    */
-  fun hasName(ruleName: RuleName): Boolean = map.containsKey(ruleName)
+  public fun hasName(ruleName: RuleName): Boolean = map.containsKey(ruleName)
 
   /**
    * @return the [Rule] associated with [ruleName] within this scope, or `null` if there's no match
    * @see get for a non-nullable version which throws if the name is missing
    * @since 0.1.0
    */
-  fun getOrNull(ruleName: RuleName): Rule? {
+  public fun getOrNull(ruleName: RuleName): Rule? {
     return map[ruleName]
   }
 
@@ -57,7 +59,7 @@ class Rules(
    * @since 0.1.0
    * @throws IllegalArgumentException if there is no rule with the requested name
    */
-  operator fun get(ruleName: RuleName): Rule {
+  public operator fun get(ruleName: RuleName): Rule {
     return map[ruleName]
       .requireNotNull {
         buildString {

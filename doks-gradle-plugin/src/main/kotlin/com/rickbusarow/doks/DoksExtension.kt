@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Rick Busarow
+ * Copyright (C) 2024 Rick Busarow
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -26,12 +26,12 @@ import javax.inject.Inject
 
 /** @since 0.1.0 */
 @DoksDsl
-abstract class DoksExtension @Inject constructor(
+public abstract class DoksExtension @Inject constructor(
   private val taskContainer: TaskContainer,
   private val layout: ProjectLayout
 ) : java.io.Serializable {
   /** @since 0.1.0 */
-  abstract val doksSets: NamedDomainObjectContainer<DoksSet>
+  public abstract val doksSets: NamedDomainObjectContainer<DoksSet>
 
   private val taskFactory: DoksTaskFactory by lazy {
     DoksTaskFactory(
@@ -49,7 +49,7 @@ abstract class DoksExtension @Inject constructor(
    * @since 0.1.0
    */
   @JvmOverloads
-  fun dokSet(
+  public fun dokSet(
     name: String = "all",
     action: Action<DoksSet>
   ): NamedDomainObjectProvider<DoksSet> {

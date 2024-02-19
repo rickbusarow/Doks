@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Rick Busarow
+ * Copyright (C) 2024 Rick Busarow
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -29,14 +29,14 @@ import org.intellij.lang.annotations.Language
  * @since 0.1.0
  */
 @DoksDsl
-interface RuleFactory : java.io.Serializable {
+public interface RuleFactory : java.io.Serializable {
 
   /**
    * All registered [RuleBuilderScope] instances within this [DoksSet].
    *
    * @since 0.1.0
    */
-  val rules: NamedDomainObjectContainer<RuleBuilderScope>
+  public val rules: NamedDomainObjectContainer<RuleBuilderScope>
 
   /**
    * Creates and registers a new [Rule][com.rickbusarow.doks.internal.Rule] instance.
@@ -48,7 +48,7 @@ interface RuleFactory : java.io.Serializable {
    *   created [Rule][com.rickbusarow.doks.internal.Rule] instance
    * @since 0.1.0
    */
-  fun rule(
+  public fun rule(
     name: String,
     action: Action<RuleBuilderScope>
   ): NamedDomainObjectProvider<RuleBuilderScope> {
@@ -66,7 +66,7 @@ interface RuleFactory : java.io.Serializable {
    *   created [Rule][com.rickbusarow.doks.internal.Rule] instance
    * @since 0.1.0
    */
-  fun rule(
+  public fun rule(
     name: String,
     @Language("regexp") regex: String,
     replacement: String

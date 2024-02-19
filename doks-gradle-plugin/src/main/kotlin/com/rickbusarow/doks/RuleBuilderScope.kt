@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Rick Busarow
+ * Copyright (C) 2024 Rick Busarow
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -30,7 +30,7 @@ import org.intellij.lang.annotations.Language
  */
 @DoksDsl
 @Suppress("MemberVisibilityCanBePrivate", "PropertyName", "VariableNaming")
-abstract class RuleBuilderScope : Named, java.io.Serializable {
+public abstract class RuleBuilderScope : Named, java.io.Serializable {
 
   @PublishedApi
   internal val sourceDelim: Char = '​'
@@ -42,7 +42,7 @@ abstract class RuleBuilderScope : Named, java.io.Serializable {
    *
    * @since 0.1.0
    */
-  val GROUP_ID: String
+  public val GROUP_ID: String
     get() = "[\\w\\.]*[\\w]"
 
   /**
@@ -52,7 +52,7 @@ abstract class RuleBuilderScope : Named, java.io.Serializable {
    *
    * @since 0.1.0
    */
-  val ARTIFACT_ID: String
+  public val ARTIFACT_ID: String
     get() = "[\\w\\-]*[\\w]"
 
   /**
@@ -60,7 +60,7 @@ abstract class RuleBuilderScope : Named, java.io.Serializable {
    *
    * @since 0.1.0
    */
-  val PACKAGING: String
+  public val PACKAGING: String
     get() = "\\w+"
 
   /**
@@ -71,7 +71,7 @@ abstract class RuleBuilderScope : Named, java.io.Serializable {
    * @see SEMVER_REGEX
    * @since 0.1.0
    */
-  val SEMVER: String
+  public val SEMVER: String
     get() = SEMVER_REGEX
 
   /**
@@ -81,7 +81,7 @@ abstract class RuleBuilderScope : Named, java.io.Serializable {
    * @see SEMVER_REGEX_STABLE
    * @since 0.1.0
    */
-  val SEMVER_STABLE: String
+  public val SEMVER_STABLE: String
     get() = SEMVER_REGEX_STABLE
 
   /**
@@ -90,14 +90,14 @@ abstract class RuleBuilderScope : Named, java.io.Serializable {
    * @since 0.1.0
    */
   @setparam:Language("regexp")
-  abstract var regex: String?
+  public abstract var regex: String?
 
   /**
    * any combination of literal text and $-substitutions
    *
    * @since 0.1.0
    */
-  abstract var replacement: String
+  public abstract var replacement: String
 
   private val _sampleRequests: MutableList<SampleRequest> = mutableListOf()
   internal val sampleRequests: List<SampleRequest>
@@ -162,8 +162,7 @@ abstract class RuleBuilderScope : Named, java.io.Serializable {
    *
    * @since 0.1.0
    */
-  @JvmOverloads
-  fun sourceCode(
+  @JvmOverloads public fun sourceCode(
     fqName: String,
     bodyOnly: Boolean = false,
     codeBlockLanguage: String = "kotlin",
@@ -218,8 +217,7 @@ abstract class RuleBuilderScope : Named, java.io.Serializable {
    * @return a regex string to match any maven artifact
    * @since 0.1.0
    */
-  @JvmOverloads
-  fun maven(
+  @JvmOverloads public fun maven(
     @Language("regexp") group: String = GROUP_ID,
     @Language("regexp") artifactId: String = ARTIFACT_ID,
     @Language("regexp") version: String = SEMVER
@@ -255,7 +253,7 @@ abstract class RuleBuilderScope : Named, java.io.Serializable {
    * @return a regex string to match the given plugin ID in a Gradle plugin declaration
    * @since 0.1.0
    */
-  fun gradlePlugin(@Language("regexp") pluginId: String): String {
+  public fun gradlePlugin(@Language("regexp") pluginId: String): String {
 
     //language=regexp
     return buildString {
@@ -308,8 +306,7 @@ abstract class RuleBuilderScope : Named, java.io.Serializable {
    * @return a regex string to match a Gradle plugin declaration with both ID and version specified
    * @since 0.1.0
    */
-  @JvmOverloads
-  fun gradlePluginWithVersion(
+  @JvmOverloads public fun gradlePluginWithVersion(
     @Language("regexp") pluginId: String,
     @Language("regexp") version: String = SEMVER
   ): String {
@@ -332,7 +329,7 @@ abstract class RuleBuilderScope : Named, java.io.Serializable {
    *
    * @since 0.1.1
    */
-  fun String.escapeRegex(): String = Regex.escape(this)
+  public fun String.escapeRegex(): String = Regex.escape(this)
 
   /**
    * An inline version of [Regex.escapeReplacement]. The receiver string will be interpreted
@@ -340,7 +337,7 @@ abstract class RuleBuilderScope : Named, java.io.Serializable {
    *
    * @since 0.1.1
    */
-  fun String.escapeReplacement(): String = Regex.escapeReplacement(this)
+  public fun String.escapeReplacement(): String = Regex.escapeReplacement(this)
 
   /**
    * @return a [Rule] from the current values of [regex] and [replacement]

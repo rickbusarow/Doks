@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Rick Busarow
+ * Copyright (C) 2024 Rick Busarow
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -36,13 +36,13 @@ import javax.inject.Inject
  */
 @DoksDsl
 @Suppress("MemberVisibilityCanBePrivate")
-abstract class DoksSet @Inject constructor(
+public abstract class DoksSet @Inject constructor(
   /**
    * any arbitrary unique name, like "main" or "tutorials"
    *
    * @since 0.1.0
    */
-  val name: String,
+  public val name: String,
   private val objects: ObjectFactory,
   private val layout: ProjectLayout
 ) : RuleFactory,
@@ -56,7 +56,7 @@ abstract class DoksSet @Inject constructor(
    *
    * @since 0.1.0
    */
-  abstract val docs: ConfigurableFileCollection
+  public abstract val docs: ConfigurableFileCollection
 
   /**
    * The sample code sources for this source set. This is a
@@ -67,7 +67,7 @@ abstract class DoksSet @Inject constructor(
    *
    * @since 0.1.0
    */
-  abstract val sampleCodeSource: ConfigurableFileCollection
+  public abstract val sampleCodeSource: ConfigurableFileCollection
 
   /**
    * Adds a set of document paths to this source set. The given paths
@@ -83,7 +83,7 @@ abstract class DoksSet @Inject constructor(
    * @param paths The files to add.
    * @since 0.1.0
    */
-  fun docs(vararg paths: Any): ConfigurableFileCollection {
+  public fun docs(vararg paths: Any): ConfigurableFileCollection {
     return docs.applyEach(paths.toList()) { path ->
       from(path.asFileTreeOrAny())
     }
@@ -100,7 +100,7 @@ abstract class DoksSet @Inject constructor(
    * @param configureAction Action to configure the [ConfigurableFileTree] object.
    * @since 0.1.0
    */
-  fun docs(
+  public fun docs(
     baseDir: Any,
     configureAction: Action<in ConfigurableFileTree>
   ): ConfigurableFileCollection {
@@ -122,7 +122,7 @@ abstract class DoksSet @Inject constructor(
    * @param paths The files to add.
    * @since 0.1.0
    */
-  fun sampleCodeSource(vararg paths: Any): ConfigurableFileCollection {
+  public fun sampleCodeSource(vararg paths: Any): ConfigurableFileCollection {
     return sampleCodeSource.applyEach(paths.toList()) { path ->
       from(path.asFileTreeOrAny())
     }
@@ -140,7 +140,7 @@ abstract class DoksSet @Inject constructor(
    * @param configureAction Action to configure the [ConfigurableFileTree] object.
    * @since 0.1.0
    */
-  fun sampleCodeSource(
+  public fun sampleCodeSource(
     baseDir: Any,
     configureAction: Action<in ConfigurableFileTree>
   ): ConfigurableFileCollection {

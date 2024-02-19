@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Rick Busarow
+ * Copyright (C) 2024 Rick Busarow
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -16,6 +16,7 @@
 package com.rickbusarow.doks.internal.markdown
 
 import com.rickbusarow.doks.internal.trees.depthFirstTraversal
+import dev.drewhamilton.poko.Poko
 import org.intellij.lang.annotations.Language
 import org.intellij.markdown.IElementType
 import org.intellij.markdown.MarkdownElementTypes
@@ -29,11 +30,12 @@ import org.intellij.markdown.parser.MarkdownParser
 import org.jetbrains.kotlin.com.intellij.openapi.util.Key
 import org.jetbrains.kotlin.com.intellij.openapi.util.UserDataHolder
 
-internal data class MarkdownNode(
+@Poko
+internal class MarkdownNode(
   val node: ASTNode,
   private val fullText: String,
   val parent: MarkdownNode?
-) : UserDataHolder {
+) : UserDataHolder, java.io.Serializable {
   val text: String by lazy { node.getTextInNode(fullText).toString() }
 
   val isLeaf: Boolean get() = node is LeafASTNode
@@ -64,6 +66,8 @@ internal data class MarkdownNode(
   }
 
   companion object {
+    private const val serialVersionUID: Long = -2219786698417908100L
+
     fun from(
       @Language("markdown") markdown: String,
       flavourDescriptor: MarkdownFlavourDescriptor

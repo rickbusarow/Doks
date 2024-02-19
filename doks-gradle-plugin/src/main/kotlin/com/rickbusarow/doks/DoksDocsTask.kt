@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Rick Busarow
+ * Copyright (C) 2024 Rick Busarow
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -21,7 +21,6 @@ import com.rickbusarow.doks.internal.Rules
 import com.rickbusarow.doks.internal.psi.SampleRequest
 import com.rickbusarow.doks.internal.psi.SampleResult
 import com.rickbusarow.doks.internal.stdlib.createSafely
-import kotlinx.serialization.decodeFromString
 import org.gradle.api.NamedDomainObjectContainer
 import org.gradle.api.file.ConfigurableFileCollection
 import org.gradle.api.file.DirectoryProperty
@@ -52,7 +51,7 @@ import javax.inject.Inject
  *
  * @since 0.1.0
  */
-abstract class DoksDocsTask @Inject constructor(
+public abstract class DoksDocsTask @Inject constructor(
   private val workerExecutor: WorkerExecutor,
   objects: ObjectFactory
 ) : DoksTask("Updates documentation files") {
@@ -64,7 +63,7 @@ abstract class DoksDocsTask @Inject constructor(
    */
   @get:Optional
   @get:InputFile
-  abstract val samplesMapping: RegularFileProperty
+  public abstract val samplesMapping: RegularFileProperty
 
   /**
    * The directory where the updated documentation files
@@ -103,7 +102,7 @@ abstract class DoksDocsTask @Inject constructor(
   @get:Incremental
   @get:InputFiles
   @get:PathSensitive(PathSensitivity.RELATIVE)
-  abstract val docs: ConfigurableFileCollection
+  public abstract val docs: ConfigurableFileCollection
 
   @get:Input
   internal abstract val ruleBuilders: NamedDomainObjectContainer<RuleBuilderScope>
@@ -120,14 +119,14 @@ abstract class DoksDocsTask @Inject constructor(
     option = "autoCorrect",
     description = "If true, Doks will automatically fix any out-of-date documentation."
   )
-  var autoCorrect: Boolean
+  public var autoCorrect: Boolean
     @Input
     get() = autoCorrectProperty.get()
     set(value) = autoCorrectProperty.set(value)
 
   /** @since 0.1.0 */
   @TaskAction
-  fun execute(inputChanges: InputChanges) {
+  public fun execute(inputChanges: InputChanges) {
 
     val resultsByRequest = samplesMapping.orNull
       ?.asFile

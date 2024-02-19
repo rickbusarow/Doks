@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Rick Busarow
+ * Copyright (C) 2024 Rick Busarow
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -17,6 +17,7 @@
 
 package com.rickbusarow.doks.internal
 
+import dev.drewhamilton.poko.Poko
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 import org.intellij.lang.annotations.Language
@@ -29,11 +30,12 @@ import org.intellij.lang.annotations.Language
  * @property replacement any combination of literal text and $-substitutions
  * @since 0.1.0
  */
+@Poko
 @Serializable
-data class Rule(
-  val name: RuleName,
-  val regex: Regex,
-  val replacement: String
+public class Rule(
+  public val name: RuleName,
+  public val regex: Regex,
+  public val replacement: String
 ) : java.io.Serializable {
 
   internal constructor(
@@ -49,7 +51,7 @@ data class Rule(
    * @see CharSequence.replace
    * @since 0.1.0
    */
-  fun replaceIn(original: CharSequence): String {
+  public fun replaceIn(original: CharSequence): String {
     return original.replace(regex = regex, replacement = replacement)
   }
 
@@ -81,7 +83,7 @@ data class Rule(
  */
 @Serializable
 @JvmInline
-value class RuleName(val value: String) :
+public value class RuleName(public val value: String) :
   java.io.Serializable,
   Comparable<RuleName> {
 

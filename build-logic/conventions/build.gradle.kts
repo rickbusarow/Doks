@@ -44,7 +44,7 @@ gradlePlugin {
     }
     create("builds.dokka") {
       id = "builds.dokka"
-      implementationClass = "builds.DokkaConventionPlugin"
+      implementationClass = "builds.DokkatooConventionPlugin"
     }
     create("builds.kotlin") {
       id = "builds.kotlin"
@@ -80,8 +80,9 @@ dependencies {
   implementation(libs.benManes.versions)
   implementation(libs.detekt.gradle)
   implementation(libs.diffplug.spotless)
+  implementation(libs.dokka.core)
   implementation(libs.dokka.gradle)
-  implementation(libs.dokka.versioning)
+  implementation(libs.dokkatoo.plugin)
   implementation(libs.dropbox.dependencyGuard)
   implementation(libs.google.dagger.api)
   implementation(libs.google.ksp)

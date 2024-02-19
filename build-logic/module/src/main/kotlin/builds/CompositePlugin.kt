@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Rick Busarow
+ * Copyright (C) 2024 Rick Busarow
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -15,8 +15,8 @@
 
 package builds
 
-import builds.artifacts.ArtifactsCheckTask
-import builds.artifacts.ArtifactsDumpTask
+import builds.curator.CuratorCheckTask
+import builds.curator.CuratorDumpTask
 import com.autonomousapps.tasks.BuildHealthTask
 import com.github.jengelman.gradle.plugins.shadow.internal.JavaJarExec
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
@@ -58,7 +58,7 @@ abstract class CompositePlugin : Plugin<Project> {
         /* api validation */
         KotlinApiBuildTask::class, KotlinApiCompareTask::class,
         /* artifacts-check */
-        ArtifactsCheckTask::class, ArtifactsDumpTask::class,
+        CuratorCheckTask::class, CuratorDumpTask::class,
         /* DAGP */
         BuildHealthTask::class,
         /* ModuleCheck */

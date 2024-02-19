@@ -15,7 +15,7 @@
 
 package builds
 
-import builds.artifacts.ArtifactsPlugin
+import builds.curator.CuratorPlugin
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 
@@ -33,8 +33,8 @@ abstract class RootPlugin : Plugin<Project> {
 
     target.plugins.apply(ModulePlugin::class.java)
 
-    target.plugins.apply(ArtifactsPlugin::class.java)
     target.plugins.apply(BenManesVersionsPlugin::class.java)
+    target.plugins.apply(CuratorPlugin::class.java)
     target.plugins.apply(KnitConventionPlugin::class.java)
     target.plugins.apply(SpotlessConventionPlugin::class.java)
 

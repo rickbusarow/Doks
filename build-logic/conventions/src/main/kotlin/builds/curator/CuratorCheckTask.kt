@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Rick Busarow
+ * Copyright (C) 2024 Rick Busarow
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package builds.artifacts
+package builds.curator
 
 import builds.Color.Companion.colorized
 import builds.Color.RED
@@ -31,13 +31,11 @@ import javax.inject.Inject
  * Evaluates all published artifacts in the project and compares the results to `/artifacts.json`.
  *
  * If there are any differences, the task will fail with a descriptive message.
- *
- * @since 0.1.0
  */
-open class ArtifactsCheckTask @Inject constructor(
+open class CuratorCheckTask @Inject constructor(
   objectFactory: ObjectFactory,
   projectLayout: ProjectLayout
-) : ArtifactsTask(projectLayout) {
+) : AbstractCuratorTask(projectLayout) {
 
   init {
     description = "Parses the Maven artifact parameters for all modules " +
@@ -47,6 +45,7 @@ open class ArtifactsCheckTask @Inject constructor(
 
   private val lenientOsProp: Property<Boolean> = objectFactory.property(Boolean::class.java)
 
+  /** Do not fail the check if there are macOS-only artifacts which can't be checked */
   @set:Option(
     option = "lenient-os",
     description = "Do not fail the check if there are macOS-only artifacts which can't be checked."
@@ -56,8 +55,7 @@ open class ArtifactsCheckTask @Inject constructor(
     get() = lenientOsProp.getOrElse(false)
     set(value) = lenientOsProp.set(value)
 
-  @TaskAction
-  fun run() {
+  @TaskAction fun run() {
 
     val expected = getExpectedArtifacts()
 
@@ -220,6 +218,7 @@ open class ArtifactsCheckTask @Inject constructor(
       }
     }
 
+  @Suppress("UndocumentedPublicFunction", "NestedBlockDepth")
   private fun StringBuilder.maybeAddChangedValueMessages(
     changed: List<Pair<ArtifactConfig, ArtifactConfig>>
   ): StringBuilder = apply {

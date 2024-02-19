@@ -104,10 +104,6 @@ private fun Project.configurePublishPlugin(
   }
 }
 
-private fun Project.versionIsSnapshot(): Boolean {
-  return VERSION_NAME.endsWith("-SNAPSHOT")
-}
-
 private fun Project.configurePublish(artifactId: String, pomDescription: String, groupId: String) {
 
   version = VERSION_NAME

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Rick Busarow
+ * Copyright (C) 2024 Rick Busarow
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -13,10 +13,11 @@
  * limitations under the License.
  */
 
-package builds.artifacts
+package builds.curator
 
-import com.squareup.moshi.JsonClass
-import java.io.Serializable
+import dev.drewhamilton.poko.Poko
+import kotlinx.serialization.Serializable
+import java.io.Serializable as JavaIoSerializable
 
 /**
  * Models the module-specific properties of published maven artifacts.
@@ -25,8 +26,8 @@ import java.io.Serializable
  * [gradle-maven-publish-plugin](https://github.com/vanniktech/gradle-maven-publish-plugin))
  *
  * @property gradlePath the path of the Gradle project, such as `:workflow-core`
- * @property group The maven "group", which should always be
- *   `com.rickbusarow.doks`. This is the `GROUP` property in the Gradle plugin.
+ * @property group The maven "group", like `com.square.wire`.
+ *   This is the `GROUP` property in the Gradle plugin.
  * @property artifactId The maven "module", such as `workflow-core-jvm`.
  *   This is the `POM_ARTIFACT_ID` property in the Gradle plugin.
  * @property description The description of this specific artifact, such as
@@ -35,10 +36,10 @@ import java.io.Serializable
  * @property javaVersion the java version of the artifact (typically 8 or 11). If
  *   not set explicitly, this defaults to the JDK version used to build the artifact.
  * @property publicationName typically 'maven', but other things for KMP artifacts
- * @since 0.1.0
  */
-@JsonClass(generateAdapter = true)
-data class ArtifactConfig(
+@Poko
+@Serializable
+class ArtifactConfig(
   val gradlePath: String,
   val group: String,
   val artifactId: String,
@@ -46,24 +47,11 @@ data class ArtifactConfig(
   val packaging: String,
   val javaVersion: String,
   val publicationName: String
-) : Serializable, Comparable<ArtifactConfig> {
-  /**
-   * globally unique identifier for this artifact
-   *
-   * @since 0.1.0
-   */
-  val key = "$gradlePath+$publicationName"
+) : JavaIoSerializable, Comparable<ArtifactConfig> {
+  /** globally unique identifier for this artifact */
+  val key: String = "$gradlePath+$publicationName"
 
   override fun compareTo(other: ArtifactConfig): Int {
     return gradlePath.compareTo(other.gradlePath)
-  }
-
-  companion object {
-    /**
-     * deserialization
-     *
-     * @since 0.0.1
-     */
-    const val serialVersionUID = 1L
   }
 }

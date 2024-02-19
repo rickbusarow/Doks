@@ -15,8 +15,8 @@
 
 plugins {
   kotlin("jvm")
-  @Suppress("DSL_SCOPE_VIOLATION")
-  alias(libs.plugins.google.ksp)
+  alias(libs.plugins.kotlinx.serialization)
+  alias(libs.plugins.poko)
   id("java-gradle-plugin")
 }
 
@@ -71,8 +71,6 @@ gradlePlugin {
 
 dependencies {
 
-  api(libs.square.moshi)
-
   api(project(path = ":core"))
 
   compileOnly(gradleApi())
@@ -85,7 +83,6 @@ dependencies {
   implementation(libs.dokkatoo.plugin)
   implementation(libs.dropbox.dependencyGuard)
   implementation(libs.google.dagger.api)
-  implementation(libs.google.ksp)
   implementation(libs.gradle.plugin.publish)
   implementation(libs.johnrengelman.shadowJar)
   implementation(libs.kotlin.compiler)
@@ -103,6 +100,4 @@ dependencies {
   implementation(libs.rickBusarow.moduleCheck.gradle.plugin)
   implementation(libs.square.kotlinPoet)
   implementation(libs.vanniktech.publish)
-
-  ksp(libs.square.moshi.codegen)
 }

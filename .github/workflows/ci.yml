@@ -20,11 +20,11 @@ jobs:
     steps:
       - name: check out with token (used by forks)
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
-        if: github.event.pull_request.head.repo.full_name != github.repository
+        if: github.event.repository.fork == true
 
       - name: check out with PAT (used by main repo)
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
-        if: github.event.pull_request.head.repo.full_name == github.repository
+        if: github.event.repository.fork == false
         with:
           ref: ${{ github.event.pull_request.head.ref }}
           token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
@@ -66,10 +66,10 @@ jobs:
           commit_message: update dependency-guard baseline
           commit_options: "--no-verify --signoff"
 
-      - name: artifacts check
+      - name: curator check
         uses: gradle/actions/setup-gradle@417ae3ccd767c252f5661f1ace9f835f9654f2b5 # v3
         with:
-          arguments: artifactsCheck
+          arguments: curatorCheck
           cache-read-only: false
 
       - name: detekt
@@ -79,29 +79,51 @@ jobs:
           cache-read-only: false
 
       - name: KtLint format (used by main repo)
-        if: github.event.pull_request.head.repo.full_name == github.repository
+        if: github.event.repository.fork == false
         uses: gradle/actions/setup-gradle@417ae3ccd767c252f5661f1ace9f835f9654f2b5 # v3
         with:
           arguments: ktlintFormat
           cache-read-only: false
 
       # If KtLint generated changes, commit and push those changes.
-      - name: commit changes (used by main repo)
-        if: github.event.pull_request.head.repo.full_name == github.repository
+      - name: commit KtLint changes (used by main repo)
+        if: github.event.repository.fork == false
         uses: stefanzweifel/git-auto-commit-action@8756aa072ef5b4a080af5dc8fef36c5d586e521d # v5
         with:
           commit_message: Apply KtLint format
           commit_options: "--no-verify --signoff"
 
       - name: KtLint check (used by forks)
-        if: github.event.pull_request.head.repo.full_name != github.repository
+        if: github.event.repository.fork == true
         uses: gradle/actions/setup-gradle@417ae3ccd767c252f5661f1ace9f835f9654f2b5 # v3
         with:
           arguments: ktlintCheck
           cache-read-only: false
 
+      - name: Spotless apply (used by main repo)
+        if: github.event.repository.fork == false
+        uses: gradle/actions/setup-gradle@417ae3ccd767c252f5661f1ace9f835f9654f2b5 # v3
+        with:
+          arguments: spotlessApply
+          cache-read-only: false
+
+      # If Spotless generated changes, commit and push those changes.
+      - name: commit changes (used by main repo)
+        if: github.event.repository.fork == false
+        uses: stefanzweifel/git-auto-commit-action@8756aa072ef5b4a080af5dc8fef36c5d586e521d # v5
+        with:
+          commit_message: Apply Spotless changes
+          commit_options: "--no-verify --signoff"
+
+      - name: Spotless check (used by forks)
+        if: github.event.repository.fork == true
+        uses: gradle/actions/setup-gradle@417ae3ccd767c252f5661f1ace9f835f9654f2b5 # v3
+        with:
+          arguments: spotlessCheck
+          cache-read-only: false
+
       - name: Doks update (used by main repo)
-        if: github.event.pull_request.head.repo.full_name == github.repository
+        if: github.event.repository.fork == false
         uses: gradle/actions/setup-gradle@417ae3ccd767c252f5661f1ace9f835f9654f2b5 # v3
         with:
           arguments: doks
@@ -109,21 +131,21 @@ jobs:
 
       # If Doks generated changes, commit and push those changes.
       - name: commit changes (used by main repo)
-        if: github.event.pull_request.head.repo.full_name == github.repository
+        if: github.event.repository.fork == false
         uses: stefanzweifel/git-auto-commit-action@8756aa072ef5b4a080af5dc8fef36c5d586e521d # v5
         with:
           commit_message: Apply Doks updates
           commit_options: "--no-verify --signoff"
 
       - name: Doks check (used by forks)
-        if: github.event.pull_request.head.repo.full_name != github.repository
+        if: github.event.repository.fork == true
         uses: gradle/actions/setup-gradle@417ae3ccd767c252f5661f1ace9f835f9654f2b5 # v3
         with:
           arguments: doksCheck
           cache-read-only: false
 
       - name: ModuleCheck with auto-correct (used by main repo)
-        if: github.event.pull_request.head.repo.full_name == github.repository
+        if: github.event.repository.fork == false
         uses: gradle/actions/setup-gradle@417ae3ccd767c252f5661f1ace9f835f9654f2b5 # v3
         with:
           arguments: moduleCheckAuto
@@ -131,14 +153,14 @@ jobs:
 
       # If KtLint generated changes, commit and push those changes.
       - name: commit changes (used by main repo)
-        if: github.event.pull_request.head.repo.full_name == github.repository
+        if: github.event.repository.fork == false
         uses: stefanzweifel/git-auto-commit-action@8756aa072ef5b4a080af5dc8fef36c5d586e521d # v5
         with:
           commit_message: Apply ModuleCheck fixes
           commit_options: "--no-verify --signoff"
 
       - name: ModuleCheck check (used by forks)
-        if: github.event.pull_request.head.repo.full_name != github.repository
+        if: github.event.repository.fork == true
         uses: gradle/actions/setup-gradle@417ae3ccd767c252f5661f1ace9f835f9654f2b5 # v3
         with:
           arguments: moduleCheck

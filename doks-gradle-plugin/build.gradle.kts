@@ -18,13 +18,13 @@ import builds.VERSION_NAME
 import builds.buildM2RootDirectory
 import builds.dependsOn
 import builds.isRealRootProject
-import com.gradle.scan.agent.serialization.scan.serializer.kryo.it
 
 plugins {
   id("module")
   id("java-gradle-plugin")
   id("com.gradle.plugin-publish")
   alias(libs.plugins.buildconfig)
+  alias(libs.plugins.poko)
   idea
 }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Rick Busarow
+ * Copyright (C) 2024 Rick Busarow
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -16,6 +16,7 @@
 package com.rickbusarow.doks.internal
 
 import com.rickbusarow.doks.internal.markdown.markdown
+import dev.drewhamilton.poko.Poko
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
@@ -58,7 +59,8 @@ internal class DoksEngine(
    * @property newText the new contents of the file
    * @since 0.1.0
    */
-  data class FileResult(
+  @Poko
+  class FileResult(
     val file: File,
     val changed: Boolean,
     val oldText: String,

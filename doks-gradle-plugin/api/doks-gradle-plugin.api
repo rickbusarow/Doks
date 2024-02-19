@@ -93,11 +93,6 @@ public final class com/rickbusarow/doks/RuleFactory$DefaultImpls {
 public final class com/rickbusarow/doks/internal/Rule : java/io/Serializable {
 	public static final field Companion Lcom/rickbusarow/doks/internal/Rule$Companion;
 	public synthetic fun <init> (Ljava/lang/String;Lkotlin/text/Regex;Ljava/lang/String;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public final fun component1-8OcL4yg ()Ljava/lang/String;
-	public final fun component2 ()Lkotlin/text/Regex;
-	public final fun component3 ()Ljava/lang/String;
-	public final fun copy-IFIhv3M (Ljava/lang/String;Lkotlin/text/Regex;Ljava/lang/String;)Lcom/rickbusarow/doks/internal/Rule;
-	public static synthetic fun copy-IFIhv3M$default (Lcom/rickbusarow/doks/internal/Rule;Ljava/lang/String;Lkotlin/text/Regex;Ljava/lang/String;ILjava/lang/Object;)Lcom/rickbusarow/doks/internal/Rule;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getName-8OcL4yg ()Ljava/lang/String;
 	public final fun getRegex ()Lkotlin/text/Regex;
@@ -157,10 +152,13 @@ public final class com/rickbusarow/doks/internal/RuleName$Companion {
 
 public final class com/rickbusarow/doks/internal/Rules : java/io/Serializable {
 	public fun <init> (Ljava/util/Map;)V
+	public fun equals (Ljava/lang/Object;)Z
 	public final fun get-wEePdS0 (Ljava/lang/String;)Lcom/rickbusarow/doks/internal/Rule;
 	public final fun getNames ()Ljava/util/List;
 	public final fun getOrNull-wEePdS0 (Ljava/lang/String;)Lcom/rickbusarow/doks/internal/Rule;
 	public final fun hasName-wEePdS0 (Ljava/lang/String;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
 }
 
 public final class com/rickbusarow/doks/internal/gradle/TaskKt$sam$i$org_gradle_api_Action$0 : org/gradle/api/Action {

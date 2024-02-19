@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Rick Busarow
+ * Copyright (C) 2024 Rick Busarow
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -23,7 +23,7 @@ import org.gradle.language.base.plugins.LifecycleBasePlugin
 
 /** @since 0.1.0 */
 @Suppress("UnnecessaryAbstractClass")
-abstract class DoksPlugin : Plugin<Project> {
+public abstract class DoksPlugin : Plugin<Project> {
 
   override fun apply(target: Project) {
 

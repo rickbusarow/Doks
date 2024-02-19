@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Rick Busarow
+ * Copyright (C) 2024 Rick Busarow
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -13,8 +13,11 @@
  * limitations under the License.
  */
 
+import com.rickbusarow.kgx.fromInt
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmProjectExtension
 import org.jetbrains.kotlin.gradle.plugin.KotlinBasePlugin
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 buildscript {
   dependencies {
@@ -55,10 +58,14 @@ allprojects ap@{
       jvmToolchain {
         languageVersion.set(JavaLanguageVersion.of(jdk))
       }
+      compilerOptions {
+        jvmTarget = JvmTarget.fromInt(property("JVM_TARGET_BUILD_LOGIC").toString().toInt())
+      }
     }
+    java.targetCompatibility = JavaVersion.toVersion(property("JVM_TARGET_BUILD_LOGIC").toString())
   }
 
-  tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
+  tasks.withType<KotlinCompile>().configureEach {
     kotlinOptions {
 
       apiVersion = kotlinApiVersion

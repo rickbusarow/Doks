@@ -19,6 +19,7 @@ import com.rickbusarow.doks.internal.psi.LazyMap.Companion.toLazyMap
 import com.rickbusarow.doks.internal.stdlib.joinToStringConcat
 import com.rickbusarow.doks.internal.stdlib.requireNotNull
 import com.rickbusarow.doks.internal.stdlib.trimIndentAfterFirstLine
+import dev.drewhamilton.poko.Poko
 import kotlinx.serialization.Serializable
 import org.jetbrains.kotlin.com.intellij.psi.PsiElement
 import org.jetbrains.kotlin.com.intellij.psi.PsiModifiableCodeBlock
@@ -46,17 +47,20 @@ import org.jetbrains.kotlin.psi.psiUtil.getChildrenOfType
 import org.jetbrains.kotlin.psi.psiUtil.parents
 import java.io.File
 import kotlin.LazyThreadSafetyMode.NONE
+import kotlin.contracts.ExperimentalContracts
 import kotlin.contracts.contract
 import kotlin.io.path.Path
 
+@Poko
 @Serializable
-internal data class SampleRequest(
+internal class SampleRequest(
   val fqName: String,
   val bodyOnly: Boolean
 ) : java.io.Serializable
 
+@Poko
 @Serializable
-internal data class SampleResult(
+internal class SampleResult(
   val request: SampleRequest,
   val content: String
 ) : java.io.Serializable
@@ -167,6 +171,7 @@ internal class NamedSamples(
     }
   }
 
+  @OptIn(ExperimentalContracts::class)
   inline fun <T : Any> T?.requireBodyNotNull(
     psi: KtElement,
     fqName: String,

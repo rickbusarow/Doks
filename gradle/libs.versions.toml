@@ -72,6 +72,7 @@ kotlinx-knit = { id = "kotlinx-knit", version.ref = "kotlinx-knit" }
 kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 ktlint = { id = "com.rickbusarow.ktlint", version.ref = "rickBusarow-ktlint" }
 moduleCheck = { id = "com.rickbusarow.module-check", version.ref = "rickBusarow-moduleCheck" }
+poko = { id = "dev.drewhamilton.poko", version.ref = "poko" }
 shadowJar = { id = "com.github.johnrengelman.shadow", version.ref = "johnrengelman-shadow" }
 taskTree = { id = "com.dorongold.task-tree", version.ref = "taskTree" }
 

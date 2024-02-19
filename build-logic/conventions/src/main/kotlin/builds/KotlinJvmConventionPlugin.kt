@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Rick Busarow
+ * Copyright (C) 2024 Rick Busarow
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -22,7 +22,6 @@ import org.gradle.api.Project
 import org.gradle.api.file.DuplicatesStrategy
 import org.gradle.api.plugins.JavaPluginExtension
 import org.gradle.api.tasks.bundling.Jar
-import org.gradle.api.tasks.compile.JavaCompile
 import org.gradle.jvm.toolchain.JavaLanguageVersion
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmProjectExtension
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
@@ -36,6 +35,7 @@ abstract class KotlinJvmConventionPlugin : Plugin<Project> {
       extension.jvmToolchain { toolChain ->
         toolChain.languageVersion.set(JavaLanguageVersion.of(target.JDK))
       }
+      extension.explicitApi()
     }
 
     target.tasks.withType(KotlinCompile::class.java).configureEach { task ->
@@ -49,21 +49,15 @@ abstract class KotlinJvmConventionPlugin : Plugin<Project> {
         jvmTarget = target.JVM_TARGET
 
         freeCompilerArgs = freeCompilerArgs + listOf(
-          "-Xinline-classes",
-          "-Xsam-conversions=class",
-          "-opt-in=kotlin.ExperimentalStdlibApi",
-          "-opt-in=kotlin.RequiresOptIn",
-          "-opt-in=kotlin.contracts.ExperimentalContracts"
+          "-Xsam-conversions=class"
         )
       }
     }
 
     target.plugins.withType(MavenPublishBasePlugin::class.java).configureEach {
       target.extensions.configure(JavaPluginExtension::class.java) { extension ->
+        extension.targetCompatibility = JavaVersion.toVersion(target.JVM_TARGET)
         extension.sourceCompatibility = JavaVersion.toVersion(target.JVM_TARGET)
-      }
-      target.tasks.withType(JavaCompile::class.java).configureEach { task ->
-        task.options.release.set(target.JVM_TARGET_INT)
       }
     }
 

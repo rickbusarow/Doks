@@ -18,7 +18,7 @@
 # exit when any command fails
 set -e
 
-VERSION_TOML=gradle/libs.versions.toml
+GRADLE_PROPERTIES=gradle.properties
 
 step=0
 
@@ -68,16 +68,18 @@ progress "check version isn't a -SNAPSHOT"
 # The line is delimited by whitespaces.
 NEXT_VERSION=$(awk '/.*\(unreleased)/ { print $2}' CHANGELOG.md | sed 's/\"//g')
 
-function parseVersionAndSyncDocs() {
+function parseVersion() {
 
-  # Parse the 'doks' version from libs.versions.toml
-  # Removes the double quotes around the raw string value
-  VERSION_NAME=$(awk -F ' *= *' '$1=="doks-dev"{print $2; exit}' $VERSION_TOML | sed 's/\"//g')
+  # Parse the 'VERSION_NAME' version from gradle.properties
+  VERSION_NAME=$(awk -F ' *= *' '$1=="VERSION_NAME"{print $2; exit}' $GRADLE_PROPERTIES | sed 's/\"//g')
+}
+
+function syncDocs() {
 
   # Add `@since ____` tags to any new KDoc
-  progress "Add \`@since ____\` tags to any new KDoc"
+  progress "Add @since ____ tags to any new KDoc"
   ./gradlew ktlintFormat
-  maybeCommit "add @since tags to new KDoc for $VERSION_DEV"
+  maybeCommit "add @since tags to new KDoc for $VERSION_NAME"
 
   # format docs
   progress "format docs"
@@ -87,11 +89,12 @@ function parseVersionAndSyncDocs() {
   # update the version references in docs before versioning them
   progress "Update docs versions"
   ./gradlew doks
-  maybeCommit "update version references in docs to $VERSION_DEV"
+  maybeCommit "update version references in docs to $VERSION_NAME"
 }
 
 # update all versions/docs for the release version
-parseVersionAndSyncDocs
+parseVersion
+syncDocs
 
 # Generate all api docs and make sure they're in ./dokka-archive/
 # Then ensure that all the new versioned api docs are tracked by Git
@@ -119,14 +122,15 @@ progress "create the release on GitHub"
 ./gradlew githubRelease
 
 progress "update the dev version to ${NEXT_VERSION}"
-OLD="(^ *doks-dev *= *)\"${VERSION_NAME}\""
-NEW="\$1\"${NEXT_VERSION}\""
-# Write the new -SNAPSHOT version to the versions toml file
-perl -pi -e "s/$OLD/$NEW/" $VERSION_TOML
+OLD="VERSION_NAME=${VERSION_NAME}"
+NEW="VERSION_NAME=${NEXT_VERSION}"
+# Write the new -SNAPSHOT version to the properties file
+perl -pi -e "s/$OLD/$NEW/" $GRADLE_PROPERTIES
 git commit -am "update dev version to ${NEXT_VERSION}"
 
 # update all versions/docs for the next version
-parseVersionAndSyncDocs
+parseVersion
+syncDocs
 
 echo
 echo ' ___ _   _  ___ ___ ___ ___ ___ '
@@ -135,7 +139,7 @@ echo '\__ \ |_| | (_| (__| _|\__ \__ \'
 echo '|___/\___/ \___\___|___|___/___/'
 echo
 echo
-echo The release is done and a new docs version has been created for Docusaurus.
+echo The release is done.
 echo
 echo Next, just create a PR to merge all these distinct commits into the remote main branch.
 echo

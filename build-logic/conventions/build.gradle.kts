@@ -82,6 +82,7 @@ dependencies {
   implementation(libs.dokka.gradle)
   implementation(libs.dokkatoo.plugin)
   implementation(libs.dropbox.dependencyGuard)
+  implementation(libs.github.release)
   implementation(libs.google.dagger.api)
   implementation(libs.gradle.plugin.publish)
   implementation(libs.johnrengelman.shadowJar)

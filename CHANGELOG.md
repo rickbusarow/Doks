@@ -5,8 +5,9 @@
 ## [0.2.0] - 2024-02-22
 
 ### Added
-* Give useful exceptions when a requested psi body is null by @RBusarow in https://github.com/rickbusarow/Doks/pull/267
-* support parsing an entire Kotlin file using its jvm file facade name by @RBusarow in https://github.com/rickbusarow/Doks/pull/316
+
+- Give useful exceptions when a requested psi body is null by @RBusarow in https://github.com/rickbusarow/Doks/pull/267
+- support parsing an entire Kotlin file using its jvm file facade name by @RBusarow in https://github.com/rickbusarow/Doks/pull/316
 
 **Full Changelog**: https://github.com/rickbusarow/Doks/compare/0.1.4...0.1.5
 

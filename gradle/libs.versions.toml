@@ -43,6 +43,7 @@ rickBusarow-kase = "0.12.1"
 rickBusarow-kgx = "0.1.12"
 rickBusarow-ktlint = "0.2.2"
 rickBusarow-ktrules = "1.5.0"
+rickBusarow-mahout = "0.1.0-SNAPSHOT"
 rickBusarow-moduleCheck = "0.12.5"
 slf4j = "2.0.17"
 square-kotlinPoet = "2.2.0"
@@ -72,6 +73,10 @@ ktlint = { id = "com.rickbusarow.ktlint", version.ref = "rickBusarow-ktlint" }
 moduleCheck = { id = "com.rickbusarow.module-check", version.ref = "rickBusarow-moduleCheck" }
 poko = { id = "dev.drewhamilton.poko", version.ref = "poko" }
 taskTree = { id = "com.dorongold.task-tree", version.ref = "taskTree" }
+
+mahout-java-gradle-plugin = { id = "com.rickbusarow.mahout.java-gradle-plugin", version.ref = "rickBusarow-mahout" }
+mahout-gradle-test = { id = "com.rickbusarow.mahout.gradle-test", version.ref = "rickBusarow-mahout" }
+mahout-root = { id = "com.rickbusarow.mahout.root", version.ref = "rickBusarow-mahout" }
 
 [libraries]
 benManes-versions = { module = "com.github.ben-manes:gradle-versions-plugin", version.ref = "benManes-versions" }
@@ -207,6 +212,8 @@ rickBusarow-kgx = { module = "com.rickbusarow.kgx:kotlin-gradle-extensions", ver
 rickBusarow-ktlint = { module = "com.rickbusarow.ktlint:ktlint-gradle-plugin", version.ref = "rickBusarow-ktlint" }
 
 rickBusarow-ktrules = { module = "com.rickbusarow.ktrules:ktrules", version.ref = "rickBusarow-ktrules" }
+
+rickBusarow-mahout-gradle-plugin = { module = "com.rickbusarow.mahout:mahout-gradle-plugin", version.ref = "rickBusarow-mahout" }
 
 rickBusarow-moduleCheck-gradle-plugin = { module = "com.rickbusarow.modulecheck:plugin", version.ref = "rickBusarow-moduleCheck" }
 

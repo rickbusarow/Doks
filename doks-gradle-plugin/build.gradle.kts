@@ -13,18 +13,15 @@
  * limitations under the License.
  */
 
-import builds.GROUP
-import builds.VERSION_NAME
-import builds.buildM2RootDirectory
-import builds.dependsOn
 import com.rickbusarow.kgx.isRealRootProject
 
 plugins {
-  id("module")
-  id("java-gradle-plugin")
-  id("com.gradle.plugin-publish")
+  alias(libs.plugins.mahout.java.gradle.plugin)
+  alias(libs.plugins.mahout.gradle.test)
   alias(libs.plugins.buildconfig)
   alias(libs.plugins.poko)
+  alias(libs.plugins.kotlinx.serialization)
+  alias(libs.plugins.gradle.plugin.publish)
   idea
 }
 
@@ -38,53 +35,18 @@ val pluginDeclaration: NamedDomainObjectProvider<PluginDeclaration> =
       id = pluginId
       displayName = "Doks"
       implementationClass = "com.rickbusarow.doks.DoksPlugin"
-      version = VERSION_NAME
+      version = mahoutProperties.versionName.get()
       description = moduleDescription
       this@register.tags.set(listOf("markdown", "documentation"))
     }
 
-module {
+mahout {
   serialization()
 
-  published(
-    artifactId = pluginArtifactId,
-    pomDescription = moduleDescription
-  )
-
-  publishedPlugin(pluginDeclaration = pluginDeclaration)
-}
-
-@Suppress("UnstableApiUsage")
-testing {
-  suites {
-
-    val gradleTest by registering(JvmTestSuite::class) {
-
-      useJUnitJupiter()
-
-      dependencies {
-        implementation(project())
-      }
-
-      targets {
-        configureEach {
-
-          testTask.configure {
-            dependsOn("publishToBuildM2")
-          }
-        }
-      }
-    }
-
-    tasks.named("check").dependsOn(gradleTest)
+  publishing {
+    publishPlugin(pluginDeclaration)
   }
-}
-
-val gradleTestSourceSet by sourceSets.named("gradleTest", SourceSet::class)
-
-gradlePlugin {
-  @Suppress("UnstableApiUsage")
-  testSourceSet(gradleTestSourceSet)
+  gradleTests {}
 }
 
 val doksDeps = objects.setProperty<String>()
@@ -94,7 +56,7 @@ buildConfig {
 
   sourceSets.named("main") {
 
-    packageName(GROUP)
+    packageName(mahoutProperties.group.get())
     className("BuildConfig")
 
     useKotlinOutput {
@@ -105,30 +67,21 @@ buildConfig {
     buildConfigField("doksParseDeps", doksParseDeps)
   }
 
-  sourceSets.named(gradleTestSourceSet.name) {
+  this@buildConfig.sourceSets.named(mahout.gradleTests.sourceSetName.get()) {
 
-    packageName(GROUP)
+    packageName(mahoutProperties.group.get())
     className("GradleTestBuildConfig")
 
     useKotlinOutput {
       internalVisibility = true
     }
 
-    val buildM2 = buildM2RootDirectory.map { it.asFile }
-    buildConfigField("localBuildM2Dir", buildM2)
+    buildConfigField("localBuildM2Dir", mahout.gradleTests.gradleTestM2Dir.asFile)
 
     buildConfigField("pluginId", pluginId)
-    buildConfigField("version", VERSION_NAME)
-    buildConfigField("doksVersion", VERSION_NAME)
+    buildConfigField("doksVersion", mahoutProperties.versionName)
     buildConfigField("kotlinVersion", libs.versions.kotlin)
     buildConfigField("gradleVersion", gradle.gradleVersion)
-  }
-}
-
-kotlin {
-  val compilations = target.compilations
-  compilations.named("gradleTest") {
-    associateWith(compilations.getByName("main"))
   }
 }
 

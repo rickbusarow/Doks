@@ -13,17 +13,26 @@
  * limitations under the License.
  */
 
+rootProject.name = "Doks"
+
 pluginManagement {
   repositories {
+    maven {
+      url = uri("https://central.sonatype.com/repository/maven-snapshots/")
+      content {
+        @Suppress("UnstableApiUsage")
+        includeGroupAndSubgroups("com.rickbusarow.mahout")
+      }
+    }
     gradlePluginPortal()
     mavenCentral()
     google()
   }
-  includeBuild("build-logic")
 }
 
 plugins {
   id("com.gradle.develocity") version "4.0.2"
+  id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
 }
 
 develocity {
@@ -66,13 +75,11 @@ develocity {
 dependencyResolutionManagement {
   @Suppress("UnstableApiUsage")
   repositories {
-    google()
     mavenCentral()
-    maven("https://plugins.gradle.org/m2/")
+    gradlePluginPortal()
+    google()
   }
 }
-
-rootProject.name = "Doks"
 
 include(
   ":doks-gradle-plugin"

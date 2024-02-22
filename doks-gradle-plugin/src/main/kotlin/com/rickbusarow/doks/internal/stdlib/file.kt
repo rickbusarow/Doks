@@ -21,12 +21,20 @@ import kotlin.LazyThreadSafetyMode.NONE
 
 private val kotlinExtensions: Set<String> by lazy(NONE) { setOf("kt", "kts") }
 
-/** `isFile && extension in setOf("kt", "kts")` */
+/**
+ * `isFile && extension in setOf("kt", "kts")`
+ *
+ * @since 0.2.0
+ */
 internal fun File.isExistanttKotlinFile(): Boolean {
   return isFile && extension in kotlinExtensions
 }
 
-/** `extension in setOf("kt", "kts")` */
+/**
+ * `extension in setOf("kt", "kts")`
+ *
+ * @since 0.2.0
+ */
 internal fun File.isKotlinFile(): Boolean {
   return extension in kotlinExtensions
 }

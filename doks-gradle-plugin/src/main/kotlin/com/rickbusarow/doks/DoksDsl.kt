@@ -15,7 +15,7 @@
 
 package com.rickbusarow.doks
 
-/** */
+/** @since 0.2.0 */
 @DslMarker
 @Target(AnnotationTarget.CLASS, AnnotationTarget.TYPE, AnnotationTarget.FUNCTION)
 public annotation class DoksDsl

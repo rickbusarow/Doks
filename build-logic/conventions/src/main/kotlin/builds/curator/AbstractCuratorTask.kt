@@ -28,7 +28,7 @@ import org.gradle.api.publish.maven.MavenPublication
 import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.OutputFile
 
-/** */
+/** @since 0.2.0 */
 abstract class AbstractCuratorTask(
   private val projectLayout: ProjectLayout
 ) : DefaultTask() {
@@ -37,6 +37,8 @@ abstract class AbstractCuratorTask(
    * This file contains all definitions for published artifacts.
    *
    * It's located at the root of the project, assuming that the task is run from the root project.
+   *
+   * @since 0.2.0
    */
   @get:OutputFile
   protected val reportFile: RegularFile by lazy {
@@ -49,6 +51,8 @@ abstract class AbstractCuratorTask(
    * This is a lazy delegate because it's accessing [project], and Gradle's configuration caching
    * doesn't allow direct references to `project` in task properties or inside task actions.
    * Somehow, it doesn't complain about this even though it's definitely accessed at runtime.
+   *
+   * @since 0.2.0
    */
   @get:Internal
   protected val currentList: List<ArtifactConfig> by lazy { project.createArtifactList() }

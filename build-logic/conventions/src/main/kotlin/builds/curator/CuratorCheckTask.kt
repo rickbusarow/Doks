@@ -31,6 +31,8 @@ import javax.inject.Inject
  * Evaluates all published artifacts in the project and compares the results to `/artifacts.json`.
  *
  * If there are any differences, the task will fail with a descriptive message.
+ *
+ * @since 0.2.0
  */
 open class CuratorCheckTask @Inject constructor(
   objectFactory: ObjectFactory,
@@ -45,7 +47,11 @@ open class CuratorCheckTask @Inject constructor(
 
   private val lenientOsProp: Property<Boolean> = objectFactory.property(Boolean::class.java)
 
-  /** Do not fail the check if there are macOS-only artifacts which can't be checked */
+  /**
+   * Do not fail the check if there are macOS-only artifacts which can't be checked
+   *
+   * @since 0.2.0
+   */
   @set:Option(
     option = "lenient-os",
     description = "Do not fail the check if there are macOS-only artifacts which can't be checked."

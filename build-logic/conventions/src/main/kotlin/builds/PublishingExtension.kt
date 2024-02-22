@@ -204,7 +204,7 @@ private fun Project.configurePublish(artifactId: String, pomDescription: String,
 internal val Project.gradlePublishingExtension: PublishingExtension
   get() = extensions.getByType(PublishingExtension::class.java)
 
-/** */
+/** @since 0.2.0 */
 val Project.buildM2RootDirectory: Provider<Directory>
   get() = rootProject.layout.buildDirectory.dir("gradle-test-m2")
 
@@ -213,6 +213,8 @@ internal const val PUBLISH_TO_BUILD_M2 = "publishToBuildM2"
 /**
  * Registers this [target]'s version of the `publishToBuildM2`
  * task and adds it as a dependency to the root project's version.
+ *
+ * @since 0.2.0
  */
 private fun setUpPublishToBuildM2(target: Project) {
 

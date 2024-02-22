@@ -36,6 +36,7 @@ import java.io.Serializable as JavaIoSerializable
  * @property javaVersion the java version of the artifact (typically 8 or 11). If
  *   not set explicitly, this defaults to the JDK version used to build the artifact.
  * @property publicationName typically 'maven', but other things for KMP artifacts
+ * @since 0.2.0
  */
 @Poko
 @Serializable
@@ -48,7 +49,11 @@ class ArtifactConfig(
   val javaVersion: String,
   val publicationName: String
 ) : JavaIoSerializable, Comparable<ArtifactConfig> {
-  /** globally unique identifier for this artifact */
+  /**
+   * globally unique identifier for this artifact
+   *
+   * @since 0.2.0
+   */
   val key: String = "$gradlePath+$publicationName"
 
   override fun compareTo(other: ArtifactConfig): Int {

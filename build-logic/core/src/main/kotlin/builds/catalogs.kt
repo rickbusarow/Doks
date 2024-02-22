@@ -21,38 +21,54 @@ import org.gradle.accessors.dm.LibrariesForLibs
 import org.gradle.api.Project
 import org.gradle.api.internal.catalog.ExternalModuleDependencyFactory
 
-/**  */
+/** @since 0.2.0 */
 val Project.libs: LibrariesForLibs
   get() = extensions.getByType(LibrariesForLibs::class.java)
 
-/**  */
+/** @since 0.2.0 */
 fun ExternalModuleDependencyFactory.VersionNotationSupplier.get(): String = asProvider().get()
 
-/**  */
+/** @since 0.2.0 */
 val Project.VERSION_NAME: String
   get() = property("VERSION_NAME") as String
 
-/**  */
+/** @since 0.2.0 */
 val Project.versionIsSnapshot: Boolean
   get() = extras.getOrPut("versionIsSnapshot") { VERSION_NAME.endsWith("-SNAPSHOT") }
 
-/**  */
+/** @since 0.2.0 */
 val Project.GROUP: String
   get() = property("GROUP") as String
 
-/** "1.6", "1.7", "1.8", etc. */
+/**
+ * "1.6", "1.7", "1.8", etc.
+ *
+ * @since 0.2.0
+ */
 val Project.KOTLIN_API: String
   get() = property("KOTLIN_API") as String
 
-/** ex: `rbusarow` */
+/**
+ * ex: `rbusarow`
+ *
+ * @since 0.2.0
+ */
 val Project.GITHUB_OWNER: String
   get() = property("GITHUB_OWNER") as String
 
-/** ex: `rbusarow/kase` */
+/**
+ * ex: `rbusarow/kase`
+ *
+ * @since 0.2.0
+ */
 val Project.GITHUB_OWNER_REPO: String
   get() = property("GITHUB_OWNER_REPO") as String
 
-/** ex: `https://github.com/rbusarow/kase` */
+/**
+ * ex: `https://github.com/rbusarow/kase`
+ *
+ * @since 0.2.0
+ */
 val Project.GITHUB_REPOSITORY: String
   get() = property("GITHUB_REPOSITORY") as String
 
@@ -60,11 +76,17 @@ val Project.GITHUB_REPOSITORY: String
  * the jdk used in packaging
  *
  * "1.6", "1.8", "11", etc.
+ *
+ * @since 0.2.0
  */
 val Project.JVM_TARGET: String
   get() = property("JVM_TARGET") as String
 
-/** `6`, `8`, `11`, etc. */
+/**
+ * `6`, `8`, `11`, etc.
+ *
+ * @since 0.2.0
+ */
 val Project.JVM_TARGET_INT: Int
   get() = JVM_TARGET.substringAfterLast('.').toInt()
 
@@ -72,6 +94,8 @@ val Project.JVM_TARGET_INT: Int
  * the jdk used to build the project
  *
  * "1.6", "1.8", "11", etc.
+ *
+ * @since 0.2.0
  */
 val Project.JDK: String
   get() = property("JDK") as String
@@ -80,6 +104,8 @@ val Project.JDK: String
  * the jdk used to build the project
  *
  * "1.6", "1.8", "11", etc.
+ *
+ * @since 0.2.0
  */
 val Project.JDK_INT: Int
   get() = JDK.substringAfterLast('.').toInt()

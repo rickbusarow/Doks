@@ -2,10 +2,15 @@ name: Renovate
 
 on:
   schedule:
-    - cron: "0 12 * * *" # noon daily
+    # every 4 hours
+    - cron: "0 */4 * * *"
   workflow_dispatch:
   issues:
   label:
+  pull_request:
+    types:
+      # run when the little "click here to rebase" box is checked.
+      - synchronize
   push:
     branches:
       - main
@@ -17,7 +22,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
 
-      - name: Setup node
+      - name: Set up Node
         uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v4
 
       - name: Create GitHub App Token

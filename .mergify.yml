@@ -8,8 +8,8 @@ pull_request_rules:
     actions:
       queue:
         # maybe change to 'rebase' if this causes problems
-        merge_method: fast-forward
-        update_method: rebase # this is also the default when 'merge_method' is 'fast-forward'
+        merge_method: merge
+        update_method: merge
         autosquash: true
 
   - name: Remove automerge label once merged
@@ -60,8 +60,8 @@ pull_request_rules:
     actions:
       queue:
         # maybe change to 'rebase' if this causes problems
-        merge_method: fast-forward
-        update_method: rebase # this is also the default when 'merge_method' is 'fast-forward'
+        merge_method: merge
+        update_method: merge
         autosquash: true
       label:
         remove:

@@ -48,7 +48,7 @@ rickBusarow-moduleCheck = "0.12.5"
 slf4j = "2.0.12"
 square-kotlinPoet = "1.16.0"
 square-moshi = "1.15.1"
-taskTree = "2.1.1"
+taskTree = "3.0.0"
 vanniktech-publish = "0.28.0"
 
 [plugins]

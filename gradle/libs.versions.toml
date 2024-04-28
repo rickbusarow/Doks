@@ -2,7 +2,7 @@
 benManes-versions = "0.51.0"
 buildconfig = "5.3.5"
 classgraph = "4.8.172"
-clikt = "4.3.0"
+clikt = "4.4.0"
 coditory-integration-test = "1.4.5"
 commons-io = "2.16.1"
 dependencyAnalysis = "1.31.0"

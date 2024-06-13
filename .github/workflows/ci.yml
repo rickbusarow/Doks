@@ -18,7 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: check out
-        uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4
 
       - uses: gradle/wrapper-validation-action@216d1ad2b3710bf005dc39237337b9673fd8fcd5 # v3
 
@@ -27,7 +27,7 @@ jobs:
     needs:
       - validate-wrapper
     steps:
-      - uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4
+      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4
 
       - name: Create GitHub App Token
         uses: actions/create-github-app-token@c8f55efbd427e7465d6da1106e7979bc8aaee856 # v1
@@ -48,7 +48,7 @@ jobs:
     needs:
       - validate-wrapper
     steps:
-      - uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4
+      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4
 
       - name: Create GitHub App Token
         uses: actions/create-github-app-token@c8f55efbd427e7465d6da1106e7979bc8aaee856 # v1
@@ -69,7 +69,7 @@ jobs:
     needs:
       - validate-wrapper
     steps:
-      - uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4
+      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4
 
       - name: Create GitHub App Token
         uses: actions/create-github-app-token@c8f55efbd427e7465d6da1106e7979bc8aaee856 # v1
@@ -90,7 +90,7 @@ jobs:
     needs:
       - validate-wrapper
     steps:
-      - uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4
+      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4
 
       - name: Create GitHub App Token
         uses: actions/create-github-app-token@c8f55efbd427e7465d6da1106e7979bc8aaee856 # v1
@@ -111,7 +111,7 @@ jobs:
     needs:
       - validate-wrapper
     steps:
-      - uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4
+      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4
 
       - name: Create GitHub App Token
         uses: actions/create-github-app-token@c8f55efbd427e7465d6da1106e7979bc8aaee856 # v1
@@ -132,7 +132,7 @@ jobs:
     needs:
       - validate-wrapper
     steps:
-      - uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4
+      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4
 
       - name: Create GitHub App Token
         uses: actions/create-github-app-token@c8f55efbd427e7465d6da1106e7979bc8aaee856 # v1
@@ -153,7 +153,7 @@ jobs:
     needs:
       - validate-wrapper
     steps:
-      - uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4
+      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4
 
       - name: Create GitHub App Token
         uses: actions/create-github-app-token@c8f55efbd427e7465d6da1106e7979bc8aaee856 # v1
@@ -174,7 +174,7 @@ jobs:
     needs:
       - validate-wrapper
     steps:
-      - uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4
+      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4
 
       - name: check version is snapshot
         uses: rickbusarow/actions/gradle-task@bf0940965387f10bcb8b6699a79499d18167dfbe # v1
@@ -186,7 +186,7 @@ jobs:
     needs:
       - validate-wrapper
     steps:
-      - uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4
+      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4
 
       - name: detektAll
         uses: rickbusarow/actions/gradle-task@bf0940965387f10bcb8b6699a79499d18167dfbe # v1
@@ -209,7 +209,7 @@ jobs:
     runs-on: macos-14
 
     steps:
-      - uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4
+      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4
 
       - name: all tests
         uses: rickbusarow/actions/gradle-task@bf0940965387f10bcb8b6699a79499d18167dfbe # v1
@@ -246,7 +246,7 @@ jobs:
     needs:
       - validate-wrapper
     steps:
-      - uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4
+      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4
 
       - name: all gradle tests
         uses: rickbusarow/actions/gradle-task@bf0940965387f10bcb8b6699a79499d18167dfbe # v1
@@ -282,7 +282,7 @@ jobs:
     runs-on: windows-latest
 
     steps:
-      - uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4
+      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4
 
       - name: all tests
         uses: rickbusarow/actions/gradle-task@bf0940965387f10bcb8b6699a79499d18167dfbe # v1

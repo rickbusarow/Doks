@@ -49,7 +49,7 @@ slf4j = "2.0.13"
 square-kotlinPoet = "1.17.0"
 square-moshi = "1.15.1"
 taskTree = "4.0.0"
-vanniktech-publish = "0.28.0"
+vanniktech-publish = "0.29.0"
 
 [plugins]
 

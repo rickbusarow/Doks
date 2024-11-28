@@ -234,7 +234,7 @@ jobs:
           private-key: ${{ secrets.PR_BOT_PRIVATE_KEY }}
 
       - name: Unit test results
-        uses: mikepenz/action-junit-report@a427a90771729d8f85b6ab0cdaa1a5929cab985d # v5
+        uses: mikepenz/action-junit-report@0bec6a4330023da9ebd2693948db6ddae36e743e # v5
         if: failure()
         with:
           github_token: ${{ steps.app-token.outputs.token }}
@@ -271,7 +271,7 @@ jobs:
           private-key: ${{ secrets.PR_BOT_PRIVATE_KEY }}
 
       - name: Gradle test results
-        uses: mikepenz/action-junit-report@a427a90771729d8f85b6ab0cdaa1a5929cab985d # v5
+        uses: mikepenz/action-junit-report@0bec6a4330023da9ebd2693948db6ddae36e743e # v5
         if: failure()
         with:
           github_token: ${{ steps.app-token.outputs.token }}
@@ -307,7 +307,7 @@ jobs:
           private-key: ${{ secrets.PR_BOT_PRIVATE_KEY }}
 
       - name: Unit test results
-        uses: mikepenz/action-junit-report@a427a90771729d8f85b6ab0cdaa1a5929cab985d # v5
+        uses: mikepenz/action-junit-report@0bec6a4330023da9ebd2693948db6ddae36e743e # v5
         if: failure()
         with:
           github_token: ${{ steps.app-token.outputs.token }}

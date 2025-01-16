@@ -1,5 +1,6 @@
 queue_rules:
-  - name: duplicated Queue PRs for rebase-merge when CI passes and approved from Re-queue
+  - name:
+      duplicated Queue PRs for rebase-merge when CI passes and approved from Re-queue
       any PR with a 'requeue' label
     queue_conditions:
       - and:
@@ -53,7 +54,6 @@ shared:
   name-rebase: &name_rebase rebase
   success-ci: &success_ci
     - check-success=all-checks
-
 
 pull_request_rules:
   - name: Remove automerge label once merged
@@ -113,7 +113,8 @@ pull_request_rules:
       label:
         remove:
           - requeue
-  - name: Queue PRs for rebase-merge when CI passes and approved + Re-queue any PR
+  - name:
+      Queue PRs for rebase-merge when CI passes and approved + Re-queue any PR
       with a 'requeue' label
     conditions: []
     actions:

@@ -44,7 +44,7 @@ jobs:
           check-task: apiCheck
 
   ktlint:
-    runs-on: macos-14
+    runs-on: macos-latest
     needs:
       - validate-wrapper
     steps:
@@ -182,7 +182,7 @@ jobs:
           task: checkVersionIsSnapshot
 
   detekt:
-    runs-on: macos-14
+    runs-on: macos-latest
     needs:
       - validate-wrapper
     steps:
@@ -206,7 +206,7 @@ jobs:
           sarif_file: build/reports/detekt/merged.sarif
 
   tests-macos:
-    runs-on: macos-14
+    runs-on: macos-latest
 
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
@@ -242,7 +242,7 @@ jobs:
           check_name: Unit Test Results - macos
 
   gradle-tests-macos:
-    runs-on: macos-14
+    runs-on: macos-latest
     needs:
       - validate-wrapper
     steps:

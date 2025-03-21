@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Rick Busarow
+ * Copyright (C) 2025 Rick Busarow
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -23,24 +23,39 @@ pluginManagement {
 }
 
 plugins {
-  id("com.gradle.enterprise") version "3.19.2"
+  id("com.gradle.develocity") version "3.19.2"
 }
 
-gradleEnterprise {
+develocity {
   buildScan {
 
-    termsOfServiceUrl = "https://gradle.com/terms-of-service"
-    termsOfServiceAgree = "yes"
+    uploadInBackground = true
 
-    publishAlways()
+    termsOfUseUrl = "https://gradle.com/help/legal-terms-of-use"
+    termsOfUseAgree = "yes"
 
-    // https://docs.github.com/en/actions/learn-github-actions/variables#default-environment-variables
+    capture {
+      testLogging = true
+      buildLogging = true
+      fileFingerprints = true
+    }
 
-    tag(if (System.getenv("CI").isNullOrBlank()) "Local" else "CI")
+    val inGHA = !System.getenv("GITHUB_ACTIONS").isNullOrEmpty()
 
-    val gitHubActions = System.getenv("GITHUB_ACTIONS")?.toBoolean() ?: false
+    tag(if (inGHA) "CI" else "Local")
 
-    if (gitHubActions) {
+    obfuscation {
+      hostname { "<host name>" }
+      username { "<username>" }
+      ipAddresses { List(it.size) { i -> "<ip address $i>" } }
+      externalProcessName { "<external process name>" }
+    }
+
+    publishing {
+      onlyIf { inGHA }
+    }
+
+    if (inGHA) {
       // ex: `octocat/Hello-World` as in github.com/octocat/Hello-World
       val repository = System.getenv("GITHUB_REPOSITORY")!!
       val runId = System.getenv("GITHUB_RUN_ID")!!

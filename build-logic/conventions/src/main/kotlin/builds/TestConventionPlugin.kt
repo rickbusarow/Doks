@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Rick Busarow
+ * Copyright (C) 2025 Rick Busarow
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -15,14 +15,17 @@
 
 package builds
 
+import com.rickbusarow.kgx.withJavaPlugin
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestFramework
+import org.gradle.api.plugins.jvm.JvmTestSuite
 import org.gradle.api.provider.ListProperty
 import org.gradle.api.tasks.testing.Test
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import org.gradle.api.tasks.testing.logging.TestLogEvent.FAILED
 import org.gradle.internal.classpath.Instrumented.systemProperty
+import org.gradle.testing.base.TestingExtension
 
 abstract class TestConventionPlugin : Plugin<Project> {
 
@@ -33,6 +36,25 @@ abstract class TestConventionPlugin : Plugin<Project> {
 
     if (target.hasProperty("doks.includeTags")) {
       includeTags.addAll(target.properties["doks.includeTags"].toString().split(','))
+    }
+
+    target.plugins.withJavaPlugin {
+
+      @Suppress("UnstableApiUsage")
+      target.extensions.getByType(TestingExtension::class.java)
+        .suites
+        .withType(JvmTestSuite::class.java)
+        .configureEach { suite ->
+
+          suite.useJUnitJupiter(target.libs.versions.jUnit5)
+          suite.dependencies {
+
+            // https://junit.org/junit5/docs/current/user-guide/#running-tests-build-gradle-bom
+            // https://github.com/junit-team/junit5/issues/4374#issuecomment-2704880447
+            it.implementation.add(target.libs.junit.jupiter.asProvider())
+            it.runtimeOnly.add(target.libs.junit.platform.launcher)
+          }
+        }
     }
 
     target.tasks.withType(Test::class.java).configureEach { task ->

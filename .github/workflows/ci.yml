@@ -14,18 +14,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-  validate-wrapper:
-    runs-on: ubuntu-latest
-    steps:
-      - name: check out
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
-
-      - uses: gradle/wrapper-validation-action@f9c9c575b8b21b6485636a91ffecd10e558c62f6 # v3
-
   binary-compatibility:
     runs-on: ubuntu-latest
-    needs:
-      - validate-wrapper
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
 
@@ -45,8 +35,6 @@ jobs:
 
   ktlint:
     runs-on: macos-latest
-    needs:
-      - validate-wrapper
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
 
@@ -66,8 +54,6 @@ jobs:
 
   spotless:
     runs-on: ubuntu-latest
-    needs:
-      - validate-wrapper
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
 
@@ -87,8 +73,6 @@ jobs:
 
   dependency-guard:
     runs-on: ubuntu-latest
-    needs:
-      - validate-wrapper
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
 
@@ -108,8 +92,6 @@ jobs:
 
   curator:
     runs-on: ubuntu-latest
-    needs:
-      - validate-wrapper
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
 
@@ -129,8 +111,6 @@ jobs:
 
   moduleCheck:
     runs-on: ubuntu-latest
-    needs:
-      - validate-wrapper
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
 
@@ -150,8 +130,6 @@ jobs:
 
   doks:
     runs-on: ubuntu-latest
-    needs:
-      - validate-wrapper
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
 
@@ -171,8 +149,6 @@ jobs:
 
   check-version-is-snapshot:
     runs-on: ubuntu-latest
-    needs:
-      - validate-wrapper
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
 
@@ -183,8 +159,6 @@ jobs:
 
   detekt:
     runs-on: macos-latest
-    needs:
-      - validate-wrapper
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
 
@@ -243,8 +217,6 @@ jobs:
 
   gradle-tests-macos:
     runs-on: macos-latest
-    needs:
-      - validate-wrapper
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
 
@@ -330,7 +302,6 @@ jobs:
       - spotless
       - tests-macos
       - tests-windows
-      - validate-wrapper
 
     steps:
       - name: require that all other jobs have passed

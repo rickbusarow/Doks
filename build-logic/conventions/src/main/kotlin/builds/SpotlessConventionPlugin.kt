@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024 Rick Busarow
+ * Copyright (C) 2025 Rick Busarow
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -54,6 +54,7 @@ abstract class SpotlessConventionPlugin : Plugin<Project> {
 
       yaml.target(target) {
         include("**/*.yml")
+        exclude("**/.mergify.yml")
       }
 
       yaml.prettier(target.libs.versions.prettier.get())

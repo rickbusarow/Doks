@@ -27,8 +27,7 @@ shared:
     - check-success=all-checks
 
 queue_rules:
-  - name:
-      duplicated Queue PRs for rebase-merge when CI passes and approved from Re-queue
+  - name: duplicated Queue PRs for rebase-merge when CI passes and approved from Re-queue
       any PR with a 'requeue' label
     queue_conditions:
       - label=requeue
@@ -109,15 +108,13 @@ pull_request_rules:
       label:
         remove:
           - requeue
-  - name:
-      Queue PRs for rebase-merge when CI passes and approved + Re-queue any PR with
+  - name: Queue PRs for rebase-merge when CI passes and approved + Re-queue any PR with
       a 'requeue' label
     conditions: []
     actions:
       queue:
 priority_rules:
-  - name:
-      priority for queue `duplicated Queue PRs for rebase-merge when CI passes and
+  - name: priority for queue `duplicated Queue PRs for rebase-merge when CI passes and
       approved from Re-queue any PR with a 'requeue' label`
     conditions:
       - label=requeue

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024 Rick Busarow
+ * Copyright (C) 2025 Rick Busarow
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -18,14 +18,9 @@ package builds
 import builds.curator.CuratorCheckTask
 import builds.curator.CuratorDumpTask
 import com.autonomousapps.tasks.BuildHealthTask
-import com.github.jengelman.gradle.plugins.shadow.internal.JavaJarExec
-import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import io.gitlab.arturbosch.detekt.Detekt
 import kotlinx.validation.KotlinApiBuildTask
 import kotlinx.validation.KotlinApiCompareTask
-import modulecheck.gradle.task.AbstractModuleCheckTask
-import modulecheck.gradle.task.MultiRuleModuleCheckTask
-import modulecheck.gradle.task.SingleRuleModuleCheckTask
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.publish.maven.tasks.AbstractPublishToMaven
@@ -61,8 +56,6 @@ abstract class CompositePlugin : Plugin<Project> {
         CuratorCheckTask::class, CuratorDumpTask::class,
         /* DAGP */
         BuildHealthTask::class,
-        /* ModuleCheck */
-        AbstractModuleCheckTask::class, MultiRuleModuleCheckTask::class, SingleRuleModuleCheckTask::class,
         /* detekt */
         Detekt::class,
         /* dokka */
@@ -70,9 +63,7 @@ abstract class CompositePlugin : Plugin<Project> {
         /* gradle */
         Copy::class, Delete::class, Exec::class, JavaExec::class, Sync::class, Test::class, Zip::class,
         /* publishing */
-        AbstractPublishToMaven::class, PublishToMavenLocal::class,
-        /* shadow */
-        JavaJarExec::class, ShadowJar::class
+        AbstractPublishToMaven::class, PublishToMavenLocal::class
       )
       val propagatedTaskTypeNames = propagatedTaskTypes
         .mapTo(mutableSetOf()) { it.qualifiedName!! }

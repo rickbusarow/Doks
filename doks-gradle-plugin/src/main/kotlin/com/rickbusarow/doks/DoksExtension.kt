@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024 Rick Busarow
+ * Copyright (C) 2025 Rick Busarow
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -20,23 +20,42 @@ import com.rickbusarow.doks.internal.gradle.registerOnce
 import org.gradle.api.Action
 import org.gradle.api.NamedDomainObjectContainer
 import org.gradle.api.NamedDomainObjectProvider
+import org.gradle.api.artifacts.ConfigurationContainer
+import org.gradle.api.artifacts.dsl.DependencyHandler
 import org.gradle.api.file.ProjectLayout
 import org.gradle.api.tasks.TaskContainer
 import javax.inject.Inject
+import kotlin.LazyThreadSafetyMode.NONE
 
 /** @since 0.1.0 */
 @DoksDsl
 public abstract class DoksExtension @Inject constructor(
   private val taskContainer: TaskContainer,
-  private val layout: ProjectLayout
+  private val layout: ProjectLayout,
+  private val configurations: ConfigurationContainer,
+  private val dependencies: DependencyHandler
 ) : java.io.Serializable {
   /** @since 0.1.0 */
   public abstract val doksSets: NamedDomainObjectContainer<DoksSet>
 
-  private val taskFactory: DoksTaskFactory by lazy {
+  private val taskFactory: DoksTaskFactory by lazy(NONE) {
+
+    fun createConfig(name: String, deps: Collection<String>): GradleConfiguration {
+      return configurations.create(name) { config ->
+        config.isVisible = false
+
+        config.dependencies.addAll(deps.map { dependencies.create(it) })
+      }
+    }
+
+    val doksDeps = createConfig("doksDeps", BuildConfig.doksDeps)
+    val doksParseDeps = createConfig("doksParseDeps", BuildConfig.doksParseDeps)
+
     DoksTaskFactory(
       taskContainer = taskContainer,
-      layout = layout
+      layout = layout,
+      doksDeps = doksDeps,
+      doksParseDeps = doksParseDeps
     )
   }
 

@@ -17,7 +17,7 @@ import builds.GROUP
 import builds.VERSION_NAME
 import builds.buildM2RootDirectory
 import builds.dependsOn
-import builds.isRealRootProject
+import com.rickbusarow.kgx.isRealRootProject
 
 plugins {
   id("module")
@@ -32,7 +32,6 @@ val pluginId = "com.rickbusarow.doks"
 val pluginArtifactId = "doks-gradle-plugin"
 val moduleDescription = "the Doks Gradle plugin"
 
-@Suppress("UnstableApiUsage")
 val pluginDeclaration: NamedDomainObjectProvider<PluginDeclaration> =
   gradlePlugin.plugins
     .register(pluginArtifactId) {
@@ -44,11 +43,8 @@ val pluginDeclaration: NamedDomainObjectProvider<PluginDeclaration> =
       this@register.tags.set(listOf("markdown", "documentation"))
     }
 
-val shade by configurations.register("shadowCompileOnly")
-
 module {
   serialization()
-  shadow(shade)
 
   published(
     artifactId = pluginArtifactId,
@@ -91,12 +87,28 @@ gradlePlugin {
   testSourceSet(gradleTestSourceSet)
 }
 
+val doksDeps = objects.setProperty<String>()
+val doksParseDeps = objects.setProperty<String>()
+
 buildConfig {
 
-  this@buildConfig.sourceSets.named(gradleTestSourceSet.name) {
+  sourceSets.named("main") {
 
     packageName(GROUP)
     className("BuildConfig")
+
+    useKotlinOutput {
+      internalVisibility = true
+    }
+
+    buildConfigField("doksDeps", doksDeps)
+    buildConfigField("doksParseDeps", doksParseDeps)
+  }
+
+  sourceSets.named(gradleTestSourceSet.name) {
+
+    packageName(GROUP)
+    className("GradleTestBuildConfig")
 
     useKotlinOutput {
       internalVisibility = true
@@ -120,10 +132,28 @@ kotlin {
   }
 }
 
-val mainConfig: String = if (rootProject.isRealRootProject()) {
-  shade.name
-} else {
-  "implementation"
+val mainConfig: Configuration = when {
+  rootProject.isRealRootProject() -> configurations.compileOnly.get()
+  else -> configurations.getByName("implementation")
+}
+
+fun Any.asExternalDependency(): ExternalDependency {
+  return when (this) {
+    is ExternalDependency -> this
+    is org.gradle.api.internal.provider.TransformBackedProvider<*, *> -> this.get() as ExternalDependency
+    is ProviderConvertible<*> -> this.asProvider().get() as ExternalDependency
+    else -> error("unsupported dependency type -- ${this::class.java.canonicalName}")
+  }
+}
+
+fun DependencyHandlerScope.worker(dependencyNotation: Any) {
+  mainConfig(dependencyNotation)
+  doksDeps.add(dependencyNotation.asExternalDependency().toString())
+}
+
+fun DependencyHandlerScope.workerSourceParsing(dependencyNotation: Any) {
+  mainConfig(dependencyNotation)
+  doksParseDeps.add(dependencyNotation.asExternalDependency().toString())
 }
 
 val gradleTestImplementation by configurations
@@ -148,12 +178,22 @@ dependencies {
   gradleTestImplementation(libs.rickBusarow.kase.gradle)
   gradleTestImplementation(libs.rickBusarow.kase.gradle.dsl)
 
-  mainConfig(libs.java.diff.utils)
-  mainConfig(libs.jetbrains.markdown)
-  mainConfig(libs.kotlin.compiler)
-  mainConfig(libs.kotlinx.coroutines.core)
-  mainConfig(libs.kotlinx.serialization.core)
-  mainConfig(libs.kotlinx.serialization.json)
+  worker(libs.java.diff.utils)
+  worker(libs.jetbrains.markdown)
+  worker(libs.kotlinx.coroutines.core)
+  worker(libs.kotlinx.serialization.core)
+  worker(libs.kotlinx.serialization.core.jvm)
+  worker(libs.kotlinx.serialization.json)
+  worker(libs.kotlinx.serialization.json.jvm)
+
+  workerSourceParsing(libs.kotlin.compiler)
+  workerSourceParsing(libs.kotlinx.serialization.core)
+  workerSourceParsing(libs.kotlinx.serialization.core.jvm)
+  workerSourceParsing(libs.kotlinx.serialization.json)
+  workerSourceParsing(libs.kotlinx.serialization.json.jvm)
+
+  // implementation(libs.kotlinx.serialization.core)
+  // implementation(libs.kotlinx.serialization.json)
 
   testImplementation(libs.java.diff.utils)
   testImplementation(libs.jetbrains.markdown)

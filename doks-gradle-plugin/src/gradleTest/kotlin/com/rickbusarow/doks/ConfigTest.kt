@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024 Rick Busarow
+ * Copyright (C) 2025 Rick Busarow
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -34,7 +34,7 @@ internal class ConfigTest : DoksGradleTest() {
       """
       // build.gradle
       plugins {
-        id 'com.rickbusarow.doks' version '${BuildConfig.version}'
+        id 'com.rickbusarow.doks' version '$doksVersion'
       }
 
       doks {
@@ -85,7 +85,7 @@ internal class ConfigTest : DoksGradleTest() {
     val config = """
       // build.gradle.kts
       plugins {
-        id("com.rickbusarow.doks") version "${BuildConfig.version}"
+        id("com.rickbusarow.doks") version "$doksVersion"
       }
 
       doks {
@@ -130,7 +130,7 @@ internal class ConfigTest : DoksGradleTest() {
     rootProject.buildFile(
       """
       plugins {
-        id("com.rickbusarow.doks") version "${BuildConfig.version}"
+        id("com.rickbusarow.doks") version "$doksVersion"
       }
 
       val CURRENT_VERSION = "1.0.1"
@@ -204,7 +204,7 @@ internal class ConfigTest : DoksGradleTest() {
       }
     }
 
-    shouldSucceed("doks")
+    shouldSucceed("doks", "--stacktrace")
 
     rootProject.readme shouldExistWithText """
       <!--doks brachiosaurus:1-->

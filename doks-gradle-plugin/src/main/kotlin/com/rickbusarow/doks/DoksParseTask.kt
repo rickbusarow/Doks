@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024 Rick Busarow
+ * Copyright (C) 2025 Rick Busarow
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -15,20 +15,18 @@
 
 package com.rickbusarow.doks
 
-import com.rickbusarow.doks.internal.psi.DoksPsiFileFactory
-import com.rickbusarow.doks.internal.psi.NamedSamples
 import com.rickbusarow.doks.internal.psi.SampleRequest
-import com.rickbusarow.doks.internal.psi.SampleResult
-import com.rickbusarow.doks.internal.stdlib.isExistanttKotlinFile
-import kotlinx.serialization.encodeToString
 import org.gradle.api.file.ConfigurableFileCollection
 import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.provider.ListProperty
+import org.gradle.api.tasks.Classpath
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.InputFiles
 import org.gradle.api.tasks.OutputFile
 import org.gradle.api.tasks.SkipWhenEmpty
 import org.gradle.api.tasks.TaskAction
+import org.gradle.workers.WorkerExecutor
+import javax.inject.Inject
 
 /**
  * Parses source code in [sampleCode] in order to find all
@@ -36,7 +34,14 @@ import org.gradle.api.tasks.TaskAction
  *
  * @since 0.1.0
  */
-public abstract class DoksParseTask : DoksTask("Parses source files for requested samples") {
+public abstract class DoksParseTask @Inject constructor(
+  private val workerExecutor: WorkerExecutor
+) : DoksTask("Parses source files for requested samples") {
+
+  /**  */
+  @get:InputFiles
+  @get:Classpath
+  internal abstract val doksParseClasspath: ConfigurableFileCollection
 
   /**
    * The requests to be parsed by this task. The content of
@@ -70,26 +75,42 @@ public abstract class DoksParseTask : DoksTask("Parses source files for requeste
   @TaskAction
   public fun execute() {
 
-    val namedSamples = NamedSamples(DoksPsiFileFactory())
-
-    val requests = sampleRequests.get()
-      .map { SampleRequest(it.fqName, it.bodyOnly) }
-
-    val kotlinFiles = sampleCode
-      .filter { it.isExistanttKotlinFile() }
-      .files
-
-    val results = namedSamples.findAll(
-      files = kotlinFiles,
-      requests = requests
+    println(
+      """
+            |\|\,'\,'\ ,.
+            )        ;' |,'
+           /              |,'|,.
+          /                  ` /__
+         ,'                    ,-'
+        ,'                    :
+       (_                     '
+     ,'                      ;
+     |---._ ,'     .        '
+     :   o Y---.__  ;      ;
+     /`,""-|     o`.|     /
+    ,  `._  `.    ,'     ;
+    ;         `""'      ;
+   /                   -'.
+   \                   G  )
+    `-.__________,   `._,'
+            (`   `     |)\
+           / `.       ,'  \
+          /    `-----'     \
+         /
+      """.trimIndent()
     )
-      .map { SampleResult(request = it.request, content = it.content) }
 
-    val jsonString = json.encodeToString(results.associateBy { it.request })
-
-    with(samplesMapping.get().asFile) {
-      parentFile?.mkdirs()
-      writeText(jsonString)
+    val workQueue = workerExecutor.classLoaderIsolation {
+      it.classpath.setFrom(doksParseClasspath)
     }
+
+    workQueue.submit(DoksParseWorkAction::class.java) { params ->
+
+      params.sampleCode.from(sampleCode)
+      params.samplesMapping.set(samplesMapping)
+      params.sampleRequests.set(sampleRequests)
+    }
+
+    workQueue.await()
   }
 }

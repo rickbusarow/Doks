@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Rick Busarow
+ * Copyright (C) 2025 Rick Busarow
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -17,7 +17,6 @@ package com.rickbusarow.doks.internal.psi
 
 import com.rickbusarow.doks.internal.stdlib.requireNotNull
 import org.intellij.lang.annotations.Language
-import org.jetbrains.kotlin.cli.common.CLIConfigurationKeys
 import org.jetbrains.kotlin.cli.common.messages.MessageRenderer
 import org.jetbrains.kotlin.cli.common.messages.PrintingMessageCollector
 import org.jetbrains.kotlin.cli.jvm.compiler.EnvironmentConfigFiles
@@ -29,6 +28,7 @@ import org.jetbrains.kotlin.com.intellij.openapi.util.text.StringUtilRt
 import org.jetbrains.kotlin.com.intellij.psi.PsiFile
 import org.jetbrains.kotlin.com.intellij.psi.PsiFileFactory
 import org.jetbrains.kotlin.com.intellij.psi.PsiJavaFile
+import org.jetbrains.kotlin.config.CommonConfigurationKeys
 import org.jetbrains.kotlin.config.CompilerConfiguration
 import org.jetbrains.kotlin.psi.KtFile
 import org.jetbrains.kotlin.psi.KtPsiFactory
@@ -37,11 +37,11 @@ import java.io.FileNotFoundException
 
 internal class DoksPsiFileFactory : java.io.Serializable {
 
-  @delegate:Transient
-  private val configuration: CompilerConfiguration by lazy {
-    CompilerConfiguration().apply {
+  // @delegate:Transient
+  private val configuration: CompilerConfiguration
+    get() = CompilerConfiguration().apply {
       put(
-        CLIConfigurationKeys.MESSAGE_COLLECTOR_KEY,
+        CommonConfigurationKeys.MESSAGE_COLLECTOR_KEY,
         PrintingMessageCollector(
           System.err,
           MessageRenderer.PLAIN_FULL_PATHS,
@@ -49,12 +49,11 @@ internal class DoksPsiFileFactory : java.io.Serializable {
         )
       )
     }
-  }
 
   @delegate:Transient
   val coreEnvironment by lazy {
     KotlinCoreEnvironment.createForProduction(
-      parentDisposable = Disposer.newDisposable(),
+      projectDisposable = Disposer.newDisposable(),
       configuration = configuration,
       configFiles = EnvironmentConfigFiles.JVM_CONFIG_FILES
     )

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024 Rick Busarow
+ * Copyright (C) 2025 Rick Busarow
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -42,6 +42,9 @@ internal class DoksGradleTestEnvironment(
 ),
   LanguageInjection<File> by LanguageInjection(JavaFileFileInjection()) {
 
+  val doksVersion: String
+    get() = GradleTestBuildConfig.doksVersion
+
   val GradleProjectBuilder.buildFileAsFile: File
     get() = path.resolve(dslLanguage.buildFileName)
   val GradleProjectBuilder.settingsFileAsFile: File
@@ -50,13 +53,13 @@ internal class DoksGradleTestEnvironment(
   class Factory : GradleTestEnvironmentFactory<DoksGradleTestParams, DoksGradleTestEnvironment> {
 
     override val localM2Path: File
-      get() = BuildConfig.localBuildM2Dir
+      get() = GradleTestBuildConfig.localBuildM2Dir
 
     override fun buildFileDefault(versions: DoksGradleTestParams): BuildFileSpec =
       BuildFileSpec {
         plugins {
           kotlin("jvm", versions.kotlinVersion)
-          id("com.rickbusarow.doks", version = BuildConfig.doksVersion)
+          id("com.rickbusarow.doks", version = GradleTestBuildConfig.doksVersion)
         }
       }
 

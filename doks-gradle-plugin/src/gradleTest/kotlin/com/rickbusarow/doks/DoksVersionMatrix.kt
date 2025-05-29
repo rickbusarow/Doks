@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024 Rick Busarow
+ * Copyright (C) 2025 Rick Busarow
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -32,11 +32,11 @@ internal class DoksVersionMatrix(
       "8.2.0"
     ).map(::AgpDependencyVersion)
     val kotlinList = setOf(
-      BuildConfig.kotlinVersion,
-      "2.0.0-Beta4"
+      GradleTestBuildConfig.kotlinVersion
     )
       .sorted()
       .map(::KotlinDependencyVersion)
-    val gradleList = setOf(BuildConfig.gradleVersion).map(::GradleDependencyVersion)
+    val gradleList = setOf(GradleTestBuildConfig.gradleVersion)
+      .map(::GradleDependencyVersion)
   }
 }

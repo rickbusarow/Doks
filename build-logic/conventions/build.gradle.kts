@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024 Rick Busarow
+ * Copyright (C) 2025 Rick Busarow
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -85,8 +85,7 @@ dependencies {
   implementation(libs.github.release)
   implementation(libs.google.dagger.api)
   implementation(libs.gradle.plugin.publish)
-  implementation(libs.johnrengelman.shadowJar)
-  implementation(libs.kotlin.compiler)
+  // implementation(libs.kotlin.compiler)
   implementation(libs.kotlin.gradle.plugin)
   implementation(libs.kotlin.reflect)
   implementation(libs.kotlin.serialization)
@@ -98,7 +97,6 @@ dependencies {
   implementation(libs.kotlinx.serialization.protobuf)
   implementation(libs.rickBusarow.doks)
   implementation(libs.rickBusarow.ktlint)
-  implementation(libs.rickBusarow.moduleCheck.gradle.plugin)
   implementation(libs.square.kotlinPoet)
   implementation(libs.vanniktech.publish)
 }

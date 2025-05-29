@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Rick Busarow
+ * Copyright (C) 2025 Rick Busarow
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -18,6 +18,7 @@ package com.rickbusarow.doks.internal.gradle
 import com.rickbusarow.doks.DoksDocsTask
 import com.rickbusarow.doks.DoksParseTask
 import com.rickbusarow.doks.DoksSet
+import com.rickbusarow.doks.GradleConfiguration
 import com.rickbusarow.doks.internal.stdlib.capitalize
 import com.rickbusarow.doks.internal.stdlib.createSafely
 import com.rickbusarow.doks.internal.stdlib.letIf
@@ -32,22 +33,32 @@ import org.gradle.api.tasks.TaskProvider
 
 internal class DoksTaskFactory(
   private val taskContainer: TaskContainer,
-  private val layout: ProjectLayout
+  private val layout: ProjectLayout,
+  private val doksDeps: GradleConfiguration,
+  private val doksParseDeps: GradleConfiguration
 ) : java.io.Serializable {
 
   internal fun registerAll(name: String, sourceSet: NamedDomainObjectProvider<DoksSet>) {
 
-    val samplesMappingFile = layout.buildDirectory
-      .file("tmp/doks/samples_$name.json")
+    val nameOrAll = name.ifBlank { "all" }
 
-    val parse = registerParseTask(name, sourceSet, samplesMappingFile)
+    val samplesMappingFile = layout.buildDirectory
+      .file("tmp/doks/samples_$nameOrAll.json")
+
+    val parse = registerParseTask(
+      docSetName = name,
+      sourceSet = sourceSet,
+      samplesMappingFile = samplesMappingFile,
+      doksParseDeps = doksParseDeps
+    )
 
     val check = registerDocsTask(
       docSetName = name,
       autoCorrect = false,
       sourceSet = sourceSet,
       samplesMappingFile = samplesMappingFile,
-      parseTask = parse
+      parseTask = parse,
+      doksDeps = doksDeps
     )
 
     val fix = registerDocsTask(
@@ -55,7 +66,8 @@ internal class DoksTaskFactory(
       autoCorrect = true,
       sourceSet = sourceSet,
       samplesMappingFile = samplesMappingFile,
-      parseTask = parse
+      parseTask = parse,
+      doksDeps = doksDeps
     )
 
     check.mustRunAfter(fix)
@@ -70,12 +82,15 @@ internal class DoksTaskFactory(
   private fun registerParseTask(
     docSetName: String,
     sourceSet: NamedDomainObjectProvider<DoksSet>,
-    samplesMappingFile: Provider<RegularFile>
+    samplesMappingFile: Provider<RegularFile>,
+    doksParseDeps: GradleConfiguration
   ): TaskProvider<DoksParseTask> {
 
     val taskName = "doksParse${docSetName.capitalize()}"
 
     return taskContainer.registerOnce(taskName, DoksParseTask::class.java) { task ->
+
+      task.doksParseClasspath.from(doksParseDeps)
 
       // Get the subproject directories eagerly, outside any provider mappings, so that we're not
       // trying to access the task's project instance during the execution phase. Doing it during the
@@ -108,7 +123,8 @@ internal class DoksTaskFactory(
     autoCorrect: Boolean,
     sourceSet: NamedDomainObjectProvider<DoksSet>,
     samplesMappingFile: Provider<RegularFile>,
-    parseTask: TaskProvider<DoksParseTask>
+    parseTask: TaskProvider<DoksParseTask>,
+    doksDeps: GradleConfiguration
   ): TaskProvider<DoksDocsTask> {
 
     val taskName = if (autoCorrect) {
@@ -118,6 +134,8 @@ internal class DoksTaskFactory(
     }
 
     return taskContainer.registerOnce(taskName, DoksDocsTask::class.java) { task ->
+
+      task.doksClasspath.from(doksDeps)
 
       task.autoCorrect = autoCorrect
 

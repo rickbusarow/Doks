@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024 Rick Busarow
+ * Copyright (C) 2025 Rick Busarow
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -22,14 +22,8 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 @Suppress("DSL_SCOPE_VIOLATION")
 plugins {
   id("root")
-  alias(libs.plugins.moduleCheck)
   alias(libs.plugins.github.release)
   alias(libs.plugins.doks)
-}
-
-moduleCheck {
-  deleteUnused = true
-  checks.sortDependencies = true
 }
 
 doks {

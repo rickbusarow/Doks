@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024 Rick Busarow
+ * Copyright (C) 2025 Rick Busarow
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -15,9 +15,7 @@
 
 package com.rickbusarow.doks
 
-import kotlinx.serialization.json.Json
 import org.gradle.api.DefaultTask
-import org.gradle.api.tasks.Internal
 
 /**
  * The base class for all Doks tasks.
@@ -29,14 +27,5 @@ public abstract class DoksTask(description: String) : DefaultTask() {
   init {
     group = "Doks"
     this.description = description
-  }
-
-  @delegate:Transient
-  @get:Internal
-  protected val json: Json by lazy {
-    Json {
-      prettyPrint = true
-      allowStructuredMapKeys = true
-    }
   }
 }

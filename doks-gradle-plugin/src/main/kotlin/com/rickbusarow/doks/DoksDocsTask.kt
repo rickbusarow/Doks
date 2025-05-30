@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024 Rick Busarow
+ * Copyright (C) 2025 Rick Busarow
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -21,13 +21,16 @@ import com.rickbusarow.doks.internal.Rules
 import com.rickbusarow.doks.internal.psi.SampleRequest
 import com.rickbusarow.doks.internal.psi.SampleResult
 import com.rickbusarow.doks.internal.stdlib.createSafely
+import kotlinx.serialization.json.Json
 import org.gradle.api.NamedDomainObjectContainer
 import org.gradle.api.file.ConfigurableFileCollection
 import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.file.FileType
 import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.model.ObjectFactory
+import org.gradle.api.provider.ListProperty
 import org.gradle.api.provider.Property
+import org.gradle.api.tasks.Classpath
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.InputFile
 import org.gradle.api.tasks.InputFiles
@@ -124,47 +127,18 @@ public abstract class DoksDocsTask @Inject constructor(
     get() = autoCorrectProperty.get()
     set(value) = autoCorrectProperty.set(value)
 
+  /** Dependencies for normal (non-PSI) Doks parsing */
+  @get:InputFiles
+  @get:Classpath
+  internal abstract val doksClasspath: ConfigurableFileCollection
+
   /** @since 0.1.0 */
   @TaskAction
   public fun execute(inputChanges: InputChanges) {
 
-    val resultsByRequest = samplesMapping.orNull
-      ?.asFile
-      ?.readText()
-      ?.takeIf { it.isNotBlank() }
-      ?.let { jsonString -> json.decodeFromString<Map<SampleRequest, SampleResult>>(jsonString) }
-      .orEmpty()
-
-    val resultsByRequestHash = resultsByRequest
-      .mapKeys { (request, _) -> request.hashCode() }
-
-    val rules = ruleBuilders.toList()
-      .map { builder ->
-        val withSamples = builder.replacement.replace("\u200B(-?\\d+)\u200B".toRegex()) { mr ->
-          resultsByRequestHash.getValue(mr.groupValues[1].toInt()).content
-        }
-          .let {
-            if (it != builder.replacement) {
-              Regex.escapeReplacement(it)
-            } else {
-              it
-            }
-          }
-
-        Rule(
-          name = builder.name,
-          regex = builder.requireRegex(),
-          replacement = withSamples
-        )
-      }
-      .associateBy { it.name }
-
-    val engine = DoksEngine(
-      ruleCache = Rules(rules),
-      autoCorrect = autoCorrect
-    )
-
-    val queue = workerExecutor.classLoaderIsolation()
+    val queue = workerExecutor.classLoaderIsolation {
+      it.classpath.setFrom(doksClasspath)
+    }
 
     val changes = inputChanges.getFileChanges(docs)
       .mapNotNull { fileChange ->
@@ -191,7 +165,9 @@ public abstract class DoksDocsTask @Inject constructor(
         .replace(file.extension, "txt")
 
       queue.submit(DocsWorkAction::class.java) { params ->
-        params.doksEngine.set(engine)
+        params.samplesMapping.set(samplesMapping)
+        params.ruleBuilders.set(ruleBuilders)
+        params.autoCorrect.set(autoCorrect)
         params.file.set(file)
         params.outFile.set(docsShadow.get().file(relative))
       }
@@ -203,7 +179,11 @@ public abstract class DoksDocsTask @Inject constructor(
 
   internal interface DocsParameters : WorkParameters {
 
-    val doksEngine: Property<DoksEngine>
+    val samplesMapping: RegularFileProperty
+
+    val ruleBuilders: ListProperty<RuleBuilderScope>
+
+    val autoCorrect: Property<Boolean>
 
     /**
      * The real doc file to be parsed/synced.
@@ -225,7 +205,46 @@ public abstract class DoksDocsTask @Inject constructor(
   internal abstract class DocsWorkAction : WorkAction<DocsParameters> {
     override fun execute() {
 
-      val engine = parameters.doksEngine.get()
+      val json = Json {
+        prettyPrint = true
+        allowStructuredMapKeys = true
+      }
+
+      val resultsByRequest = parameters.samplesMapping.orNull
+        ?.asFile
+        ?.readText()
+        ?.takeIf { it.isNotBlank() }
+        ?.let { jsonString -> json.decodeFromString<Map<SampleRequest, SampleResult>>(jsonString) }
+        .orEmpty()
+
+      val resultsByRequestHash = resultsByRequest
+        .mapKeys { (request, _) -> request.hashCode() }
+
+      val rules = parameters.ruleBuilders.get()
+        .map { builder ->
+          val withSamples = builder.replacement.replace("\u200B(-?\\d+)\u200B".toRegex()) { mr ->
+            resultsByRequestHash.getValue(mr.groupValues[1].toInt()).content
+          }
+            .let {
+              if (it != builder.replacement) {
+                Regex.escapeReplacement(it)
+              } else {
+                it
+              }
+            }
+
+          Rule(
+            name = builder.name,
+            regex = builder.requireRegex(),
+            replacement = withSamples
+          )
+        }
+        .associateBy { it.name }
+
+      val engine = DoksEngine(
+        ruleCache = Rules(rules),
+        autoCorrect = parameters.autoCorrect.get()
+      )
 
       val file = parameters.file.get().asFile
 

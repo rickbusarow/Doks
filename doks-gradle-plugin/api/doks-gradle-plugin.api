@@ -11,7 +11,7 @@ public abstract interface annotation class com/rickbusarow/doks/DoksDsl : java/l
 }
 
 public abstract class com/rickbusarow/doks/DoksExtension : java/io/Serializable {
-	public fun <init> (Lorg/gradle/api/tasks/TaskContainer;Lorg/gradle/api/file/ProjectLayout;)V
+	public fun <init> (Lorg/gradle/api/tasks/TaskContainer;Lorg/gradle/api/file/ProjectLayout;Lorg/gradle/api/artifacts/ConfigurationContainer;Lorg/gradle/api/artifacts/dsl/DependencyHandler;)V
 	public final fun dokSet (Ljava/lang/String;Lorg/gradle/api/Action;)Lorg/gradle/api/NamedDomainObjectProvider;
 	public final fun dokSet (Lorg/gradle/api/Action;)Lorg/gradle/api/NamedDomainObjectProvider;
 	public static synthetic fun dokSet$default (Lcom/rickbusarow/doks/DoksExtension;Ljava/lang/String;Lorg/gradle/api/Action;ILjava/lang/Object;)Lorg/gradle/api/NamedDomainObjectProvider;
@@ -19,10 +19,15 @@ public abstract class com/rickbusarow/doks/DoksExtension : java/io/Serializable 
 }
 
 public abstract class com/rickbusarow/doks/DoksParseTask : com/rickbusarow/doks/DoksTask {
-	public fun <init> ()V
+	public fun <init> (Lorg/gradle/workers/WorkerExecutor;)V
 	public final fun execute ()V
 	public abstract fun getSampleCode ()Lorg/gradle/api/file/ConfigurableFileCollection;
 	public abstract fun getSamplesMapping ()Lorg/gradle/api/file/RegularFileProperty;
+}
+
+public abstract class com/rickbusarow/doks/DoksParseWorkAction : org/gradle/workers/WorkAction {
+	public fun <init> ()V
+	public fun execute ()V
 }
 
 public abstract class com/rickbusarow/doks/DoksPlugin : org/gradle/api/Plugin {
@@ -46,7 +51,6 @@ public abstract class com/rickbusarow/doks/DoksSet : com/rickbusarow/doks/RuleFa
 
 public abstract class com/rickbusarow/doks/DoksTask : org/gradle/api/DefaultTask {
 	public fun <init> (Ljava/lang/String;)V
-	protected final fun getJson ()Lkotlinx/serialization/json/Json;
 }
 
 public abstract class com/rickbusarow/doks/RuleBuilderScope : java/io/Serializable, org/gradle/api/Named {
@@ -110,7 +114,6 @@ public final class com/rickbusarow/doks/internal/Rule$$serializer : kotlinx/seri
 	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/rickbusarow/doks/internal/Rule;)V
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
 public final class com/rickbusarow/doks/internal/Rule$Companion {
@@ -143,7 +146,6 @@ public final class com/rickbusarow/doks/internal/RuleName$$serializer : kotlinx/
 	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
 	public fun serialize-uogO5EI (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/String;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
 public final class com/rickbusarow/doks/internal/RuleName$Companion {

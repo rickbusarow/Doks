@@ -40,20 +40,15 @@ develocity {
       fileFingerprints = true
     }
 
+    obfuscation {
+      hostname { "<hostName>" }
+      ipAddresses { listOf("<ip address>") }
+      username { "<username>" }
+    }
+
     val inGHA = !System.getenv("GITHUB_ACTIONS").isNullOrEmpty()
 
-    tag(if (inGHA) "CI" else "Local")
-
-    obfuscation {
-      hostname { "<host name>" }
-      username { "<username>" }
-      ipAddresses { List(it.size) { i -> "<ip address $i>" } }
-      externalProcessName { "<external process name>" }
-    }
-
-    publishing {
-      onlyIf { inGHA }
-    }
+    tag(if (inGHA) "GitHub-Actions" else "Local")
 
     if (inGHA) {
       // ex: `octocat/Hello-World` as in github.com/octocat/Hello-World

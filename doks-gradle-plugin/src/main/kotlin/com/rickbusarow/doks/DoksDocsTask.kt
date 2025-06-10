@@ -128,7 +128,11 @@ public abstract class DoksDocsTask @Inject constructor(
     get() = autoCorrectProperty.get()
     set(value) = autoCorrectProperty.set(value)
 
-  /** Dependencies for normal (non-PSI) Doks parsing */
+  /**
+   * Dependencies for normal (non-PSI) Doks parsing
+   *
+   * @since 0.3.0
+   */
   @get:InputFiles
   @get:Classpath
   internal abstract val doksClasspath: ConfigurableFileCollection

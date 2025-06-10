@@ -56,6 +56,7 @@ import kotlin.io.path.Path
 /**
  * @property fqName the fully qualified name of the requested sample.
  * @property bodyOnly if true, the sample will be returned without its declaration header.
+ * @since 0.3.0
  */
 @Poko
 internal class SampleRequest(

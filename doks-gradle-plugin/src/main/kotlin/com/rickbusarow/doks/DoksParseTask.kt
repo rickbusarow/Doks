@@ -38,7 +38,7 @@ public abstract class DoksParseTask @Inject constructor(
   private val workerExecutor: WorkerExecutor
 ) : DoksTask("Parses source files for requested samples") {
 
-  /**  */
+  /** @since 0.3.0 */
   @get:InputFiles
   @get:Classpath
   internal abstract val doksParseClasspath: ConfigurableFileCollection

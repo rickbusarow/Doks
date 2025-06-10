@@ -34,7 +34,7 @@ internal typealias GradleLogging = org.gradle.api.logging.Logging
 internal typealias GradleProperty<T> = org.gradle.api.provider.Property<T>
 internal typealias GradleProvider<T> = org.gradle.api.provider.Provider<T>
 
-/** */
+/** @since 0.3.0 */
 public abstract class DoksParseWorkAction : WorkAction<DoksParseWorkAction.DoksParseWorkParameters> {
   override fun execute() {
 

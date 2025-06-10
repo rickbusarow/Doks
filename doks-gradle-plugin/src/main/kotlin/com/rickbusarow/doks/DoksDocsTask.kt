@@ -215,7 +215,11 @@ public abstract class DoksDocsTask @Inject constructor(
         ?.asFile
         ?.readText()
         ?.takeIf { it.isNotBlank() }
-        ?.let { jsonString -> json.decodeFromString<Map<SampleRequestSerializable, SampleResult>>(jsonString) }
+        ?.let { jsonString ->
+          json.decodeFromString<Map<SampleRequestSerializable, SampleResult>>(
+            jsonString
+          )
+        }
         .orEmpty()
 
       val resultsByRequestHash = resultsByRequest

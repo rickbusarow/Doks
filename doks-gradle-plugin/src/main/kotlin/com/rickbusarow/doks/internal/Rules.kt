@@ -35,8 +35,14 @@ public class Rules(
    */
   public val names: List<RuleName> get() = map.keys.sorted()
 
-  internal constructor(globalRules: List<RuleSerializable>) : this(globalRules.associateBy { it.name })
-  internal constructor(vararg globalRules: RuleSerializable) : this(globalRules.associateBy { it.name })
+  internal constructor(globalRules: List<RuleSerializable>) : this(
+    globalRules.associateBy {
+      it.name
+    }
+  )
+  internal constructor(
+    vararg globalRules: RuleSerializable
+  ) : this(globalRules.associateBy { it.name })
 
   /**
    * @return true if a rule named [ruleName] is defined in this cache
@@ -45,7 +51,8 @@ public class Rules(
   public fun hasName(ruleName: RuleName): Boolean = map.containsKey(ruleName)
 
   /**
-   * @return the [RuleSerializable] associated with [ruleName] within this scope, or `null` if there's no match
+   * @return the [RuleSerializable] associated with [ruleName]
+   *   within this scope, or `null` if there's no match
    * @see get for a non-nullable version which throws if the name is missing
    * @since 0.1.0
    */

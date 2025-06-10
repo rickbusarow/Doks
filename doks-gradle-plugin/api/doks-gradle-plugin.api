@@ -95,29 +95,10 @@ public final class com/rickbusarow/doks/RuleFactory$DefaultImpls {
 }
 
 public final class com/rickbusarow/doks/internal/Rule : java/io/Serializable {
-	public static final field Companion Lcom/rickbusarow/doks/internal/Rule$Companion;
-	public synthetic fun <init> (Ljava/lang/String;Lkotlin/text/Regex;Ljava/lang/String;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public fun equals (Ljava/lang/Object;)Z
-	public final fun getName-8OcL4yg ()Ljava/lang/String;
-	public final fun getRegex ()Lkotlin/text/Regex;
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
+	public final fun getName ()Ljava/lang/String;
+	public final fun getRegex ()Ljava/lang/String;
 	public final fun getReplacement ()Ljava/lang/String;
-	public fun hashCode ()I
-	public final fun replaceIn (Ljava/lang/CharSequence;)Ljava/lang/String;
-	public fun toString ()Ljava/lang/String;
-}
-
-public final class com/rickbusarow/doks/internal/Rule$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
-	public static final field INSTANCE Lcom/rickbusarow/doks/internal/Rule$$serializer;
-	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
-	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/rickbusarow/doks/internal/Rule;
-	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
-	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
-	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/rickbusarow/doks/internal/Rule;)V
-	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
-}
-
-public final class com/rickbusarow/doks/internal/Rule$Companion {
-	public final fun serializer ()Lkotlinx/serialization/KSerializer;
 }
 
 public final class com/rickbusarow/doks/internal/RuleName : java/io/Serializable, java/lang/Comparable {
@@ -152,12 +133,38 @@ public final class com/rickbusarow/doks/internal/RuleName$Companion {
 	public final fun serializer ()Lkotlinx/serialization/KSerializer;
 }
 
+public final class com/rickbusarow/doks/internal/RuleSerializable : java/io/Serializable {
+	public static final field Companion Lcom/rickbusarow/doks/internal/RuleSerializable$Companion;
+	public synthetic fun <init> (Ljava/lang/String;Lkotlin/text/Regex;Ljava/lang/String;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getName-8OcL4yg ()Ljava/lang/String;
+	public final fun getRegex ()Lkotlin/text/Regex;
+	public final fun getReplacement ()Ljava/lang/String;
+	public fun hashCode ()I
+	public final fun replaceIn (Ljava/lang/CharSequence;)Ljava/lang/String;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/rickbusarow/doks/internal/RuleSerializable$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lcom/rickbusarow/doks/internal/RuleSerializable$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/rickbusarow/doks/internal/RuleSerializable;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/rickbusarow/doks/internal/RuleSerializable;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+}
+
+public final class com/rickbusarow/doks/internal/RuleSerializable$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
 public final class com/rickbusarow/doks/internal/Rules : java/io/Serializable {
 	public fun <init> (Ljava/util/Map;)V
 	public fun equals (Ljava/lang/Object;)Z
-	public final fun get-wEePdS0 (Ljava/lang/String;)Lcom/rickbusarow/doks/internal/Rule;
+	public final fun get-wEePdS0 (Ljava/lang/String;)Lcom/rickbusarow/doks/internal/RuleSerializable;
 	public final fun getNames ()Ljava/util/List;
-	public final fun getOrNull-wEePdS0 (Ljava/lang/String;)Lcom/rickbusarow/doks/internal/Rule;
+	public final fun getOrNull-wEePdS0 (Ljava/lang/String;)Lcom/rickbusarow/doks/internal/RuleSerializable;
 	public final fun hasName-wEePdS0 (Ljava/lang/String;)Z
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;

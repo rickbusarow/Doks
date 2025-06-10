@@ -87,9 +87,9 @@ function syncDocs() {
   maybeCommit "format docs"
 
   # update the version references in docs before versioning them
-#  progress "Update docs versions"
-#  ./gradlew doks
-#  maybeCommit "update version references in docs to $VERSION_NAME"
+  progress "Update docs versions"
+  ./gradlew doks
+  maybeCommit "update version references in docs to $VERSION_NAME"
 }
 
 # update all versions/docs for the release version
@@ -102,8 +102,8 @@ progress "generate and copy Dokka api docs"
 ./gradlew dokkaHtmlMultiModule
 
 # One last chance to catch any bugs
-#progress "run the check task"
-#./gradlew check --no-configuration-cache
+progress "run the check task"
+./gradlew check --no-configuration-cache
 
 progress "Publish Maven release"
 ./gradlew publish --no-configuration-cache

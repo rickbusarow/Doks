@@ -1,6 +1,14 @@
 # Changelog
 
-## 0.2.1-SNAPSHOT (unreleased)
+## 0.3.1-SNAPSHOT (unreleased)
+
+## [0.3.0] - 2025-06-10
+
+### Fixed
+
+- `kotlin-compiler-embeddable` is no longer leaked into the plugin classpath in https://github.com/rickbusarow/Doks/pull/422
+
+**Full Changelog**: https://github.com/rickbusarow/Doks/compare/0.2.0...0.3.0
 
 ## [0.2.0] - 2024-02-22
 
@@ -72,3 +80,4 @@ Hello World
 [0.1.3]: https://github.com/rbusarow/doks/releases/tag/0.1.3
 [0.1.4]: https://github.com/rbusarow/doks/releases/tag/0.1.4
 [0.2.0]: https://github.com/rbusarow/doks/releases/tag/0.2.0
+[0.3.0]: https://github.com/rbusarow/doks/releases/tag/0.3.0

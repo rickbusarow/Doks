@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024 Rick Busarow
+ * Copyright (C) 2025 Rick Busarow
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -15,7 +15,7 @@
 
 package com.rickbusarow.doks.internal.markdown
 
-import com.rickbusarow.doks.internal.Rule
+import com.rickbusarow.doks.internal.RuleSerializable
 import com.rickbusarow.doks.internal.Rules
 import com.rickbusarow.doks.internal.stdlib.Color.Companion.colorized
 import com.rickbusarow.doks.internal.stdlib.Color.LIGHT_GREEN
@@ -34,12 +34,12 @@ import org.junit.jupiter.api.TestFactory
 class MarkdownTest {
 
   val rules = Rules(
-    Rule(
+    RuleSerializable(
       name = "dinos-maven",
       regex = """(com.example.dinos:dinos:)$SEMVER_REGEX""",
       replacement = "$11.2.3"
     ),
-    Rule(
+    RuleSerializable(
       name = "cats",
       regex = """cats""",
       replacement = "dogs"

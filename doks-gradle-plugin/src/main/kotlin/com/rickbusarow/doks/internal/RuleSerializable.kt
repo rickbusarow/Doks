@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024 Rick Busarow
+ * Copyright (C) 2025 Rick Busarow
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -30,9 +30,23 @@ import org.intellij.lang.annotations.Language
  * @property replacement any combination of literal text and $-substitutions
  * @since 0.1.0
  */
+public class Rule(
+  public val name: String,
+  public val regex: String,
+  public val replacement: String
+) : java.io.Serializable
+
+/**
+ * Models a single replacement action very much like the [Regex] version of [CharSequence.replace]
+ *
+ * @property name a unique identifier for this rule. It can be any arbitrary string.
+ * @property regex supports normal Regex semantics including capturing groups like `(.*)`
+ * @property replacement any combination of literal text and $-substitutions
+ * @since 0.1.0
+ */
 @Poko
 @Serializable
-public class Rule(
+public class RuleSerializable(
   public val name: RuleName,
   public val regex: Regex,
   public val replacement: String
@@ -58,7 +72,7 @@ public class Rule(
   @Suppress("RedundantIf")
   override fun equals(other: Any?): Boolean {
     if (this === other) return true
-    if (other !is Rule) return false
+    if (other !is RuleSerializable) return false
 
     if (name != other.name) return false
     if (regex.pattern != other.regex.pattern) return false
@@ -76,7 +90,7 @@ public class Rule(
 }
 
 /**
- * A unique identifier for a [Rule]. It can be any arbitrary string.
+ * A unique identifier for a [RuleSerializable]. It can be any arbitrary string.
  *
  * @property value the simple String representation of this name
  * @since 0.1.0

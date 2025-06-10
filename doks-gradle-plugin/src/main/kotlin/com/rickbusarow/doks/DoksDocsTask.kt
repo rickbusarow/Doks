@@ -17,8 +17,9 @@ package com.rickbusarow.doks
 
 import com.rickbusarow.doks.internal.DoksEngine
 import com.rickbusarow.doks.internal.Rule
+import com.rickbusarow.doks.internal.RuleSerializable
 import com.rickbusarow.doks.internal.Rules
-import com.rickbusarow.doks.internal.psi.SampleRequest
+import com.rickbusarow.doks.internal.psi.SampleRequestSerializable
 import com.rickbusarow.doks.internal.psi.SampleResult
 import com.rickbusarow.doks.internal.stdlib.createSafely
 import kotlinx.serialization.json.Json
@@ -166,7 +167,7 @@ public abstract class DoksDocsTask @Inject constructor(
 
       queue.submit(DocsWorkAction::class.java) { params ->
         params.samplesMapping.set(samplesMapping)
-        params.ruleBuilders.set(ruleBuilders)
+        params.rules.set(ruleBuilders.map(RuleBuilderScope::toRule))
         params.autoCorrect.set(autoCorrect)
         params.file.set(file)
         params.outFile.set(docsShadow.get().file(relative))
@@ -181,7 +182,7 @@ public abstract class DoksDocsTask @Inject constructor(
 
     val samplesMapping: RegularFileProperty
 
-    val ruleBuilders: ListProperty<RuleBuilderScope>
+    val rules: ListProperty<Rule>
 
     val autoCorrect: Property<Boolean>
 
@@ -214,13 +215,13 @@ public abstract class DoksDocsTask @Inject constructor(
         ?.asFile
         ?.readText()
         ?.takeIf { it.isNotBlank() }
-        ?.let { jsonString -> json.decodeFromString<Map<SampleRequest, SampleResult>>(jsonString) }
+        ?.let { jsonString -> json.decodeFromString<Map<SampleRequestSerializable, SampleResult>>(jsonString) }
         .orEmpty()
 
       val resultsByRequestHash = resultsByRequest
         .mapKeys { (request, _) -> request.hashCode() }
 
-      val rules = parameters.ruleBuilders.get()
+      val rules = parameters.rules.get()
         .map { builder ->
           val withSamples = builder.replacement.replace("\u200B(-?\\d+)\u200B".toRegex()) { mr ->
             resultsByRequestHash.getValue(mr.groupValues[1].toInt()).content
@@ -233,9 +234,9 @@ public abstract class DoksDocsTask @Inject constructor(
               }
             }
 
-          Rule(
+          RuleSerializable(
             name = builder.name,
-            regex = builder.requireRegex(),
+            regex = builder.regex,
             replacement = withSamples
           )
         }

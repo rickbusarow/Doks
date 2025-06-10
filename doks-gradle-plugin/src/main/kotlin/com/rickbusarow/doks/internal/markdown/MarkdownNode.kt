@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024 Rick Busarow
+ * Copyright (C) 2025 Rick Busarow
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -27,15 +27,13 @@ import org.intellij.markdown.ast.getTextInNode
 import org.intellij.markdown.flavours.MarkdownFlavourDescriptor
 import org.intellij.markdown.flavours.gfm.GFMFlavourDescriptor
 import org.intellij.markdown.parser.MarkdownParser
-import org.jetbrains.kotlin.com.intellij.openapi.util.Key
-import org.jetbrains.kotlin.com.intellij.openapi.util.UserDataHolder
 
 @Poko
 internal class MarkdownNode(
   val node: ASTNode,
   private val fullText: String,
   val parent: MarkdownNode?
-) : UserDataHolder, java.io.Serializable {
+) : java.io.Serializable {
   val text: String by lazy { node.getTextInNode(fullText).toString() }
 
   val isLeaf: Boolean get() = node is LeafASTNode
@@ -54,16 +52,6 @@ internal class MarkdownNode(
   }
 
   val elementType: IElementType get() = node.type
-
-  private val _userData = mutableMapOf<Key<*>, Any?>()
-  override fun <T : Any?> getUserData(key: Key<T>): T? {
-    @Suppress("UNCHECKED_CAST")
-    return _userData[key] as? T
-  }
-
-  override fun <T : Any?> putUserData(key: Key<T>, value: T?) {
-    _userData[key] = value
-  }
 
   companion object {
     private const val serialVersionUID: Long = -2219786698417908100L
@@ -174,16 +162,6 @@ internal fun MarkdownNode?.isEolFollowedByParagraph(): Boolean {
     !isEOL() -> false
     else -> nextSiblings().any { it.isParagraph }
   }
-}
-
-internal fun MarkdownNode.firstChildOfTypeOrNull(vararg types: IElementType): MarkdownNode? {
-  return childrenDepthFirst()
-    .firstOrNull { it.elementType in types }
-}
-
-internal fun MarkdownNode.firstChildOfType(vararg types: IElementType): MarkdownNode {
-  return childrenDepthFirst()
-    .first { it.elementType in types }
 }
 
 internal fun MarkdownNode.childrenDepthFirst(): Sequence<MarkdownNode> {

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024 Rick Busarow
+ * Copyright (C) 2025 Rick Busarow
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -19,13 +19,13 @@ import com.rickbusarow.doks.internal.stdlib.requireNotNull
 import dev.drewhamilton.poko.Poko
 
 /**
- * Holds all [Rules][Rule] defined for a given set.
+ * Holds all [Rules][RuleSerializable] defined for a given set.
  *
  * @since 0.1.0
  */
 @Poko
 public class Rules(
-  private val map: Map<RuleName, Rule>
+  private val map: Map<RuleName, RuleSerializable>
 ) : java.io.Serializable {
 
   /**
@@ -35,8 +35,8 @@ public class Rules(
    */
   public val names: List<RuleName> get() = map.keys.sorted()
 
-  internal constructor(globalRules: List<Rule>) : this(globalRules.associateBy { it.name })
-  internal constructor(vararg globalRules: Rule) : this(globalRules.associateBy { it.name })
+  internal constructor(globalRules: List<RuleSerializable>) : this(globalRules.associateBy { it.name })
+  internal constructor(vararg globalRules: RuleSerializable) : this(globalRules.associateBy { it.name })
 
   /**
    * @return true if a rule named [ruleName] is defined in this cache
@@ -45,21 +45,21 @@ public class Rules(
   public fun hasName(ruleName: RuleName): Boolean = map.containsKey(ruleName)
 
   /**
-   * @return the [Rule] associated with [ruleName] within this scope, or `null` if there's no match
+   * @return the [RuleSerializable] associated with [ruleName] within this scope, or `null` if there's no match
    * @see get for a non-nullable version which throws if the name is missing
    * @since 0.1.0
    */
-  public fun getOrNull(ruleName: RuleName): Rule? {
+  public fun getOrNull(ruleName: RuleName): RuleSerializable? {
     return map[ruleName]
   }
 
   /**
-   * @return the [Rule] associated with [ruleName] within this scope
+   * @return the [RuleSerializable] associated with [ruleName] within this scope
    * @see getOrNull for a safe version which returns null for a missing name
    * @since 0.1.0
    * @throws IllegalArgumentException if there is no rule with the requested name
    */
-  public operator fun get(ruleName: RuleName): Rule {
+  public operator fun get(ruleName: RuleName): RuleSerializable {
     return map[ruleName]
       .requireNotNull {
         buildString {

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Rick Busarow
+ * Copyright (C) 2025 Rick Busarow
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -15,9 +15,18 @@
 
 package com.rickbusarow.doks.internal.trees
 
+import com.rickbusarow.doks.internal.markdown.MarkdownNode
 import org.jetbrains.kotlin.com.intellij.openapi.util.UserDataHolder
 
 internal inline fun <T : UserDataHolder> T.depthFirstTraversal(
+  crossinline childrenFactory: T.() -> List<T>
+): Sequence<T> = depthFirstTraversalPrivate(childrenFactory)
+
+internal inline fun MarkdownNode.depthFirstTraversal(
+  crossinline childrenFactory: MarkdownNode.() -> List<MarkdownNode>
+): Sequence<MarkdownNode> = depthFirstTraversalPrivate(childrenFactory)
+
+private inline fun <T> T.depthFirstTraversalPrivate(
   crossinline childrenFactory: T.() -> List<T>
 ): Sequence<T> {
   val stack = ArrayDeque<T>()
@@ -37,6 +46,14 @@ internal inline fun <T : UserDataHolder> T.depthFirstTraversal(
 }
 
 internal inline fun <T : UserDataHolder> T.breadthFirstTraversal(
+  crossinline childrenFactory: T.() -> List<T>
+): Sequence<T> = breadthFirstTraversalPrivate(childrenFactory)
+
+internal inline fun MarkdownNode.breadthFirstTraversal(
+  crossinline childrenFactory: MarkdownNode.() -> List<MarkdownNode>
+): Sequence<MarkdownNode> = breadthFirstTraversalPrivate(childrenFactory)
+
+private inline fun <T> T.breadthFirstTraversalPrivate(
   crossinline childrenFactory: T.() -> List<T>
 ): Sequence<T> {
   val queue = ArrayDeque<T>()

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024 Rick Busarow
+ * Copyright (C) 2025 Rick Busarow
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -26,7 +26,7 @@ class JavaSerializationTest {
   @Test
   fun `Rule serializes and deserializes without issue`() {
 
-    val rule = Rule(
+    val rule = RuleSerializable(
       name = "some-rule",
       regex = "(com.rickbusarow.doks:[^:]*?doks[^:]*?:)",
       replacement = "foo"
@@ -40,7 +40,7 @@ class JavaSerializationTest {
   @Test
   fun `Rules serializes and deserializes without issue`() {
 
-    val rule = Rule(
+    val rule = RuleSerializable(
       name = "some-rule",
       regex = "(com.rickbusarow.doks:[^:]*?doks[^:]*?:)",
       replacement = "foo"
@@ -56,7 +56,7 @@ class JavaSerializationTest {
   @Test
   fun `DoksEngine serializes and deserializes without issue`() {
 
-    val rule = Rule(
+    val rule = RuleSerializable(
       name = "some-rule",
       regex = "(com.rickbusarow.doks:[^:]*?doks[^:]*?:)",
       replacement = "foo"

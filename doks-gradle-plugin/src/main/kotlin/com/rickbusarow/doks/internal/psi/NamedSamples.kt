@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024 Rick Busarow
+ * Copyright (C) 2025 Rick Busarow
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -29,6 +29,7 @@ import org.jetbrains.kotlin.fileClasses.javaFileFacadeFqName
 import org.jetbrains.kotlin.name.FqName
 import org.jetbrains.kotlin.name.Name
 import org.jetbrains.kotlin.name.parentOrNull
+import org.jetbrains.kotlin.psi.KtBlockExpression
 import org.jetbrains.kotlin.psi.KtCallExpression
 import org.jetbrains.kotlin.psi.KtClassOrObject
 import org.jetbrains.kotlin.psi.KtDeclarationContainer
@@ -37,6 +38,7 @@ import org.jetbrains.kotlin.psi.KtElement
 import org.jetbrains.kotlin.psi.KtFile
 import org.jetbrains.kotlin.psi.KtFunctionLiteral
 import org.jetbrains.kotlin.psi.KtLambdaArgument
+import org.jetbrains.kotlin.psi.KtLambdaExpression
 import org.jetbrains.kotlin.psi.KtNamedDeclaration
 import org.jetbrains.kotlin.psi.KtNamedFunction
 import org.jetbrains.kotlin.psi.KtObjectDeclaration
@@ -51,8 +53,11 @@ import kotlin.contracts.ExperimentalContracts
 import kotlin.contracts.contract
 import kotlin.io.path.Path
 
+/**
+ * @property fqName the fully qualified name of the requested sample.
+ * @property bodyOnly if true, the sample will be returned without its declaration header.
+ */
 @Poko
-@Serializable
 internal class SampleRequest(
   val fqName: String,
   val bodyOnly: Boolean
@@ -60,8 +65,15 @@ internal class SampleRequest(
 
 @Poko
 @Serializable
+internal class SampleRequestSerializable(
+  val fqName: String,
+  val bodyOnly: Boolean
+) : java.io.Serializable
+
+@Poko
+@Serializable
 internal class SampleResult(
-  val request: SampleRequest,
+  val request: SampleRequestSerializable,
   val content: String
 ) : java.io.Serializable
 
@@ -167,7 +179,13 @@ internal class NamedSamples(
           else -> error("Unsupported psi element -- ${namedDeclaration.text}")
         }
 
-      SampleResult(request, content)
+      SampleResult(
+        request = SampleRequestSerializable(
+          fqName = request.fqName,
+          bodyOnly = request.bodyOnly
+        ),
+        content = content
+      )
     }
   }
 
@@ -246,7 +264,8 @@ internal class NamedSamples(
       fqNamePaths.forEach { fqNamePath ->
         var matchingSegments = 0
 
-        while (matchingSegments < fqNamePath.nameCount && matchingSegments < filePath.nameCount &&
+        while (matchingSegments < fqNamePath.nameCount &&
+          matchingSegments < filePath.nameCount &&
           fqNamePath.getName(matchingSegments) == filePath.getName(matchingSegments)
         ) {
           matchingSegments++
@@ -276,11 +295,13 @@ internal fun PsiElement.couldHaveNamedChildren(): Boolean {
   return when (this) {
     is LeafPsiElement -> false
 
-    is KtFunctionLiteral,
-    is KtDeclarationWithBody,
-    is KtCallExpression,
-    is KtDeclarationContainer,
-    is KtLambdaArgument,
+    is KtBlockExpression -> true
+    is KtLambdaExpression -> true
+    is KtFunctionLiteral -> true
+    is KtDeclarationWithBody -> true
+    is KtCallExpression -> true
+    is KtDeclarationContainer -> true
+    is KtLambdaArgument -> true
     is PsiModifiableCodeBlock -> true
 
     else -> false

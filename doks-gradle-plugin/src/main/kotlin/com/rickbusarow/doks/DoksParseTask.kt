@@ -75,31 +75,6 @@ public abstract class DoksParseTask @Inject constructor(
   @TaskAction
   public fun execute() {
 
-    println(
-      """
-            |\|\,'\,'\ ,.
-            )        ;' |,'
-           /              |,'|,.
-          /                  ` /__
-         ,'                    ,-'
-        ,'                    :
-       (_                     '
-     ,'                      ;
-     |---._ ,'     .        '
-     :   o Y---.__  ;      ;
-     /`,""-|     o`.|     /
-    ,  `._  `.    ,'     ;
-    ;         `""'      ;
-   /                   -'.
-   \                   G  )
-    `-.__________,   `._,'
-            (`   `     |)\
-           / `.       ,'  \
-          /    `-----'     \
-         /
-      """.trimIndent()
-    )
-
     val workQueue = workerExecutor.classLoaderIsolation {
       it.classpath.setFrom(doksParseClasspath)
     }

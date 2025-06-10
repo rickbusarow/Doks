@@ -20,7 +20,6 @@ import com.rickbusarow.doks.internal.psi.NamedSamples
 import com.rickbusarow.doks.internal.psi.SampleRequest
 import com.rickbusarow.doks.internal.psi.SampleResult
 import com.rickbusarow.doks.internal.stdlib.isExistanttKotlinFile
-import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import org.gradle.api.file.ConfigurableFileCollection
 import org.gradle.api.file.RegularFileProperty

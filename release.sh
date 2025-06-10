@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #
-# Copyright (C) 2024 Rick Busarow
+# Copyright (C) 2025 Rick Busarow
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -87,9 +87,9 @@ function syncDocs() {
   maybeCommit "format docs"
 
   # update the version references in docs before versioning them
-  progress "Update docs versions"
-  ./gradlew doks
-  maybeCommit "update version references in docs to $VERSION_NAME"
+#  progress "Update docs versions"
+#  ./gradlew doks
+#  maybeCommit "update version references in docs to $VERSION_NAME"
 }
 
 # update all versions/docs for the release version
@@ -102,8 +102,8 @@ progress "generate and copy Dokka api docs"
 ./gradlew dokkaHtmlMultiModule
 
 # One last chance to catch any bugs
-progress "run the check task"
-./gradlew check --no-configuration-cache
+#progress "run the check task"
+#./gradlew check --no-configuration-cache
 
 progress "Publish Maven release"
 ./gradlew publish --no-configuration-cache

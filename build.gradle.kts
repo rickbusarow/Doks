@@ -76,8 +76,8 @@ doks {
       regex = "\${'$'}".escapeRegex()
       replacement = "$".escapeReplacement()
     }
-    rule("buildConfig-version") {
-      regex = "\${BuildConfig.version}".escapeRegex()
+    rule("doksVersion") {
+      regex = "\$doksVersion".escapeRegex()
       val version = libs.versions.rickBusarow.doks.get()
       replacement = version.escapeReplacement()
     }

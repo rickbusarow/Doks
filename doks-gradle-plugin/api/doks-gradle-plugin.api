@@ -170,8 +170,3 @@ public final class com/rickbusarow/doks/internal/Rules : java/io/Serializable {
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class com/rickbusarow/doks/internal/gradle/TaskKt$sam$i$org_gradle_api_Action$0 : org/gradle/api/Action {
-	public fun <init> (Lkotlin/jvm/functions/Function1;)V
-	public final synthetic fun execute (Ljava/lang/Object;)V
-}
-

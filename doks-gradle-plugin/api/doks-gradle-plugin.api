@@ -127,6 +127,7 @@ public final class com/rickbusarow/doks/internal/RuleName$$serializer : kotlinx/
 	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
 	public fun serialize-uogO5EI (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/String;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
 public final class com/rickbusarow/doks/internal/RuleName$Companion {
@@ -153,6 +154,7 @@ public final class com/rickbusarow/doks/internal/RuleSerializable$$serializer : 
 	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/rickbusarow/doks/internal/RuleSerializable;)V
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
 public final class com/rickbusarow/doks/internal/RuleSerializable$Companion {

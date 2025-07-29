@@ -12,7 +12,7 @@ kotlinx-coroutines = "1.10.2"
 kotlinx-serialization = "1.9.0"
 poko = "0.19.1"
 rickBusarow-doks = "0.3.0"
-rickBusarow-kase = "0.12.1"
+rickBusarow-kase = "0.12.2"
 rickBusarow-mahout = "0.1.0-SNAPSHOT"
 
 [plugins]

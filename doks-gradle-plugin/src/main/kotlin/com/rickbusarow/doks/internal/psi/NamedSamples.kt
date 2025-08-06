@@ -22,7 +22,6 @@ import com.rickbusarow.doks.internal.stdlib.trimIndentAfterFirstLine
 import dev.drewhamilton.poko.Poko
 import kotlinx.serialization.Serializable
 import org.jetbrains.kotlin.com.intellij.psi.PsiElement
-import org.jetbrains.kotlin.com.intellij.psi.PsiModifiableCodeBlock
 import org.jetbrains.kotlin.com.intellij.psi.PsiNamedElement
 import org.jetbrains.kotlin.com.intellij.psi.impl.source.tree.LeafPsiElement
 import org.jetbrains.kotlin.fileClasses.javaFileFacadeFqName
@@ -303,7 +302,6 @@ internal fun PsiElement.couldHaveNamedChildren(): Boolean {
     is KtCallExpression -> true
     is KtDeclarationContainer -> true
     is KtLambdaArgument -> true
-    is PsiModifiableCodeBlock -> true
 
     else -> false
   }

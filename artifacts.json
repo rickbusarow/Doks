@@ -5,7 +5,7 @@
     "artifactId": "com.rickbusarow.doks.gradle.plugin",
     "description": "the Doks Gradle plugin",
     "packaging": "pom",
-    "javaVersion": "1.8",
+    "javaVersion": "17",
     "publicationName": "doks-gradle-pluginPluginMarkerMaven"
   },
   {
@@ -14,7 +14,7 @@
     "artifactId": "doks-gradle-plugin",
     "description": "the Doks Gradle plugin",
     "packaging": "jar",
-    "javaVersion": "1.8",
+    "javaVersion": "17",
     "publicationName": "pluginMaven"
   }
 ]

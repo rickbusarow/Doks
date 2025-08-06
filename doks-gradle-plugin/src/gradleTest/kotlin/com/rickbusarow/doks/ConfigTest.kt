@@ -204,7 +204,7 @@ internal class ConfigTest : DoksGradleTest() {
       }
     }
 
-    shouldSucceed("doks", "--stacktrace")
+    shouldSucceed("doks")
 
     rootProject.readme shouldExistWithText """
       <!--doks brachiosaurus:1-->
